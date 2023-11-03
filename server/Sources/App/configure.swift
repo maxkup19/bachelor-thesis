@@ -19,7 +19,6 @@ public func configure(_ app: Application) async throws {
     ), as: .psql)
 
     app.migrations.add(CreateTodo())
-    app.views.use(.leaf)
 
     // register routes
     try routes(app)
