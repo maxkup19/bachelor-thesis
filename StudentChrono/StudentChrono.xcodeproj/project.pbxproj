@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0AD144472AF43D28009135F2 /* StudentChronoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD144462AF43D28009135F2 /* StudentChronoApp.swift */; };
-		0AD144492AF43D28009135F2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD144482AF43D28009135F2 /* ContentView.swift */; };
-		0AD1444B2AF43D28009135F2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1444A2AF43D28009135F2 /* Item.swift */; };
 		0AD1444D2AF43D2A009135F2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1444C2AF43D2A009135F2 /* Assets.xcassets */; };
 		0AD144502AF43D2A009135F2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AD1444F2AF43D2A009135F2 /* Preview Assets.xcassets */; };
 		0AD1445A2AF43D2A009135F2 /* StudentChronoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD144592AF43D2A009135F2 /* StudentChronoTests.swift */; };
@@ -35,10 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A176DEC2B331A7F00DB22E7 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
 		0AD144432AF43D28009135F2 /* StudentChrono.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentChrono.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0AD144462AF43D28009135F2 /* StudentChronoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoApp.swift; sourceTree = "<group>"; };
-		0AD144482AF43D28009135F2 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		0AD1444A2AF43D28009135F2 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		0AD1444C2AF43D2A009135F2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0AD1444F2AF43D2A009135F2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0AD144552AF43D2A009135F2 /* StudentChronoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +68,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A176DE72B33194200DB22E7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		0A176DE82B33194900DB22E7 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				0AD1444E2AF43D2A009135F2 /* Preview Content */,
+				0AD1444C2AF43D2A009135F2 /* Assets.xcassets */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		0A176DE92B33195200DB22E7 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				0A176DEC2B331A7F00DB22E7 /* Utilities */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		0A176DEA2B33195800DB22E7 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		0AD1443A2AF43D28009135F2 = {
 			isa = PBXGroup;
 			children = (
@@ -96,11 +122,10 @@
 		0AD144452AF43D28009135F2 /* StudentChrono */ = {
 			isa = PBXGroup;
 			children = (
-				0AD144462AF43D28009135F2 /* StudentChronoApp.swift */,
-				0AD144482AF43D28009135F2 /* ContentView.swift */,
-				0AD1444A2AF43D28009135F2 /* Item.swift */,
-				0AD1444C2AF43D2A009135F2 /* Assets.xcassets */,
-				0AD1444E2AF43D2A009135F2 /* Preview Content */,
+				0A176DE72B33194200DB22E7 /* App */,
+				0A176DE82B33194900DB22E7 /* Presentation */,
+				0A176DE92B33195200DB22E7 /* Domain */,
+				0A176DEA2B33195800DB22E7 /* Data */,
 			);
 			path = StudentChrono;
 			sourceTree = "<group>";
@@ -260,9 +285,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AD144492AF43D28009135F2 /* ContentView.swift in Sources */,
-				0AD1444B2AF43D28009135F2 /* Item.swift in Sources */,
-				0AD144472AF43D28009135F2 /* StudentChronoApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,7 +513,6 @@
 		0AD1446D2AF43D2A009135F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -511,7 +532,6 @@
 		0AD1446E2AF43D2A009135F2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -531,7 +551,6 @@
 		0AD144702AF43D2A009135F2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3FV5J94G7D;
@@ -549,7 +568,6 @@
 		0AD144712AF43D2A009135F2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3FV5J94G7D;
