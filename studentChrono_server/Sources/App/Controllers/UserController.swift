@@ -17,13 +17,13 @@ struct UserController: RouteCollection {
         
     }
     
-    func index(req: Request) async throws -> [UserModel] {
-        return try await UserModel.query(on: req.db).all()
+    func index(req: Request) async throws -> [User] {
+        return try await User.query(on: req.db).all()
     }
     
-    func create(req: Request) async throws -> UserModel {
-        try UserModel.CreateUserModelDTO.validate(content: req)
-        let newUser = try req.content.decode(UserModel.CreateUserModelDTO.self)
+    func create(req: Request) async throws -> User {
+        try User.CreateUserModelDTO.validate(content: req)
+        let newUser = try req.content.decode(User.CreateUserModelDTO.self)
         
         guard newUser.password == newUser.confirmPassword else {
             throw Abort(.notAcceptable, reason: "Password are not the same!")

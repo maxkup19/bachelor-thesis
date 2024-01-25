@@ -1,5 +1,5 @@
 //
-//  UserModelMigration.swift
+//  UserMigration.swift
 //
 //
 //  Created by Maksym Kupchenko on 25.01.2024.
@@ -8,11 +8,11 @@
 import Fluent
 import Vapor
 
-extension UserModel {
+extension User {
     struct Migration: AsyncMigration {
         
-        private let schema = UserModel.schema
-        private let keys = UserModel.FieldKeys.self
+        private let schema = User.schema
+        private let keys = User.FieldKeys.self
         
         func prepare(on database: Database) async throws {
             try await database.schema(schema)

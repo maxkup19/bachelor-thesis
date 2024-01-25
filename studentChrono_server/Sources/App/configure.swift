@@ -19,7 +19,7 @@ public func configure(_ app: Application) async throws {
     
     
     // MARK: - Setup Migrations
-    app.migrations.add(UserModel.Migration())
+    app.migrations.add(User.Migration())
     try await app.autoMigrate()
     
     

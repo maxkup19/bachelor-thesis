@@ -8,7 +8,7 @@
 import Fluent
 import Vapor
 
-final class UserModel: Model {
+final class User: Model {
     
     static let schema: String = SchemaEnum.users.rawValue
     
@@ -58,4 +58,4 @@ final class UserModel: Model {
     
 }
 
-extension UserModel: Content { }
+extension User: Content { }

@@ -1,5 +1,5 @@
 //
-//  UserModelFieldKeys.swift
+//  UserFieldKeys.swift
 //
 //
 //  Created by Maksym Kupchenko on 25.01.2024.
@@ -7,7 +7,7 @@
 
 import Fluent
 
-extension UserModel {
+extension User {
     struct FieldKeys {
         static var name: FieldKey {"name"}
         static var lastname: FieldKey {"lastname"}

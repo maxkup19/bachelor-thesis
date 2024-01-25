@@ -1,5 +1,5 @@
 //
-//  UserModelDTO.swift
+//  UserDTO.swift
 //
 //
 //  Created by Maksym Kupchenko on 25.01.2024.
@@ -8,8 +8,8 @@
 import Fluent
 import Vapor
 
-extension UserModel {
-    struct CreateUserModelDTO: Content {
+extension User {
+    struct CreateUserDTO: Content {
         var name: String?
         var lastname: String?
         var email: String
@@ -18,22 +18,22 @@ extension UserModel {
         var role: UserRoleEnum.RawValue
     }
     
-    struct UpdateUserModelDTO: Content {
+    struct UpdateUserDTO: Content {
         var name: String?
         var lastname: String?
     }
 }
 
-extension UserModel.CreateUserModelDTO: Validatable {
+extension User.CreateUserDTO: Validatable {
     static func validations(_ validations: inout Validations) {
         validations.add("email", as: String.self, is: .email)
         validations.add("password", as: String.self, is: .count(8...))
     }
 }
 
-extension UserModel.CreateUserModelDTO {
-    var asUserModel: UserModel {
-        UserModel(
+extension User.CreateUserDTO {
+    var asUserModel: User {
+        User(
             name: name,
             lastname: lastname,
             email: email,
