@@ -19,6 +19,9 @@ struct UserController: RouteCollection {
         let passwordProtected = users.grouped(User.authenticator())
         passwordProtected.post("\(UserRoutes.Options.login)", use: login)
         
+        let tokenProtected = users.grouped(Token.authenticator())
+        tokenProtected.get("\(UserRoutes.Options.me)", use: getMe)
+        
     }
     
     func index(req: Request) async throws -> [User.Public] {
@@ -57,11 +60,23 @@ struct UserController: RouteCollection {
         guard let user = try await getUserByEmail(loggedUser.email, req: req) else {
             throw Abort(.badRequest, reason: "User doesn't exist")
         }
+        
+        if let token = try await Token.query(on: req.db)
+            .filter(\.$user.$id, .equal, loggedUser.requireID())
+            .filter(\.$expiresAt, .greaterThan, Date())
+            .first() {
+            return User.NewSession(token: token.value, user: user.asPublic())
+        }
+        
         let token = try user.createToken(source: .login)
         
         try await token.save(on: req.db)
         
         return User.NewSession(token: token.value, user: user.asPublic())
+    }
+    
+    fileprivate func getMe(req: Request) async throws -> User {
+        try req.auth.require(User.self)
     }
     
     

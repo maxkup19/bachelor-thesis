@@ -51,10 +51,10 @@ extension Token: ModelTokenAuthenticatable {
   static let userKey = \Token.$user
   
   var isValid: Bool {
-    guard let expiryDate = expiresAt else {
-      return true
+    guard let expiresAt else {
+      return false
     }
     
-    return expiryDate > Date()
+    return expiresAt > Date()
   }
 }
