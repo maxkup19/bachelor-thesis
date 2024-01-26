@@ -19,6 +19,7 @@ struct UserController: RouteCollection {
         let passwordProtected = users.grouped(User.authenticator())
         passwordProtected.post("\(UserRoutes.Options.login)", use: login)
         
+        // Bearer token
         let tokenProtected = users.grouped(Token.authenticator())
         tokenProtected.get("\(UserRoutes.Options.me)", use: getMe)
         
