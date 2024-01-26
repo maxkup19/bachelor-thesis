@@ -52,6 +52,14 @@ final class User: Model {
         self.role = role
     }
     
+    init(
+        email: String,
+        password: String
+    ) {
+        self.email = email
+        self.password = password
+    }
+    
     init(role: UserRoleEnum.RawValue) {
         self.role = role
     }
