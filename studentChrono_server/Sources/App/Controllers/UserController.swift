@@ -56,8 +56,6 @@ struct UserController: RouteCollection {
             .filter(\.$email, .equal, email)
             .first()
         
-        print(user)
-        
         return user != nil
         
     }
