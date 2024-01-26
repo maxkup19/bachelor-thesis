@@ -59,3 +59,12 @@ final class User: Model {
 }
 
 extension User: Content { }
+
+extension User: Authenticatable, ModelAuthenticatable {
+  static let usernameKey = \User.$email
+  static let passwordHashKey = \User.$password
+  
+  func verify(password: String) throws -> Bool {
+    try Bcrypt.verify(password, created: self.password)
+  }
+}

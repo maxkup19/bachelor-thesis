@@ -11,20 +11,17 @@ import Vapor
 extension User {
     struct Migration: AsyncMigration {
         
-        private let schema = User.schema
-        private let keys = User.FieldKeys.self
-        
         func prepare(on database: Database) async throws {
             try await database.schema(schema)
                 .id()
-                .field(keys.name, .string)
-                .field(keys.lastname, .string)
-                .field(keys.email, .string, .required)
-                .field(keys.password, .string, .required)
-                .field(keys.role, .string, .required)
-                .field(keys.createdAt, .datetime)
-                .field(keys.updatedAt, .datetime)
-                .unique(on: keys.email)
+                .field(FieldKeys.name, .string)
+                .field(FieldKeys.lastname, .string)
+                .field(FieldKeys.email, .string, .required)
+                .field(FieldKeys.password, .string, .required)
+                .field(FieldKeys.role, .string, .required)
+                .field(FieldKeys.createdAt, .datetime)
+                .field(FieldKeys.updatedAt, .datetime)
+                .unique(on: FieldKeys.email)
                 .create()
         }
         
