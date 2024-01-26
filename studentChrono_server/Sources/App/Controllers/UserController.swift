@@ -75,8 +75,8 @@ struct UserController: RouteCollection {
         return User.NewSession(token: token.value, user: user.asPublic())
     }
     
-    fileprivate func getMe(req: Request) async throws -> User {
-        try req.auth.require(User.self)
+    fileprivate func getMe(req: Request) async throws -> User.Public {
+        try req.auth.require(User.self).asPublic()
     }
     
     
