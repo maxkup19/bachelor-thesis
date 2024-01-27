@@ -2,7 +2,7 @@
 //  StudentChronoUITests.swift
 //  StudentChronoUITests
 //
-//  Created by Maksym Kupchenko on 02.11.2023.
+//  Created by Maksym Kupchenko on 27.01.2024.
 //
 
 import XCTest
