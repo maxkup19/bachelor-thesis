@@ -30,24 +30,15 @@ public final class UsersFlowController: FlowController {
         case .users(let usersFlow): handleUsersFlow(usersFlow)
         }
     }
-    
-    public func handleUserDetailDeeplink(userId: String) {
-        showUserDetailForId(userId)
-    }
 }
 
 // MARK: Users flow
 extension UsersFlowController {
     func handleUsersFlow(_ flow: UsersFlow.Users) {
         switch flow {
-        case .showUserDetailForId(let userId): showUserDetailForId(userId)
+        default: return
         }
     }
-    
-    private func showUserDetailForId(_ userId: String) {
-        let vm = UserDetailViewModel(userId: userId, flowController: self)
-        let vc = BaseHostingController(rootView: UserDetailView(viewModel: vm))
-        navigationController.show(vc, sender: nil)
-    }
+
 }
 

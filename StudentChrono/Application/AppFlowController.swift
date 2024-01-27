@@ -19,7 +19,6 @@ final class AppFlowController: FlowController {
     
     func setupMain() {
         let fc = MainFlowController(navigationController: navigationController)
-        fc.delegate = self
         let rootVC = startChildFlow(fc)
         navigationController.viewControllers = [rootVC]
     }

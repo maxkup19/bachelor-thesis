@@ -23,8 +23,8 @@ final class MainFlowController: FlowController {
     private func setupUsersTab() -> UINavigationController {
         let usersNC = BaseNavigationController(statusBarStyle: .lightContent)
         usersNC.tabBarItem = UITabBarItem(
-            title: "vserfkv",//L10n.hello,
-            image: Asset.Images.usersTabBar.uiImage,
+            title: L10n.generalBack,
+            image: AppTheme.Images.usersTabBar,
             tag: MainTab.users.rawValue
         )
         let usersFC = UsersFlowController(navigationController: usersNC)
