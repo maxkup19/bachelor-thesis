@@ -17,7 +17,7 @@ struct UsersView: View {
     }
     
     var body: some View {
-        ContentUnavailableView("NO CONTENT", image: "clock")
+        ContentUnavailableView("NO CONTENT", systemImage: "xmark")
     }
 }
 
