@@ -1,4 +1,0 @@
-[[General]]
-	[hello]
-		en = Hello
-		cs = Ahoj
