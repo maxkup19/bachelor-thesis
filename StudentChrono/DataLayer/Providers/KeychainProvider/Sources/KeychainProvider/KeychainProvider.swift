@@ -6,7 +6,7 @@
 //
 
 public enum KeychainCoding: String, CaseIterable {
-    
+    case userId
 }
 
 // sourcery: AutoMockable

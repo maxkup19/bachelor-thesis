@@ -11,6 +11,8 @@
 		0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7DA2B7119EE0096F982 /* Utilities */; };
 		0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D422B65BE6C00B8914C /* UIToolkit */; };
 		0A420D482B65BE7C00B8914C /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D472B65BE7C00B8914C /* Factory */; };
+		0A571B462B711F86006A3932 /* UserDefaultsProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A571B452B711F86006A3932 /* UserDefaultsProvider */; };
+		0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */ = {isa = PBXBuildFile; productRef = 0A571B472B711FC3006A3932 /* DependencyInjection */; };
 		0ADCCC2C2B65A76B008E8249 /* StudentChronoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */; };
 		0ADCCC362B65A76B008E8249 /* StudentChronoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC352B65A76B008E8249 /* StudentChronoUITests.swift */; };
 		0ADCCC382B65A76B008E8249 /* StudentChronoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC372B65A76B008E8249 /* StudentChronoUITestsLaunchTests.swift */; };
@@ -46,6 +48,7 @@
 		0A0833CC2B710A0800F29FB8 /* KeychainProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeychainProvider; path = DataLayer/Providers/KeychainProvider; sourceTree = SOURCE_ROOT; };
 		0A3DA7D72B7119130096F982 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
 		0A571B432B711CAB006A3932 /* UserDefaultsProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UserDefaultsProvider; sourceTree = "<group>"; };
+		0A571B442B711CE4006A3932 /* DependencyInjection */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DependencyInjection; sourceTree = "<group>"; };
 		0ADCCC152B65A76A008E8249 /* StudentChrono.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentChrono.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC272B65A76B008E8249 /* StudentChronoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoTests.swift; sourceTree = "<group>"; };
@@ -75,8 +78,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A571B462B711F86006A3932 /* UserDefaultsProvider in Frameworks */,
 				0A420D482B65BE7C00B8914C /* Factory in Frameworks */,
 				0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */,
+				0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */,
 				0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */,
 				0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */,
 			);
@@ -166,6 +171,7 @@
 		0ADCCC442B65A798008E8249 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				0A571B442B711CE4006A3932 /* DependencyInjection */,
 				0ADCCC482B65A7DC008E8249 /* Entitlements */,
 				0ADCCC4D2B65A8E3008E8249 /* Info */,
 				0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */,
@@ -253,6 +259,8 @@
 				0A420D472B65BE7C00B8914C /* Factory */,
 				0A3DA7D52B7118B90096F982 /* KeychainProvider */,
 				0A3DA7DA2B7119EE0096F982 /* Utilities */,
+				0A571B452B711F86006A3932 /* UserDefaultsProvider */,
+				0A571B472B711FC3006A3932 /* DependencyInjection */,
 			);
 			productName = StudentChrono;
 			productReference = 0ADCCC152B65A76A008E8249 /* StudentChrono.app */;
@@ -770,6 +778,14 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A420D462B65BE7C00B8914C /* XCRemoteSwiftPackageReference "Factory" */;
 			productName = Factory;
+		};
+		0A571B452B711F86006A3932 /* UserDefaultsProvider */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserDefaultsProvider;
+		};
+		0A571B472B711FC3006A3932 /* DependencyInjection */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DependencyInjection;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

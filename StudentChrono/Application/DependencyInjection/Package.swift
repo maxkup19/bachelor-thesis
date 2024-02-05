@@ -18,27 +18,10 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         
         .package(url: "https://github.com/hmlongco/Factory.git", .upToNextMajor(from: "2.3.0")),
-//        .package(name: "SharedDomain", path: "../../DomainLayer/SharedDomain"),
         .package(name: "Utilities", path: "../../DomainLayer/Utilities"),
         
-        // Toolkits
-//        .package(name: "AnalyticsToolkit", path: "../../DataLayer/Toolkits/AnalyticsToolkit"),
-//        .package(name: "AuthToolkit", path: "../../DataLayer/Toolkits/AuthToolkit"),
-//        .package(name: "LocationToolkit", path: "../../DataLayer/Toolkits/LocationToolkit"),
-//        .package(name: "PushNotificationsToolkit", path: "../../DataLayer/Toolkits/PushNotificationsToolkit"),
-//        .package(name: "RemoteConfigToolkit", path: "../../DataLayer/Toolkits/RemoteConfigToolkit"),
-//        .package(name: "RocketToolkit", path: "../../DataLayer/Toolkits/RocketToolkit"),
-//        .package(name: "UserToolkit", path: "../../DataLayer/Toolkits/UserToolkit"),
-        
         // Providers
-//        .package(name: "AnalyticsProvider", path: "../../DataLayer/Providers/AnalyticsProvider"),
-//        .package(name: "DatabaseProvider", path: "../../DataLayer/Providers/DatabaseProvider"),
-//        .package(name: "GraphQLProvider", path: "../../DataLayer/Providers/GraphQLProvider"),
         .package(name: "KeychainProvider", path: "../../DataLayer/Providers/KeychainProvider"),
-//        .package(name: "LocationProvider", path: "../../DataLayer/Providers/LocationProvider"),
-//        .package(name: "NetworkProvider", path: "../../DataLayer/Providers/NetworkProvider"),
-//        .package(name: "PushNotificationsProvider", path: "../../DataLayer/Providers/PushNotificationsProvider"),
-//        .package(name: "RemoteConfigProvider", path: "../../DataLayer/Providers/RemoteConfigProvider"),
         .package(name: "UserDefaultsProvider", path: "../../DataLayer/Providers/UserDefaultsProvider")
     ],
     targets: [
@@ -51,14 +34,7 @@ let package = Package(
                 .product(name: "Utilities", package: "Utilities"),
                 
                 // Providers
-//                .product(name: "AnalyticsProvider", package: "AnalyticsProvider"),
-//                .product(name: "DatabaseProvider", package: "DatabaseProvider"),
-//                .product(name: "GraphQLProvider", package: "GraphQLProvider"),
                 .product(name: "KeychainProvider", package: "KeychainProvider"),
-//                .product(name: "LocationProvider", package: "LocationProvider"),
-//                .product(name: "NetworkProvider", package: "NetworkProvider"),
-//                .product(name: "PushNotificationsProvider", package: "PushNotificationsProvider"),
-//                .product(name: "RemoteConfigProvider", package: "RemoteConfigProvider"),
                 .product(name: "UserDefaultsProvider", package: "UserDefaultsProvider")
             ]
         )
