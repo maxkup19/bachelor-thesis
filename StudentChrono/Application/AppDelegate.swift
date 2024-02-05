@@ -8,6 +8,7 @@
 import DependencyInjection
 import Factory
 import KeychainProvider
+import NetworkProvider
 import OSLog
 import UIKit
 import UIToolkit
@@ -74,5 +75,12 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         // Show system notification
         completionHandler([.list, .banner, .badge, .sound])
     }
-    
+}
+
+
+extension AppDelegate: NetworkProviderDelegate {
+    func didReceiveHttpUnauthorized() {
+        Logger.app.log("DID RECEIVE 404")
+//        self.flowController?.handleLogout()
+    }
 }

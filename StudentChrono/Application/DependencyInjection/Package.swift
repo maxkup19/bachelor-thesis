@@ -22,7 +22,8 @@ let package = Package(
         
         // Providers
         .package(name: "KeychainProvider", path: "../../DataLayer/Providers/KeychainProvider"),
-        .package(name: "UserDefaultsProvider", path: "../../DataLayer/Providers/UserDefaultsProvider")
+        .package(name: "UserDefaultsProvider", path: "../../DataLayer/Providers/UserDefaultsProvider"),
+        .package(name: "NetworkProvider", path: "../../DataLayer/Providers/NetworkProvider")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -35,7 +36,8 @@ let package = Package(
                 
                 // Providers
                 .product(name: "KeychainProvider", package: "KeychainProvider"),
-                .product(name: "UserDefaultsProvider", package: "UserDefaultsProvider")
+                .product(name: "UserDefaultsProvider", package: "UserDefaultsProvider"),
+                .product(name: "NetworkProvider", package: "NetworkProvider")
             ]
         )
     ]

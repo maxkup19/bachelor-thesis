@@ -7,6 +7,7 @@
 
 public enum KeychainCoding: String, CaseIterable {
     case userId
+    case authToken
 }
 
 // sourcery: AutoMockable
