@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 26.01.2024.
 //
 
+import DependencyInjection
 import Factory
 import KeychainProvider
 import OSLog
@@ -74,14 +75,4 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         completionHandler([.list, .banner, .badge, .sound])
     }
     
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        didReceive response: UNNotificationResponse,
-        withCompletionHandler completionHandler: @escaping () -> Void
-    ) {
-        let notification = response.notification.request.content.userInfo
-        DispatchQueue.main.async {
-            self.flowController?.handlePushNotification(notification)
-        }
-    }
 }
