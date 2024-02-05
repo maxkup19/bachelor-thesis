@@ -1,8 +1,8 @@
 //
-//  Logger+Extensions.swift.swift
+//  Logger+Extensions.swift
 //
 //
-//  Created by Maksym Kupchenko on 26.01.2024.
+//  Created by Maksym Kupchenko on 05.02.2024.
 //
 
 import OSLog

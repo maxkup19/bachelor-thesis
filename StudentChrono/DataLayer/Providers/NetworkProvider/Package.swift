@@ -4,21 +4,28 @@
 import PackageDescription
 
 let package = Package(
-    name: "Utilities",
-    defaultLocalization: "en",
+    name: "NetworkProvider",
     platforms: [.iOS(.v17)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "Utilities",
-            targets: ["Utilities"]),
+            name: "NetworkProvider",
+            targets: ["NetworkProvider"]
+        ),
+        .library(
+            name: "NetworkProviderMocks",
+            targets: ["NetworkProviderMocks"]
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
+        .target(name: "NetworkProvider"),
         .target(
-            name: "Utilities",
-            dependencies: []
+            name: "NetworkProviderMocks",
+            dependencies: [
+                "NetworkProvider"
+            ]
         )
     ]
 )
