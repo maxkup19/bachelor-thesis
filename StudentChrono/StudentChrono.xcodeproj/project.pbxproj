@@ -11,6 +11,9 @@
 		0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7DA2B7119EE0096F982 /* Utilities */; };
 		0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D422B65BE6C00B8914C /* UIToolkit */; };
 		0A420D482B65BE7C00B8914C /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D472B65BE7C00B8914C /* Factory */; };
+		0A4810D72B71351700F24E72 /* AuthToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810D62B71351700F24E72 /* AuthToolkit */; };
+		0A4810D92B71353700F24E72 /* NetworkProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810D82B71353700F24E72 /* NetworkProvider */; };
+		0A4810DB2B71353B00F24E72 /* SharedDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810DA2B71353B00F24E72 /* SharedDomain */; };
 		0A571B462B711F86006A3932 /* UserDefaultsProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A571B452B711F86006A3932 /* UserDefaultsProvider */; };
 		0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */ = {isa = PBXBuildFile; productRef = 0A571B472B711FC3006A3932 /* DependencyInjection */; };
 		0ADCCC2C2B65A76B008E8249 /* StudentChronoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */; };
@@ -47,9 +50,11 @@
 /* Begin PBXFileReference section */
 		0A0833CC2B710A0800F29FB8 /* KeychainProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeychainProvider; path = DataLayer/Providers/KeychainProvider; sourceTree = SOURCE_ROOT; };
 		0A3DA7D72B7119130096F982 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
+		0A4810D52B712E1100F24E72 /* SharedDomain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SharedDomain; sourceTree = "<group>"; };
 		0A571B432B711CAB006A3932 /* UserDefaultsProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UserDefaultsProvider; sourceTree = "<group>"; };
 		0A571B442B711CE4006A3932 /* DependencyInjection */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DependencyInjection; sourceTree = "<group>"; };
 		0A571B4A2B7122DD006A3932 /* NetworkProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkProvider; sourceTree = "<group>"; };
+		0A571B4D2B712B0D006A3932 /* AuthToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AuthToolkit; sourceTree = "<group>"; };
 		0ADCCC152B65A76A008E8249 /* StudentChrono.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentChrono.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC272B65A76B008E8249 /* StudentChronoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoTests.swift; sourceTree = "<group>"; };
@@ -80,8 +85,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A571B462B711F86006A3932 /* UserDefaultsProvider in Frameworks */,
+				0A4810D72B71351700F24E72 /* AuthToolkit in Frameworks */,
 				0A420D482B65BE7C00B8914C /* Factory in Frameworks */,
 				0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */,
+				0A4810DB2B71353B00F24E72 /* SharedDomain in Frameworks */,
+				0A4810D92B71353700F24E72 /* NetworkProvider in Frameworks */,
 				0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */,
 				0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */,
 				0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */,
@@ -118,6 +126,7 @@
 		0A0833CF2B710D4900F29FB8 /* Toolkits */ = {
 			isa = PBXGroup;
 			children = (
+				0A571B4D2B712B0D006A3932 /* AuthToolkit */,
 			);
 			path = Toolkits;
 			sourceTree = "<group>";
@@ -197,6 +206,7 @@
 		0ADCCC462B65A7B0008E8249 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A4810D52B712E1100F24E72 /* SharedDomain */,
 				0A3DA7D72B7119130096F982 /* Utilities */,
 			);
 			path = DomainLayer;
@@ -263,6 +273,9 @@
 				0A3DA7DA2B7119EE0096F982 /* Utilities */,
 				0A571B452B711F86006A3932 /* UserDefaultsProvider */,
 				0A571B472B711FC3006A3932 /* DependencyInjection */,
+				0A4810D62B71351700F24E72 /* AuthToolkit */,
+				0A4810D82B71353700F24E72 /* NetworkProvider */,
+				0A4810DA2B71353B00F24E72 /* SharedDomain */,
 			);
 			productName = StudentChrono;
 			productReference = 0ADCCC152B65A76A008E8249 /* StudentChrono.app */;
@@ -780,6 +793,18 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A420D462B65BE7C00B8914C /* XCRemoteSwiftPackageReference "Factory" */;
 			productName = Factory;
+		};
+		0A4810D62B71351700F24E72 /* AuthToolkit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AuthToolkit;
+		};
+		0A4810D82B71353700F24E72 /* NetworkProvider */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkProvider;
+		};
+		0A4810DA2B71353B00F24E72 /* SharedDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SharedDomain;
 		};
 		0A571B452B711F86006A3932 /* UserDefaultsProvider */ = {
 			isa = XCSwiftPackageProductDependency;

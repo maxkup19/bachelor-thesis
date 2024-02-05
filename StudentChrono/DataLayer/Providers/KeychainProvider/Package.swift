@@ -11,6 +11,10 @@ let package = Package(
             .library(
                 name: "KeychainProvider",
                 targets: ["KeychainProvider"]
+            ),
+            .library(
+                name: "KeychainProviderMocks",
+                targets: ["KeychainProviderMocks"]
             )
         ],
         dependencies: [
@@ -25,6 +29,12 @@ let package = Package(
                 name: "KeychainProvider",
                 dependencies: [
                     .product(name: "KeychainAccess", package: "KeychainAccess")
+                ]
+            ),
+            .target(
+                name: "KeychainProviderMocks",
+                dependencies: [
+                    "KeychainProvider"
                 ]
             )
         ]
