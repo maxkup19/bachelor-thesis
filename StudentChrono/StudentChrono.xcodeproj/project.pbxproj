@@ -42,6 +42,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A0833CC2B710A0800F29FB8 /* KeychainProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeychainProvider; path = DataLayer/Providers/KeychainProvider; sourceTree = SOURCE_ROOT; };
+		0A0833CD2B710A9600F29FB8 /* DependencyInjection */ = {isa = PBXFileReference; lastKnownFileType = text; name = DependencyInjection; path = DomainLayer/DependencyInjection; sourceTree = SOURCE_ROOT; };
+		0A0833D02B710DA400F29FB8 /* UserDefaultsProvider */ = {isa = PBXFileReference; lastKnownFileType = text; name = UserDefaultsProvider; path = DataLayer/UserDefaultsProvider; sourceTree = SOURCE_ROOT; };
 		0ADCCC152B65A76A008E8249 /* StudentChrono.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentChrono.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC272B65A76B008E8249 /* StudentChronoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoTests.swift; sourceTree = "<group>"; };
@@ -95,6 +98,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A0833CE2B710D3800F29FB8 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				0A0833D02B710DA400F29FB8 /* UserDefaultsProvider */,
+				0A0833CC2B710A0800F29FB8 /* KeychainProvider */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		0A0833CF2B710D4900F29FB8 /* Toolkits */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Toolkits;
+			sourceTree = "<group>";
+		};
 		0A420D3D2B65B8D700B8914C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,6 +165,7 @@
 		0ADCCC442B65A798008E8249 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				0A0833CD2B710A9600F29FB8 /* DependencyInjection */,
 				0ADCCC482B65A7DC008E8249 /* Entitlements */,
 				0ADCCC4D2B65A8E3008E8249 /* Info */,
 				0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */,
@@ -177,6 +197,8 @@
 		0ADCCC472B65A7C2008E8249 /* DataLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A0833CE2B710D3800F29FB8 /* Providers */,
+				0A0833CF2B710D4900F29FB8 /* Toolkits */,
 			);
 			path = DataLayer;
 			sourceTree = "<group>";
