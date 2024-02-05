@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7D52B7118B90096F982 /* KeychainProvider */; };
+		0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7DA2B7119EE0096F982 /* Utilities */; };
 		0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D422B65BE6C00B8914C /* UIToolkit */; };
-		0A420D452B65BE6F00B8914C /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D442B65BE6F00B8914C /* Utilities */; };
 		0A420D482B65BE7C00B8914C /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D472B65BE7C00B8914C /* Factory */; };
 		0ADCCC2C2B65A76B008E8249 /* StudentChronoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */; };
 		0ADCCC362B65A76B008E8249 /* StudentChronoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC352B65A76B008E8249 /* StudentChronoUITests.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		0A0833CC2B710A0800F29FB8 /* KeychainProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeychainProvider; path = DataLayer/Providers/KeychainProvider; sourceTree = SOURCE_ROOT; };
+		0A3DA7D72B7119130096F982 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
 		0ADCCC152B65A76A008E8249 /* StudentChrono.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentChrono.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC272B65A76B008E8249 /* StudentChronoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoTests.swift; sourceTree = "<group>"; };
@@ -73,8 +75,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A420D482B65BE7C00B8914C /* Factory in Frameworks */,
+				0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */,
 				0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */,
-				0A420D452B65BE6F00B8914C /* Utilities in Frameworks */,
+				0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +187,7 @@
 		0ADCCC462B65A7B0008E8249 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A3DA7D72B7119130096F982 /* Utilities */,
 			);
 			path = DomainLayer;
 			sourceTree = "<group>";
@@ -244,8 +248,9 @@
 			name = StudentChrono;
 			packageProductDependencies = (
 				0A420D422B65BE6C00B8914C /* UIToolkit */,
-				0A420D442B65BE6F00B8914C /* Utilities */,
 				0A420D472B65BE7C00B8914C /* Factory */,
+				0A3DA7D52B7118B90096F982 /* KeychainProvider */,
+				0A3DA7DA2B7119EE0096F982 /* Utilities */,
 			);
 			productName = StudentChrono;
 			productReference = 0ADCCC152B65A76A008E8249 /* StudentChrono.app */;
@@ -747,13 +752,17 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0A3DA7D52B7118B90096F982 /* KeychainProvider */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KeychainProvider;
+		};
+		0A3DA7DA2B7119EE0096F982 /* Utilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Utilities;
+		};
 		0A420D422B65BE6C00B8914C /* UIToolkit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UIToolkit;
-		};
-		0A420D442B65BE6F00B8914C /* Utilities */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Utilities;
 		};
 		0A420D472B65BE7C00B8914C /* Factory */ = {
 			isa = XCSwiftPackageProductDependency;
