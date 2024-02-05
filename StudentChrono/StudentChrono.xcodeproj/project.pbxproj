@@ -43,8 +43,6 @@
 
 /* Begin PBXFileReference section */
 		0A0833CC2B710A0800F29FB8 /* KeychainProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeychainProvider; path = DataLayer/Providers/KeychainProvider; sourceTree = SOURCE_ROOT; };
-		0A0833CD2B710A9600F29FB8 /* DependencyInjection */ = {isa = PBXFileReference; lastKnownFileType = text; name = DependencyInjection; path = DomainLayer/DependencyInjection; sourceTree = SOURCE_ROOT; };
-		0A0833D02B710DA400F29FB8 /* UserDefaultsProvider */ = {isa = PBXFileReference; lastKnownFileType = text; name = UserDefaultsProvider; path = DataLayer/UserDefaultsProvider; sourceTree = SOURCE_ROOT; };
 		0ADCCC152B65A76A008E8249 /* StudentChrono.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentChrono.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC272B65A76B008E8249 /* StudentChronoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoTests.swift; sourceTree = "<group>"; };
@@ -66,7 +64,6 @@
 		0ADCCC672B65B239008E8249 /* UserFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFlowController.swift; sourceTree = "<group>"; };
 		0ADCCC692B65B24A008E8249 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		0ADCCC6B2B65B258008E8249 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
-		0ADCCC6D2B65B2A3008E8249 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = text; path = Utilities; sourceTree = SOURCE_ROOT; };
 		0ADCCC6E2B65B2FD008E8249 /* UIToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UIToolkit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,7 +98,6 @@
 		0A0833CE2B710D3800F29FB8 /* Providers */ = {
 			isa = PBXGroup;
 			children = (
-				0A0833D02B710DA400F29FB8 /* UserDefaultsProvider */,
 				0A0833CC2B710A0800F29FB8 /* KeychainProvider */,
 			);
 			path = Providers;
@@ -165,7 +161,6 @@
 		0ADCCC442B65A798008E8249 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				0A0833CD2B710A9600F29FB8 /* DependencyInjection */,
 				0ADCCC482B65A7DC008E8249 /* Entitlements */,
 				0ADCCC4D2B65A8E3008E8249 /* Info */,
 				0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */,
@@ -189,7 +184,6 @@
 		0ADCCC462B65A7B0008E8249 /* DomainLayer */ = {
 			isa = PBXGroup;
 			children = (
-				0ADCCC6D2B65B2A3008E8249 /* Utilities */,
 			);
 			path = DomainLayer;
 			sourceTree = "<group>";
