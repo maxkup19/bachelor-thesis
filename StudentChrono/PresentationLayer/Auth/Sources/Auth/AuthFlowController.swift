@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 import UIToolkit
 
-enum AuthFlow {
+enum AuthFlow: Flow, Equatable {
     case auth(Auth)
     case login(Login)
     case registration(Registration)
@@ -58,12 +58,12 @@ public final class AuthFlowController: FlowController {
             return BaseHostingController(rootView: AccountView(viewModel: vm), statusBarStyle: .lightContent)
         }
         
-        override public func dismiss() {
+        func dismiss() {
             super.dismiss()
             delegate?.setupMain()
         }
         
-        override public func handleFlow(_ flow: Flow) {
+        func handleFlow(_ flow: Flow) {
             guard let authFlow = flow as? AuthFlow else { return }
             switch authFlow {
             case .auth(let authFlow): handleAuthFlow(authFlow)

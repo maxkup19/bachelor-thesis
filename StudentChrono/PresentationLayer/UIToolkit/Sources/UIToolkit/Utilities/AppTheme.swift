@@ -26,31 +26,24 @@ public enum AppTheme {
         //
         // Texts
         public static let text = Color(UIColor.label)
-        //        public static let headlineText = Asset.Colors.mateeYellow.color
-        //
+        
         // Text fields
         public static let textFieldTitle = Color(UIColor.systemGray)
         public static let textFieldBorder = Color(UIColor.systemGray4)
         //
         // Buttons
-        //        public static let primaryButtonBackground = Asset.Colors.mateeYellow.color
+        public static let primaryButtonBackground = Color.yellow
         public static let primaryButtonTitle = Color.white
         public static let secondaryButtonBackground = Color.clear
-        //        public static let secondaryButtonTitle = Asset.Colors.mateeYellow.color
+        public static let secondaryButtonTitle = Color.yellow
         //
         // ProgressView
-        //        public static let progressView = Asset.Colors.mateeYellow.color
-        //
-        //        // Whisper
-        //        public static let whisperBackgroundInfo = Color.gray
-        //        public static let whisperBackgroundSuccess = Color.green
-        //        public static let whisperBackgroundError = Color.red
-        //        public static let whisperMessage = Color.white
+        public static let progressView = Color.yellow
         //
         // Toast
-        //        public static let toastSuccessColor = Asset.Colors.success.color
-        //        public static let toastErrorColor = Asset.Colors.error.color
-        //        public static let toastInfoColor = Asset.Colors.info.color
+        public static let toastSuccessColor = Color.green
+        public static let toastErrorColor = Color.red
+        public static let toastInfoColor = Color.blue
     }
     
     /// Defines all the fonts used in the app in a semantic way
@@ -67,13 +60,14 @@ public enum AppTheme {
         public static let primaryButton = Font.system(size: 20.0, weight: .regular)
         public static let secondaryButton = Font.system(size: 20.0, weight: .regular)
         
-        // Whisper
-        //        public static let whisperMessage = Font.system(size: 13.0, weight: .medium)
-        //        public static let whisperMessageUIKit = UIFont.systemFont(ofSize: 13.0, weight: .medium)
     }
     
     /// Defines all the images used in the app in a semantic way
     public enum Images {
+        
+        // AppIcon
+        
+        public static let appIcon = Image(systemName: "deskclock")
         
         // Tabs
         public static let usersTabBar = UIImage(named: "UserTabBar")
