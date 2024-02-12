@@ -6,13 +6,37 @@
 //
 
 import SwiftUI
+import UIToolkit
 
 struct LoginView: View {
+    
+    @ObservedObject private var viewModel: LoginViewModel
+    
+    init(viewModel: LoginViewModel) {
+        self.viewModel = viewModel
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Button("lalalal") {
+                viewModel.onIntent(.showRegistration)
+            }
+        }
+        .environment(\.isLoading, viewModel.state.isLoading)
+        .lifecycle(viewModel)
     }
 }
 
+#if DEBUG
+
+import DependencyInjectionMocks
+import Factory
+
 #Preview {
-    LoginView()
+    
+    Container.shared.registerUseCaseMocks()
+    
+    let vm = LoginViewModel(flowController: nil)
+    return LoginView(viewModel: vm)
 }
+#endif

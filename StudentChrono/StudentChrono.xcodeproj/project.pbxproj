@@ -14,6 +14,7 @@
 		0A4810D72B71351700F24E72 /* AuthToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810D62B71351700F24E72 /* AuthToolkit */; };
 		0A4810D92B71353700F24E72 /* NetworkProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810D82B71353700F24E72 /* NetworkProvider */; };
 		0A4810DB2B71353B00F24E72 /* SharedDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810DA2B71353B00F24E72 /* SharedDomain */; };
+		0A4810DE2B7A564300F24E72 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810DD2B7A564300F24E72 /* Auth */; };
 		0A571B462B711F86006A3932 /* UserDefaultsProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A571B452B711F86006A3932 /* UserDefaultsProvider */; };
 		0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */ = {isa = PBXBuildFile; productRef = 0A571B472B711FC3006A3932 /* DependencyInjection */; };
 		0ADCCC2C2B65A76B008E8249 /* StudentChronoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */; };
@@ -93,6 +94,7 @@
 				0A4810D92B71353700F24E72 /* NetworkProvider in Frameworks */,
 				0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */,
 				0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */,
+				0A4810DE2B7A564300F24E72 /* Auth in Frameworks */,
 				0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -278,6 +280,7 @@
 				0A4810D62B71351700F24E72 /* AuthToolkit */,
 				0A4810D82B71353700F24E72 /* NetworkProvider */,
 				0A4810DA2B71353B00F24E72 /* SharedDomain */,
+				0A4810DD2B7A564300F24E72 /* Auth */,
 			);
 			productName = StudentChrono;
 			productReference = 0ADCCC152B65A76A008E8249 /* StudentChrono.app */;
@@ -807,6 +810,10 @@
 		0A4810DA2B71353B00F24E72 /* SharedDomain */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SharedDomain;
+		};
+		0A4810DD2B7A564300F24E72 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Auth;
 		};
 		0A571B452B711F86006A3932 /* UserDefaultsProvider */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -9,7 +9,7 @@ import UIKit
 import UIToolkit
 
 enum MainTab: Int {
-    case users = 0
+    case users
 }
 
 final class MainFlowController: FlowController {

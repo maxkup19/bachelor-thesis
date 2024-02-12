@@ -12,5 +12,6 @@ import SwiftUI
 public enum L10n {
     
     public static let generalBack: String = "general_back"
+    public static let dialogErrorCloseText: String = "dialog_error_close_text"
     
 }

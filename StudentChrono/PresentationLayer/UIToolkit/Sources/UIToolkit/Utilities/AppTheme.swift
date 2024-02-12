@@ -23,6 +23,7 @@ public enum AppTheme {
         //
         // Backgrounds
         public static let background = Color(UIColor.systemBackground)
+        public static let onBackgroundColor = Color.black
         //
         // Texts
         public static let text = Color(UIColor.label)
