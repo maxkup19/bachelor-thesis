@@ -9,7 +9,6 @@ import SharedDomain
 
 struct NETAuthToken: Decodable {
     let userId: String
-    let email: String
     let token: String
 }
 

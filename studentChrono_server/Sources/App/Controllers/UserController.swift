@@ -33,10 +33,6 @@ struct UserController: RouteCollection {
         try User.CreateUserDTO.validate(content: req)
         let createUserDTO = try req.content.decode(User.CreateUserDTO.self)
         
-        guard createUserDTO.password == createUserDTO.confirmPassword else {
-            throw Abort(.notAcceptable, reason: "Password are not the same!")
-        }
-        
         let user = try createUserDTO.asUserModel()
         var token: Token!
         
@@ -53,7 +49,7 @@ struct UserController: RouteCollection {
         token = newToken
         try await token.save(on: req.db)
         
-        return User.NewSession(token: token.value, user: user.asPublic())
+        return User.NewSession(token: token.value, userId: try user.requireID().uuidString)
     }
     
     fileprivate func login(req: Request) async throws -> User.NewSession {
@@ -66,14 +62,14 @@ struct UserController: RouteCollection {
             .filter(\.$user.$id, .equal, loggedUser.requireID())
             .filter(\.$expiresAt, .greaterThan, Date())
             .first() {
-            return User.NewSession(token: token.value, user: user.asPublic())
+            return User.NewSession(token: token.value, userId: try user.requireID().uuidString)
         }
         
         let token = try user.createToken(source: .login)
         
         try await token.save(on: req.db)
         
-        return User.NewSession(token: token.value, user: user.asPublic())
+        return User.NewSession(token: token.value, userId: try user.requireID().uuidString)
     }
     
     fileprivate func getMe(req: Request) async throws -> User.Public {

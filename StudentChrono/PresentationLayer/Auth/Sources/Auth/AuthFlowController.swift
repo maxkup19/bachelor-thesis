@@ -82,7 +82,7 @@ extension AuthFlowController {
 extension AuthFlowController {
     func handleLoginFlow(_ flow: AuthFlow.Login) {
         switch flow {
-        case .login: delegate?.setupMain()
+        case .login: dismiss()
         }
     }
 }

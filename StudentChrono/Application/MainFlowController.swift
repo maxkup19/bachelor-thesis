@@ -23,7 +23,7 @@ final class MainFlowController: FlowController {
     private func setupUsersTab() -> UINavigationController {
         let usersNC = BaseNavigationController(statusBarStyle: .lightContent)
         usersNC.tabBarItem = UITabBarItem(
-            title: L10n.generalBack,
+            title: "Back",
             image: AppTheme.Images.usersTabBar,
             tag: MainTab.users.rawValue
         )

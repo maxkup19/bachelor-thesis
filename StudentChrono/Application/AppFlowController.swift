@@ -12,7 +12,7 @@ import UIToolkit
 
 final class AppFlowController: FlowController, AuthFlowControllerDelegate {
     
-    @Injected(\.isUserLoggedUseCase) private(set) var isUserLoggedUseCase
+    @Injected(\.isUserLoggedUseCase) private var isUserLoggedUseCase
     
     func start() {
         setupAppearance()

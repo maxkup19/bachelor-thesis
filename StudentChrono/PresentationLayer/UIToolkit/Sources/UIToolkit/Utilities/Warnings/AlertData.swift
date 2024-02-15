@@ -19,7 +19,7 @@ public struct AlertData: Equatable, Identifiable {
     public init(
         title: String,
         message: String? = nil,
-        primaryAction: AlertData.Action = AlertData.Action(title: L10n.dialogErrorCloseText, style: .default),
+        primaryAction: AlertData.Action = AlertData.Action(title: "Close", style: .default),
         secondaryAction: AlertData.Action? = nil
     ) {
         self.title = title

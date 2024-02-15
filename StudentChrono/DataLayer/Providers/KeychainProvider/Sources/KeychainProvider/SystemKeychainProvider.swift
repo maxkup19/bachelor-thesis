@@ -17,20 +17,20 @@ extension SystemKeychainProvider: KeychainProvider {
     
     public func read(_ key: KeychainCoding) throws -> String {
         guard let bundleId = Bundle.app.bundleIdentifier else { throw KeychainProviderError.invalidBundleIdentifier }
-        let keychain = Keychain(service: bundleId, accessGroup: "group.\(bundleId)")
-        guard let value = keychain[key.rawValue] else { throw KeychainProviderError.valueForKeyNotFound }
+        let keychain = Keychain(service: bundleId)
+        guard let value = try? keychain.get(key.rawValue) else { throw KeychainProviderError.valueForKeyNotFound }
         return value
     }
     
     public func update(_ key: KeychainCoding, value: String) throws {
         guard let bundleId = Bundle.app.bundleIdentifier else { throw KeychainProviderError.invalidBundleIdentifier }
-        let keychain = Keychain(service: bundleId, accessGroup: "group.\(bundleId)")
-        keychain[key.rawValue] = value
+        let keychain = Keychain(service: bundleId)
+        try keychain.set(value, key: key.rawValue)
     }
     
     public func delete(_ key: KeychainCoding) throws {
         guard let bundleId = Bundle.app.bundleIdentifier else { throw KeychainProviderError.invalidBundleIdentifier }
-        let keychain = Keychain(service: bundleId, accessGroup: "group.\(bundleId)")
+        let keychain = Keychain(service: bundleId)
         try keychain.remove(key.rawValue)
     }
     

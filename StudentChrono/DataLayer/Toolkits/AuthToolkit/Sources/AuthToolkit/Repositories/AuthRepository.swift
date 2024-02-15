@@ -38,7 +38,9 @@ public struct AuthRepositoryImpl: AuthRepository {
     public func registration(_ data: RegistrationData) async throws {
         do {
             let data = try data.networkModel.encode()
-            try await network.request(AuthAPI.registration(data))
+            let authToken = try await network.request(AuthAPI.registration(data)).map(NETAuthToken.self).domainModel
+            try keychain.update(.authToken, value: authToken.token)
+            try keychain.update(.userId, value: authToken.userId)
         } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .conflict {
             throw AuthError.registration(.userAlreadyExists)
         } catch {

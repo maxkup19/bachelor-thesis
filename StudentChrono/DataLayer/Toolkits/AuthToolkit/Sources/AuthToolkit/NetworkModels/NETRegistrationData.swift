@@ -9,8 +9,8 @@ import SharedDomain
 
 struct NETRegistrationData: Encodable {
     let email: String
-    let pass: String
-    let firstName: String
+    let password: String
+    let name: String
     let lastName: String
 }
 
@@ -19,8 +19,8 @@ extension RegistrationData {
     var networkModel: NETRegistrationData {
         NETRegistrationData(
             email: email,
-            pass: password,
-            firstName: firstName,
+            password: password,
+            name: name,
             lastName: lastName
         )
     }

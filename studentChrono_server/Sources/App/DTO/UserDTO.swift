@@ -14,8 +14,7 @@ extension User {
         var lastname: String?
         var email: String
         var password: String
-        var confirmPassword: String
-        var role: UserRoleEnum.RawValue
+//        var role: UserRoleEnum.RawValue
     }
     
     struct UpdateUserDTO: Content {
@@ -32,7 +31,7 @@ extension User {
     
     struct NewSession: Content {
         var token: String
-        var user: Public
+        var userId: String
     }
 }
 
@@ -49,8 +48,7 @@ extension User.CreateUserDTO {
             name: name,
             lastname: lastname,
             email: email,
-            password: try Bcrypt.hash(password),
-            role: role
+            password: try Bcrypt.hash(password)
         )
     }
 }

@@ -18,7 +18,37 @@ struct RegistrationView: View {
     
     var body: some View {
         VStack {
-            Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            PrimaryTextField(
+                "Email",
+                text: Binding(
+                    get: { viewModel.state.email },
+                    set: { email in viewModel.onIntent(.emailChanged(email))}
+                )
+            )
+            
+            PrimaryTextField(
+                "Password",
+                text: Binding(
+                    get: { viewModel.state.password },
+                    set: { password in viewModel.onIntent(.passwordChanged(password))}
+                ),
+                secure: true
+            )
+            
+            PrimaryTextField(
+                "Confirm Password",
+                text: Binding(
+                    get: { viewModel.state.confirmedPassword },
+                    set: { confirmedPassword in viewModel.onIntent(.confirmedPasswordChanged(confirmedPassword))}
+                ),
+                secure: true
+            )
+            
+            
+            Button("Register") {
+                viewModel.onIntent(.registerTap)
+            }
+            
         }
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)

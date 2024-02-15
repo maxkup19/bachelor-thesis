@@ -27,16 +27,8 @@ struct LoginView: View {
     }
 }
 
-#if DEBUG
-
-import DependencyInjectionMocks
-import Factory
-
 #Preview {
-    
-    Container.shared.registerUseCaseMocks()
     
     let vm = LoginViewModel(flowController: nil)
     return LoginView(viewModel: vm)
 }
-#endif
