@@ -51,9 +51,9 @@ final class AppFlowController: FlowController, AuthFlowControllerDelegate {
         UINavigationBar.appearance().tintColor = UIColor(AppTheme.Colors.navBarTitle)
         
         // Tab bar
-        UITabBar.appearance().tintColor = UIColor(AppTheme.Colors.primaryColor)
+        UITabBar.appearance().tintColor = UIColor(AppTheme.Colors.primaryColor())
         
         // UITextField
-        UITextField.appearance().tintColor = UIColor(AppTheme.Colors.primaryColor)
+        UITextField.appearance().tintColor = UIColor(AppTheme.Colors.primaryColor())
     }
 }

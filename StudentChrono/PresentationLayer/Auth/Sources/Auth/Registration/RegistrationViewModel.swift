@@ -32,6 +32,10 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         var email: String = ""
         var password: String = ""
         var confirmedPassword: String = ""
+        var name: String = ""
+        var lastname: String = ""
+        var isTeacher: Bool = false
+        var isShowingPassword: Bool = false
         var isLoading: Bool = false
         var toastData: ToastData?
     }
@@ -41,7 +45,11 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
     enum Intent {
         case emailChanged(String)
         case passwordChanged(String)
+        case showPasswordToggle
         case confirmedPasswordChanged(String)
+        case nameChanged(String)
+        case lastnameChanged(String)
+        case isTeacherToggle
         case registerTap
         case showLogin
         case dismissToast
@@ -52,7 +60,11 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
             switch intent {
             case .emailChanged(let email): emailChanged(email)
             case .passwordChanged(let password): passwordChanged(password)
+            case .showPasswordToggle: showPasswordToggle()
             case .confirmedPasswordChanged(let password): confirmedPasswordChanged(password)
+            case .nameChanged(let name): nameChanged(name)
+            case .lastnameChanged(let lastname): lastnameChanged(lastname)
+            case .isTeacherToggle: isTeacherToggle()
             case .registerTap: await registerTap()
             case .showLogin: showLogin()
             case .dismissToast: dismissToast()
@@ -70,8 +82,24 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         state.password = password
     }
     
+    private func showPasswordToggle() {
+        state.isShowingPassword.toggle()
+    }
+    
     private func confirmedPasswordChanged(_ password: String) {
         state.confirmedPassword = password
+    }
+    
+    private func nameChanged(_ name: String) {
+        state.name = name
+    }
+    
+    private func lastnameChanged(_ lastname: String) {
+        state.lastname = lastname
+    }
+    
+    private func isTeacherToggle() {
+        state.isTeacher.toggle()
     }
     
     private func registerTap() async {
@@ -84,7 +112,13 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         }
         
         do {
-            let data = RegistrationData(email: state.email, password: state.password, name: "a", lastName: "a")
+            let data = RegistrationData(
+                email: state.email,
+                password: state.password,
+                name: state.name,
+                lastName: state.lastname,
+                role: state.isTeacher ? .teacher : .student
+            )
             try await registrationUseCase.execute(data)
             flowController?.handleFlow(AuthFlow.login(.login))
         } catch {

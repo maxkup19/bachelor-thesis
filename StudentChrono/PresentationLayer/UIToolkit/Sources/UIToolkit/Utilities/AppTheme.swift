@@ -13,38 +13,71 @@ public enum AppTheme {
     /// Defines all the colors used in the app in a semantic way
     public enum Colors {
         
-        // Main colors
-        public static let primaryColor = Color.yellow
-        public static let secondaryColor = Color.blue
-        //
-        // Navigation bar
-        public static let navBarBackground = Color.yellow
-        public static let navBarTitle = Color.white
-        //
-        // Backgrounds
-        public static let background = Color(UIColor.systemBackground)
-        public static let onBackgroundColor = Color.black
-        //
-        // Texts
-        public static let text = Color(UIColor.label)
+        public static var workingThemeColor = fallbackColor
+        public static let fallbackColor = Color.gray
         
-        // Text fields
-        public static let textFieldTitle = Color(UIColor.systemGray)
-        public static let textFieldBorder = Color(UIColor.systemGray4)
-        //
-        // Buttons
-        public static let primaryButtonBackground = Color.yellow
-        public static let primaryButtonTitle = Color.white
-        public static let secondaryButtonBackground = Color.clear
-        public static let secondaryButtonTitle = Color.yellow
-        //
-        // ProgressView
-        public static let progressView = Color.yellow
-        //
-        // Toast
+        // Primary colors
+        public static func primaryColor(_ baseColor: Color = workingThemeColor) -> Color {
+            baseColor
+        }
+        public static let onPrimaryColor = Color.white
+        
+        // Error colors
+        public static let errorColor = Color.red
+        public static let onErrorColor = Color.white
+        
+        // Background colors
+        public static let backgroundColor = Color.white
+        public static let onBackgroundColor = Color.black
+        
+        // Background gradient
+        public static let backgroundGradient = LinearGradient(
+            colors: [Color.gray.opacity(0.3), Color.gray.opacity(0.8)],
+            startPoint: .top,
+            endPoint: .bottom
+        )
+        
+        // Toast color
+        public static let toastInfoColor = Color.blue
         public static let toastSuccessColor = Color.green
         public static let toastErrorColor = Color.red
-        public static let toastInfoColor = Color.blue
+        
+        // Text
+        public static let lightTextColor = Color.white
+        
+        // Navigation bar
+        public static let navBarBackground = Color.gray
+        public static let navBarTitle = Color.black
+        
+        // Tab bar
+        public static let tabBarBackground = primaryColor()
+        
+        // Buttons
+        public static let primaryButtonBackground = primaryColor()
+        public static let blackButtonBackground = Color.black
+        public static let primaryButtonTitle = onPrimaryColor
+        public static let secondaryButtonTitle = Color.white
+        
+        // ProgressView
+        public static let progressView = primaryColor()
+        
+        // Whisper
+        public static let whisperBackgroundInfo = Color.gray
+        public static let whisperBackgroundSuccess = Color.green
+        public static let whisperBackgroundError = Color.red
+        public static let whisperMessage = Color.white
+        
+        // Pager
+        public static let pagerIndicator = Color.gray
+        public static let pagerSelectedIndicator = Color.black
+        
+        // TextField
+        public static let textFieldBorder = Color.gray.opacity(0.8)
+        public static let textFieldPlaceholder = Color.gray
+        public static let textFieldBackground = Color.white
+        
+        // Divider
+        public static let divider = Color.secondary
     }
     
     /// Defines all the fonts used in the app in a semantic way
@@ -67,11 +100,17 @@ public enum AppTheme {
     public enum Images {
         
         // AppIcon
-        
         public static let appIcon = Image(systemName: "deskclock")
         
+        // TextField
+        public static let eye = Image(systemName: "eye")
+        public static let eyeSlash = Image(systemName: "eye.slash")
+        
         // Tabs
-        public static let usersTabBar = UIImage(named: "UserTabBar")
+        public static let tasksTabBar = UIImage(systemName: "checklist")
+        public static let usersTabBar = UIImage(systemName: "person.3.fill")
+        public static let profileTabBar = UIImage(systemName: "person")
+        public static let othersTabBar = UIImage(systemName: "ellipsis")
         
     }
     

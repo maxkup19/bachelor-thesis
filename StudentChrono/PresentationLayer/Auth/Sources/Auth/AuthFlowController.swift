@@ -37,8 +37,10 @@ public final class AuthFlowController: FlowController {
     public weak var delegate: AuthFlowControllerDelegate?
     
     override public func setup() -> UIViewController {
-        let vm = LoginViewModel(flowController: self)
-        return BaseHostingController(rootView: LoginView(viewModel: vm), statusBarStyle: .lightContent)
+        let vm = RegistrationViewModel(flowController: self)
+        return BaseHostingController(rootView: RegistrationView(viewModel: vm))
+//        let vm = LoginViewModel(flowController: self)
+//        return BaseHostingController(rootView: LoginView(viewModel: vm), statusBarStyle: .lightContent)
     }
     
     override public func dismiss() {

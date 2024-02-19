@@ -26,9 +26,6 @@
 		0ADCCC5E2B65B197008E8249 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC5D2B65B197008E8249 /* AppDelegate.swift */; };
 		0ADCCC602B65B1F4008E8249 /* AppFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC5F2B65B1F4008E8249 /* AppFlowController.swift */; };
 		0ADCCC652B65B21E008E8249 /* MainFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC642B65B21E008E8249 /* MainFlowController.swift */; };
-		0ADCCC682B65B239008E8249 /* UserFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC672B65B239008E8249 /* UserFlowController.swift */; };
-		0ADCCC6A2B65B24A008E8249 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC692B65B24A008E8249 /* UserView.swift */; };
-		0ADCCC6C2B65B258008E8249 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC6B2B65B258008E8249 /* UserViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,9 +70,6 @@
 		0ADCCC5D2B65B197008E8249 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ADCCC5F2B65B1F4008E8249 /* AppFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowController.swift; sourceTree = "<group>"; };
 		0ADCCC642B65B21E008E8249 /* MainFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowController.swift; sourceTree = "<group>"; };
-		0ADCCC672B65B239008E8249 /* UserFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFlowController.swift; sourceTree = "<group>"; };
-		0ADCCC692B65B24A008E8249 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
-		0ADCCC6B2B65B258008E8249 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		0ADCCC6E2B65B2FD008E8249 /* UIToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UIToolkit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,7 +184,6 @@
 				0ADCCC5D2B65B197008E8249 /* AppDelegate.swift */,
 				0ADCCC5F2B65B1F4008E8249 /* AppFlowController.swift */,
 				0ADCCC642B65B21E008E8249 /* MainFlowController.swift */,
-				0ADCCC662B65B22D008E8249 /* TEMP */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -230,16 +223,6 @@
 				0ADCCC542B65A8E3008E8249 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Info;
-			sourceTree = "<group>";
-		};
-		0ADCCC662B65B22D008E8249 /* TEMP */ = {
-			isa = PBXGroup;
-			children = (
-				0ADCCC672B65B239008E8249 /* UserFlowController.swift */,
-				0ADCCC692B65B24A008E8249 /* UserView.swift */,
-				0ADCCC6B2B65B258008E8249 /* UserViewModel.swift */,
-			);
-			path = TEMP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -390,9 +373,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0ADCCC6C2B65B258008E8249 /* UserViewModel.swift in Sources */,
-				0ADCCC6A2B65B24A008E8249 /* UserView.swift in Sources */,
-				0ADCCC682B65B239008E8249 /* UserFlowController.swift in Sources */,
 				0ADCCC5E2B65B197008E8249 /* AppDelegate.swift in Sources */,
 				0ADCCC652B65B21E008E8249 /* MainFlowController.swift in Sources */,
 				0ADCCC602B65B1F4008E8249 /* AppFlowController.swift in Sources */,

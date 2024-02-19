@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 26.01.2024.
 //
 
+import Auth
 import UIKit
 import UIToolkit
 
@@ -27,7 +28,7 @@ final class MainFlowController: FlowController {
             image: AppTheme.Images.usersTabBar,
             tag: MainTab.users.rawValue
         )
-        let usersFC = UsersFlowController(navigationController: usersNC)
+        let usersFC = AuthFlowController(navigationController: usersNC)
         let usersRootVC = startChildFlow(usersFC)
         usersNC.viewControllers = [usersRootVC]
         return usersNC

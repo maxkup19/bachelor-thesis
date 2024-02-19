@@ -18,30 +18,44 @@ struct RegistrationView: View {
     
     var body: some View {
         VStack {
-            PrimaryTextField(
-                "Email",
-                text: Binding(
-                    get: { viewModel.state.email },
-                    set: { email in viewModel.onIntent(.emailChanged(email))}
-                )
-            )
             
-            PrimaryTextField(
-                "Password",
-                text: Binding(
-                    get: { viewModel.state.password },
-                    set: { password in viewModel.onIntent(.passwordChanged(password))}
+            HStack {
+                PrimaryTextField(
+                    "Name",
+                    text: Binding(
+                        get: { viewModel.state.name },
+                        set: { name in viewModel.onIntent(.nameChanged(name)) }
+                    )
+                )
+                
+                PrimaryTextField(
+                    "Lastname",
+                    text: Binding(
+                        get: { viewModel.state.lastname },
+                        set: { lastname in viewModel.onIntent(.lastnameChanged(lastname)) }
+                    )
+                )
+            }
+            
+            EmailAndPasswordView(
+                email: Binding(
+                    get: { viewModel.state.email },
+                    set: { value in viewModel.onIntent(.emailChanged(value)) }
                 ),
-                secure: true
+                password: Binding(
+                    get: { viewModel.state.password },
+                    set: { value in viewModel.onIntent(.passwordChanged(value)) }
+                ),
+                isShowingPassword: viewModel.state.isShowingPassword,
+                onShowPasswordAction: { viewModel.onIntent(.showPasswordToggle) }
             )
             
             PrimaryTextField(
                 "Confirm Password",
                 text: Binding(
                     get: { viewModel.state.confirmedPassword },
-                    set: { confirmedPassword in viewModel.onIntent(.confirmedPasswordChanged(confirmedPassword))}
-                ),
-                secure: true
+                    set: { confirmedPassword in viewModel.onIntent(.confirmedPasswordChanged(confirmedPassword)) }
+                )
             )
             
             
