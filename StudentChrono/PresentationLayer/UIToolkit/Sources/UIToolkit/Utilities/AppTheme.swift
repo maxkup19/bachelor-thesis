@@ -47,7 +47,7 @@ public enum AppTheme {
         
         // Navigation bar
         public static let navBarBackground = Color.gray
-        public static let navBarTitle = Color.black
+        public static let navBarTitle = Color.green
         
         // Tab bar
         public static let tabBarBackground = primaryColor()

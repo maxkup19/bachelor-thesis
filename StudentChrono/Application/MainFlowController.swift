@@ -6,13 +6,16 @@
 //
 
 import Auth
+import Others
 import Profile
+import SharedDomain
 import Tasks
 import UIKit
 import UIToolkit
 
 enum MainTab: Int {
     case tasks
+    case students
     case profile
     case others
 }
@@ -21,8 +24,13 @@ final class MainFlowController: FlowController {
     
     override func setup() -> UIViewController {
         let main = UITabBarController()
-        main.viewControllers = []
+        setupTabBarAppearance()
+        main.viewControllers = [setupTasksTab(), setupProfileTab(), setupOthersTab()]
         return main
+    }
+    
+    private func setupTabBarAppearance() {
+        // Here you can setup Tab bar appearance
     }
     
     private func setupTasksTab() -> UINavigationController {
@@ -47,7 +55,20 @@ final class MainFlowController: FlowController {
         )
         let profileFC = ProfileFlowController(navigationController: profileNC)
         let profileRootVC = startChildFlow(profileFC)
-        profileFC.viewControllers = [profileRootVC]
+        profileNC.viewControllers = [profileRootVC]
         return profileNC
+    }
+    
+    private func setupOthersTab() -> UINavigationController {
+        let othersNC = BaseNavigationController(statusBarStyle: .default)
+        othersNC.tabBarItem = UITabBarItem(
+            title: "Others",
+            image: AppTheme.Images.othersTabBar,
+            tag: MainTab.others.rawValue
+        )
+        let othersFC = OthersFlowController(navigationController: othersNC)
+        let othersRootVC = startChildFlow(othersFC)
+        othersNC.viewControllers = [othersRootVC]
+        return othersNC
     }
 }

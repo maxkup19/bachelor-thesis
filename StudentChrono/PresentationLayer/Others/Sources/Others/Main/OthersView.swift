@@ -1,5 +1,5 @@
 //
-//  ProfileView.swift
+//  OthersView.swift
 //
 //
 //  Created by Maksym Kupchenko on 19.02.2024.
@@ -8,19 +8,18 @@
 import SwiftUI
 import UIToolkit
 
-struct ProfileView: View {
+struct OthersView: View {
     
-    @ObservedObject private var viewModel: ProfileViewModel
+    @ObservedObject private var viewModel: OthersViewModel
     
-    init(viewModel: ProfileViewModel) {
+    init(viewModel: OthersViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
         VStack {
-            Text("ProfileView")
+            Text("OthersView")
         }
-        .toolbar(.hidden)
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .toastView(Binding<ToastData?>(
@@ -31,5 +30,5 @@ struct ProfileView: View {
 }
 
 #Preview {
-    ProfileView(viewModel: ProfileViewModel(flowController: nil))
+    OthersView(viewModel: OthersViewModel(flowController: nil))
 }
