@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0A05FC7B2B83A44B007F2C02 /* Tasks in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC7A2B83A44B007F2C02 /* Tasks */; };
+		0A05FC7E2B83A70F007F2C02 /* Profile in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC7D2B83A70F007F2C02 /* Profile */; };
 		0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7D52B7118B90096F982 /* KeychainProvider */; };
 		0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7DA2B7119EE0096F982 /* Utilities */; };
 		0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D422B65BE6C00B8914C /* UIToolkit */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		0A05FC792B839D2B007F2C02 /* Tasks */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Tasks; sourceTree = "<group>"; };
+		0A05FC7C2B83A4E2007F2C02 /* Profile */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Profile; sourceTree = "<group>"; };
 		0A0833CC2B710A0800F29FB8 /* KeychainProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeychainProvider; path = DataLayer/Providers/KeychainProvider; sourceTree = SOURCE_ROOT; };
 		0A3DA7D72B7119130096F982 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
 		0A4810D52B712E1100F24E72 /* SharedDomain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SharedDomain; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A05FC7E2B83A70F007F2C02 /* Profile in Frameworks */,
 				0A05FC7B2B83A44B007F2C02 /* Tasks in Frameworks */,
 				0A571B462B711F86006A3932 /* UserDefaultsProvider in Frameworks */,
 				0A4810D72B71351700F24E72 /* AuthToolkit in Frameworks */,
@@ -194,8 +197,9 @@
 		0ADCCC452B65A7A3008E8249 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				0A05FC792B839D2B007F2C02 /* Tasks */,
+				0A05FC7C2B83A4E2007F2C02 /* Profile */,
 				0A4810DC2B7A1FA300F24E72 /* Auth */,
+				0A05FC792B839D2B007F2C02 /* Tasks */,
 				0ADCCC6E2B65B2FD008E8249 /* UIToolkit */,
 			);
 			path = PresentationLayer;
@@ -257,6 +261,7 @@
 				0A4810DA2B71353B00F24E72 /* SharedDomain */,
 				0A4810DD2B7A564300F24E72 /* Auth */,
 				0A05FC7A2B83A44B007F2C02 /* Tasks */,
+				0A05FC7D2B83A70F007F2C02 /* Profile */,
 			);
 			productName = StudentChrono;
 			productReference = 0ADCCC152B65A76A008E8249 /* StudentChrono.app */;
@@ -1056,6 +1061,10 @@
 		0A05FC7A2B83A44B007F2C02 /* Tasks */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Tasks;
+		};
+		0A05FC7D2B83A70F007F2C02 /* Profile */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Profile;
 		};
 		0A3DA7D52B7118B90096F982 /* KeychainProvider */ = {
 			isa = XCSwiftPackageProductDependency;

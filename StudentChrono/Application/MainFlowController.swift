@@ -6,6 +6,7 @@
 //
 
 import Auth
+import Profile
 import Tasks
 import UIKit
 import UIToolkit
@@ -35,5 +36,18 @@ final class MainFlowController: FlowController {
         let tasksRootVC = startChildFlow(tasksFC)
         tasksNC.viewControllers = [tasksRootVC]
         return tasksNC
+    }
+    
+    private func setupProfileTab() -> UINavigationController {
+        let profileNC = BaseNavigationController(statusBarStyle: .default)
+        profileNC.tabBarItem = UITabBarItem(
+            title: "Profile",
+            image: AppTheme.Images.profileTabBar,
+            tag: MainTab.profile.rawValue
+        )
+        let profileFC = ProfileFlowController(navigationController: profileNC)
+        let profileRootVC = startChildFlow(profileFC)
+        profileFC.viewControllers = [profileRootVC]
+        return profileNC
     }
 }
