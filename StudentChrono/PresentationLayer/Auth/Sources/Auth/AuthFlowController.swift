@@ -14,16 +14,16 @@ enum AuthFlow: Flow, Equatable {
     case login(Login)
     case registration(Registration)
     
-    enum Auth {
+    enum Auth: Equatable {
         case showLogin
         case showRegistration
     }
     
-    enum Login {
+    enum Login: Equatable {
         case login
     }
     
-    enum Registration {
+    enum Registration: Equatable {
         case register
     }
 }
@@ -37,10 +37,8 @@ public final class AuthFlowController: FlowController {
     public weak var delegate: AuthFlowControllerDelegate?
     
     override public func setup() -> UIViewController {
-        let vm = RegistrationViewModel(flowController: self)
-        return BaseHostingController(rootView: RegistrationView(viewModel: vm))
-//        let vm = LoginViewModel(flowController: self)
-//        return BaseHostingController(rootView: LoginView(viewModel: vm), statusBarStyle: .lightContent)
+        let vm = LoginViewModel(flowController: self)
+        return BaseHostingController(rootView: LoginView(viewModel: vm), statusBarStyle: .lightContent)
     }
     
     override public func dismiss() {

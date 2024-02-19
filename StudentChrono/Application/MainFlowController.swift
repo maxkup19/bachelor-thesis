@@ -6,31 +6,34 @@
 //
 
 import Auth
+import Tasks
 import UIKit
 import UIToolkit
 
 enum MainTab: Int {
-    case users
+    case tasks
+    case profile
+    case others
 }
 
 final class MainFlowController: FlowController {
     
     override func setup() -> UIViewController {
         let main = UITabBarController()
-        main.viewControllers = [setupUsersTab()]
+        main.viewControllers = []
         return main
     }
     
-    private func setupUsersTab() -> UINavigationController {
-        let usersNC = BaseNavigationController(statusBarStyle: .lightContent)
-        usersNC.tabBarItem = UITabBarItem(
-            title: "Back",
-            image: AppTheme.Images.usersTabBar,
-            tag: MainTab.users.rawValue
+    private func setupTasksTab() -> UINavigationController {
+        let tasksNC = BaseNavigationController(statusBarStyle: .default)
+        tasksNC.tabBarItem = UITabBarItem(
+            title: "Tasks",
+            image: AppTheme.Images.tasksTabBar,
+            tag: MainTab.tasks.rawValue
         )
-        let usersFC = AuthFlowController(navigationController: usersNC)
-        let usersRootVC = startChildFlow(usersFC)
-        usersNC.viewControllers = [usersRootVC]
-        return usersNC
+        let tasksFC = TasksFlowController(navigationController: tasksNC)
+        let tasksRootVC = startChildFlow(tasksFC)
+        tasksNC.viewControllers = [tasksRootVC]
+        return tasksNC
     }
 }
