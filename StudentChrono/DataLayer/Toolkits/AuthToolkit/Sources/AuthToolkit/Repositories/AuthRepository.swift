@@ -25,11 +25,8 @@ public struct AuthRepositoryImpl: AuthRepository {
     public func login(_ payload: LoginData) async throws {
         do {
             let data = try payload.networkModel.encode()
-            print("1")
             let authToken = try await network.request(AuthAPI.login(data), withInterceptor: false).map(NETAuthToken.self).domainModel
-            print("2")
             try keychain.update(.authToken, value: authToken.token)
-            print("3")
             try keychain.update(.userId, value: authToken.userId)
         } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .unathorized {
             throw AuthError.login(.invalidCredentials)
