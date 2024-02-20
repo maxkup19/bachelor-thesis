@@ -15,11 +15,11 @@ final class User: Model {
     @ID
     var id: UUID?
     
-    @OptionalField(key: FieldKeys.name)
-    var name: String?
+    @Field(key: FieldKeys.name)
+    var name: String
     
-    @OptionalField(key: FieldKeys.lastname)
-    var lastname: String?
+    @Field(key: FieldKeys.lastname)
+    var lastname: String
     
     @Field(key: FieldKeys.email)
     var email: String
@@ -28,7 +28,7 @@ final class User: Model {
     var password: String
     
     @Field(key: FieldKeys.role)
-    var role: UserRoleEnum.RawValue
+    var role: UserRoleEnum
     
     @Timestamp(key: FieldKeys.createdAt, on: .create)
     var createdAt: Date?
@@ -39,11 +39,11 @@ final class User: Model {
     init() { }
     
     init(
-        name: String?,
-        lastname: String?,
+        name: String,
+        lastname: String,
         email: String,
         password: String,
-        role: UserRoleEnum.RawValue
+        role: UserRoleEnum
     ) {
         self.name = name
         self.lastname = lastname
@@ -60,10 +60,20 @@ final class User: Model {
         self.password = password
     }
     
-    init(role: UserRoleEnum.RawValue) {
+    init(role: UserRoleEnum) {
         self.role = role
     }
     
+    func createToken(source: SessionSourceEnum) throws -> Token {
+        let calendar = Calendar(identifier: .gregorian)
+        let expiryDate = calendar.date(byAdding: Configuration.tokenExpiryDate, to: .now)
+        return try Token(
+            userId: requireID(),
+            token: [UInt8].random(count: 16).base64,
+            source: source.rawValue,
+            expiresAt: expiryDate
+        )
+    }
 }
 
 extension User: Content { }

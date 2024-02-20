@@ -18,8 +18,8 @@ extension AuthAPI: NetworkEndpoint {
     var baseURL: URL { URL(string: NetworkingConstants.baseURL)! }
     var path: String {
         switch self {
-        case .login: "/users/login"
-        case .registration: "/users/signup"
+        case .login: "/auth/login"
+        case .registration: "/auth/signup"
         }
     }
     var method: NetworkMethod {

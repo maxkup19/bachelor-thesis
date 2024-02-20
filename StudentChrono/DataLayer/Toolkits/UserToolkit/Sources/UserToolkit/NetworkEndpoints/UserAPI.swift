@@ -17,7 +17,7 @@ extension UserAPI: NetworkEndpoint {
     var baseURL: URL { URL(string: NetworkingConstants.baseURL)! }
     var path: String {
         switch self {
-        case .currentUser: "users/me"
+        case .currentUser: "/user/me"
         }
     }
     var method: NetworkMethod {
