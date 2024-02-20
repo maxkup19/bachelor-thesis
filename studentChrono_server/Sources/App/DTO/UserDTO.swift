@@ -14,7 +14,7 @@ extension User {
         var lastname: String?
         var email: String
         var password: String
-//        var role: UserRoleEnum.RawValue
+        var role: UserRoleEnum.RawValue
     }
     
     struct UpdateUserDTO: Content {
@@ -48,7 +48,8 @@ extension User.CreateUserDTO {
             name: name,
             lastname: lastname,
             email: email,
-            password: try Bcrypt.hash(password)
+            password: try Bcrypt.hash(password),
+            role: role
         )
     }
 }
@@ -65,7 +66,7 @@ extension User {
     
     func createToken(source: SessionSourceEnum) throws -> Token {
       let calendar = Calendar(identifier: .gregorian)
-      let expiryDate = calendar.date(byAdding: .hour, value: 4, to: Date())
+      let expiryDate = calendar.date(byAdding: .year, value: 4, to: Date())
       return try Token(
         userId: requireID(),
         token: [UInt8].random(count: 16).base64,

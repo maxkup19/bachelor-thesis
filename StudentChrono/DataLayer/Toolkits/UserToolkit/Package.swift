@@ -15,7 +15,6 @@ let package = Package(
     dependencies: [
         .package(name: "Utilities", path: "../../../DomainLayer/Utilities"),
         .package(name: "SharedDomain", path: "../../../DomainLayer/SharedDomain"),
-        .package(name: "KeychainProvider", path: "../../Providers/KeychainProvider"),
         .package(name: "NetworkProvider", path: "../../Providers/NetworkProvider")
     ],
     targets: [
@@ -26,7 +25,6 @@ let package = Package(
             dependencies: [
                 .product(name: "Utilities", package: "Utilities"),
                 .product(name: "SharedDomain", package: "SharedDomain"),
-                .product(name: "KeychainProvider", package: "KeychainProvider"),
                 .product(name: "NetworkProvider", package: "NetworkProvider")
             ]
         ),
@@ -37,8 +35,6 @@ let package = Package(
                 .product(name: "Utilities", package: "Utilities"),
                 .product(name: "SharedDomain", package: "SharedDomain"),
                 .product(name: "SharedDomainMocks", package: "SharedDomain"),
-                .product(name: "KeychainProvider", package: "KeychainProvider"),
-                .product(name: "KeychainProviderMocks", package: "KeychainProvider"),
                 .product(name: "NetworkProvider", package: "NetworkProvider"),
                 .product(name: "NetworkProviderMocks", package: "NetworkProvider")
             ]

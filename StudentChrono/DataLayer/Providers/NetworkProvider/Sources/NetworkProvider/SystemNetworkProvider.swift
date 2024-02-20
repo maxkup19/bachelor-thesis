@@ -12,7 +12,7 @@ public struct SystemNetworkProvider {
     
     private let readAuthToken: () throws -> String
     private weak var _delegate: NetworkProviderDelegate?
-
+    
     public init(
         readAuthToken: @escaping () throws -> String,
         delegate: NetworkProviderDelegate?
@@ -54,10 +54,10 @@ extension SystemNetworkProvider: NetworkProvider {
         }
         
         // Add auth token if available
-        do {
-            let authToken = try readAuthToken()
+        let authToken = try? readAuthToken()
+        if let authToken {
             request.addValue("Bearer \(authToken)", forHTTPHeaderField: "Authorization")
-        } catch {}
+        }
         
         // Prepare request based on task
         switch endpoint.task {
@@ -68,13 +68,13 @@ extension SystemNetworkProvider: NetworkProvider {
         }
         
         // Fire request
-        #if DEBUG
+#if DEBUG
         Logger.log(request: request)
-        #endif
+#endif
         let (data, response) = try await URLSession.shared.data(for: request)
-        #if DEBUG
+#if DEBUG
         Logger.log(response: response, data: data)
-        #endif
+#endif
         
         // Catch HTTP errors
         if let httpResponse = response as? HTTPURLResponse {

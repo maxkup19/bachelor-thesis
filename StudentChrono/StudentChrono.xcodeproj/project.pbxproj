@@ -10,7 +10,8 @@
 		0A05FC7B2B83A44B007F2C02 /* Tasks in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC7A2B83A44B007F2C02 /* Tasks */; };
 		0A05FC7E2B83A70F007F2C02 /* Profile in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC7D2B83A70F007F2C02 /* Profile */; };
 		0A05FC812B83A91D007F2C02 /* Others in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC802B83A91D007F2C02 /* Others */; };
-		0A05FC852B842AEB007F2C02 /* UserToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC842B842AEB007F2C02 /* UserToolkit */; };
+		0A05FC872B842CB5007F2C02 /* Students in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC862B842CB5007F2C02 /* Students */; };
+		0A05FC8A2B842D54007F2C02 /* UserToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC892B842D54007F2C02 /* UserToolkit */; };
 		0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7D52B7118B90096F982 /* KeychainProvider */; };
 		0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7DA2B7119EE0096F982 /* Utilities */; };
 		0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D422B65BE6C00B8914C /* UIToolkit */; };
@@ -92,10 +93,11 @@
 				0A05FC7B2B83A44B007F2C02 /* Tasks in Frameworks */,
 				0A571B462B711F86006A3932 /* UserDefaultsProvider in Frameworks */,
 				0A4810D72B71351700F24E72 /* AuthToolkit in Frameworks */,
+				0A05FC8A2B842D54007F2C02 /* UserToolkit in Frameworks */,
 				0A420D482B65BE7C00B8914C /* Factory in Frameworks */,
-				0A05FC852B842AEB007F2C02 /* UserToolkit in Frameworks */,
 				0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */,
 				0A4810DB2B71353B00F24E72 /* SharedDomain in Frameworks */,
+				0A05FC872B842CB5007F2C02 /* Students in Frameworks */,
 				0A4810D92B71353700F24E72 /* NetworkProvider in Frameworks */,
 				0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */,
 				0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */,
@@ -273,7 +275,8 @@
 				0A05FC7A2B83A44B007F2C02 /* Tasks */,
 				0A05FC7D2B83A70F007F2C02 /* Profile */,
 				0A05FC802B83A91D007F2C02 /* Others */,
-				0A05FC842B842AEB007F2C02 /* UserToolkit */,
+				0A05FC862B842CB5007F2C02 /* Students */,
+				0A05FC892B842D54007F2C02 /* UserToolkit */,
 			);
 			productName = StudentChrono;
 			productReference = 0ADCCC152B65A76A008E8249 /* StudentChrono.app */;
@@ -1082,7 +1085,11 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = Others;
 		};
-		0A05FC842B842AEB007F2C02 /* UserToolkit */ = {
+		0A05FC862B842CB5007F2C02 /* Students */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Students;
+		};
+		0A05FC892B842D54007F2C02 /* UserToolkit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UserToolkit;
 		};

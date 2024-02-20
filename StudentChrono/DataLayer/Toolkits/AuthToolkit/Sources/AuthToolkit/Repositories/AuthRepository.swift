@@ -22,9 +22,9 @@ public struct AuthRepositoryImpl: AuthRepository {
         network = networkProvider
     }
     
-    public func login(_ data: LoginData) async throws {
+    public func login(_ payload: LoginData) async throws {
         do {
-            let data = try data.networkModel.encode()
+            let data = try payload.networkModel.encode()
             let authToken = try await network.request(AuthAPI.login(data), withInterceptor: false).map(NETAuthToken.self).domainModel
             try keychain.update(.authToken, value: authToken.token)
             try keychain.update(.userId, value: authToken.userId)
@@ -35,9 +35,9 @@ public struct AuthRepositoryImpl: AuthRepository {
         }
     }
     
-    public func registration(_ data: RegistrationData) async throws {
+    public func registration(_ payload: RegistrationData) async throws {
         do {
-            let data = try data.networkModel.encode()
+            let data = try payload.networkModel.encode()
             let authToken = try await network.request(AuthAPI.registration(data)).map(NETAuthToken.self).domainModel
             try keychain.update(.authToken, value: authToken.token)
             try keychain.update(.userId, value: authToken.userId)

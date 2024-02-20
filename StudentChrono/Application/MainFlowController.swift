@@ -25,15 +25,17 @@ enum MainTab: Int {
 
 final class MainFlowController: FlowController {
     
-    @Injected(\.getCurrentUserRoleUseCase) private var getCurrentUserRoleUseCase
-    
     override func setup() -> UIViewController {
         let main = UITabBarController()
         setupTabBarAppearance()
-        let viewControllers = [setupTasksTab(), setupProfileTab(), setupOthersTab()]
-        if getCurrentUserRoleUseCase.execute() == .teacher {
+        var viewControllers = [setupTasksTab(), setupProfileTab(), setupOthersTab()]
+        #warning("Show students tab only for teacer user role")
+        
+        if false {
             viewControllers.append(setupStudentsTab())
         }
+        
+        viewControllers.sort(by: { $0.tabBarItem.tag < $1.tabBarItem.tag })
         
         main.viewControllers = viewControllers
         return main

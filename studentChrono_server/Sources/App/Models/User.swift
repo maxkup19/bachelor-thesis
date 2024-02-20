@@ -43,7 +43,7 @@ final class User: Model {
         lastname: String?,
         email: String,
         password: String,
-        role: UserRoleEnum.RawValue = "student"
+        role: UserRoleEnum.RawValue
     ) {
         self.name = name
         self.lastname = lastname
