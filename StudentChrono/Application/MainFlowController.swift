@@ -6,9 +6,12 @@
 //
 
 import Auth
+import DependencyInjection
+import Factory
 import Others
 import Profile
 import SharedDomain
+import Students
 import Tasks
 import UIKit
 import UIToolkit
@@ -22,10 +25,17 @@ enum MainTab: Int {
 
 final class MainFlowController: FlowController {
     
+    @Injected(\.getCurrentUserRoleUseCase) private var getCurrentUserRoleUseCase
+    
     override func setup() -> UIViewController {
         let main = UITabBarController()
         setupTabBarAppearance()
-        main.viewControllers = [setupTasksTab(), setupProfileTab(), setupOthersTab()]
+        let viewControllers = [setupTasksTab(), setupProfileTab(), setupOthersTab()]
+        if getCurrentUserRoleUseCase.execute() == .teacher {
+            viewControllers.append(setupStudentsTab())
+        }
+        
+        main.viewControllers = viewControllers
         return main
     }
     
@@ -70,5 +80,18 @@ final class MainFlowController: FlowController {
         let othersRootVC = startChildFlow(othersFC)
         othersNC.viewControllers = [othersRootVC]
         return othersNC
+    }
+    
+    private func setupStudentsTab() -> UINavigationController {
+        let studentsNC = BaseNavigationController(statusBarStyle: .default)
+        studentsNC.tabBarItem = UITabBarItem(
+            title: "Students",
+            image: AppTheme.Images.studentsTabBar,
+            tag: MainTab.students.rawValue
+        )
+        let studentsFC = StudentsFlowController(navigationController: studentsNC)
+        let studentRootVC = startChildFlow(studentsFC)
+        studentsNC.viewControllers = [studentRootVC]
+        return studentsNC
     }
 }

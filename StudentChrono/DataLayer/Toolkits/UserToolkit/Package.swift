@@ -4,13 +4,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "AuthToolkit",
+    name: "UserToolkit",
     platforms: [.iOS(.v17)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "AuthToolkit",
-            targets: ["AuthToolkit"]),
+            name: "UserToolkit",
+            targets: ["UserToolkit"]),
     ],
     dependencies: [
         .package(name: "Utilities", path: "../../../DomainLayer/Utilities"),
@@ -22,7 +22,7 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "AuthToolkit",
+            name: "UserToolkit",
             dependencies: [
                 .product(name: "Utilities", package: "Utilities"),
                 .product(name: "SharedDomain", package: "SharedDomain"),
@@ -31,9 +31,9 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "AuthToolkitTests",
+            name: "UserToolkitTests",
             dependencies: [
-                "AuthToolkit",
+                "UserToolkit",
                 .product(name: "Utilities", package: "Utilities"),
                 .product(name: "SharedDomain", package: "SharedDomain"),
                 .product(name: "SharedDomainMocks", package: "SharedDomain"),
@@ -42,6 +42,6 @@ let package = Package(
                 .product(name: "NetworkProvider", package: "NetworkProvider"),
                 .product(name: "NetworkProviderMocks", package: "NetworkProvider")
             ]
-        )
+        ),
     ]
 )

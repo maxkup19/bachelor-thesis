@@ -10,6 +10,7 @@
 		0A05FC7B2B83A44B007F2C02 /* Tasks in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC7A2B83A44B007F2C02 /* Tasks */; };
 		0A05FC7E2B83A70F007F2C02 /* Profile in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC7D2B83A70F007F2C02 /* Profile */; };
 		0A05FC812B83A91D007F2C02 /* Others in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC802B83A91D007F2C02 /* Others */; };
+		0A05FC852B842AEB007F2C02 /* UserToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC842B842AEB007F2C02 /* UserToolkit */; };
 		0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7D52B7118B90096F982 /* KeychainProvider */; };
 		0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7DA2B7119EE0096F982 /* Utilities */; };
 		0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D422B65BE6C00B8914C /* UIToolkit */; };
@@ -52,6 +53,8 @@
 		0A05FC792B839D2B007F2C02 /* Tasks */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Tasks; sourceTree = "<group>"; };
 		0A05FC7C2B83A4E2007F2C02 /* Profile */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Profile; sourceTree = "<group>"; };
 		0A05FC7F2B83A768007F2C02 /* Others */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Others; sourceTree = "<group>"; };
+		0A05FC822B84197F007F2C02 /* Students */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Students; sourceTree = "<group>"; };
+		0A05FC832B841E74007F2C02 /* UserToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UserToolkit; sourceTree = "<group>"; };
 		0A0833CC2B710A0800F29FB8 /* KeychainProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeychainProvider; path = DataLayer/Providers/KeychainProvider; sourceTree = SOURCE_ROOT; };
 		0A3DA7D72B7119130096F982 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
 		0A4810D52B712E1100F24E72 /* SharedDomain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SharedDomain; sourceTree = "<group>"; };
@@ -90,6 +93,7 @@
 				0A571B462B711F86006A3932 /* UserDefaultsProvider in Frameworks */,
 				0A4810D72B71351700F24E72 /* AuthToolkit in Frameworks */,
 				0A420D482B65BE7C00B8914C /* Factory in Frameworks */,
+				0A05FC852B842AEB007F2C02 /* UserToolkit in Frameworks */,
 				0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */,
 				0A4810DB2B71353B00F24E72 /* SharedDomain in Frameworks */,
 				0A4810D92B71353700F24E72 /* NetworkProvider in Frameworks */,
@@ -130,6 +134,7 @@
 		0A0833CF2B710D4900F29FB8 /* Toolkits */ = {
 			isa = PBXGroup;
 			children = (
+				0A05FC832B841E74007F2C02 /* UserToolkit */,
 				0A571B4D2B712B0D006A3932 /* AuthToolkit */,
 			);
 			path = Toolkits;
@@ -203,6 +208,7 @@
 				0A4810DC2B7A1FA300F24E72 /* Auth */,
 				0A05FC7F2B83A768007F2C02 /* Others */,
 				0A05FC7C2B83A4E2007F2C02 /* Profile */,
+				0A05FC822B84197F007F2C02 /* Students */,
 				0A05FC792B839D2B007F2C02 /* Tasks */,
 				0ADCCC6E2B65B2FD008E8249 /* UIToolkit */,
 			);
@@ -267,6 +273,7 @@
 				0A05FC7A2B83A44B007F2C02 /* Tasks */,
 				0A05FC7D2B83A70F007F2C02 /* Profile */,
 				0A05FC802B83A91D007F2C02 /* Others */,
+				0A05FC842B842AEB007F2C02 /* UserToolkit */,
 			);
 			productName = StudentChrono;
 			productReference = 0ADCCC152B65A76A008E8249 /* StudentChrono.app */;
@@ -1074,6 +1081,10 @@
 		0A05FC802B83A91D007F2C02 /* Others */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Others;
+		};
+		0A05FC842B842AEB007F2C02 /* UserToolkit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserToolkit;
 		};
 		0A3DA7D52B7118B90096F982 /* KeychainProvider */ = {
 			isa = XCSwiftPackageProductDependency;

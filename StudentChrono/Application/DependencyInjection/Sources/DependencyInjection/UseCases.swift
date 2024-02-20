@@ -31,6 +31,11 @@ public extension Container {
         validatePasswordUseCase: self.validatePasswordUseCase()
     )}}
     
+    // Users
+    var getCurrentUserRoleUseCase: Factory<GetCurrentUserRoleUseCase> { self { GetCurrentUserRoleUseCaseImpl(
+        userRepository: self.userRepository()
+    )}}
+    
     // Validation
     var validateEmailUseCase: Factory<ValidateEmailUseCase> { self { ValidateEmailUseCaseImpl() } }
     var validatePasswordUseCase: Factory<ValidatePasswordUseCase> { self { ValidatePasswordUseCaseImpl() } }

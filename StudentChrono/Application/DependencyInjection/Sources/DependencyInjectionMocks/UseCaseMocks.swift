@@ -26,6 +26,12 @@ public extension Container {
         loginUseCase.register { LoginUseCaseSpy() }
         logoutUseCase.register { LogoutUseCaseSpy() }
         registrationUseCase.register { RegistrationUseCaseSpy() }
+        
+        // User
+        let getCurrentUserRoleUseCaseSpy = GetCurrentUserRoleUseCaseSpy()
+        getCurrentUserRoleUseCaseSpy.executeReturnValue = User.studentStub.role
+        getCurrentUserRoleUseCase.register { getCurrentUserRoleUseCaseSpy }
+        
     }
 }
 #endif

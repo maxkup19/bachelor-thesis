@@ -27,6 +27,7 @@ let package = Package(
         
         // Toolkits
         .package(name: "AuthToolkit", path: "../../DataLayer/Toolkits/AuthToolkit"),
+        .package(name: "UserToolkit", path: "../../DataLayer/Toolkits/UserToolkit")
         
         // Providers
         .package(name: "KeychainProvider", path: "../../DataLayer/Providers/KeychainProvider"),
@@ -45,6 +46,7 @@ let package = Package(
                 
                 // Toolkits
                 .product(name: "AuthToolkit", package: "AuthToolkit"),
+                .product(name: "UserToolkit", package: "UserToolkit"),
                 
                 // Providers
                 .product(name: "KeychainProvider", package: "KeychainProvider"),
