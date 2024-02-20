@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A05FC7B2B83A44B007F2C02 /* Tasks in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC7A2B83A44B007F2C02 /* Tasks */; };
+		0A05FC7E2B83A70F007F2C02 /* Profile in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC7D2B83A70F007F2C02 /* Profile */; };
+		0A05FC812B83A91D007F2C02 /* Others in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC802B83A91D007F2C02 /* Others */; };
+		0A05FC872B842CB5007F2C02 /* Students in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC862B842CB5007F2C02 /* Students */; };
+		0A05FC8A2B842D54007F2C02 /* UserToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC892B842D54007F2C02 /* UserToolkit */; };
 		0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7D52B7118B90096F982 /* KeychainProvider */; };
 		0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7DA2B7119EE0096F982 /* Utilities */; };
 		0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D422B65BE6C00B8914C /* UIToolkit */; };
@@ -14,6 +19,7 @@
 		0A4810D72B71351700F24E72 /* AuthToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810D62B71351700F24E72 /* AuthToolkit */; };
 		0A4810D92B71353700F24E72 /* NetworkProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810D82B71353700F24E72 /* NetworkProvider */; };
 		0A4810DB2B71353B00F24E72 /* SharedDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810DA2B71353B00F24E72 /* SharedDomain */; };
+		0A4810DE2B7A564300F24E72 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810DD2B7A564300F24E72 /* Auth */; };
 		0A571B462B711F86006A3932 /* UserDefaultsProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A571B452B711F86006A3932 /* UserDefaultsProvider */; };
 		0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */ = {isa = PBXBuildFile; productRef = 0A571B472B711FC3006A3932 /* DependencyInjection */; };
 		0ADCCC2C2B65A76B008E8249 /* StudentChronoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */; };
@@ -25,9 +31,6 @@
 		0ADCCC5E2B65B197008E8249 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC5D2B65B197008E8249 /* AppDelegate.swift */; };
 		0ADCCC602B65B1F4008E8249 /* AppFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC5F2B65B1F4008E8249 /* AppFlowController.swift */; };
 		0ADCCC652B65B21E008E8249 /* MainFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC642B65B21E008E8249 /* MainFlowController.swift */; };
-		0ADCCC682B65B239008E8249 /* UserFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC672B65B239008E8249 /* UserFlowController.swift */; };
-		0ADCCC6A2B65B24A008E8249 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC692B65B24A008E8249 /* UserView.swift */; };
-		0ADCCC6C2B65B258008E8249 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC6B2B65B258008E8249 /* UserViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,9 +51,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A05FC792B839D2B007F2C02 /* Tasks */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Tasks; sourceTree = "<group>"; };
+		0A05FC7C2B83A4E2007F2C02 /* Profile */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Profile; sourceTree = "<group>"; };
+		0A05FC7F2B83A768007F2C02 /* Others */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Others; sourceTree = "<group>"; };
+		0A05FC822B84197F007F2C02 /* Students */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Students; sourceTree = "<group>"; };
+		0A05FC832B841E74007F2C02 /* UserToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UserToolkit; sourceTree = "<group>"; };
 		0A0833CC2B710A0800F29FB8 /* KeychainProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeychainProvider; path = DataLayer/Providers/KeychainProvider; sourceTree = SOURCE_ROOT; };
 		0A3DA7D72B7119130096F982 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
 		0A4810D52B712E1100F24E72 /* SharedDomain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SharedDomain; sourceTree = "<group>"; };
+		0A4810DC2B7A1FA300F24E72 /* Auth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Auth; sourceTree = "<group>"; };
 		0A571B432B711CAB006A3932 /* UserDefaultsProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UserDefaultsProvider; sourceTree = "<group>"; };
 		0A571B442B711CE4006A3932 /* DependencyInjection */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DependencyInjection; sourceTree = "<group>"; };
 		0A571B4A2B7122DD006A3932 /* NetworkProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkProvider; sourceTree = "<group>"; };
@@ -61,8 +70,6 @@
 		0ADCCC312B65A76B008E8249 /* StudentChronoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC352B65A76B008E8249 /* StudentChronoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoUITests.swift; sourceTree = "<group>"; };
 		0ADCCC372B65A76B008E8249 /* StudentChronoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		0ADCCC492B65A80F008E8249 /* Beta.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Beta.entitlements; sourceTree = "<group>"; };
-		0ADCCC4A2B65A84D008E8249 /* Prod.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Prod.entitlements; sourceTree = "<group>"; };
 		0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		0ADCCC4F2B65A8E3008E8249 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0ADCCC522B65A8E3008E8249 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -73,9 +80,6 @@
 		0ADCCC5D2B65B197008E8249 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ADCCC5F2B65B1F4008E8249 /* AppFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowController.swift; sourceTree = "<group>"; };
 		0ADCCC642B65B21E008E8249 /* MainFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowController.swift; sourceTree = "<group>"; };
-		0ADCCC672B65B239008E8249 /* UserFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFlowController.swift; sourceTree = "<group>"; };
-		0ADCCC692B65B24A008E8249 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
-		0ADCCC6B2B65B258008E8249 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		0ADCCC6E2B65B2FD008E8249 /* UIToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UIToolkit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,14 +88,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A05FC812B83A91D007F2C02 /* Others in Frameworks */,
+				0A05FC7E2B83A70F007F2C02 /* Profile in Frameworks */,
+				0A05FC7B2B83A44B007F2C02 /* Tasks in Frameworks */,
 				0A571B462B711F86006A3932 /* UserDefaultsProvider in Frameworks */,
 				0A4810D72B71351700F24E72 /* AuthToolkit in Frameworks */,
+				0A05FC8A2B842D54007F2C02 /* UserToolkit in Frameworks */,
 				0A420D482B65BE7C00B8914C /* Factory in Frameworks */,
 				0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */,
 				0A4810DB2B71353B00F24E72 /* SharedDomain in Frameworks */,
+				0A05FC872B842CB5007F2C02 /* Students in Frameworks */,
 				0A4810D92B71353700F24E72 /* NetworkProvider in Frameworks */,
 				0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */,
 				0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */,
+				0A4810DE2B7A564300F24E72 /* Auth in Frameworks */,
 				0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -126,6 +136,7 @@
 		0A0833CF2B710D4900F29FB8 /* Toolkits */ = {
 			isa = PBXGroup;
 			children = (
+				0A05FC832B841E74007F2C02 /* UserToolkit */,
 				0A571B4D2B712B0D006A3932 /* AuthToolkit */,
 			);
 			path = Toolkits;
@@ -183,14 +194,12 @@
 			isa = PBXGroup;
 			children = (
 				0A571B442B711CE4006A3932 /* DependencyInjection */,
-				0ADCCC482B65A7DC008E8249 /* Entitlements */,
 				0ADCCC4D2B65A8E3008E8249 /* Info */,
 				0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */,
 				0ADCCC5A2B65A99F008E8249 /* LaunchScreen.storyboard */,
 				0ADCCC5D2B65B197008E8249 /* AppDelegate.swift */,
 				0ADCCC5F2B65B1F4008E8249 /* AppFlowController.swift */,
 				0ADCCC642B65B21E008E8249 /* MainFlowController.swift */,
-				0ADCCC662B65B22D008E8249 /* TEMP */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -198,6 +207,11 @@
 		0ADCCC452B65A7A3008E8249 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0A4810DC2B7A1FA300F24E72 /* Auth */,
+				0A05FC7F2B83A768007F2C02 /* Others */,
+				0A05FC7C2B83A4E2007F2C02 /* Profile */,
+				0A05FC822B84197F007F2C02 /* Students */,
+				0A05FC792B839D2B007F2C02 /* Tasks */,
 				0ADCCC6E2B65B2FD008E8249 /* UIToolkit */,
 			);
 			path = PresentationLayer;
@@ -221,15 +235,6 @@
 			path = DataLayer;
 			sourceTree = "<group>";
 		};
-		0ADCCC482B65A7DC008E8249 /* Entitlements */ = {
-			isa = PBXGroup;
-			children = (
-				0ADCCC492B65A80F008E8249 /* Beta.entitlements */,
-				0ADCCC4A2B65A84D008E8249 /* Prod.entitlements */,
-			);
-			path = Entitlements;
-			sourceTree = "<group>";
-		};
 		0ADCCC4D2B65A8E3008E8249 /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,16 +243,6 @@
 				0ADCCC542B65A8E3008E8249 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Info;
-			sourceTree = "<group>";
-		};
-		0ADCCC662B65B22D008E8249 /* TEMP */ = {
-			isa = PBXGroup;
-			children = (
-				0ADCCC672B65B239008E8249 /* UserFlowController.swift */,
-				0ADCCC692B65B24A008E8249 /* UserView.swift */,
-				0ADCCC6B2B65B258008E8249 /* UserViewModel.swift */,
-			);
-			path = TEMP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +271,12 @@
 				0A4810D62B71351700F24E72 /* AuthToolkit */,
 				0A4810D82B71353700F24E72 /* NetworkProvider */,
 				0A4810DA2B71353B00F24E72 /* SharedDomain */,
+				0A4810DD2B7A564300F24E72 /* Auth */,
+				0A05FC7A2B83A44B007F2C02 /* Tasks */,
+				0A05FC7D2B83A70F007F2C02 /* Profile */,
+				0A05FC802B83A91D007F2C02 /* Others */,
+				0A05FC862B842CB5007F2C02 /* Students */,
+				0A05FC892B842D54007F2C02 /* UserToolkit */,
 			);
 			productName = StudentChrono;
 			productReference = 0ADCCC152B65A76A008E8249 /* StudentChrono.app */;
@@ -397,9 +398,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0ADCCC6C2B65B258008E8249 /* UserViewModel.swift in Sources */,
-				0ADCCC6A2B65B24A008E8249 /* UserView.swift in Sources */,
-				0ADCCC682B65B239008E8249 /* UserFlowController.swift in Sources */,
 				0ADCCC5E2B65B197008E8249 /* AppDelegate.swift in Sources */,
 				0ADCCC652B65B21E008E8249 /* MainFlowController.swift in Sources */,
 				0ADCCC602B65B1F4008E8249 /* AppFlowController.swift in Sources */,
@@ -452,6 +450,289 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0AC6D1322B7CED93005C5A27 /* Beta Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Application/Entitlements/Beta.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Application/Info/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
+			};
+			name = "Beta Debug";
+		};
+		0AC6D1332B7CED93005C5A27 /* Beta Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Beta";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULE_DEBUGGING = NO;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3FV5J94G7D;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Application/Info/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "StudentChrono-Beta";
+				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxkup19.StudentChrono.beta;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = "Beta Debug";
+		};
+		0AC6D1342B7CED93005C5A27 /* Beta Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3FV5J94G7D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxkup19.StudentChronoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StudentChrono.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StudentChrono";
+			};
+			name = "Beta Debug";
+		};
+		0AC6D1352B7CED93005C5A27 /* Beta Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3FV5J94G7D;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxkup19.StudentChronoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = StudentChrono;
+			};
+			name = "Beta Debug";
+		};
+		0AC6D1362B7CED9F005C5A27 /* Beta Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Application/Entitlements/Beta.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = Application/Info/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Beta Release";
+		};
+		0AC6D1372B7CED9F005C5A27 /* Beta Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Beta";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULE_DEBUGGING = NO;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3FV5J94G7D;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Application/Info/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "StudentChrono-Beta";
+				INFOPLIST_PREPROCESS = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxkup19.StudentChrono.beta;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = "Beta Release";
+		};
+		0AC6D1382B7CED9F005C5A27 /* Beta Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3FV5J94G7D;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxkup19.StudentChronoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StudentChrono.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StudentChrono";
+			};
+			name = "Beta Release";
+		};
+		0AC6D1392B7CED9F005C5A27 /* Beta Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 3FV5J94G7D;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxkup19.StudentChronoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = StudentChrono;
+			};
+			name = "Beta Release";
+		};
 		0ADCCC392B65A76B008E8249 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -485,6 +766,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Application/Entitlements/Prod.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -552,6 +835,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = Application/Entitlements/Prod.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -582,16 +867,19 @@
 		0ADCCC3C2B65A76B008E8249 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-Beta";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_MODULE_DEBUGGING = NO;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3FV5J94G7D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Application/Info/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StudentChrono;
 				INFOPLIST_PREPROCESS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -599,8 +887,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.maxkup19.StudentChrono.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxkup19.StudentChrono;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -621,12 +910,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_MODULE_DEBUGGING = NO;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3FV5J94G7D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Application/Info/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = StudentChrono;
 				INFOPLIST_PREPROCESS = NO;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -731,7 +1023,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0ADCCC392B65A76B008E8249 /* Debug */,
+				0AC6D1322B7CED93005C5A27 /* Beta Debug */,
 				0ADCCC3A2B65A76B008E8249 /* Release */,
+				0AC6D1362B7CED9F005C5A27 /* Beta Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -740,7 +1034,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0ADCCC3C2B65A76B008E8249 /* Debug */,
+				0AC6D1332B7CED93005C5A27 /* Beta Debug */,
 				0ADCCC3D2B65A76B008E8249 /* Release */,
+				0AC6D1372B7CED9F005C5A27 /* Beta Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -749,7 +1045,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0ADCCC3F2B65A76B008E8249 /* Debug */,
+				0AC6D1342B7CED93005C5A27 /* Beta Debug */,
 				0ADCCC402B65A76B008E8249 /* Release */,
+				0AC6D1382B7CED9F005C5A27 /* Beta Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -758,7 +1056,9 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0ADCCC422B65A76B008E8249 /* Debug */,
+				0AC6D1352B7CED93005C5A27 /* Beta Debug */,
 				0ADCCC432B65A76B008E8249 /* Release */,
+				0AC6D1392B7CED9F005C5A27 /* Beta Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -777,6 +1077,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0A05FC7A2B83A44B007F2C02 /* Tasks */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Tasks;
+		};
+		0A05FC7D2B83A70F007F2C02 /* Profile */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Profile;
+		};
+		0A05FC802B83A91D007F2C02 /* Others */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Others;
+		};
+		0A05FC862B842CB5007F2C02 /* Students */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Students;
+		};
+		0A05FC892B842D54007F2C02 /* UserToolkit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserToolkit;
+		};
 		0A3DA7D52B7118B90096F982 /* KeychainProvider */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KeychainProvider;
@@ -805,6 +1125,10 @@
 		0A4810DA2B71353B00F24E72 /* SharedDomain */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SharedDomain;
+		};
+		0A4810DD2B7A564300F24E72 /* Auth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Auth;
 		};
 		0A571B452B711F86006A3932 /* UserDefaultsProvider */ = {
 			isa = XCSwiftPackageProductDependency;

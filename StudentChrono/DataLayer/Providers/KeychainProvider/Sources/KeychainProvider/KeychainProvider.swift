@@ -10,7 +10,6 @@ public enum KeychainCoding: String, CaseIterable {
     case authToken
 }
 
-// sourcery: AutoMockable
 public protocol KeychainProvider {
     
     /// Try to read a value for the given key

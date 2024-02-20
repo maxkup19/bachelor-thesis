@@ -22,11 +22,14 @@ public struct AuthRepositoryImpl: AuthRepository {
         network = networkProvider
     }
     
-    public func login(_ data: LoginData) async throws {
+    public func login(_ payload: LoginData) async throws {
         do {
-            let data = try data.networkModel.encode()
+            let data = try payload.networkModel.encode()
+            print("1")
             let authToken = try await network.request(AuthAPI.login(data), withInterceptor: false).map(NETAuthToken.self).domainModel
+            print("2")
             try keychain.update(.authToken, value: authToken.token)
+            print("3")
             try keychain.update(.userId, value: authToken.userId)
         } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .unathorized {
             throw AuthError.login(.invalidCredentials)
@@ -35,10 +38,12 @@ public struct AuthRepositoryImpl: AuthRepository {
         }
     }
     
-    public func registration(_ data: RegistrationData) async throws {
+    public func registration(_ payload: RegistrationData) async throws {
         do {
-            let data = try data.networkModel.encode()
-            try await network.request(AuthAPI.registration(data))
+            let data = try payload.networkModel.encode()
+            let authToken = try await network.request(AuthAPI.registration(data)).map(NETAuthToken.self).domainModel
+            try keychain.update(.authToken, value: authToken.token)
+            try keychain.update(.userId, value: authToken.userId)
         } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .conflict {
             throw AuthError.registration(.userAlreadyExists)
         } catch {

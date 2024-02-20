@@ -6,6 +6,7 @@
 //
 
 @testable import SharedDomain
+import SharedDomainMocks
 import XCTest
 
 final class LoginUseCaseTests: XCTestCase {

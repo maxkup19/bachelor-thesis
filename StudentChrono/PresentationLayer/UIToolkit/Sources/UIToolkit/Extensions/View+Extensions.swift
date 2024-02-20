@@ -28,4 +28,21 @@ public extension View {
         redacted(reason: condition() ? .placeholder : [])
             .shimmering(active: condition(), duration: duration, bounce: bounce)
     }
+    
+    func placeholder<Content: View>(
+        when shouldShow: Bool,
+        alignment: Alignment = .leading,
+        @ViewBuilder placeholder: () -> Content) -> some View {
+
+        ZStack(alignment: alignment) {
+            placeholder().opacity(shouldShow ? 1 : 0)
+            self
+        }
+    }
+}
+
+public extension View {
+    func toastView(_ toastData: Binding<ToastData?>) -> some View {
+        modifier(ToastViewModifier(toastData: toastData))
+    }
 }

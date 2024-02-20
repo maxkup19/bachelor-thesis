@@ -11,22 +11,25 @@ public extension RegistrationData {
     static let stubValid = RegistrationData(
         email: "email@email.com",
         password: "password",
-        firstName: "Anonymous",
-        lastName: ""
+        name: "Anonymous",
+        lastName: "",
+        role: .student
     )
     
     static let stubEmptyEmail = RegistrationData(
         email: "",
         password: "password",
-        firstName: "Anonymous",
-        lastName: ""
+        name: "Anonymous",
+        lastName: "",
+        role: .student
     )
     
     static let stubEmptyPassword = RegistrationData(
         email: "email@email.com",
         password: "",
-        firstName: "Anonymous",
-        lastName: ""
+        name: "Anonymous",
+        lastName: "",
+        role: .student
     )
 }
 

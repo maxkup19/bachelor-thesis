@@ -9,8 +9,8 @@ import Spyable
 
 @Spyable
 public protocol AuthRepository {
-    func login(_ data: LoginData) async throws
-    func registration(_ data: RegistrationData) async throws
+    func login(_ payload: LoginData) async throws
+    func registration(_ payload: RegistrationData) async throws
     func readProfileId() throws -> String
     func logout() throws
 }

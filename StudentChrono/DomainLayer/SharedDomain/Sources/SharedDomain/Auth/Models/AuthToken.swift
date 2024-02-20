@@ -5,7 +5,7 @@
 //  Created by Maksym Kupchenko on 05.02.2024.
 //
 
-public struct AuthToken: Equatable {
+public struct AuthToken: Equatable, Codable {
     public let userId: String
     public let token: String
     

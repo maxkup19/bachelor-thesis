@@ -9,7 +9,7 @@ import SharedDomain
 
 struct NETLoginData: Encodable {
     let email: String
-    let pass: String
+    let password: String
 }
 
 // Conversion from DomainModel to NetworkModel
@@ -17,7 +17,7 @@ extension LoginData {
     var networkModel: NETLoginData {
         NETLoginData(
             email: email,
-            pass: password
+            password: password
         )
     }
 }

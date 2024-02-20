@@ -41,9 +41,6 @@ let package = Package(
                 .product(name: "KeychainProviderMocks", package: "KeychainProvider"),
                 .product(name: "NetworkProvider", package: "NetworkProvider"),
                 .product(name: "NetworkProviderMocks", package: "NetworkProvider")
-            ],
-            resources: [
-              .process("NetworkStubs")
             ]
         )
     ]

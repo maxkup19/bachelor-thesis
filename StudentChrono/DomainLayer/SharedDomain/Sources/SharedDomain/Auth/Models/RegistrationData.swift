@@ -8,18 +8,21 @@
 public struct RegistrationData: Equatable {
     public let email: String
     public let password: String
-    public let firstName: String
+    public let name: String
     public let lastName: String
+    public let role: UserRoleEnum.RawValue
     
     public init(
         email: String,
         password: String,
-        firstName: String,
-        lastName: String
+        name: String,
+        lastName: String,
+        role: UserRoleEnum
     ) {
         self.email = email
         self.password = password
-        self.firstName = firstName
+        self.name = name
         self.lastName = lastName
+        self.role = role.rawValue
     }
 }

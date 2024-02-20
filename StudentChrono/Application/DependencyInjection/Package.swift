@@ -11,6 +11,10 @@ let package = Package(
         .library(
             name: "DependencyInjection",
             targets: ["DependencyInjection"]
+        ),
+        .library(
+            name: "DependencyInjectionMocks",
+            targets: ["DependencyInjectionMocks"]
         )
     ],
     dependencies: [
@@ -18,7 +22,12 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         
         .package(url: "https://github.com/hmlongco/Factory.git", .upToNextMajor(from: "2.3.0")),
+        .package(name: "SharedDomain", path: "../../DomainLayer/SharedDomain"),
         .package(name: "Utilities", path: "../../DomainLayer/Utilities"),
+        
+        // Toolkits
+        .package(name: "AuthToolkit", path: "../../DataLayer/Toolkits/AuthToolkit"),
+        .package(name: "UserToolkit", path: "../../DataLayer/Toolkits/UserToolkit"),
         
         // Providers
         .package(name: "KeychainProvider", path: "../../DataLayer/Providers/KeychainProvider"),
@@ -32,12 +41,26 @@ let package = Package(
             name: "DependencyInjection",
             dependencies: [
                 .product(name: "Factory", package: "Factory"),
+                .product(name: "SharedDomain", package: "SharedDomain"),
                 .product(name: "Utilities", package: "Utilities"),
+                
+                // Toolkits
+                .product(name: "AuthToolkit", package: "AuthToolkit"),
+                .product(name: "UserToolkit", package: "UserToolkit"),
                 
                 // Providers
                 .product(name: "KeychainProvider", package: "KeychainProvider"),
                 .product(name: "UserDefaultsProvider", package: "UserDefaultsProvider"),
                 .product(name: "NetworkProvider", package: "NetworkProvider")
+            ]
+        ),
+        .target(
+            name: "DependencyInjectionMocks",
+            dependencies: [
+                "DependencyInjection",
+                .product(name: "Factory", package: "Factory"),
+                .product(name: "SharedDomain", package: "SharedDomain"),
+                .product(name: "SharedDomainMocks", package: "SharedDomain")
             ]
         )
     ]

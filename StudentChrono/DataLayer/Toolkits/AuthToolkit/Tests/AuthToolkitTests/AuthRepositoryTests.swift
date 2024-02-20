@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  AuthRepositoryTests.swift
 //  
 //
 //  Created by Maksym Kupchenko on 05.02.2024.
@@ -33,7 +33,7 @@ final class AuthRepositoryTests: XCTestCase {
     
     func testLoginValid() async throws {
         let repository = createRepository()
-        networkProvider.requestReturnData = NETAuthToken.stub(in: .module)
+        networkProvider.requestReturnData = try JSONEncoder().encode(AuthToken.stub)
         
         try await repository.login(.stubValid)
         
@@ -61,7 +61,7 @@ final class AuthRepositoryTests: XCTestCase {
     
     func testRegistrationValid() async throws {
         let repository = createRepository()
-        networkProvider.requestReturnData = Data()
+        networkProvider.requestReturnData = try JSONEncoder().encode(AuthToken.stub)
          
         try await repository.registration(.stubValid)
 

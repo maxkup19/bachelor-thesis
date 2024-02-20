@@ -1,7 +1,10 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "general_back" : {
+    "" : {
+
+    },
+    "Back" : {
       "extractionState" : "manual",
       "localizations" : {
         "cs" : {
@@ -19,6 +22,9 @@
       }
     },
     "Loading..." : {
+
+    },
+    "Lorem Ipsum" : {
 
     },
     "SwiftUI Shimmer" : {
