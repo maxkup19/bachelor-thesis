@@ -45,7 +45,6 @@ struct LoginView: View {
 }
 
 #Preview {
-    
     let vm = LoginViewModel(flowController: nil)
     return LoginView(viewModel: vm)
 }
