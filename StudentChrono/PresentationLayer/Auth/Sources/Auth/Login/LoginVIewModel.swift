@@ -17,7 +17,7 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
-    @Injected(\.loginUseCase) private(set) var loginUseCase
+    @Injected(\.loginUseCase) private var loginUseCase
     
     init(flowController: FlowController?) {
         super.init()
@@ -31,6 +31,7 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
     struct State {
         var email: String = ""
         var password: String = ""
+        var isShowingPassword: Bool = false
         var isLoading: Bool = false
         var toastData: ToastData?
     }
@@ -40,6 +41,7 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
     enum Intent {
         case changeEmail(String)
         case changePassword(String)
+        case showPasswordToggle
         case login
         case showRegistration
         case dismissToast
@@ -50,6 +52,7 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
             switch intent {
             case .changeEmail(let email): changeEmail(email)
             case .changePassword(let password): changePassword(password)
+            case .showPasswordToggle: showPasswordToggle()
             case .login: await login()
             case .showRegistration: showRegistration()
             case .dismissToast: dismissToast()
@@ -65,6 +68,10 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     private func changePassword(_ password: String) {
         state.password = password
+    }
+    
+    private func showPasswordToggle() {
+        state.isShowingPassword.toggle()
     }
     
     private func login() async {

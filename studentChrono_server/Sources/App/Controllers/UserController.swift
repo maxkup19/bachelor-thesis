@@ -14,10 +14,7 @@ struct UserController: RouteCollection {
         
         users.get(use: index)
         users.post("\(UserRoutes.Options.signup)" , use: create) // payload in body
-        
-        // username and password in basic authorization
-        let passwordProtected = users.grouped(User.authenticator())
-        passwordProtected.post("\(UserRoutes.Options.login)", use: login)
+        users.post("\(UserRoutes.Options.login)", use: login)
         
         // Bearer token
         let tokenProtected = users.grouped(Token.authenticator())
@@ -53,16 +50,25 @@ struct UserController: RouteCollection {
     }
     
     fileprivate func login(req: Request) async throws -> User.NewSession {
-        let loggedUser = try req.auth.require(User.self)
-        guard let user = try await getUserByEmail(loggedUser.email, req: req) else {
-            throw Abort(.badRequest, reason: "User doesn't exist")
+        let loginUserDTO = try req.content.decode(User.LoginUserDTO.self)
+        
+        let encryptedPassword = try Bcrypt.hash(loginUserDTO.password)
+        
+        guard let user = try await getUserByEmail(loginUserDTO.email, req: req),
+              try Bcrypt.verify(loginUserDTO.password, created: user.password) else {
+            throw Abort(.badRequest, reason: "Check Your login and password!")
         }
         
         if let token = try await Token.query(on: req.db)
-            .filter(\.$user.$id, .equal, loggedUser.requireID())
+            .filter(\.$user.$id, .equal, user.requireID())
             .filter(\.$expiresAt, .greaterThan, Date())
             .first() {
             return User.NewSession(token: token.value, userId: try user.requireID().uuidString)
+        } else {
+            try await Token.query(on: req.db)
+                .filter(\.$user.$id, .equal, user.requireID())
+                .filter(\.$expiresAt, .lessThan, Date())
+                .delete()
         }
         
         let token = try user.createToken(source: .login)

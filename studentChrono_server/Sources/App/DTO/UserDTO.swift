@@ -22,6 +22,11 @@ extension User {
         var lastname: String?
     }
     
+    struct LoginUserDTO: Content {
+        var email: String
+        var password: String
+    }
+    
     struct Public: Content {
         var name: String
         var lastname: String
