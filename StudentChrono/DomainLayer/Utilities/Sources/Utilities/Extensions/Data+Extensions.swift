@@ -9,16 +9,20 @@ import Foundation
 
 public extension Data {
     func map<D: Decodable>(_ type: D.Type, atKeyPath keyPath: String? = nil) throws -> D {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        
         if let keyPath {
             let toplevel = try JSONSerialization.jsonObject(with: self)
             if let nestedJson = (toplevel as AnyObject).value(forKeyPath: keyPath) {
+                
                 if JSONSerialization.isValidJSONObject(nestedJson) {
                     let nestedJsonData = try JSONSerialization.data(withJSONObject: nestedJson)
-                    return try JSONDecoder().decode(D.self, from: nestedJsonData)
+                    return try decoder.decode(D.self, from: nestedJsonData)
                 } else {
                     let wrappedJsonObject = ["value": nestedJson]
                     let nestedJsonData = try JSONSerialization.data(withJSONObject: wrappedJsonObject)
-                    return try JSONDecoder().decode(DecodableWrapper<D>.self, from: nestedJsonData).value
+                    return try decoder.decode(DecodableWrapper<D>.self, from: nestedJsonData).value
                 }
             } else {
                 throw DecodingError.dataCorrupted(.init(
@@ -27,7 +31,7 @@ public extension Data {
                 )
             }
         } else {
-            return try JSONDecoder().decode(D.self, from: self)
+            return try decoder.decode(D.self, from: self)
         }
     }
     
