@@ -78,7 +78,7 @@ extension SystemNetworkProvider: NetworkProvider {
         
         // Catch HTTP errors
         if let httpResponse = response as? HTTPURLResponse {
-            if withInterceptor, httpResponse.statusCode == NetworkStatusCode.unathorized.rawValue {
+            if withInterceptor, httpResponse.statusCode == NetworkStatusCode.unauthorised.rawValue {
                 delegate?.didReceiveHttpUnauthorized()
             }
             

@@ -18,6 +18,7 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
     private weak var flowController: FlowController?
     
     @Injected(\.loginUseCase) private var loginUseCase
+    @Injected(\.getCurrentUserRoleUseCase) private var getCurrentUserRoleUseCase
     
     init(flowController: FlowController?) {
         super.init()
@@ -81,7 +82,8 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
         do {
             let data = LoginData(email: state.email, password: state.password)
             try await loginUseCase.execute(data)
-            flowController?.handleFlow(AuthFlow.login(.login))
+            let userRole = try await getCurrentUserRoleUseCase.execute()
+            flowController?.handleFlow(AuthFlow.login(.login(userRole)))
         } catch {
             state.toastData = .init(error: error.localizedDescription)
         }

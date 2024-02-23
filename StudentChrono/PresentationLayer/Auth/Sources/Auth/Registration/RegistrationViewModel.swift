@@ -33,7 +33,7 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         var password: String = ""
         var confirmedPassword: String = ""
         var name: String = ""
-        var lastname: String = ""
+        var lastName: String = ""
         var isTeacher: Bool = false
         var isShowingPassword: Bool = false
         var isLoading: Bool = false
@@ -48,7 +48,7 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         case showPasswordToggle
         case confirmedPasswordChanged(String)
         case nameChanged(String)
-        case lastnameChanged(String)
+        case lastNameChanged(String)
         case isTeacherToggle
         case registerTap
         case showLogin
@@ -63,7 +63,7 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .showPasswordToggle: showPasswordToggle()
             case .confirmedPasswordChanged(let password): confirmedPasswordChanged(password)
             case .nameChanged(let name): nameChanged(name)
-            case .lastnameChanged(let lastname): lastnameChanged(lastname)
+            case .lastNameChanged(let lastName): lastNameChanged(lastName)
             case .isTeacherToggle: isTeacherToggle()
             case .registerTap: await registerTap()
             case .showLogin: showLogin()
@@ -94,8 +94,8 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         state.name = name
     }
     
-    private func lastnameChanged(_ lastname: String) {
-        state.lastname = lastname
+    private func lastNameChanged(_ lastName: String) {
+        state.lastName = lastName
     }
     
     private func isTeacherToggle() {
@@ -107,20 +107,21 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         defer { state.isLoading = false }
         
         guard state.password == state.confirmedPassword else {
-            state.toastData = .init("Passwords dont match")
+            state.toastData = .init("Passwords don't match")
             return
         }
         
         do {
+            let userRole: UserRoleEnum = state.isTeacher ? .teacher : .student
             let data = RegistrationData(
                 email: state.email,
                 password: state.password,
                 name: state.name,
-                lastName: state.lastname,
-                role: state.isTeacher ? .teacher : .student
+                lastName: state.lastName,
+                role: userRole
             )
             try await registrationUseCase.execute(data)
-            flowController?.handleFlow(AuthFlow.login(.login))
+            flowController?.handleFlow(AuthFlow.login(.login(userRole)))
         } catch {
             state.toastData = .init(error: error.localizedDescription)
         }

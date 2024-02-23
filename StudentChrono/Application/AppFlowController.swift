@@ -7,53 +7,52 @@
 
 import Auth
 import Factory
+import Onboarding
+import SharedDomain
 import UIKit
 import UIToolkit
 
-final class AppFlowController: FlowController, AuthFlowControllerDelegate {
+final class AppFlowController: FlowController, AuthFlowControllerDelegate, OnboardingFlowControllerDelegate {
     
     @Injected(\.isUserLoggedUseCase) private var isUserLoggedUseCase
+    @Injected(\.getCurrentUserRoleUseCase) private var getCurrentUserRoleUseCase
     
     func start() {
-        setupAppearance()
-        
-        if isUserLoggedUseCase.execute() {
-            setupMain()
+        presentOnboarding()
+    }
+    
+    func finishOnboarding(userRole: UserRoleEnum?) {
+        if let userRole {
+            setupMain(userRole: userRole)
         } else {
-            presentAuth(animated: false, completion: nil)
+            presentAuth()
         }
     }
     
-    func setupMain() {
-        let fc = MainFlowController(navigationController: navigationController)
+    func setupMain(userRole: UserRoleEnum) {
+        let fc = MainFlowController(
+            userRole: userRole,
+            navigationController: navigationController
+        )
         let rootVC = startChildFlow(fc)
         navigationController.viewControllers = [rootVC]
     }
     
-    func presentAuth(animated: Bool, completion: (() -> Void)?) {
+    private func presentOnboarding() {
+        let nc = BaseNavigationController()
+        let fc = OnboardingFlowController(navigationController: nc)
+        fc.delegate = self
+        let rootVC = startChildFlow(fc)
+        nc.navigationBar.isHidden = true
+        navigationController.setViewControllers([rootVC], animated: false)
+    }
+    
+    private func presentAuth() {
         let nc = BaseNavigationController()
         let fc = AuthFlowController(navigationController: nc)
         fc.delegate = self
         let rootVC = startChildFlow(fc)
-        nc.viewControllers = [rootVC]
-        nc.modalPresentationStyle = .fullScreen
         nc.navigationBar.isHidden = true
-        navigationController.present(nc, animated: animated, completion: completion)
-    }
-    
-    private func setupAppearance() {
-        // Navigation bar
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = UIColor(AppTheme.Colors.navBarBackground)
-        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(AppTheme.Colors.navBarTitle)]
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        UINavigationBar.appearance().tintColor = UIColor(AppTheme.Colors.navBarTitle)
-        
-        // Tab bar
-        UITabBar.appearance().tintColor = UIColor(AppTheme.Colors.primaryColor())
-        
-        // UITextField
-        UITextField.appearance().tintColor = UIColor(AppTheme.Colors.primaryColor())
+        navigationController.setViewControllers([rootVC], animated: true)
     }
 }

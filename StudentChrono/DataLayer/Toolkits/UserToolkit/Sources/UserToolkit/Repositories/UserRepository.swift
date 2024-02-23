@@ -5,7 +5,6 @@
 //  Created by Maksym Kupchenko on 20.02.2024.
 //
 
-import KeychainProvider
 import NetworkProvider
 import SharedDomain
 

@@ -31,8 +31,8 @@ struct RegistrationView: View {
                 PrimaryTextField(
                     "Lastname",
                     text: Binding(
-                        get: { viewModel.state.lastname },
-                        set: { lastname in viewModel.onIntent(.lastnameChanged(lastname)) }
+                        get: { viewModel.state.lastName },
+                        set: { lastName in viewModel.onIntent(.lastNameChanged(lastName)) }
                     )
                 )
             }

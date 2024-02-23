@@ -25,24 +25,36 @@ enum MainTab: Int {
 
 final class MainFlowController: FlowController {
     
+    private let userRole: UserRoleEnum
+    
+    public init(
+        userRole: UserRoleEnum,
+        navigationController: UINavigationController
+    ) {
+        self.userRole = userRole
+        super.init(navigationController: navigationController)
+    }
+    
     override func setup() -> UIViewController {
         let main = UITabBarController()
         setupTabBarAppearance()
-        var viewControllers = [setupTasksTab(), setupProfileTab(), setupOthersTab()]
-        #warning("Show students tab only for teacer user role")
         
-        if false {
-            viewControllers.append(setupStudentsTab())
-        }
         
-        viewControllers.sort(by: { $0.tabBarItem.tag < $1.tabBarItem.tag })
-        
-        main.viewControllers = viewControllers
+        main.viewControllers = setupViewControllers()
         return main
     }
     
     private func setupTabBarAppearance() {
         // Here you can setup Tab bar appearance
+    }
+    
+    private func setupViewControllers() -> [UINavigationController] {
+        var viewControllers = [setupTasksTab(), setupProfileTab(), setupOthersTab()]
+        if userRole == .teacher {
+            viewControllers.append(setupStudentsTab())
+        }
+        viewControllers.sort(by: { $0.tabBarItem.tag < $1.tabBarItem.tag })
+        return viewControllers
     }
     
     private func setupTasksTab() -> UINavigationController {
