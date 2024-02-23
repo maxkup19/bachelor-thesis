@@ -15,7 +15,7 @@ extension User {
             try await database.schema(schema)
                 .id()
                 .field(FieldKeys.name, .string)
-                .field(FieldKeys.lastname, .string)
+                .field(FieldKeys.lastName, .string)
                 .field(FieldKeys.email, .string, .required)
                 .field(FieldKeys.password, .string, .required)
                 .field(FieldKeys.role, .string, .required)

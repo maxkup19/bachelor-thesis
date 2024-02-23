@@ -10,7 +10,7 @@ import Fluent
 extension User {
     struct FieldKeys {
         static var name: FieldKey {"name"}
-        static var lastname: FieldKey {"lastname"}
+        static var lastName: FieldKey {"lastname"}
         static var email: FieldKey {"email"}
         static var password: FieldKey {"password"}
         static var role: FieldKey {"role"}

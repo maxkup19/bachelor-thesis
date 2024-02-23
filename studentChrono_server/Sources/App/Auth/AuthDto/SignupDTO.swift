@@ -10,7 +10,7 @@ import Vapor
 
 struct SignupDTO: Content {
     var name: String
-    var lastname: String
+    var lastName: String
     var email: String
     var password: String
     var birthDay: Date
@@ -27,10 +27,10 @@ extension SignupDTO {
     func asUserModel() throws -> User {
         User(
             name: name,
-            lastname: lastname,
+            lastName: lastName,
             email: email,
             password: try Bcrypt.hash(password),
-            birtDay: birthDay
+            birthDay: birthDay
         )
     }
 }

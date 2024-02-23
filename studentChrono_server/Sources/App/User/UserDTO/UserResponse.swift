@@ -10,9 +10,9 @@ import Vapor
 
 struct UserResponse: Content {
     var name: String
-    var lastname: String
+    var lastName: String
     var email: String
-    var birtDay: Date
+    var birthDay: Date
     var role: UserRoleEnum
 }
 
@@ -20,9 +20,9 @@ extension User {
     var asUserResponse: UserResponse {
         UserResponse(
             name: name,
-            lastname: lastname,
+            lastName: lastName,
             email: email,
-            birtDay: birthDay,
+            birthDay: birthDay,
             role: role
         )
     }
