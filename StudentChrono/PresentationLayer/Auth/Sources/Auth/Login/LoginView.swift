@@ -12,29 +12,51 @@ struct LoginView: View {
     
     @ObservedObject private var viewModel: LoginViewModel
     
+    private let formHeight: CGFloat = 140
+    
     init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: AppTheme.Dimens.spaceMedium) {
+            
+            Text("StudentChrono")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+            
+            Text("Sign in with an email to acces your tasks")
+                .font(.subheadline)
+            
             EmailAndPasswordView(
                 email: Binding(
                     get: { viewModel.state.email },
-                    set: { value in viewModel.onIntent(.changeEmail(value)) }
+                    set: { email in viewModel.onIntent(.changeEmail(email)) }
                 ),
                 password: Binding(
                     get: { viewModel.state.password },
-                    set: { value in viewModel.onIntent(.changePassword(value)) }
-                ),
-                isShowingPassword: viewModel.state.isShowingPassword,
-                onShowPasswordAction: { viewModel.onIntent(.showPasswordToggle) }
+                    set: { password in viewModel.onIntent(.changePassword(password)) }
+                )
             )
+            .frame(height: formHeight)
             
-            Button("Login") {
-                viewModel.onIntent(.login)
+            Button("Don't have an Account?") {
+                viewModel.onIntent(.showRegistration)
             }
+            
+            Spacer()
+            
+            Button {
+                viewModel.onIntent(.login)
+            } label: {
+                Text("Login")
+                    .bold()
+                    .padding(AppTheme.Dimens.spaceSmall)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
         }
+        .padding(AppTheme.Dimens.spaceLarge)
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .toastView(Binding<ToastData?>(
@@ -44,7 +66,15 @@ struct LoginView: View {
     }
 }
 
+#if DEBUG
+import DependencyInjectionMocks
+import Factory
+
 #Preview {
+    Container.shared.registerUseCaseMocks()
+    
     let vm = LoginViewModel(flowController: nil)
     return LoginView(viewModel: vm)
 }
+
+#endif

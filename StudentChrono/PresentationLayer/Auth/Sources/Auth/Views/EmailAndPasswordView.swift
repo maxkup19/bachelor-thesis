@@ -16,8 +16,6 @@ struct EmailAndPasswordView: View, KeyboardReadable {
     
     @Binding private var email: String
     @Binding private var password: String
-    private let isShowingPassword: Bool
-    private let onShowPasswordAction: () -> Void
     
     @FocusState private var focusedField: Field?
     
@@ -26,22 +24,19 @@ struct EmailAndPasswordView: View, KeyboardReadable {
     
     init(
         email: Binding<String>,
-        password: Binding<String>,
-        isShowingPassword: Bool,
-        onShowPasswordAction: @escaping () -> Void = {}
+        password: Binding<String>
     ) {
         self._email = email
         self._password = password
-        self.isShowingPassword = isShowingPassword
-        self.onShowPasswordAction = onShowPasswordAction
     }
     
     var body: some View {
-        VStack(spacing: AppTheme.Dimens.spaceLarge) {
-            PrimaryTextField(
-                "EMAIL",
-                isFocused: focusedField == .email,
-                text: $email
+        Form {
+            
+            TextField(
+                "Email",
+                text: $email,
+                prompt: Text("Email")
             )
             .focused($focusedField, equals: .email)
             .submitLabel(.next)
@@ -51,31 +46,18 @@ struct EmailAndPasswordView: View, KeyboardReadable {
                 focusedField = .password
             }
             
-            SecureTextField(
+            SecureField(
                 "Password",
-                showingPassword: isShowingPassword,
-                text: $password
+                text: $password,
+                prompt: Text("Password")
             )
             .focused($focusedField, equals: .password)
+            .autocorrectionDisabled()
             .submitLabel(.done)
             .textContentType(.password)
             .onSubmit {
                 focusedField = nil
             }
-            .textFieldStyle(
-                PrimaryTextFieldStyle(
-                    type: .secure(
-                        isShowingPassword: isShowingPassword,
-                        showPasswordAction: {
-                            if isKeyboardVisible {
-                                shouldKeyboardOpen = true
-                            }
-                            onShowPasswordAction()
-                        }
-                    ),
-                    isFocused: focusedField == .password
-                )
-            )
             .onReceive(keyboardPublisher) { newIsKeyboardVisible in
                 if shouldKeyboardOpen {
                     focusedField = .password
@@ -84,15 +66,14 @@ struct EmailAndPasswordView: View, KeyboardReadable {
                 isKeyboardVisible = newIsKeyboardVisible
             }
         }
-        .autocorrectionDisabled(true)
-        .padding(.top, AppTheme.Dimens.spaceXLarge)
+        .autocorrectionDisabled()
     }
 }
 
 #if DEBUG
 struct EmailAndPasswordView_Previews: PreviewProvider {
     static var previews: some View {
-        EmailAndPasswordView(email: .constant(""), password: .constant("bhjh"), isShowingPassword: true)
+        EmailAndPasswordView(email: .constant(""), password: .constant("bhjh"))
     }
 }
 #endif

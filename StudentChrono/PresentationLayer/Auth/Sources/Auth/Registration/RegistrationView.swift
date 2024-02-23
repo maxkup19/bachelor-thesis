@@ -19,44 +19,44 @@ struct RegistrationView: View {
     var body: some View {
         VStack {
             
-            HStack {
-                PrimaryTextField(
-                    "Name",
-                    text: Binding(
-                        get: { viewModel.state.name },
-                        set: { name in viewModel.onIntent(.nameChanged(name)) }
-                    )
-                )
-                
-                PrimaryTextField(
-                    "Lastname",
-                    text: Binding(
-                        get: { viewModel.state.lastName },
-                        set: { lastName in viewModel.onIntent(.lastNameChanged(lastName)) }
-                    )
-                )
-            }
-            
-            EmailAndPasswordView(
-                email: Binding(
-                    get: { viewModel.state.email },
-                    set: { value in viewModel.onIntent(.emailChanged(value)) }
-                ),
-                password: Binding(
-                    get: { viewModel.state.password },
-                    set: { value in viewModel.onIntent(.passwordChanged(value)) }
-                ),
-                isShowingPassword: viewModel.state.isShowingPassword,
-                onShowPasswordAction: { viewModel.onIntent(.showPasswordToggle) }
-            )
-            
-            PrimaryTextField(
-                "Confirm Password",
-                text: Binding(
-                    get: { viewModel.state.confirmedPassword },
-                    set: { confirmedPassword in viewModel.onIntent(.confirmedPasswordChanged(confirmedPassword)) }
-                )
-            )
+//            HStack {
+//                PrimaryTextField(
+//                    "Name",
+//                    text: Binding(
+//                        get: { viewModel.state.name },
+//                        set: { name in viewModel.onIntent(.nameChanged(name)) }
+//                    )
+//                )
+//                
+//                PrimaryTextField(
+//                    "Lastname",
+//                    text: Binding(
+//                        get: { viewModel.state.lastName },
+//                        set: { lastName in viewModel.onIntent(.lastNameChanged(lastName)) }
+//                    )
+//                )
+//            }
+//            
+//            EmailAndPasswordView(
+//                email: Binding(
+//                    get: { viewModel.state.email },
+//                    set: { value in viewModel.onIntent(.emailChanged(value)) }
+//                ),
+//                password: Binding(
+//                    get: { viewModel.state.password },
+//                    set: { value in viewModel.onIntent(.passwordChanged(value)) }
+//                ),
+//                isShowingPassword: viewModel.state.isShowingPassword,
+//                onShowPasswordAction: { viewModel.onIntent(.showPasswordToggle) }
+//            )
+//            
+//            PrimaryTextField(
+//                "Confirm Password",
+//                text: Binding(
+//                    get: { viewModel.state.confirmedPassword },
+//                    set: { confirmedPassword in viewModel.onIntent(.confirmedPasswordChanged(confirmedPassword)) }
+//                )
+//            )
             
             
             Button("Register") {

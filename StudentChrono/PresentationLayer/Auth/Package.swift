@@ -29,6 +29,7 @@ let package = Package(
                 .product(name: "Utilities", package: "Utilities"),
                 .product(name: "SharedDomain", package: "SharedDomain"),
                 .product(name: "DependencyInjection", package: "DependencyInjection"),
+                .product(name: "DependencyInjectionMocks", package: "DependencyInjection"),
                 .product(name: "Factory", package: "Factory")
             ]
         )
