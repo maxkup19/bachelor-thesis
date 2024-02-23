@@ -12,36 +12,46 @@ struct LoginView: View {
     
     @ObservedObject private var viewModel: LoginViewModel
     
-    private let formHeight: CGFloat = 140
+    private let formHeight: CGFloat = 130
+    private let iconSize: CGFloat = 100
     
     init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        VStack(spacing: AppTheme.Dimens.spaceMedium) {
+        VStack(spacing: AppTheme.Dimens.spaceXLarge) {
             
-            Text("StudentChrono")
-                .font(.largeTitle)
-                .fontWeight(.bold)
+            VStack(spacing: AppTheme.Dimens.spaceMedium) {
+                Text("StudentChrono")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                
+                Text("Sign in with an email to acces your tasks")
+                    .font(.subheadline)
+            }
             
-            Text("Sign in with an email to acces your tasks")
-                .font(.subheadline)
+            AppTheme.Images.appIcon
+                .resizable()
+                .scaledToFit()
+                .frame(width: iconSize, height: iconSize)
             
-            EmailAndPasswordView(
-                email: Binding(
-                    get: { viewModel.state.email },
-                    set: { email in viewModel.onIntent(.changeEmail(email)) }
-                ),
-                password: Binding(
-                    get: { viewModel.state.password },
-                    set: { password in viewModel.onIntent(.changePassword(password)) }
+            VStack(spacing: .zero) {
+                EmailAndPasswordView(
+                    email: Binding(
+                        get: { viewModel.state.email },
+                        set: { email in viewModel.onIntent(.changeEmail(email)) }
+                    ),
+                    password: Binding(
+                        get: { viewModel.state.password },
+                        set: { password in viewModel.onIntent(.changePassword(password)) }
+                    )
                 )
-            )
-            .frame(height: formHeight)
-            
-            Button("Don't have an Account?") {
-                viewModel.onIntent(.showRegistration)
+                .frame(height: formHeight)
+                
+                Button("Don't have an Account?") {
+                    viewModel.onIntent(.showRegistration)
+                }
             }
             
             Spacer()
