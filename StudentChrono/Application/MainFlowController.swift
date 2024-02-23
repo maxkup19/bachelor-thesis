@@ -23,9 +23,14 @@ enum MainTab: Int {
     case others
 }
 
-final class MainFlowController: FlowController {
+protocol MainFlowControllerDelegate: AnyObject {
+    func presentAuth(animated: Bool, completion: (() -> Void)?)
+}
+
+final class MainFlowController: FlowController, OthersFlowControllerDelegate {
     
     private let userRole: UserRoleEnum
+    weak var delegate: MainFlowControllerDelegate?
     
     public init(
         userRole: UserRoleEnum,
@@ -39,9 +44,15 @@ final class MainFlowController: FlowController {
         let main = UITabBarController()
         setupTabBarAppearance()
         
-        
         main.viewControllers = setupViewControllers()
         return main
+    }
+    
+    func logout() {
+        delegate?.presentAuth(animated: true, completion: { [weak self] in
+            self?.navigationController.viewControllers = []
+            self?.stopFlow()
+        })
     }
     
     private func setupTabBarAppearance() {
@@ -91,6 +102,7 @@ final class MainFlowController: FlowController {
             tag: MainTab.others.rawValue
         )
         let othersFC = OthersFlowController(navigationController: othersNC)
+        othersFC.delegate = self
         let othersRootVC = startChildFlow(othersFC)
         othersNC.viewControllers = [othersRootVC]
         return othersNC

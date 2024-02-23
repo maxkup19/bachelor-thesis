@@ -9,7 +9,7 @@ import Spyable
 
 @Spyable
 public protocol LogoutUseCase {
-    func execute() async throws
+    func execute() throws
 }
 
 public struct LogoutUseCaseImpl: LogoutUseCase {
@@ -20,7 +20,7 @@ public struct LogoutUseCaseImpl: LogoutUseCase {
         self.authRepository = authRepository
     }
     
-    public func execute() async throws {
+    public func execute() throws {
         try authRepository.logout()
     }
 }

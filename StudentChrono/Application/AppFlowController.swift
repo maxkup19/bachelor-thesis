@@ -8,14 +8,12 @@
 import Auth
 import Factory
 import Onboarding
+import Others
 import SharedDomain
 import UIKit
 import UIToolkit
 
-final class AppFlowController: FlowController, AuthFlowControllerDelegate, OnboardingFlowControllerDelegate {
-    
-    @Injected(\.isUserLoggedUseCase) private var isUserLoggedUseCase
-    @Injected(\.getCurrentUserRoleUseCase) private var getCurrentUserRoleUseCase
+final class AppFlowController: FlowController, MainFlowControllerDelegate, AuthFlowControllerDelegate, OnboardingFlowControllerDelegate {
     
     func start() {
         presentOnboarding()
@@ -25,7 +23,7 @@ final class AppFlowController: FlowController, AuthFlowControllerDelegate, Onboa
         if let userRole {
             setupMain(userRole: userRole)
         } else {
-            presentAuth()
+            presentAuth(animated: false, completion: nil)
         }
     }
     
@@ -34,8 +32,20 @@ final class AppFlowController: FlowController, AuthFlowControllerDelegate, Onboa
             userRole: userRole,
             navigationController: navigationController
         )
+        fc.delegate = self
         let rootVC = startChildFlow(fc)
         navigationController.viewControllers = [rootVC]
+    }
+    
+    func presentAuth(animated: Bool, completion: (() -> Void)?) {
+        let nc = BaseNavigationController()
+        let fc = AuthFlowController(navigationController: nc)
+        fc.delegate = self
+        let rootVC = startChildFlow(fc)
+        nc.viewControllers = [rootVC]
+        nc.modalPresentationStyle = .fullScreen
+        nc.navigationBar.isHidden = true
+        navigationController.present(nc, animated: animated, completion: completion)
     }
     
     private func presentOnboarding() {
@@ -45,14 +55,5 @@ final class AppFlowController: FlowController, AuthFlowControllerDelegate, Onboa
         let rootVC = startChildFlow(fc)
         nc.navigationBar.isHidden = true
         navigationController.setViewControllers([rootVC], animated: false)
-    }
-    
-    private func presentAuth() {
-        let nc = BaseNavigationController()
-        let fc = AuthFlowController(navigationController: nc)
-        fc.delegate = self
-        let rootVC = startChildFlow(fc)
-        nc.navigationBar.isHidden = true
-        navigationController.setViewControllers([rootVC], animated: true)
     }
 }
