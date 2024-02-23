@@ -13,7 +13,7 @@ public extension RegistrationData {
         password: "password",
         name: "Anonymous",
         lastName: "",
-        role: .student
+        birthDay: .distantPast
     )
     
     static let stubEmptyEmail = RegistrationData(
@@ -21,7 +21,7 @@ public extension RegistrationData {
         password: "password",
         name: "Anonymous",
         lastName: "",
-        role: .student
+        birthDay: .distantPast
     )
     
     static let stubEmptyPassword = RegistrationData(
@@ -29,7 +29,7 @@ public extension RegistrationData {
         password: "",
         name: "Anonymous",
         lastName: "",
-        role: .student
+        birthDay: .distantPast
     )
 }
 

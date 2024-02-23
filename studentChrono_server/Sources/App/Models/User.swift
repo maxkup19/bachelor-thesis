@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 25.01.2024.
 //
 
+import Foundation
 import Fluent
 import Vapor
 
@@ -30,6 +31,9 @@ final class User: Model {
     @Field(key: FieldKeys.role)
     var role: UserRoleEnum
     
+    @Field(key: FieldKeys.birthDay)
+    var birthDay: Date
+    
     @Timestamp(key: FieldKeys.createdAt, on: .create)
     var createdAt: Date?
     
@@ -43,13 +47,13 @@ final class User: Model {
         lastname: String,
         email: String,
         password: String,
-        role: UserRoleEnum
+        birtDay: Date
     ) {
         self.name = name
         self.lastname = lastname
         self.email = email
         self.password = password
-        self.role = role
+        self.birthDay = birtDay
     }
     
     init(

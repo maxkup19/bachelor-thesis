@@ -47,6 +47,7 @@ struct LoginView: View {
                         set: { password in viewModel.onIntent(.changePassword(password)) }
                     )
                 )
+                .scrollContentBackground(.hidden)
                 .frame(height: formHeight)
                 
                 Button("Don't have an Account?") {
@@ -65,14 +66,15 @@ struct LoginView: View {
                     .frame(maxWidth: .infinity)
             }
             .buttonStyle(.borderedProminent)
+            .disabled(viewModel.state.buttonDisabled)
         }
         .padding(AppTheme.Dimens.spaceLarge)
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
-        .toastView(Binding<ToastData?>(
-            get: { viewModel.state.toastData },
-            set: { _ in viewModel.onIntent(.dismissToast) }
-        ))
+        .alert(item: Binding<AlertData?>(
+            get: { viewModel.state.alertData },
+            set: { _ in viewModel.onIntent(.dismissAlert) }
+        )) { alert in .init(alert) }
     }
 }
 
@@ -84,7 +86,9 @@ import Factory
     Container.shared.registerUseCaseMocks()
     
     let vm = LoginViewModel(flowController: nil)
-    return LoginView(viewModel: vm)
+    return NavigationStack {
+        LoginView(viewModel: vm)
+    }
 }
 
 #endif

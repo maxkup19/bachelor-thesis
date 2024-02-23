@@ -49,11 +49,10 @@ final class AppFlowController: FlowController, MainFlowControllerDelegate, AuthF
     }
     
     private func presentOnboarding() {
-        let nc = BaseNavigationController()
-        let fc = OnboardingFlowController(navigationController: nc)
+        let fc = OnboardingFlowController(navigationController: navigationController)
         fc.delegate = self
         let rootVC = startChildFlow(fc)
-        nc.navigationBar.isHidden = true
-        navigationController.setViewControllers([rootVC], animated: false)
+        navigationController.navigationBar.isHidden = true
+        navigationController.setViewControllers([rootVC], animated: true)
     }
 }

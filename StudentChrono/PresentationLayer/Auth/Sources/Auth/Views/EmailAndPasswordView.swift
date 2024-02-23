@@ -32,7 +32,6 @@ struct EmailAndPasswordView: View, KeyboardReadable {
     
     var body: some View {
         Form {
-            
             TextField(
                 "Email",
                 text: $email,
@@ -66,6 +65,7 @@ struct EmailAndPasswordView: View, KeyboardReadable {
                 isKeyboardVisible = newIsKeyboardVisible
             }
         }
+        .textInputAutocapitalization(.never)
         .autocorrectionDisabled()
     }
 }

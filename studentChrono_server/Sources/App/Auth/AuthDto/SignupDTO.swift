@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 20.02.2024.
 //
 
+import Foundation
 import Vapor
 
 struct SignupDTO: Content {
@@ -12,7 +13,7 @@ struct SignupDTO: Content {
     var lastname: String
     var email: String
     var password: String
-    var role: UserRoleEnum
+    var birthDay: Date
 }
 
 extension SignupDTO: Validatable {
@@ -29,7 +30,7 @@ extension SignupDTO {
             lastname: lastname,
             email: email,
             password: try Bcrypt.hash(password),
-            role: role
+            birtDay: birthDay
         )
     }
 }

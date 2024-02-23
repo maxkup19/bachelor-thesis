@@ -34,10 +34,15 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         var confirmedPassword: String = ""
         var name: String = ""
         var lastName: String = ""
+        var birthDay: Date = .now
         var isTeacher: Bool = false
-        var isShowingPassword: Bool = false
         var isLoading: Bool = false
-        var toastData: ToastData?
+        var alertData: AlertData?
+        
+        var buttonDisabled: Bool {
+            email.isEmpty || password.isEmpty ||
+            confirmedPassword.isEmpty || name.isEmpty || lastName.isEmpty
+        }
     }
     
     // MARK: - Intent
@@ -45,14 +50,14 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
     enum Intent {
         case emailChanged(String)
         case passwordChanged(String)
-        case showPasswordToggle
         case confirmedPasswordChanged(String)
         case nameChanged(String)
         case lastNameChanged(String)
+        case birthDayChanged(Date)
         case isTeacherToggle
         case registerTap
         case showLogin
-        case dismissToast
+        case dismissAlert
     }
     
     func onIntent(_ intent: Intent) {
@@ -60,14 +65,14 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
             switch intent {
             case .emailChanged(let email): emailChanged(email)
             case .passwordChanged(let password): passwordChanged(password)
-            case .showPasswordToggle: showPasswordToggle()
             case .confirmedPasswordChanged(let password): confirmedPasswordChanged(password)
             case .nameChanged(let name): nameChanged(name)
             case .lastNameChanged(let lastName): lastNameChanged(lastName)
+            case .birthDayChanged(let date): birthDayChanged(date)
             case .isTeacherToggle: isTeacherToggle()
             case .registerTap: await registerTap()
             case .showLogin: showLogin()
-            case .dismissToast: dismissToast()
+            case .dismissAlert: dismissAlert()
             }
         })
     }
@@ -82,10 +87,6 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         state.password = password
     }
     
-    private func showPasswordToggle() {
-        state.isShowingPassword.toggle()
-    }
-    
     private func confirmedPasswordChanged(_ password: String) {
         state.confirmedPassword = password
     }
@@ -98,6 +99,10 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         state.lastName = lastName
     }
     
+    private func birthDayChanged(_ birthDay: Date) {
+        state.birthDay = birthDay
+    }
+    
     private func isTeacherToggle() {
         state.isTeacher.toggle()
     }
@@ -107,7 +112,7 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         defer { state.isLoading = false }
         
         guard state.password == state.confirmedPassword else {
-            state.toastData = .init("Passwords don't match")
+            state.alertData = .init(title: "Passwords don't match")
             return
         }
         
@@ -118,12 +123,12 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
                 password: state.password,
                 name: state.name,
                 lastName: state.lastName,
-                role: userRole
+                birthDay: state.birthDay
             )
             try await registrationUseCase.execute(data)
             flowController?.handleFlow(AuthFlow.login(.login(userRole)))
         } catch {
-            state.toastData = .init(error: error.localizedDescription)
+            state.alertData = .init(title: error.localizedDescription)
         }
         
     }
@@ -132,8 +137,8 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         flowController?.handleFlow(AuthFlow.auth(.showLogin))
     }
     
-    private func dismissToast() {
-        state.toastData = nil
+    private func dismissAlert() {
+        state.alertData = nil
     }
     
 }

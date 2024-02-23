@@ -43,7 +43,12 @@ public final class OnboardingFlowController: FlowController {
 extension OnboardingFlowController {
     func handleOnboardingFlow(_ flow: OnboardingFlow.Onboarding) {
         switch flow {
-        case .finishOnboarding(let userRole): delegate?.finishOnboarding(userRole: userRole)
+        case .finishOnboarding(let userRole): finishOnboarding(userRole: userRole)
         }
+    }
+    
+    private func finishOnboarding(userRole: UserRoleEnum?) {
+        delegate?.finishOnboarding(userRole: userRole)
+        self.stopFlow()
     }
 }
