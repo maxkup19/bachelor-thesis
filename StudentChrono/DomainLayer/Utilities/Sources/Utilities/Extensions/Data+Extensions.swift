@@ -1,6 +1,6 @@
 //
-//  Data+Extesnions.swift
-//  
+//  Data+Extensions.swift
+//
 //
 //  Created by Maksym Kupchenko on 05.02.2024.
 //
