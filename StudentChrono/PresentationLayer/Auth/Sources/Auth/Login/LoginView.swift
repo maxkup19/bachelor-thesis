@@ -12,39 +12,83 @@ struct LoginView: View {
     
     @ObservedObject private var viewModel: LoginViewModel
     
+    private let formHeight: CGFloat = 130
+    private let iconSize: CGFloat = 100
+    
     init(viewModel: LoginViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        VStack {
-            EmailAndPasswordView(
-                email: Binding(
-                    get: { viewModel.state.email },
-                    set: { value in viewModel.onIntent(.changeEmail(value)) }
-                ),
-                password: Binding(
-                    get: { viewModel.state.password },
-                    set: { value in viewModel.onIntent(.changePassword(value)) }
-                ),
-                isShowingPassword: viewModel.state.isShowingPassword,
-                onShowPasswordAction: { viewModel.onIntent(.showPasswordToggle) }
-            )
+        VStack(spacing: AppTheme.Dimens.spaceXLarge) {
             
-            Button("Login") {
-                viewModel.onIntent(.login)
+            VStack(spacing: AppTheme.Dimens.spaceMedium) {
+                Text("StudentChrono")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                
+                Text("Sign in with an email to acces your tasks")
+                    .font(.subheadline)
             }
+            
+            AppTheme.Images.appIcon
+                .resizable()
+                .scaledToFit()
+                .frame(width: iconSize, height: iconSize)
+            
+            VStack(spacing: .zero) {
+                EmailAndPasswordView(
+                    email: Binding(
+                        get: { viewModel.state.email },
+                        set: { email in viewModel.onIntent(.changeEmail(email)) }
+                    ),
+                    password: Binding(
+                        get: { viewModel.state.password },
+                        set: { password in viewModel.onIntent(.changePassword(password)) }
+                    )
+                )
+                .scrollContentBackground(.hidden)
+                .frame(height: formHeight)
+                
+                Button("Don't have an Account?") {
+                    viewModel.onIntent(.showRegistration)
+                }
+            }
+            
+            Spacer()
+            
+            Button {
+                viewModel.onIntent(.login)
+            } label: {
+                Text("Login")
+                    .bold()
+                    .padding(AppTheme.Dimens.spaceSmall)
+                    .frame(maxWidth: .infinity)
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(viewModel.state.buttonDisabled)
         }
+        .padding(AppTheme.Dimens.spaceLarge)
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
-        .toastView(Binding<ToastData?>(
-            get: { viewModel.state.toastData },
-            set: { _ in viewModel.onIntent(.dismissToast) }
-        ))
+        .alert(item: Binding<AlertData?>(
+            get: { viewModel.state.alertData },
+            set: { _ in viewModel.onIntent(.dismissAlert) }
+        )) { alert in .init(alert) }
     }
 }
 
+#if DEBUG
+import DependencyInjectionMocks
+import Factory
+
 #Preview {
+    Container.shared.registerUseCaseMocks()
+    
     let vm = LoginViewModel(flowController: nil)
-    return LoginView(viewModel: vm)
+    return NavigationStack {
+        LoginView(viewModel: vm)
+    }
 }
+
+#endif

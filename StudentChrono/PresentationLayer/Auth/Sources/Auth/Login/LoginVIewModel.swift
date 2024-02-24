@@ -18,6 +18,7 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
     private weak var flowController: FlowController?
     
     @Injected(\.loginUseCase) private var loginUseCase
+    @Injected(\.getCurrentUserRoleUseCase) private var getCurrentUserRoleUseCase
     
     init(flowController: FlowController?) {
         super.init()
@@ -33,7 +34,11 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
         var password: String = ""
         var isShowingPassword: Bool = false
         var isLoading: Bool = false
-        var toastData: ToastData?
+        var alertData: AlertData?
+        
+        var buttonDisabled: Bool {
+            email.isEmpty || password.isEmpty
+        }
     }
     
     // MARK: - Intent
@@ -41,10 +46,9 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
     enum Intent {
         case changeEmail(String)
         case changePassword(String)
-        case showPasswordToggle
         case login
         case showRegistration
-        case dismissToast
+        case dismissAlert
     }
     
     func onIntent(_ intent: Intent) {
@@ -52,10 +56,9 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
             switch intent {
             case .changeEmail(let email): changeEmail(email)
             case .changePassword(let password): changePassword(password)
-            case .showPasswordToggle: showPasswordToggle()
             case .login: await login()
             case .showRegistration: showRegistration()
-            case .dismissToast: dismissToast()
+            case .dismissAlert: dismissAlert()
             }
         })
     }
@@ -70,10 +73,6 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
         state.password = password
     }
     
-    private func showPasswordToggle() {
-        state.isShowingPassword.toggle()
-    }
-    
     private func login() async {
         state.isLoading = true
         defer { state.isLoading = false }
@@ -81,9 +80,11 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
         do {
             let data = LoginData(email: state.email, password: state.password)
             try await loginUseCase.execute(data)
-            flowController?.handleFlow(AuthFlow.login(.login))
+            let userRole = try await getCurrentUserRoleUseCase.execute()
+            flowController?.handleFlow(AuthFlow.login(.login(userRole)))
         } catch {
-            state.toastData = .init(error: error.localizedDescription)
+            print("DEBUG: \(String(describing: error))")
+            state.alertData = .init(title: error.localizedDescription)
         }
     }
     
@@ -91,7 +92,7 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
         flowController?.handleFlow(AuthFlow.auth(.showRegistration))
     }
     
-    private func dismissToast() {
-        state.toastData = nil
+    private func dismissAlert() {
+        state.alertData = nil
     }
 }

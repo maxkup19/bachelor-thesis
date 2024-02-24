@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 19.02.2024.
 //
 
+import SharedDomain
 import SwiftUI
 import UIKit
 import UIToolkit
@@ -17,7 +18,13 @@ enum OthersFlow: Flow, Equatable {
     }
 }
 
+public protocol OthersFlowControllerDelegate: AnyObject {
+    func logout()
+}
+
 public final class OthersFlowController: FlowController {
+    
+    public weak var delegate: OthersFlowControllerDelegate?
     
     override public func setup() -> UIViewController {
         let vm = OthersViewModel(flowController: self)
@@ -37,11 +44,7 @@ public final class OthersFlowController: FlowController {
 extension OthersFlowController {
     func handleFlow(_ flow: OthersFlow.Others) {
         switch flow {
-        case .logout: logout()
+        case .logout: delegate?.logout()
         }
-    }
-    
-    private func logout() {
-        
     }
 }

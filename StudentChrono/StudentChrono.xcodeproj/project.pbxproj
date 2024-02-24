@@ -12,6 +12,7 @@
 		0A05FC812B83A91D007F2C02 /* Others in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC802B83A91D007F2C02 /* Others */; };
 		0A05FC872B842CB5007F2C02 /* Students in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC862B842CB5007F2C02 /* Students */; };
 		0A05FC8A2B842D54007F2C02 /* UserToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A05FC892B842D54007F2C02 /* UserToolkit */; };
+		0A0BCDF22B880E7B0033877C /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A0BCDF12B880E7B0033877C /* AppIcon.xcassets */; };
 		0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7D52B7118B90096F982 /* KeychainProvider */; };
 		0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7DA2B7119EE0096F982 /* Utilities */; };
 		0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D422B65BE6C00B8914C /* UIToolkit */; };
@@ -31,6 +32,7 @@
 		0ADCCC5E2B65B197008E8249 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC5D2B65B197008E8249 /* AppDelegate.swift */; };
 		0ADCCC602B65B1F4008E8249 /* AppFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC5F2B65B1F4008E8249 /* AppFlowController.swift */; };
 		0ADCCC652B65B21E008E8249 /* MainFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC642B65B21E008E8249 /* MainFlowController.swift */; };
+		0AFD1DFB2B88085F00E36197 /* Onboarding in Frameworks */ = {isa = PBXBuildFile; productRef = 0AFD1DFA2B88085F00E36197 /* Onboarding */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,7 @@
 		0A05FC822B84197F007F2C02 /* Students */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Students; sourceTree = "<group>"; };
 		0A05FC832B841E74007F2C02 /* UserToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UserToolkit; sourceTree = "<group>"; };
 		0A0833CC2B710A0800F29FB8 /* KeychainProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KeychainProvider; path = DataLayer/Providers/KeychainProvider; sourceTree = SOURCE_ROOT; };
+		0A0BCDF12B880E7B0033877C /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		0A3DA7D72B7119130096F982 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
 		0A4810D52B712E1100F24E72 /* SharedDomain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SharedDomain; sourceTree = "<group>"; };
 		0A4810DC2B7A1FA300F24E72 /* Auth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Auth; sourceTree = "<group>"; };
@@ -81,6 +84,7 @@
 		0ADCCC5F2B65B1F4008E8249 /* AppFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowController.swift; sourceTree = "<group>"; };
 		0ADCCC642B65B21E008E8249 /* MainFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowController.swift; sourceTree = "<group>"; };
 		0ADCCC6E2B65B2FD008E8249 /* UIToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UIToolkit; sourceTree = "<group>"; };
+		0AFD1DF92B88068300E36197 /* Onboarding */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Onboarding; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +105,7 @@
 				0A4810D92B71353700F24E72 /* NetworkProvider in Frameworks */,
 				0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */,
 				0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */,
+				0AFD1DFB2B88085F00E36197 /* Onboarding in Frameworks */,
 				0A4810DE2B7A564300F24E72 /* Auth in Frameworks */,
 				0A3DA7D62B7118B90096F982 /* KeychainProvider in Frameworks */,
 			);
@@ -142,6 +147,14 @@
 			path = Toolkits;
 			sourceTree = "<group>";
 		};
+		0A0BCDF02B880E1E0033877C /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		0A420D3D2B65B8D700B8914C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +173,7 @@
 				0ADCCC342B65A76B008E8249 /* StudentChronoUITests */,
 				0ADCCC162B65A76A008E8249 /* Products */,
 				0A420D3D2B65B8D700B8914C /* Frameworks */,
+				0A0BCDF02B880E1E0033877C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -195,8 +209,8 @@
 			children = (
 				0A571B442B711CE4006A3932 /* DependencyInjection */,
 				0ADCCC4D2B65A8E3008E8249 /* Info */,
-				0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */,
 				0ADCCC5A2B65A99F008E8249 /* LaunchScreen.storyboard */,
+				0A0BCDF12B880E7B0033877C /* AppIcon.xcassets */,
 				0ADCCC5D2B65B197008E8249 /* AppDelegate.swift */,
 				0ADCCC5F2B65B1F4008E8249 /* AppFlowController.swift */,
 				0ADCCC642B65B21E008E8249 /* MainFlowController.swift */,
@@ -207,6 +221,7 @@
 		0ADCCC452B65A7A3008E8249 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				0AFD1DF92B88068300E36197 /* Onboarding */,
 				0A4810DC2B7A1FA300F24E72 /* Auth */,
 				0A05FC7F2B83A768007F2C02 /* Others */,
 				0A05FC7C2B83A4E2007F2C02 /* Profile */,
@@ -277,6 +292,7 @@
 				0A05FC802B83A91D007F2C02 /* Others */,
 				0A05FC862B842CB5007F2C02 /* Students */,
 				0A05FC892B842D54007F2C02 /* UserToolkit */,
+				0AFD1DFA2B88085F00E36197 /* Onboarding */,
 			);
 			productName = StudentChrono;
 			productReference = 0ADCCC152B65A76A008E8249 /* StudentChrono.app */;
@@ -373,6 +389,7 @@
 			files = (
 				0ADCCC562B65A8E3008E8249 /* InfoPlist.strings in Resources */,
 				0ADCCC5B2B65A99F008E8249 /* LaunchScreen.storyboard in Resources */,
+				0A0BCDF22B880E7B0033877C /* AppIcon.xcassets in Resources */,
 				0ADCCC4C2B65A88A008E8249 /* AppIcon.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1137,6 +1154,10 @@
 		0A571B472B711FC3006A3932 /* DependencyInjection */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DependencyInjection;
+		};
+		0AFD1DFA2B88085F00E36197 /* Onboarding */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Onboarding;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

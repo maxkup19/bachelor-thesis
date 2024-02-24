@@ -17,62 +17,71 @@ struct RegistrationView: View {
     }
     
     var body: some View {
-        VStack {
-            
-            HStack {
-                PrimaryTextField(
-                    "Name",
-                    text: Binding(
+        NavigationStack {
+            VStack(spacing: AppTheme.Dimens.spaceMedium) {
+                
+                RegistrationInputView(
+                    name: Binding(
                         get: { viewModel.state.name },
                         set: { name in viewModel.onIntent(.nameChanged(name)) }
+                    ),
+                    lastName: Binding(
+                        get: { viewModel.state.lastName },
+                        set: { lastName in viewModel.onIntent(.lastNameChanged(lastName)) }
+                    ),
+                    email: Binding(
+                        get: { viewModel.state.email },
+                        set: { email in viewModel.onIntent(.emailChanged(email)) }
+                    ),
+                    dateOfBirth: Binding(
+                        get: { viewModel.state.birthDay },
+                        set: { date in viewModel.onIntent(.birthDayChanged(date)) }
+                    ),
+                    password: Binding(
+                        get: { viewModel.state.password },
+                        set: { password in viewModel.onIntent(.passwordChanged(password)) }
+                    ),
+                    confirmedPassword: Binding(
+                        get: { viewModel.state.confirmedPassword },
+                        set: { confirmedPassword in viewModel.onIntent(.confirmedPasswordChanged(confirmedPassword)) }
                     )
                 )
                 
-                PrimaryTextField(
-                    "Lastname",
-                    text: Binding(
-                        get: { viewModel.state.lastname },
-                        set: { lastname in viewModel.onIntent(.lastnameChanged(lastname)) }
-                    )
-                )
+                Button {
+                    viewModel.onIntent(.registerTap)
+                } label: {
+                    Text("Register")
+                        .bold()
+                        .padding(AppTheme.Dimens.spaceSmall)
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(viewModel.state.buttonDisabled)
+                
             }
-            
-            EmailAndPasswordView(
-                email: Binding(
-                    get: { viewModel.state.email },
-                    set: { value in viewModel.onIntent(.emailChanged(value)) }
-                ),
-                password: Binding(
-                    get: { viewModel.state.password },
-                    set: { value in viewModel.onIntent(.passwordChanged(value)) }
-                ),
-                isShowingPassword: viewModel.state.isShowingPassword,
-                onShowPasswordAction: { viewModel.onIntent(.showPasswordToggle) }
-            )
-            
-            PrimaryTextField(
-                "Confirm Password",
-                text: Binding(
-                    get: { viewModel.state.confirmedPassword },
-                    set: { confirmedPassword in viewModel.onIntent(.confirmedPasswordChanged(confirmedPassword)) }
-                )
-            )
-            
-            
-            Button("Register") {
-                viewModel.onIntent(.registerTap)
-            }
-            
+            .navigationTitle("Registration")
+            .navigationBarTitleDisplayMode(.large)
+            .navigationBarBackButtonHidden()
         }
+        .padding([.bottom, .horizontal], AppTheme.Dimens.spaceLarge)
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
-        .toastView(Binding<ToastData?>(
-            get: { viewModel.state.toastData },
-            set: { _ in viewModel.onIntent(.dismissToast) }
-        ))
+        .alert(item: Binding<AlertData?>(
+            get: { viewModel.state.alertData },
+            set: { _ in viewModel.onIntent(.dismissAlert) }
+        )) { alert in .init(alert) }
     }
 }
 
+#if DEBUG
+import DependencyInjectionMocks
+import Factory
+
 #Preview {
-    RegistrationView(viewModel: RegistrationViewModel(flowController: nil))
+    Container.shared.registerUseCaseMocks()
+    
+    let vm = RegistrationViewModel(flowController: nil)
+    return RegistrationView(viewModel: vm)
 }
+
+#endif

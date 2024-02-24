@@ -19,6 +19,9 @@ struct OthersView: View {
     var body: some View {
         VStack {
             Text("OthersView")
+            Button("Logout") {
+                viewModel.onIntent(.logout)
+            }
         }
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)

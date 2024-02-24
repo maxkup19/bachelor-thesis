@@ -5,22 +5,27 @@
 //  Created by Maksym Kupchenko on 20.02.2024.
 //
 
+import Foundation
+
 public struct User: Equatable {
     public let name: String
-    public let lastname: String
+    public let lastName: String
     public let email: String
     public let role: UserRoleEnum
+    public let birthDay: Date
     
     
     public init(
         name: String,
-        lastname: String,
+        lastName: String,
         email: String,
-        role: UserRoleEnum
+        role: UserRoleEnum,
+        birthDay: Date
     ) {
         self.name = name
-        self.lastname = lastname
+        self.lastName = lastName
         self.email = email
         self.role = role
+        self.birthDay = birthDay
     }
 }

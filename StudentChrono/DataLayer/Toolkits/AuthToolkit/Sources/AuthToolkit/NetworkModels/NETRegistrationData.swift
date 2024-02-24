@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 05.02.2024.
 //
 
+import Foundation
 import SharedDomain
 
 struct NETRegistrationData: Encodable {
@@ -12,6 +13,7 @@ struct NETRegistrationData: Encodable {
     let password: String
     let name: String
     let lastName: String
+    let birthDay: Date
 }
 
 // Conversion from DomainModel to NetworkModel
@@ -21,7 +23,8 @@ extension RegistrationData {
             email: email,
             password: password,
             name: name,
-            lastName: lastName
+            lastName: lastName,
+            birthDay: birthDay
         )
     }
 }

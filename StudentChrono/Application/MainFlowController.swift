@@ -23,26 +23,49 @@ enum MainTab: Int {
     case others
 }
 
-final class MainFlowController: FlowController {
+protocol MainFlowControllerDelegate: AnyObject {
+    func presentAuth(animated: Bool, completion: (() -> Void)?)
+}
+
+final class MainFlowController: FlowController, OthersFlowControllerDelegate {
+    
+    private let userRole: UserRoleEnum
+    weak var delegate: MainFlowControllerDelegate?
+    
+    public init(
+        userRole: UserRoleEnum,
+        navigationController: UINavigationController
+    ) {
+        self.userRole = userRole
+        super.init(navigationController: navigationController)
+    }
     
     override func setup() -> UIViewController {
         let main = UITabBarController()
         setupTabBarAppearance()
-        var viewControllers = [setupTasksTab(), setupProfileTab(), setupOthersTab()]
-        #warning("Show students tab only for teacer user role")
         
-        if false {
-            viewControllers.append(setupStudentsTab())
-        }
-        
-        viewControllers.sort(by: { $0.tabBarItem.tag < $1.tabBarItem.tag })
-        
-        main.viewControllers = viewControllers
+        main.viewControllers = setupViewControllers()
         return main
+    }
+    
+    func logout() {
+        delegate?.presentAuth(animated: true, completion: { [weak self] in
+            self?.navigationController.viewControllers = []
+            self?.stopFlow()
+        })
     }
     
     private func setupTabBarAppearance() {
         // Here you can setup Tab bar appearance
+    }
+    
+    private func setupViewControllers() -> [UINavigationController] {
+        var viewControllers = [setupTasksTab(), setupProfileTab(), setupOthersTab()]
+        if userRole == .teacher {
+            viewControllers.append(setupStudentsTab())
+        }
+        viewControllers.sort(by: { $0.tabBarItem.tag < $1.tabBarItem.tag })
+        return viewControllers
     }
     
     private func setupTasksTab() -> UINavigationController {
@@ -79,6 +102,7 @@ final class MainFlowController: FlowController {
             tag: MainTab.others.rawValue
         )
         let othersFC = OthersFlowController(navigationController: othersNC)
+        othersFC.delegate = self
         let othersRootVC = startChildFlow(othersFC)
         othersNC.viewControllers = [othersRootVC]
         return othersNC

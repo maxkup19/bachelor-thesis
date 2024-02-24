@@ -28,7 +28,7 @@ public struct AuthRepositoryImpl: AuthRepository {
             let authToken = try await network.request(AuthAPI.login(data), withInterceptor: false).map(NETAuthToken.self).domainModel
             try keychain.update(.authToken, value: authToken.token)
             try keychain.update(.userId, value: authToken.userId)
-        } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .unathorized {
+        } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .unauthorised {
             throw AuthError.login(.invalidCredentials)
         } catch {
             throw AuthError.login(.failed)

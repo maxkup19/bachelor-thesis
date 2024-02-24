@@ -5,12 +5,14 @@
 //  Created by Maksym Kupchenko on 20.02.2024.
 //
 
+import Foundation
 import SharedDomain
 
 struct NETUser: Decodable {
     let name: String
-    let lastname: String
+    let lastName: String
     let email: String
+    let birthDay: Date
     let role: UserRoleEnum
 }
 
@@ -19,9 +21,10 @@ extension NETUser {
     var domainModel: User {
         User(
             name: name,
-            lastname: lastname,
+            lastName: lastName,
             email: email,
-            role: role
+            role: role,
+            birthDay: birthDay
         )
     }
 }

@@ -7,25 +7,32 @@
 
 import Auth
 import Factory
+import Onboarding
+import Others
+import SharedDomain
 import UIKit
 import UIToolkit
 
-final class AppFlowController: FlowController, AuthFlowControllerDelegate {
-    
-    @Injected(\.isUserLoggedUseCase) private var isUserLoggedUseCase
+final class AppFlowController: FlowController, MainFlowControllerDelegate, AuthFlowControllerDelegate, OnboardingFlowControllerDelegate {
     
     func start() {
-        setupAppearance()
-        
-        if isUserLoggedUseCase.execute() {
-            setupMain()
+        presentOnboarding()
+    }
+    
+    func finishOnboarding(userRole: UserRoleEnum?) {
+        if let userRole {
+            setupMain(userRole: userRole)
         } else {
             presentAuth(animated: false, completion: nil)
         }
     }
     
-    func setupMain() {
-        let fc = MainFlowController(navigationController: navigationController)
+    func setupMain(userRole: UserRoleEnum) {
+        let fc = MainFlowController(
+            userRole: userRole,
+            navigationController: navigationController
+        )
+        fc.delegate = self
         let rootVC = startChildFlow(fc)
         navigationController.viewControllers = [rootVC]
     }
@@ -41,19 +48,11 @@ final class AppFlowController: FlowController, AuthFlowControllerDelegate {
         navigationController.present(nc, animated: animated, completion: completion)
     }
     
-    private func setupAppearance() {
-        // Navigation bar
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = UIColor(AppTheme.Colors.navBarBackground)
-        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(AppTheme.Colors.navBarTitle)]
-        UINavigationBar.appearance().standardAppearance = appearance
-        UINavigationBar.appearance().scrollEdgeAppearance = appearance
-        UINavigationBar.appearance().tintColor = UIColor(AppTheme.Colors.navBarTitle)
-        
-        // Tab bar
-        UITabBar.appearance().tintColor = UIColor(AppTheme.Colors.primaryColor())
-        
-        // UITextField
-        UITextField.appearance().tintColor = UIColor(AppTheme.Colors.primaryColor())
+    private func presentOnboarding() {
+        let fc = OnboardingFlowController(navigationController: navigationController)
+        fc.delegate = self
+        let rootVC = startChildFlow(fc)
+        navigationController.navigationBar.isHidden = true
+        navigationController.setViewControllers([rootVC], animated: true)
     }
 }

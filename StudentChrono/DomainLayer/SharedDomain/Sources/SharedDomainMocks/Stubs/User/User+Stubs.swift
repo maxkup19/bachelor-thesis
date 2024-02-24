@@ -10,15 +10,17 @@ import SharedDomain
 public extension User {
     static let studentStub = User(
         name: "Anon",
-        lastname: "Anonymous",
+        lastName: "Anonymous",
         email: "email@email.com",
-        role: UserRoleEnum.student
+        role: .student,
+        birthDay: .distantPast
     )
     
     static let teacherStub = User(
         name: "Anonymous",
-        lastname: "Anon",
+        lastName: "Anon",
         email: "email@email",
-        role: UserRoleEnum.teacher
+        role: .teacher,
+        birthDay: .distantPast
     )
 }

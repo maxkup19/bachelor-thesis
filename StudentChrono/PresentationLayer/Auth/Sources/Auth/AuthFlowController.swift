@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 12.02.2024.
 //
 
+import SharedDomain
 import SwiftUI
 import UIKit
 import UIToolkit
@@ -20,7 +21,7 @@ enum AuthFlow: Flow, Equatable {
     }
     
     enum Login: Equatable {
-        case login
+        case login(UserRoleEnum)
     }
     
     enum Registration: Equatable {
@@ -29,7 +30,7 @@ enum AuthFlow: Flow, Equatable {
 }
 
 public protocol AuthFlowControllerDelegate: AnyObject {
-    func setupMain()
+    func setupMain(userRole: UserRoleEnum)
 }
 
 public final class AuthFlowController: FlowController {
@@ -38,12 +39,12 @@ public final class AuthFlowController: FlowController {
     
     override public func setup() -> UIViewController {
         let vm = LoginViewModel(flowController: self)
-        return BaseHostingController(rootView: LoginView(viewModel: vm), statusBarStyle: .lightContent)
+        return BaseHostingController(rootView: LoginView(viewModel: vm), statusBarStyle: .default)
     }
     
-    override public func dismiss() {
+    public func dismiss(userRole: UserRoleEnum) {
         super.dismiss()
-        delegate?.setupMain()
+        delegate?.setupMain(userRole: userRole)
     }
     
     override public func handleFlow(_ flow: Flow) {
@@ -67,7 +68,7 @@ extension AuthFlowController {
     
     private func showLogin() {
         let vm = LoginViewModel(flowController: self)
-        let vc = BaseHostingController(rootView: LoginView(viewModel: vm), statusBarStyle: .lightContent)
+        let vc = BaseHostingController(rootView: LoginView(viewModel: vm), statusBarStyle: .default)
         navigationController.show(vc, sender: nil)
     }
     
@@ -82,7 +83,7 @@ extension AuthFlowController {
 extension AuthFlowController {
     func handleLoginFlow(_ flow: AuthFlow.Login) {
         switch flow {
-        case .login: dismiss()
+        case .login(let role): dismiss(userRole: role)
         }
     }
 }
