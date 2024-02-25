@@ -11,13 +11,15 @@ import Vapor
 struct TaskController: RouteCollection {
     
     func boot(routes: RoutesBuilder) throws {
-        let tasks = routes
+        let taskRoutes = routes
             .grouped(Configuration.baseApi)
             .grouped(TaskRoutes.base)
             .grouped(Token.authenticator())
         
-        tasks.get(use: index)
-        tasks.post(use: createTask)
+        taskRoutes.get(use: index)
+        
+        let teacherRoutes = taskRoutes.grouped(EnsureUserIsTeacherMiddleware())
+        teacherRoutes.post(use: createTask)
     }
     
     private func index(req: Request) async throws -> [TaskResponse] {
@@ -31,14 +33,10 @@ struct TaskController: RouteCollection {
     private func createTask(req: Request) async throws -> HTTPStatus {
         let createTaskDTO = try req.content.decode(CreateTaskDTO.self)
         
-        guard try await checkIfUserExists(id: createTaskDTO.authorId, on: req.db) else {
-            throw Abort(.notFound, reason: "Author ID doesn't exist")
-        }
+        try await ensureUserExists(id: createTaskDTO.authorId, on: req.db)
         
         if let assigneeId = createTaskDTO.assigneeId {
-            guard try await checkIfUserExists(id: assigneeId, on: req.db) else {
-                throw Abort(.notFound, reason: "Assignee ID doesn't exist")
-            }
+            try await ensureUserExists(id: assigneeId, on: req.db)
         }
         
         let task = createTaskDTO.asTask()
@@ -46,10 +44,16 @@ struct TaskController: RouteCollection {
         
         return .ok
     }
-    
-    private func checkIfUserExists(id: UUID, on db: Database) async throws -> Bool {
-        try await User.query(on: db)
+}
+
+// MARK: - Helpers
+
+private extension TaskController {
+    func ensureUserExists(id: UUID, on db: Database) async throws {
+        guard try await User.query(on: db)
             .filter(\.$id, .equal, id)
-            .count() != 0
+            .count() != 0 else {
+            throw Abort(.notFound, reason: "User with id \(id) doesn't exist")
+        }
     }
 }
