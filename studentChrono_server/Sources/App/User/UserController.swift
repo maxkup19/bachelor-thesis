@@ -17,6 +17,7 @@ struct UserController: RouteCollection {
         
         userRoutes.get(use: index)
         userRoutes.get(UserRoutes.me, use: getMe)
+        userRoutes.delete(UserRoutes.deleteAccount, use: deleteAccount)
         
     }
     
@@ -28,6 +29,13 @@ struct UserController: RouteCollection {
     
     private func getMe(req: Request) async throws -> UserResponse {
         try req.auth.require(User.self).asUserResponse
+    }
+    
+    private func deleteAccount(req: Request) async throws -> HTTPStatus {
+        let user = try req.auth.require(User.self)
+        
+        try await user.delete(on: req.db)
+        return .ok
     }
 }
 

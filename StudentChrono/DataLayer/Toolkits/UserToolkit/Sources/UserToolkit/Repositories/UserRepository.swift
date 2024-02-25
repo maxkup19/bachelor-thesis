@@ -22,4 +22,8 @@ public struct UserRepositoryImpl: UserRepository {
         try await network.request(UserAPI.currentUser, withInterceptor: false).map(NETUser.self).domainModel
     }
     
+    public func deleteAccount() async throws {
+        try await network.request(UserAPI.deleteAccount, withInterceptor: false)
+    }
+    
 }

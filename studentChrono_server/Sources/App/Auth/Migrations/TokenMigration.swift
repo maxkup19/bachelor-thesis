@@ -14,7 +14,7 @@ extension Token {
         func prepare(on database: Database) async throws {
             try await database.schema(schema)
                 .id()
-                .field(FieldKeys.userId, .uuid, .references(SchemaEnum.users.rawValue, FieldKey.id))
+                .field(FieldKeys.userId, .uuid, .references(SchemaEnum.users.rawValue, FieldKey.id, onDelete: .cascade))
                 .field(FieldKeys.value, .string, .required)
                 .field(FieldKeys.source, .string, .required)
                 .field(FieldKeys.expiresAt, .datetime, .required)
