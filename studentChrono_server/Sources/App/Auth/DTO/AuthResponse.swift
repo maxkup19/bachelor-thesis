@@ -8,6 +8,6 @@
 import Vapor
 
 struct AuthResponse: Content {
-    var userId: String
+    var userId: UUID
     var token: String
 }

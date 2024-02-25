@@ -33,14 +33,14 @@ struct AuthController: RouteCollection {
         try await user.save(on: req.db)
         
         guard let newToken = try? user.createToken(source: .signup) else {
-            throw Abort(.internalServerError)
+            throw Abort(.internalServerError, reason: "Create token failed")
         }
         
         token = newToken
         try await token.save(on: req.db)
         
-        return AuthResponse(
-            userId: try user.requireID().uuidString,
+        return try AuthResponse(
+            userId: user.requireID(),
             token: token.value
         )
     }
@@ -57,8 +57,8 @@ struct AuthController: RouteCollection {
             .filter(\.$user.$id, .equal, user.requireID())
             .filter(\.$expiresAt, .greaterThan, Date())
             .first() {
-            return AuthResponse(
-                userId: try user.requireID().uuidString,
+            return try AuthResponse(
+                userId: user.requireID(),
                 token: token.value
             )
         } else {
@@ -72,14 +72,20 @@ struct AuthController: RouteCollection {
         
         try await token.save(on: req.db)
         
-        return AuthResponse(userId: try user.requireID().uuidString, token: token.value)
+        return try AuthResponse(
+            userId: user.requireID(),
+            token: token.value
+        )
     }
-    
-    private func getUserByEmail(_ email: String, req: Request) async throws -> User? {
+}
+
+// MARK: - Helpers
+
+private extension AuthController {
+    func getUserByEmail(_ email: String, req: Request) async throws -> User? {
         return try await User
             .query(on: req.db)
             .filter(\.$email, .equal, email)
             .first()
     }
-    
 }
