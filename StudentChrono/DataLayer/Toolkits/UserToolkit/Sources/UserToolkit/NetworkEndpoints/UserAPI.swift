@@ -11,6 +11,7 @@ import Utilities
 
 enum UserAPI {
     case currentUser
+    case deleteAccount
 }
 
 extension UserAPI: NetworkEndpoint {
@@ -18,11 +19,13 @@ extension UserAPI: NetworkEndpoint {
     var path: String {
         switch self {
         case .currentUser: "/user/me"
+        case .deleteAccount: "/user/deleteAccount"
         }
     }
     var method: NetworkMethod {
         switch self {
         case .currentUser: .get
+        case .deleteAccount: .delete
         }
     }
     var headers: [String : String]? {
@@ -31,6 +34,7 @@ extension UserAPI: NetworkEndpoint {
     var task: NetworkTask {
         switch self {
         case .currentUser: .requestPlain
+        case .deleteAccount: .requestPlain
         }
     }
 }

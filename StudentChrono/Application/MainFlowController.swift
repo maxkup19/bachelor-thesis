@@ -27,7 +27,7 @@ protocol MainFlowControllerDelegate: AnyObject {
     func presentAuth(animated: Bool, completion: (() -> Void)?)
 }
 
-final class MainFlowController: FlowController, OthersFlowControllerDelegate {
+final class MainFlowController: FlowController, OthersFlowControllerDelegate, ProfileFlowControllerDelegate {
     
     private let userRole: UserRoleEnum
     weak var delegate: MainFlowControllerDelegate?
@@ -89,6 +89,7 @@ final class MainFlowController: FlowController, OthersFlowControllerDelegate {
             tag: MainTab.profile.rawValue
         )
         let profileFC = ProfileFlowController(navigationController: profileNC)
+        profileFC.delegate = self
         let profileRootVC = startChildFlow(profileFC)
         profileNC.viewControllers = [profileRootVC]
         return profileNC

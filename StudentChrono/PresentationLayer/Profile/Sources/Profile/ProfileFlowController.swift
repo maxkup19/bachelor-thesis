@@ -17,7 +17,13 @@ enum ProfileFlow: Flow, Equatable {
     }
 }
 
+public protocol ProfileFlowControllerDelegate: AnyObject {
+    func logout()
+}
+
 public final class ProfileFlowController: FlowController {
+    
+    public weak var delegate: ProfileFlowControllerDelegate?
     
     override public func setup() -> UIViewController {
         let vm = ProfileViewModel(flowController: self)
@@ -42,6 +48,6 @@ extension ProfileFlowController {
     }
     
     private func deleteAccount() {
-        
+        delegate?.logout()
     }
 }

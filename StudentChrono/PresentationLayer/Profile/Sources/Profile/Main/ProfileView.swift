@@ -19,14 +19,19 @@ struct ProfileView: View {
     var body: some View {
         VStack {
             Text("ProfileView")
+            
+            #warning("TODO: Update design!")
+            Button("Delete account", role: .destructive) {
+                viewModel.onIntent(.showDeleteAccountDialog)
+            }
         }
         .toolbar(.hidden)
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
-        .toastView(Binding<ToastData?>(
-            get: { viewModel.state.toastData },
-            set: { _ in viewModel.onIntent(.dismissToast) }
-        ))
+        .alert(item: Binding<AlertData?>(
+            get: { viewModel.state.alertData },
+            set: { _ in viewModel.onIntent(.dismissAlert) }
+        )) { alert in .init(alert) }
     }
 }
 
