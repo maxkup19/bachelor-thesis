@@ -36,20 +36,20 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     struct State {
         var isLoading: Bool = false
-        var toastData: ToastData?
+        var alertData: AlertData?
     }
     
     // MARK: - Intents
     enum Intent {
         case onTaskTap(String)
-        case dismissToast
+        case dismissAlert
     }
     
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
             case .onTaskTap(let taskId): onTaskTap(taskId: taskId)
-            case .dismissToast: dismissToast()
+            case .dismissAlert: dismissAlert()
             }
         })
     }
@@ -59,7 +59,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
         #warning("TODO: add implementation")
     }
     
-    private func dismissToast() {
-        state.toastData = nil
+    private func dismissAlert() {
+        state.alertData = nil
     }
 }

@@ -35,19 +35,19 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     struct State {
         var isLoading: Bool = false
-        var toastData: ToastData?
+        var alertData: AlertData?
     }
     
     // MARK: - Intents
     enum Intent {
-        case dismissToast
+        case dismissAlert
         case logout
     }
     
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
-            case .dismissToast: dismissToast()
+            case .dismissAlert: dismissAlert()
             case .logout: await logout()
             }
         })
@@ -55,8 +55,8 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Private
     
-    private func dismissToast() {
-        state.toastData = nil
+    private func dismissAlert() {
+        state.alertData = nil
     }
     
     private func logout() async {
@@ -64,7 +64,7 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
             try logoutUseCase.execute()
             flowController?.handleFlow(OthersFlow.others(.logout))
         } catch {
-            state.toastData = .init(error: error.localizedDescription)
+            state.alertData = .init(title: error.localizedDescription)
         }
     }
 }
