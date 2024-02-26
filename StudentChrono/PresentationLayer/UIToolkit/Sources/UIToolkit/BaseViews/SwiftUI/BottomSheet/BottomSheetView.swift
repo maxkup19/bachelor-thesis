@@ -38,7 +38,7 @@ public struct BottomSheetView<Content: View>: View {
     public var body: some View {
         GeometryReader { geometry in
             ZStack {
-                Color.black.opacity(0.0001) // This is the minimum of the opacity that can consume tap on it
+                Color(uiColor: UIColor.systemBackground).opacity(0.0001) // This is the minimum of the opacity that can consume tap on it
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .onTapGesture {
                         dismiss?()
@@ -66,7 +66,7 @@ public struct BottomSheetView<Content: View>: View {
                         alignment: .bottom
                     )
                     .offset(y: max(translation, 0))
-                    .shadow(color: .black.opacity(0.1), radius: 10, y: -7)
+                    .shadow(color: Color.primary.opacity(0.1), radius: 10, y: -7)
                     .animation(.interactiveSpring(), value: translation)
                     .gesture(
                         DragGesture(minimumDistance: 20)
