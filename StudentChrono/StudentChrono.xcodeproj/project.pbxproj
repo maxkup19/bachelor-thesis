@@ -67,6 +67,7 @@
 		0A571B442B711CE4006A3932 /* DependencyInjection */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DependencyInjection; sourceTree = "<group>"; };
 		0A571B4A2B7122DD006A3932 /* NetworkProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkProvider; sourceTree = "<group>"; };
 		0A571B4D2B712B0D006A3932 /* AuthToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AuthToolkit; sourceTree = "<group>"; };
+		0A67655D2B8CA5F60035A437 /* TasksToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = TasksToolkit; sourceTree = "<group>"; };
 		0ADCCC152B65A76A008E8249 /* StudentChrono.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentChrono.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC272B65A76B008E8249 /* StudentChronoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoTests.swift; sourceTree = "<group>"; };
@@ -141,6 +142,7 @@
 		0A0833CF2B710D4900F29FB8 /* Toolkits */ = {
 			isa = PBXGroup;
 			children = (
+				0A67655D2B8CA5F60035A437 /* TasksToolkit */,
 				0A05FC832B841E74007F2C02 /* UserToolkit */,
 				0A571B4D2B712B0D006A3932 /* AuthToolkit */,
 			);
