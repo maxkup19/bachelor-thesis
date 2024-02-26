@@ -13,9 +13,9 @@ public struct TaskRepositoryImpl: TaskRepository {
     private let network: NetworkProvider
     
     public init(
-        network: NetworkProvider
+        networkProvider: NetworkProvider
     ) {
-        self.network = network
+        network = networkProvider
     }
     
     public func createTask(_ payload: CreateTaskData) async throws {

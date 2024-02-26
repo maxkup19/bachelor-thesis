@@ -40,6 +40,11 @@ public extension Container {
         logoutUseCase: self.logoutUseCase()
     )}}
     
+    // Tasks
+    var createTaskUseCase: Factory<CreateTaskUseCase> { self { CreateTaskUseCaseImpl(
+        taskRepository: self.taskRepository()
+    )}}
+    
     // Validation
     var validateEmailUseCase: Factory<ValidateEmailUseCase> { self { ValidateEmailUseCaseImpl() } }
     var validatePasswordUseCase: Factory<ValidatePasswordUseCase> { self { ValidatePasswordUseCaseImpl() } }

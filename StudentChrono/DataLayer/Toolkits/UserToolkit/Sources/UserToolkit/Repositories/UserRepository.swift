@@ -13,9 +13,9 @@ public struct UserRepositoryImpl: UserRepository {
     private let network: NetworkProvider
     
     public init(
-        network: NetworkProvider
+        networkProvider: NetworkProvider
     ) {
-        self.network = network
+        network = networkProvider
     }
     
     public func getCurrentUser() async throws -> User {
