@@ -17,7 +17,6 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     private weak var flowController: FlowController?
     
     @Injected(\.getCurrentUserRoleUseCase) private var getCurrentUserRoleUseCase
-    @Injected(\.createTaskUseCase) private var createTaskUseCase
     
     init(flowController: FlowController?) {
         self.flowController = flowController
