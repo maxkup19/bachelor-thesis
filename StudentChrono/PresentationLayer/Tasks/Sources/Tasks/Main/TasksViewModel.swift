@@ -16,7 +16,8 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
-    
+    @Injected(\.getCurrentUserRoleUseCase) private var getCurrentUserRoleUseCase
+    @Injected(\.createTaskUseCase) private var createTaskUseCase
     
     init(flowController: FlowController?) {
         self.flowController = flowController
@@ -27,7 +28,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     override func onAppear() {
         super.onAppear()
         executeTask(Task {
-            
+            await loadData()
         })
     }
     
@@ -35,27 +36,41 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Published private(set) var state = State()
     
     struct State {
+        var showCreateButtonTask: Bool = false
         var isLoading: Bool = false
         var alertData: AlertData?
     }
     
     // MARK: - Intents
     enum Intent {
-        case onTaskTap(String)
+        case createTask
+        case onTask(String)
         case dismissAlert
     }
     
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
-            case .onTaskTap(let taskId): onTaskTap(taskId: taskId)
+            case .createTask: createTask()
+            case .onTask(let taskId): onTask(taskId: taskId)
             case .dismissAlert: dismissAlert()
             }
         })
     }
     
     // MARK: - Private
-    private func onTaskTap(taskId: String) {
+    
+    private func loadData() async {
+        do {
+            state.showCreateButtonTask = try await getCurrentUserRoleUseCase.execute() == .teacher
+        } catch { }
+    }
+    
+    private func createTask() {
+        
+    }
+    
+    private func onTask(taskId: String) {
         #warning("TODO: add implementation")
     }
     

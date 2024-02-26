@@ -19,6 +19,15 @@ struct TasksView: View {
         VStack {
             Text("Your tasks will be here")
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                if viewModel.state.showCreateButtonTask {
+                    Button(action: { viewModel.onIntent(.createTask) }) {
+                        AppTheme.Images.plus
+                    }
+                }
+            }
+        }
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(
