@@ -9,7 +9,7 @@ import Vapor
 
 struct TaskResponse: Content {
     var title: String
-    var description: String?
+    var description: String
     var state: TaskState
     var author: UserResponse
     var assignee: UserResponse?

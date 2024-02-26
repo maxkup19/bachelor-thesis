@@ -13,7 +13,7 @@ enum TasksFlow: Flow, Equatable {
     case tasks(Tasks)
     
     enum Tasks: Equatable {
-        case showTasks
+        case createTask
     }
 }
 
@@ -37,11 +37,11 @@ public final class TasksFlowController: FlowController {
 extension TasksFlowController {
     func handleFlow(_ flow: TasksFlow.Tasks) {
         switch flow {
-        case .showTasks: showTasks()
+        case .createTask: createTask()
         }
     }
     
-    private func showTasks() {
+    private func createTask() {
         
     }
 }

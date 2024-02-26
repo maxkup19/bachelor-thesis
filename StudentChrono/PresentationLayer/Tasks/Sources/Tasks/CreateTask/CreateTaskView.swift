@@ -1,24 +1,24 @@
 //
-//  StudentsView.swift
-//  
+//  CreateTaskView.swift
 //
-//  Created by Maksym Kupchenko on 20.02.2024.
+//
+//  Created by Maksym Kupchenko on 26.02.2024.
 //
 
 import SwiftUI
 import UIToolkit
 
-struct StudentsView: View {
+struct CreateTaskView: View {
     
-    @ObservedObject private var viewModel: StudentsViewModel
+    @ObservedObject private var viewModel: CreateTaskViewModel
     
-    init(viewModel: StudentsViewModel) {
+    init(viewModel: CreateTaskViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        VStack {
-            Text("StudentsView")
+        NavigationStack {
+            
         }
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
@@ -36,8 +36,8 @@ import Factory
 #Preview {
     Container.shared.registerUseCaseMocks()
     
-    let vm = StudentsViewModel(flowController: nil)
-    return StudentsView(viewModel: vm)
+    let vm = CreateTaskViewModel(flowController: nil)
+    return CreateTaskView(viewModel: vm)
 }
 
 #endif

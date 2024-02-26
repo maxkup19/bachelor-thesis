@@ -25,7 +25,6 @@ struct ProfileView: View {
                 viewModel.onIntent(.showDeleteAccountDialog)
             }
         }
-        .toolbar(.hidden)
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(

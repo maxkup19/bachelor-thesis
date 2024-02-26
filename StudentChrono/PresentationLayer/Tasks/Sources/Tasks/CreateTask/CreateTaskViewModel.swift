@@ -1,8 +1,8 @@
 //
-//  TasksViewModel.swift
-//  
+//  CreateTaskViewModel.swift
 //
-//  Created by Maksym Kupchenko on 19.02.2024.
+//
+//  Created by Maksym Kupchenko on 26.02.2024.
 //
 
 import DependencyInjection
@@ -11,12 +11,12 @@ import SharedDomain
 import SwiftUI
 import UIToolkit
 
-final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
+final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
-    @Injected(\.getCurrentUserRoleUseCase) private var getCurrentUserRoleUseCase
+    @Injected(\.createTaskUseCase) private var createTaskUseCase
     
     init(flowController: FlowController?) {
         self.flowController = flowController
@@ -27,7 +27,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     override func onAppear() {
         super.onAppear()
         executeTask(Task {
-            await loadData()
+            
         })
     }
     
@@ -35,7 +35,10 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Published private(set) var state = State()
     
     struct State {
-        var showCreateButtonTask: Bool = false
+        var title: String = ""
+        var description: String = ""
+        var assigneeId: UUID?
+        var dueTo: Date?
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -43,15 +46,13 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Intents
     enum Intent {
         case createTask
-        case onTask(String)
         case dismissAlert
     }
     
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
-            case .createTask: createTask()
-            case .onTask(let taskId): onTask(taskId: taskId)
+            case .createTask: await createTask()
             case .dismissAlert: dismissAlert()
             }
         })
@@ -59,16 +60,19 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Private
     
-    private func loadData() async {
-        state.showCreateButtonTask = (try? await getCurrentUserRoleUseCase.execute() == .teacher) ?? false
-    }
-    
-    private func createTask() {
-        
-    }
-    
-    private func onTask(taskId: String) {
-        #warning("TODO: add implementation")
+    private func createTask() async {
+        #warning("Revisit in future")
+        do {
+            let data = CreateTaskData(
+                title: state.title,
+                description: state.description,
+                assigneeId: state.assigneeId,
+                dueTo: state.dueTo
+            )
+            try await createTaskUseCase.execute(data)
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
     }
     
     private func dismissAlert() {

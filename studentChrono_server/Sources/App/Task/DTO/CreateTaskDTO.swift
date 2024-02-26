@@ -9,7 +9,7 @@ import Vapor
 
 struct CreateTaskDTO: Content {
     var title: String
-    var description: String?
+    var description: String
     var assigneeId: UUID?
     var dueTo: Date?
 }

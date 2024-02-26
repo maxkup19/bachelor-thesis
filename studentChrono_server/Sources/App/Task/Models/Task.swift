@@ -18,7 +18,7 @@ final class Task: Model {
     @Field(key: FieldKeys.title)
     var title: String
     
-    @OptionalField(key: FieldKeys.description)
+    @Field(key: FieldKeys.description)
     var description: String?
     
     @Enum(key: FieldKeys.state)
@@ -44,7 +44,7 @@ final class Task: Model {
     init(
         id: UUID? = nil,
         title: String,
-        description: String?,
+        description: String,
         state: TaskState = .draft,
         authorId: User.IDValue,
         assigneeId: User.IDValue?,
@@ -63,7 +63,7 @@ final class Task: Model {
     
     init(
         title: String,
-        description: String?,
+        description: String,
         state: TaskState
     ) {
         self.title = title
