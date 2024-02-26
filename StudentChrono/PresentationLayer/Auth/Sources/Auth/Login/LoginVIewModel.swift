@@ -83,7 +83,6 @@ final class LoginViewModel: BaseViewModel, ViewModel, ObservableObject {
             let userRole = try await getCurrentUserRoleUseCase.execute()
             flowController?.handleFlow(AuthFlow.login(.login(userRole)))
         } catch {
-            print("DEBUG: \(String(describing: error))")
             state.alertData = .init(title: error.localizedDescription)
         }
     }

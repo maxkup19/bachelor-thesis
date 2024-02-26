@@ -35,6 +35,15 @@ struct ProfileView: View {
     }
 }
 
+#if DEBUG
+import DependencyInjectionMocks
+import Factory
+
 #Preview {
-    ProfileView(viewModel: ProfileViewModel(flowController: nil))
+    Container.shared.registerUseCaseMocks()
+    
+    let vm = ProfileViewModel(flowController: nil)
+    return ProfileView(viewModel: vm)
 }
+
+#endif

@@ -30,6 +30,15 @@ struct StudentsView: View {
     }
 }
 
+#if DEBUG
+import DependencyInjectionMocks
+import Factory
+
 #Preview {
-    StudentsView(viewModel: StudentsViewModel(flowController: nil))
+    Container.shared.registerUseCaseMocks()
+    
+    let vm = StudentsViewModel(flowController: nil)
+    return StudentsView(viewModel: vm)
 }
+
+#endif

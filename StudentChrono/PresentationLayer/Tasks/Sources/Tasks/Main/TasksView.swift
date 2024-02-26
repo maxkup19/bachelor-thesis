@@ -28,6 +28,15 @@ struct TasksView: View {
     }
 }
 
+#if DEBUG
+import DependencyInjectionMocks
+import Factory
+
 #Preview {
-    TasksView(viewModel: TasksViewModel(flowController: nil))
+    Container.shared.registerUseCaseMocks()
+    
+    let vm = TasksViewModel(flowController: nil)
+    return TasksView(viewModel: vm)
 }
+
+#endif
