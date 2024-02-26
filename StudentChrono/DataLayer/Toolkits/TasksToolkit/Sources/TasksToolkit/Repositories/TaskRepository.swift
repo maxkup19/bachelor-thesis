@@ -19,6 +19,7 @@ public struct TaskRepositoryImpl: TaskRepository {
     }
     
     public func createTask(_ payload: CreateTaskData) async throws {
-        try await network.request(TaskAPI.createTask, withInterceptor: false)
+        let data = try payload.networkModel.encode()
+        try await network.request(TaskAPI.createTask(data), withInterceptor: false)
     }
 }
