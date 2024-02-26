@@ -31,6 +31,9 @@ public final class TasksFlowController: FlowController {
         }
     }
     
+    override public func dismiss() {
+        navigationController.dismiss(animated: true)
+    }
 }
 
 // MARK: - Tasks Flow
@@ -42,6 +45,12 @@ extension TasksFlowController {
     }
     
     private func createTask() {
+        let vm = CreateTaskViewModel(flowController: self)
+        let view = CreateTaskView(viewModel: vm)
         
+        let vc = BaseHostingBottomSheetController(rootView: view) { [weak self] in
+            self?.dismiss()
+        }
+        navigationController.present(vc, animated: true)
     }
 }

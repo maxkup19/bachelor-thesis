@@ -17,9 +17,11 @@ struct CreateTaskView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            
+        VStack {
+            Text("CreateTaskView")
         }
+        .padding(.bottom, AppTheme.Dimens.spaceXXLarge)
+        .padding()
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(

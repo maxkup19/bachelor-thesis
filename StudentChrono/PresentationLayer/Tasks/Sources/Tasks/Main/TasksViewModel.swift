@@ -64,7 +64,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     private func createTask() {
-        
+        flowController?.handleFlow(TasksFlow.tasks(.createTask))
     }
     
     private func onTask(taskId: String) {
