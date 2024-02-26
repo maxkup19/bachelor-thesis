@@ -25,13 +25,22 @@ struct OthersView: View {
         }
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
-        .toastView(Binding<ToastData?>(
-            get: { viewModel.state.toastData },
-            set: { _ in viewModel.onIntent(.dismissToast) }
-        ))
+        .alert(item: Binding<AlertData?>(
+            get: { viewModel.state.alertData },
+            set: { _ in viewModel.onIntent(.dismissAlert) }
+        )) { alert in .init(alert) }
     }
 }
 
+#if DEBUG
+import DependencyInjectionMocks
+import Factory
+
 #Preview {
-    OthersView(viewModel: OthersViewModel(flowController: nil))
+    Container.shared.registerUseCaseMocks()
+    
+    let vm = OthersViewModel(flowController: nil)
+    return OthersView(viewModel: vm)
 }
+
+#endif

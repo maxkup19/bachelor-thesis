@@ -21,13 +21,22 @@ struct TasksView: View {
         }
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
-        .toastView(Binding<ToastData?>(
-            get: { viewModel.state.toastData },
-            set: { _ in viewModel.onIntent(.dismissToast) }
-        ))
+        .alert(item: Binding<AlertData?>(
+            get: { viewModel.state.alertData },
+            set: { _ in viewModel.onIntent(.dismissAlert) }
+        )) { alert in .init(alert) }
     }
 }
 
+#if DEBUG
+import DependencyInjectionMocks
+import Factory
+
 #Preview {
-    TasksView(viewModel: TasksViewModel(flowController: nil))
+    Container.shared.registerUseCaseMocks()
+    
+    let vm = TasksViewModel(flowController: nil)
+    return TasksView(viewModel: vm)
 }
+
+#endif

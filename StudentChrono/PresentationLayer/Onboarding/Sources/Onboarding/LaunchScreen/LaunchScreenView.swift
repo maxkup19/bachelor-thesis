@@ -23,7 +23,6 @@ struct LaunchScreenView: View {
             AppTheme.Images.appIcon
                 .resizable()
                 .frame(width: 120, height: 120)
-            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .ignoresSafeArea(.all)
@@ -31,6 +30,15 @@ struct LaunchScreenView: View {
     }
 }
 
+#if DEBUG
+import DependencyInjectionMocks
+import Factory
+
 #Preview {
-    LaunchScreenView(viewModel: LaunchScreenViewModel(flowController: nil))
+    Container.shared.registerUseCaseMocks()
+    
+    let vm = LaunchScreenViewModel(flowController: nil)
+    return LaunchScreenView(viewModel: vm)
 }
+
+#endif

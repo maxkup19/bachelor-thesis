@@ -86,9 +86,7 @@ import Factory
     Container.shared.registerUseCaseMocks()
     
     let vm = LoginViewModel(flowController: nil)
-    return NavigationStack {
-        LoginView(viewModel: vm)
-    }
+    return LoginView(viewModel: vm)
 }
 
 #endif
