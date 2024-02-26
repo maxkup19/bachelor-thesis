@@ -11,7 +11,6 @@ import SharedDomain
 struct NETCreateTaskData: Codable {
     let title: String
     let description: String
-    let authorId: UUID
     let assigneeId: UUID?
     let dueTo: Date?
 }
@@ -21,7 +20,6 @@ extension CreateTaskData {
         NETCreateTaskData(
             title: title,
             description: description,
-            authorId: authorId,
             assigneeId: assigneeId,
             dueTo: dueTo
         )
