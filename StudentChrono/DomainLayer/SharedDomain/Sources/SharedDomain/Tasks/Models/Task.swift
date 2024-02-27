@@ -7,7 +7,8 @@
 
 import Foundation
 
-public struct Task: Equatable, Codable {
+public struct Task: Equatable, Codable, Identifiable {
+    public let id: String
     public let title: String
     public let description: String
     public let tags: [String]
@@ -19,6 +20,7 @@ public struct Task: Equatable, Codable {
     public let dueTo: Date?
     
     public init(
+        id: String,
         title: String,
         description: String,
         tags: [String],
@@ -29,6 +31,7 @@ public struct Task: Equatable, Codable {
         createdAt: Date?,
         dueTo: Date?
     ) {
+        self.id = id
         self.title = title
         self.description = description
         self.tags = tags

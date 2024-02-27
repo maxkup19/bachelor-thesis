@@ -4,10 +4,13 @@
 //  Created by Maksym Kupchenko on 19.02.2024.
 //
 
+import SharedDomain
 import SwiftUI
 import UIToolkit
 
 struct TasksView: View {
+    
+    typealias Task = SharedDomain.Task
     
     @ObservedObject private var viewModel: TasksViewModel
     
@@ -17,7 +20,23 @@ struct TasksView: View {
     
     var body: some View {
         VStack {
-            Text("Your tasks will be here")
+            if viewModel.state.tasks.isEmpty {
+                ContentUnavailableView(
+                    "No tasks",
+                    systemImage: "list.bullet",
+                    description: Text("You have no tasks available")
+                )
+            } else {
+                List {
+                    ForEach(viewModel.state.tasks) { task in
+                        TaskRowView(task: task)
+                    }
+                }
+                .listStyle(.plain)
+                .refreshable {
+                    viewModel.onIntent(.refreshTasks)
+                }
+            }
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {

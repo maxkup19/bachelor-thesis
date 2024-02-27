@@ -14,6 +14,7 @@ enum TasksFlow: Flow, Equatable {
     
     enum Tasks: Equatable {
         case createTask
+        case closeCreateTask
     }
 }
 
@@ -41,6 +42,7 @@ extension TasksFlowController {
     func handleFlow(_ flow: TasksFlow.Tasks) {
         switch flow {
         case .createTask: createTask()
+        case .closeCreateTask: dismiss()
         }
     }
     

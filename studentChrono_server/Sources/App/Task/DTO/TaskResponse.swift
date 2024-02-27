@@ -8,6 +8,7 @@
 import Vapor
 
 struct TaskResponse: Content {
+    var id: String
     var title: String
     var description: String
     var tags: [String]
@@ -22,6 +23,7 @@ struct TaskResponse: Content {
 extension Task {
     var asTaskResponse: TaskResponse {
         TaskResponse(
+            id: id?.uuidString ?? "",
             title: title,
             description: description,
             tags: tags,

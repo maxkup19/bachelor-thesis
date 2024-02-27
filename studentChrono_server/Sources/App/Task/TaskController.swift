@@ -28,7 +28,7 @@ struct TaskController: RouteCollection {
             .with(\.$author)
             .with(\.$assignee)
             .all()
-            .filter{ $0.assignee?.id == user.id }
+            .filter{ $0.assignee?.id == user.id || $0.author.id == user.id }
             .map { $0.asTaskResponse }
     }
     

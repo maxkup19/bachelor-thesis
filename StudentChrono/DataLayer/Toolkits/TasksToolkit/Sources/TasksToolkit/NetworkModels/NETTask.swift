@@ -1,5 +1,5 @@
 //
-//  NETask.swift
+//  NETTask.swift
 //
 //
 //  Created by Maksym Kupchenko on 27.02.2024.
@@ -10,6 +10,7 @@ import SharedDomain
 import UserToolkit
 
 struct NETTask: Decodable {
+    let id: String
     let title: String
     let description: String
     let tags: [String]
@@ -24,6 +25,7 @@ struct NETTask: Decodable {
 extension NETTask {
     var domainModel: Task {
         Task(
+            id: id,
             title: title,
             description: description,
             tags: tags,

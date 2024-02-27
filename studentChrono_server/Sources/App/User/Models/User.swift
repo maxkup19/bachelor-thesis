@@ -48,7 +48,7 @@ final class User: Model {
         email: String,
         password: String,
         birthDay: Date,
-        role: UserRoleEnum = .student
+        role: UserRoleEnum = .teacher
     ) {
         self.name = name
         self.lastName = lastName

@@ -19,6 +19,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     private weak var flowController: FlowController?
     
     @Injected(\.getCurrentUserRoleUseCase) private var getCurrentUserRoleUseCase
+    @Injected(\.getMyTasksUseCase) private var getMyTasksUseCase
     
     init(flowController: FlowController?) {
         self.flowController = flowController
@@ -37,6 +38,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Published private(set) var state = State()
     
     struct State {
+        var tasks: [SharedDomain.Task] = []
         var showCreateButtonTask: Bool = false
         var isLoading: Bool = false
         var alertData: AlertData?
@@ -45,6 +47,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Intents
     enum Intent {
         case createTask
+        case refreshTasks
         case onTask(String)
         case dismissAlert
     }
@@ -53,6 +56,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
         executeTask(Task {
             switch intent {
             case .createTask: createTask()
+            case .refreshTasks: await refreshTasks()
             case .onTask(let taskId): onTask(taskId: taskId)
             case .dismissAlert: dismissAlert()
             }
@@ -62,11 +66,27 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Private
     
     private func loadData() async {
-        state.showCreateButtonTask = (try? await getCurrentUserRoleUseCase.execute() == .teacher) ?? false
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
+        do {
+            state.showCreateButtonTask = try await getCurrentUserRoleUseCase.execute() == .teacher
+            state.tasks = try await getMyTasksUseCase.execute()
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
     }
     
     private func createTask() {
         flowController?.handleFlow(TasksFlow.tasks(.createTask))
+    }
+    
+    private func refreshTasks() async {
+        do {
+            state.tasks = try await getMyTasksUseCase.execute()
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
     }
     
     private func onTask(taskId: String) {

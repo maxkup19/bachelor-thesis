@@ -82,13 +82,13 @@ struct CreateTaskView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
-                        
+                        viewModel.onIntent(.cancelTap)
                     }
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("**Add**") {
-                        
+                        viewModel.onIntent(.createTask)
                     }
                     .disabled(viewModel.state.title.isEmpty)
                 }

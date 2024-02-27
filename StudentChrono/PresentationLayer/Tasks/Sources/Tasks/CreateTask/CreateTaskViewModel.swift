@@ -50,6 +50,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
         case titleChanged(String)
         case descriptionChanged(String)
         case taskDetailsChanged(TaskDetails)
+        case cancelTap
         case dismissAlert
     }
     
@@ -60,6 +61,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .titleChanged(let title): titleChanged(title)
             case .descriptionChanged(let description): descriptionChanged(description)
             case .taskDetailsChanged(let details): taskDetailsChanged(details)
+            case .cancelTap: cancelTap()
             case .dismissAlert: dismissAlert()
             }
         })
@@ -79,6 +81,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
                 priority: state.taskDetails.priority
             )
             try await createTaskUseCase.execute(data)
+            flowController?.handleFlow(TasksFlow.tasks(.closeCreateTask))
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
@@ -94,6 +97,10 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     private func taskDetailsChanged(_ details: TaskDetails) {
         state.taskDetails = details
+    }
+    
+    private func cancelTap() {
+        flowController?.handleFlow(TasksFlow.tasks(.closeCreateTask))
     }
     
     private func dismissAlert() {

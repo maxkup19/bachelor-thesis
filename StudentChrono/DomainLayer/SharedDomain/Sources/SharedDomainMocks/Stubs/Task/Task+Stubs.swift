@@ -9,6 +9,7 @@ import SharedDomain
 
 public extension Task {
     static let task1Stub = Task(
+        id: "task1",
         title: "Task 1",
         description: "",
         tags: [],
@@ -21,6 +22,7 @@ public extension Task {
     )
     
     static let task2Stub = Task(
+        id: "task2",
         title: "Task 2",
         description: "Some description",
         tags: [],
