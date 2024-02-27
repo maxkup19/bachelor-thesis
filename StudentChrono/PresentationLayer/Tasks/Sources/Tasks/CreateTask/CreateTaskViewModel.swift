@@ -13,6 +13,8 @@ import UIToolkit
 
 final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     
+    typealias Task = _Concurrency.Task
+    
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
@@ -71,8 +73,10 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
             let data = CreateTaskData(
                 title: state.title,
                 description: state.description,
+                tags: state.taskDetails.tags,
                 assigneeId: state.taskDetails.assigneeId,
-                dueTo: state.taskDetails.date
+                dueTo: state.taskDetails.dueTo,
+                priority: state.taskDetails.priority
             )
             try await createTaskUseCase.execute(data)
         } catch {

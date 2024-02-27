@@ -13,6 +13,8 @@ import UIToolkit
 
 final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     
+    typealias Task = _Concurrency.Task
+    
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
