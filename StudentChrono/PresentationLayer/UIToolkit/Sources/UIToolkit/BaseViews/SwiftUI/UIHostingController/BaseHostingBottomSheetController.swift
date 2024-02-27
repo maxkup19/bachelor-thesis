@@ -21,7 +21,7 @@ public class BaseHostingBottomSheetController<Content: View>: BaseHostingControl
         
         super.init(rootView: AnyView(body))
         view.backgroundColor = .clear
-        self.modalPresentationStyle = .overFullScreen
+        self.modalPresentationStyle = .automatic
     }
     
     required init?(coder aDecoder: NSCoder) {

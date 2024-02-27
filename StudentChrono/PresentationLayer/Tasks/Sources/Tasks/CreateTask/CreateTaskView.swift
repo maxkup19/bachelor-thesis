@@ -17,11 +17,55 @@ struct CreateTaskView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("CreateTaskView")
+        NavigationStack {
+            VStack {
+                Form {
+                    Section {
+                        TextField(
+                            "Title",
+                            text: Binding(
+                                get: { viewModel.state.title },
+                                set: { value in viewModel.onIntent(.titleChanged(value)) }
+                            ),
+                            axis: .vertical
+                        )
+
+                        TextField(
+                            "Description",
+                            text: Binding(
+                                get: { viewModel.state.description },
+                                set: { value in viewModel.onIntent(.descriptionChanged(value)) }
+                            ),
+                            axis: .vertical
+                        )
+                        .lineLimit(4...)
+                    }
+                    
+                    Section {
+                        NavigationLink("Details") {
+                            AddTaskDetailsView(viewModel: viewModel)
+                        }
+                    }
+                    
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("**Add**") {
+                        
+                    }
+                    .disabled(viewModel.state.title.isEmpty)
+                }
+            }
+            .navigationTitle("New Task")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .padding(.bottom, AppTheme.Dimens.spaceXXLarge)
-        .padding()
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(

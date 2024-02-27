@@ -47,10 +47,9 @@ extension TasksFlowController {
     private func createTask() {
         let vm = CreateTaskViewModel(flowController: self)
         let view = CreateTaskView(viewModel: vm)
+        let vc = BaseHostingController(rootView: view)
+        vc.modalPresentationStyle = .automatic
         
-        let vc = BaseHostingBottomSheetController(rootView: view) { [weak self] in
-            self?.dismiss()
-        }
         navigationController.present(vc, animated: true)
     }
 }

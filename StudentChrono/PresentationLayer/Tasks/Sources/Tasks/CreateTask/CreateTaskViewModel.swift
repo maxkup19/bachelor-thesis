@@ -37,8 +37,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     struct State {
         var title: String = ""
         var description: String = ""
-        var assigneeId: UUID?
-        var dueTo: Date?
+        var taskDetails: TaskDetails = .init()
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -46,6 +45,9 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Intents
     enum Intent {
         case createTask
+        case titleChanged(String)
+        case descriptionChanged(String)
+        case taskDetailsChanged(TaskDetails)
         case dismissAlert
     }
     
@@ -53,6 +55,9 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
         executeTask(Task {
             switch intent {
             case .createTask: await createTask()
+            case .titleChanged(let title): titleChanged(title)
+            case .descriptionChanged(let description): descriptionChanged(description)
+            case .taskDetailsChanged(let details): taskDetailsChanged(details)
             case .dismissAlert: dismissAlert()
             }
         })
@@ -66,13 +71,25 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
             let data = CreateTaskData(
                 title: state.title,
                 description: state.description,
-                assigneeId: state.assigneeId,
-                dueTo: state.dueTo
+                assigneeId: state.taskDetails.assigneeId,
+                dueTo: state.taskDetails.date
             )
             try await createTaskUseCase.execute(data)
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
+    }
+    
+    private func titleChanged(_ title: String) {
+        state.title = title
+    }
+    
+    private func descriptionChanged(_ description: String) {
+        state.description = description
+    }
+    
+    private func taskDetailsChanged(_ details: TaskDetails) {
+        state.taskDetails = details
     }
     
     private func dismissAlert() {
