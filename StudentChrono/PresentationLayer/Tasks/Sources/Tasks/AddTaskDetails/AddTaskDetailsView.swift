@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 27.02.2024.
 //
 
+import SharedDomain
 import SwiftUI
 import UIToolkit
 
@@ -27,7 +28,33 @@ struct AddTaskDetailsView: View {
     var body: some View {
         NavigationStack {
             Form {
-                FoldableDatePicker(date: $taskDetails.dueTo)
+                Section {
+                    FoldableDatePicker(date: $taskDetails.dueTo)
+                }
+                
+                Section {
+                    Picker(
+                        selection: $taskDetails.priority) {
+                            ForEach(Priority.allCases) { value in
+                                Text(value.rawValue.capitalized)
+                                    .tag(value)
+                                if value == .none {
+                                    Divider()
+                                }
+                            }
+                        } label: {
+                            HStack {
+                                FormImage(
+                                    image: AppTheme.Images.exclamationmark,
+                                    color: .red
+                                )
+                                
+                                Text("Priority")
+                                    .font(.callout)
+                            }
+                        }
+                }
+                
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

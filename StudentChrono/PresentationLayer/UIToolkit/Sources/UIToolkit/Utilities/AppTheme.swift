@@ -117,6 +117,8 @@ public enum AppTheme {
         // Tasks
         public static let plus = Image(systemName: "plus")
         public static let list = Image(systemName: "list.bullet.circle.fill")
+        public static let calendar = Image(systemName: "calendar")
+        public static let exclamationmark = Image(systemName: "exclamationmark")
         
     }
     

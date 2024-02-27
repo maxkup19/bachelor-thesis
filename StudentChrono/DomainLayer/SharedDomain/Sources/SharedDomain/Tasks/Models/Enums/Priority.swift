@@ -7,7 +7,10 @@
 
 import Foundation
 
-public enum Priority: String, Codable, Equatable, CaseIterable {
+public enum Priority: String, Codable, Equatable, CaseIterable, Identifiable {
+    
+    public var id: String { rawValue }
+    
     case none
     case low
     case medium

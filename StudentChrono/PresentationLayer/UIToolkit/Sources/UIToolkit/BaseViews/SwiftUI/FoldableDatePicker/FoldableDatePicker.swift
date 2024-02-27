@@ -25,11 +25,14 @@ public struct FoldableDatePicker: View {
         Group {
             Toggle(isOn: $dateEnabled) {
                 HStack {
-                    Image(systemName: "calendar.circle.fill")
+                    FormImage(
+                        image: AppTheme.Images.calendar,
+                        color: .blue
+                    )
                     
                     VStack(alignment: .leading) {
                         Text("Deadline")
-                            .font(.body)
+                            .font(.callout)
                         
                         if let date {
                             Text("\(date.formatted(date: .abbreviated, time: .shortened))")
