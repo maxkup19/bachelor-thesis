@@ -45,6 +45,7 @@ struct AddTaskDetailsView: View {
                         } label: {
                             HStack {
                                 FormImage(
+                                    .rectangle,
                                     image: AppTheme.Images.exclamationmark,
                                     color: .red
                                 )

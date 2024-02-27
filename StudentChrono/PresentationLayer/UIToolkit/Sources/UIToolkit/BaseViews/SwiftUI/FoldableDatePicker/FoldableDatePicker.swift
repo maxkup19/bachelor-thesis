@@ -26,6 +26,7 @@ public struct FoldableDatePicker: View {
             Toggle(isOn: $dateEnabled) {
                 HStack {
                     FormImage(
+                        .rectangle,
                         image: AppTheme.Images.calendar,
                         color: .blue
                     )

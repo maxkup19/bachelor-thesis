@@ -59,7 +59,11 @@ struct CreateTaskView: View {
                             
                         } label: {
                             HStack {
-                                AppTheme.Images.list
+                                FormImage(
+                                    .circle,
+                                    image: AppTheme.Images.list,
+                                    color: .red
+                                )
                                 
                                 Text("Student")
                                 
