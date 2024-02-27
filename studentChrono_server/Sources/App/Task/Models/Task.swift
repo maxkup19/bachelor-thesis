@@ -19,7 +19,10 @@ final class Task: Model {
     var title: String
     
     @Field(key: FieldKeys.description)
-    var description: String?
+    var description: String
+    
+    @Field(key: FieldKeys.tags)
+    var tags: [String]
     
     @Enum(key: FieldKeys.state)
     var state: TaskState
@@ -33,6 +36,9 @@ final class Task: Model {
     @OptionalField(key: FieldKeys.dueTo)
     var dueTo: Date?
     
+    @Enum(key: FieldKeys.priority)
+    var priority: Priority
+    
     @Timestamp(key: FieldKeys.createdAt, on: .create)
     var createdAt: Date?
     
@@ -45,18 +51,22 @@ final class Task: Model {
         id: UUID? = nil,
         title: String,
         description: String,
-        state: TaskState = .draft,
+        tags: [String],
+        state: TaskState,
         authorId: User.IDValue,
         assigneeId: User.IDValue?,
-        dueTo: Date?
+        dueTo: Date?,
+        priority: Priority
     ) {
         self.id = id
         self.title = title
         self.description = description
+        self.tags = tags
         self.state = state
         self.$author.id = authorId
         self.$assignee.id = assigneeId
         self.dueTo = dueTo
+        self.priority = priority
     }
     
     // MARK: - Update task init

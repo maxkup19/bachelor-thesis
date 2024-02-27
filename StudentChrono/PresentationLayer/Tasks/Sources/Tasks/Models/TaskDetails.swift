@@ -6,11 +6,11 @@
 //
 
 import Foundation
+import SharedDomain
 
 struct TaskDetails: Equatable {
-    var date: Date?
-    var tags: [String]?
+    var dueTo: Date?
+    var tags: [String]
     var assigneeId: UUID?
-//    let priority:
-    var urlString: String?
+    var priority: Priority
 }

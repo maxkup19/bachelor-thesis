@@ -45,6 +45,10 @@ public extension Container {
         taskRepository: self.taskRepository()
     )}}
     
+    var getMyTasksUseCase: Factory<GetMyTasksUseCase> { self { GetMyTasksUseCaseImpl(
+        taskRepository: self.taskRepository()
+    )}}
+    
     // Validation
     var validateEmailUseCase: Factory<ValidateEmailUseCase> { self { ValidateEmailUseCaseImpl() } }
     var validatePasswordUseCase: Factory<ValidatePasswordUseCase> { self { ValidatePasswordUseCaseImpl() } }

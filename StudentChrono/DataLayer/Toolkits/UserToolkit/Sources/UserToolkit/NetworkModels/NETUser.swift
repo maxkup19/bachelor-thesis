@@ -8,7 +8,7 @@
 import Foundation
 import SharedDomain
 
-struct NETUser: Decodable {
+public struct NETUser: Decodable {
     let name: String
     let lastName: String
     let email: String
@@ -17,7 +17,7 @@ struct NETUser: Decodable {
 }
 
 // Conversion from NetworkModel to DomainModel
-extension NETUser {
+public extension NETUser {
     var domainModel: User {
         User(
             name: name,

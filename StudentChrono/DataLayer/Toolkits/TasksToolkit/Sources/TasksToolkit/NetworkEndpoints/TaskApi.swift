@@ -11,6 +11,7 @@ import Utilities
 
 enum TaskAPI {
     case createTask(_ data: [String: Any])
+    case getMyTasks
 }
 
 extension TaskAPI: NetworkEndpoint {
@@ -18,11 +19,13 @@ extension TaskAPI: NetworkEndpoint {
     var path: String {
         switch self {
         case .createTask: "/task"
+        case .getMyTasks: "/task"
         }
     }
     var method: NetworkMethod {
         switch self {
         case .createTask: .post
+        case .getMyTasks: .get
         }
     }
     var headers: [String: String]? {
@@ -31,6 +34,7 @@ extension TaskAPI: NetworkEndpoint {
     var task: NetworkTask {
         switch self {
         case let .createTask(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
+        case .getMyTasks: .requestPlain
         }
     }
 }

@@ -23,10 +23,12 @@ struct TaskController: RouteCollection {
     }
     
     private func index(req: Request) async throws -> [TaskResponse] {
+        let user = try req.auth.require(User.self)
         return try await Task.query(on: req.db)
             .with(\.$author)
             .with(\.$assignee)
             .all()
+            .filter{ $0.assignee?.id == user.id }
             .map { $0.asTaskResponse }
     }
     

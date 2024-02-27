@@ -22,4 +22,8 @@ public struct TaskRepositoryImpl: TaskRepository {
         let data = try payload.networkModel.encode()
         try await network.request(TaskAPI.createTask(data), withInterceptor: false)
     }
+    
+    public func getMyTasks() async throws -> [Task] {
+        try await network.request(TaskAPI.getMyTasks, withInterceptor: false).map([NETTask].self).map(\.domainModel)
+    }
 }
