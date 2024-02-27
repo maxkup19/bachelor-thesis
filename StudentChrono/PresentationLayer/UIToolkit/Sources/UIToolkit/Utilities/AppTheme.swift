@@ -116,6 +116,7 @@ public enum AppTheme {
         
         // Tasks
         public static let plus = Image(systemName: "plus")
+        public static let list = Image(systemName: "list.bullet.circle.fill")
         
     }
     

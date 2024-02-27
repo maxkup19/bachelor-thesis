@@ -10,44 +10,46 @@ import UIToolkit
 
 struct AddTaskDetailsView: View {
     
-    @ObservedObject private var viewModel: CreateTaskViewModel
+    @Binding private var taskDetails: TaskDetails
+    private let addButtonDisabled: Bool
+    private let onAddButtonTap: () -> Void
     
-    init(viewModel: CreateTaskViewModel) {
-        self.viewModel = viewModel
+    init(
+        taskDetails: Binding<TaskDetails>,
+        addButtonDisabled: Bool,
+        onAddButtonTap: @escaping () -> Void
+    ) {
+        self._taskDetails = taskDetails
+        self.addButtonDisabled = addButtonDisabled
+        self.onAddButtonTap = onAddButtonTap
     }
     
     var body: some View {
         NavigationStack {
-            VStack {
-                
-            }.toolbar {
+            Form {
+                FoldableDatePicker(date: $taskDetails.dueTo)
+            }
+            .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("**Add**") {
-                        
+                        onAddButtonTap()
                     }
-                    .disabled(viewModel.state.title.isEmpty)
+                    .disabled(addButtonDisabled)
                 }
             }
             .navigationTitle("Details")
             .navigationBarTitleDisplayMode(.inline)
         }
-        .environment(\.isLoading, viewModel.state.isLoading)
-        .lifecycle(viewModel)
-        .alert(item: Binding<AlertData?>(
-            get: { viewModel.state.alertData },
-            set: { _ in viewModel.onIntent(.dismissAlert) }
-        )) { alert in .init(alert) }
     }
 }
 
 #if DEBUG
-import DependencyInjectionMocks
-import Factory
 
 #Preview {
-    Container.shared.registerUseCaseMocks()
-    
-    let vm = CreateTaskViewModel(flowController: nil)
-    return AddTaskDetailsView(viewModel: vm)
+    AddTaskDetailsView(
+        taskDetails: .constant(TaskDetails()),
+        addButtonDisabled: false,
+        onAddButtonTap: { }
+    )
 }
 #endif

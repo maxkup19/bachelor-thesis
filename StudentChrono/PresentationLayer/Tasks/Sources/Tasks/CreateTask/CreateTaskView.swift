@@ -29,7 +29,7 @@ struct CreateTaskView: View {
                             ),
                             axis: .vertical
                         )
-
+                        
                         TextField(
                             "Description",
                             text: Binding(
@@ -43,9 +43,35 @@ struct CreateTaskView: View {
                     
                     Section {
                         NavigationLink("Details") {
-                            AddTaskDetailsView(viewModel: viewModel)
+                            AddTaskDetailsView(
+                                taskDetails: Binding(
+                                    get: { viewModel.state.taskDetails },
+                                    set: { value in viewModel.onIntent(.taskDetailsChanged(value)) }
+                                ),
+                                addButtonDisabled: viewModel.state.title.isEmpty,
+                                onAddButtonTap: { viewModel.onIntent(.createTask) }
+                            )
                         }
                     }
+                    
+                    Section {
+                        NavigationLink {
+                            
+                        } label: {
+                            HStack {
+                                AppTheme.Images.list
+                                
+                                Text("Student")
+                                
+                                Spacer()
+                                
+                                Text("STUDENT_NAME")
+                                    .lineLimit(1)
+                                    .foregroundStyle(Color.secondary)
+                            }
+                        }
+                    }
+                    
                     
                 }
             }
