@@ -26,7 +26,6 @@
 		0ADCCC2C2B65A76B008E8249 /* StudentChronoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */; };
 		0ADCCC362B65A76B008E8249 /* StudentChronoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC352B65A76B008E8249 /* StudentChronoUITests.swift */; };
 		0ADCCC382B65A76B008E8249 /* StudentChronoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC372B65A76B008E8249 /* StudentChronoUITestsLaunchTests.swift */; };
-		0ADCCC4C2B65A88A008E8249 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */; };
 		0ADCCC562B65A8E3008E8249 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0ADCCC4E2B65A8E3008E8249 /* InfoPlist.strings */; };
 		0ADCCC5B2B65A99F008E8249 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ADCCC5A2B65A99F008E8249 /* LaunchScreen.storyboard */; };
 		0ADCCC5E2B65B197008E8249 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC5D2B65B197008E8249 /* AppDelegate.swift */; };
@@ -74,7 +73,6 @@
 		0ADCCC312B65A76B008E8249 /* StudentChronoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC352B65A76B008E8249 /* StudentChronoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoUITests.swift; sourceTree = "<group>"; };
 		0ADCCC372B65A76B008E8249 /* StudentChronoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		0ADCCC4F2B65A8E3008E8249 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0ADCCC522B65A8E3008E8249 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0ADCCC532B65A8E3008E8249 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -149,14 +147,6 @@
 			path = Toolkits;
 			sourceTree = "<group>";
 		};
-		0A0BCDF02B880E1E0033877C /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		0A420D3D2B65B8D700B8914C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,7 +165,6 @@
 				0ADCCC342B65A76B008E8249 /* StudentChronoUITests */,
 				0ADCCC162B65A76A008E8249 /* Products */,
 				0A420D3D2B65B8D700B8914C /* Frameworks */,
-				0A0BCDF02B880E1E0033877C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -392,7 +381,6 @@
 				0ADCCC562B65A8E3008E8249 /* InfoPlist.strings in Resources */,
 				0ADCCC5B2B65A99F008E8249 /* LaunchScreen.storyboard in Resources */,
 				0A0BCDF22B880E7B0033877C /* AppIcon.xcassets in Resources */,
-				0ADCCC4C2B65A88A008E8249 /* AppIcon.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
