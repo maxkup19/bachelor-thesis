@@ -45,6 +45,11 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
             email.isEmpty || password.isEmpty ||
             confirmedPassword.isEmpty || name.isEmpty || lastName.isEmpty
         }
+        
+        var showRoleSelector: Bool {
+            let age = Calendar.current.dateComponents([.year], from: birthDay, to: .now).year
+            return age ?? 0 >= 18
+        }
     }
     
     // MARK: - Intent
@@ -118,27 +123,17 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
             return
         }
         
-        if state.isTeacher {
-            let age = Calendar.current.dateComponents([.year], from: state.birthDay, to: .now)
-    
-            guard let years = age.year, years > 18 else {
-                state.alertData = .init(title: "You need to be older than 18 to be a teacher")
-                return
-            }
-        }
-        
         do {
-            let userRole: UserRoleEnum = state.isTeacher ? .teacher : .student
             let data = RegistrationData(
                 email: state.email,
                 password: state.password,
                 name: state.name,
                 lastName: state.lastName,
                 birthDay: state.birthDay,
-                role: userRole
+                role: state.role
             )
             try await registrationUseCase.execute(data)
-            flowController?.handleFlow(AuthFlow.login(.login(userRole)))
+            flowController?.handleFlow(AuthFlow.login(.login(state.role)))
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

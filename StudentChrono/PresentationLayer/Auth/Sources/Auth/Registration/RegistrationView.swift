@@ -48,22 +48,24 @@ struct RegistrationView: View {
                     )
                 )
                 
-                Picker(
-                    "Role",
-                    selection: Binding(
-                        get: { viewModel.state.role },
-                        set: { value in viewModel.onIntent(.roleChanged(value))}
-                    ),
-                    content: {
-                        ForEach(UserRoleEnum.allCases) { val in
-                            if val != .admin {
-                                Text(val.rawValue.capitalized)
-                                    .tag(val)
+                if viewModel.state.showRoleSelector {
+                    Picker(
+                        "Role",
+                        selection: Binding(
+                            get: { viewModel.state.role },
+                            set: { value in viewModel.onIntent(.roleChanged(value))}
+                        ),
+                        content: {
+                            ForEach(UserRoleEnum.allCases) { val in
+                                if val != .admin {
+                                    Text(val.rawValue.capitalized)
+                                        .tag(val)
+                                }
                             }
                         }
-                    }
-                )
-                .pickerStyle(.palette)
+                    )
+                    .pickerStyle(.palette)
+                }
                 
                 Button {
                     viewModel.onIntent(.registerTap)

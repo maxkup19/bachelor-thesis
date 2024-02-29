@@ -89,12 +89,16 @@ struct RegistrationInputView: View, KeyboardReadable {
                     focusedField = .birthDay
                 }
                 
-                DatePicker("Birthday", selection: .constant(.now), displayedComponents: .date)
-                    .focused($focusedField, equals: .birthDay)
-                    .submitLabel(.next)
-                    .onSubmit {
-                        focusedField = .password
-                    }
+                DatePicker(
+                    "Birthday",
+                    selection: $dateOfBirth,
+                    displayedComponents: .date
+                )
+                .focused($focusedField, equals: .birthDay)
+                .submitLabel(.next)
+                .onSubmit {
+                    focusedField = .password
+                }
             }
             
             Section("Passwords") {
