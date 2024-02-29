@@ -29,13 +29,13 @@ struct TaskRowView: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        Image(systemName: "person")
+                        Image(systemName: "rectangle.inset.filled.and.person.filled")
                         Text("Author · \(task.author.name) \(task.author.lastName)")
                     }
                     
                     HStack {
                         Image(systemName: "chevron.down.square")
-                        Text("Status · \(task.state.emoji) \(task.state.rawValue.capitalized)")
+                        Text("Status · \(task.state.emoji) \(task.state.title)")
                     }
                     
                     if let assignee = task.assignee {
@@ -48,8 +48,7 @@ struct TaskRowView: View {
                     if !task.tags.isEmpty {
                         HStack {
                             Image(systemName: "tag")
-                            Text("Tags")
-                            Text("·")
+                            Text("Tags ·")
                             ForEach(task.tags, id: \.self) { tag in
                                 Text(tag)
                             }

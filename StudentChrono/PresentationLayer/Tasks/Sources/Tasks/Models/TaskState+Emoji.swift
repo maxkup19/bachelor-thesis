@@ -26,4 +26,11 @@ extension TaskState {
         case .review, .done: Image(systemName: "checkmark.circle").foregroundStyle(Color.indigo)
         }
     }
+    
+    var title: String {
+        switch self {
+        case .inProgress: "In Progress"
+        default: rawValue.capitalized
+        }
+    }
 }
