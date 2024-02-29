@@ -63,7 +63,8 @@ struct TaskRowView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 
                 if let deadline = task.dueTo {
-                    Text(deadline.formatted(date: .abbreviated, time: .shortened))
+                    Text("Deadline: \(deadline.formatted(date: .abbreviated, time: .shortened))")
+                        .font(.caption)
                 }
             }
         }
