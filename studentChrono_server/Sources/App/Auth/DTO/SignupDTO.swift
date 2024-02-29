@@ -14,6 +14,7 @@ struct SignupDTO: Content {
     var email: String
     var password: String
     var birthDay: Date
+    var role: UserRoleEnum
 }
 
 extension SignupDTO: Validatable {
@@ -30,7 +31,8 @@ extension SignupDTO {
             lastName: lastName,
             email: email,
             password: try Bcrypt.hash(password),
-            birthDay: birthDay
+            birthDay: birthDay,
+            role: role
         )
     }
 }

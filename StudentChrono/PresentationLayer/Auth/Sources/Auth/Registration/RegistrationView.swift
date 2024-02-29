@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 12.02.2024.
 //
 
+import SharedDomain
 import SwiftUI
 import UIToolkit
 
@@ -46,6 +47,23 @@ struct RegistrationView: View {
                         set: { confirmedPassword in viewModel.onIntent(.confirmedPasswordChanged(confirmedPassword)) }
                     )
                 )
+                
+                Picker(
+                    "Role",
+                    selection: Binding(
+                        get: { viewModel.state.role },
+                        set: { value in viewModel.onIntent(.roleChanged(value))}
+                    ),
+                    content: {
+                        ForEach(UserRoleEnum.allCases) { val in
+                            if val != .admin {
+                                Text(val.rawValue.capitalized)
+                                    .tag(val)
+                            }
+                        }
+                    }
+                )
+                .pickerStyle(.palette)
                 
                 Button {
                     viewModel.onIntent(.registerTap)

@@ -37,7 +37,7 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         var name: String = ""
         var lastName: String = ""
         var birthDay: Date = .now
-        var isTeacher: Bool = false
+        var role: UserRoleEnum = .student
         var isLoading: Bool = false
         var alertData: AlertData?
         
@@ -56,7 +56,7 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         case nameChanged(String)
         case lastNameChanged(String)
         case birthDayChanged(Date)
-        case isTeacherToggle
+        case roleChanged(UserRoleEnum)
         case registerTap
         case showLogin
         case dismissAlert
@@ -71,7 +71,7 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .nameChanged(let name): nameChanged(name)
             case .lastNameChanged(let lastName): lastNameChanged(lastName)
             case .birthDayChanged(let date): birthDayChanged(date)
-            case .isTeacherToggle: isTeacherToggle()
+            case .roleChanged(let role): roleChanged(role)
             case .registerTap: await registerTap()
             case .showLogin: showLogin()
             case .dismissAlert: dismissAlert()
@@ -105,8 +105,8 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         state.birthDay = birthDay
     }
     
-    private func isTeacherToggle() {
-        state.isTeacher.toggle()
+    private func roleChanged(_ role: UserRoleEnum) {
+        state.role = role
     }
     
     private func registerTap() async {
@@ -118,6 +118,15 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
             return
         }
         
+        if state.isTeacher {
+            let age = Calendar.current.dateComponents([.year], from: state.birthDay, to: .now)
+    
+            guard let years = age.year, years > 18 else {
+                state.alertData = .init(title: "You need to be older than 18 to be a teacher")
+                return
+            }
+        }
+        
         do {
             let userRole: UserRoleEnum = state.isTeacher ? .teacher : .student
             let data = RegistrationData(
@@ -125,7 +134,8 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
                 password: state.password,
                 name: state.name,
                 lastName: state.lastName,
-                birthDay: state.birthDay
+                birthDay: state.birthDay,
+                role: userRole
             )
             try await registrationUseCase.execute(data)
             flowController?.handleFlow(AuthFlow.login(.login(userRole)))

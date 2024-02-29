@@ -14,6 +14,7 @@ struct NETRegistrationData: Encodable {
     let name: String
     let lastName: String
     let birthDay: Date
+    let role: UserRoleEnum
 }
 
 // Conversion from DomainModel to NetworkModel
@@ -24,7 +25,8 @@ extension RegistrationData {
             password: password,
             name: name,
             lastName: lastName,
-            birthDay: birthDay
+            birthDay: birthDay,
+            role: role
         )
     }
 }

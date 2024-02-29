@@ -73,17 +73,8 @@ struct RegistrationInputView: View, KeyboardReadable {
                 .keyboardType(.asciiCapable)
                 .textInputAutocapitalization(.words)
                 .onSubmit {
-                    focusedField = .birthDay
+                    focusedField = .email
                 }
-                
-                DatePicker("Birthday", selection: .constant(.now), displayedComponents: .date)
-//                    .co
-//                    .datePickerStyle(.wheel)
-                    .focused($focusedField, equals: .birthDay)
-                    .submitLabel(.next)
-                    .onSubmit {
-                        focusedField = .email
-                    }
                 
                 TextField(
                     "Email",
@@ -95,11 +86,18 @@ struct RegistrationInputView: View, KeyboardReadable {
                 .textContentType(.emailAddress)
                 .keyboardType(.emailAddress)
                 .onSubmit {
-                    focusedField = .password
+                    focusedField = .birthDay
                 }
+                
+                DatePicker("Birthday", selection: .constant(.now), displayedComponents: .date)
+                    .focused($focusedField, equals: .birthDay)
+                    .submitLabel(.next)
+                    .onSubmit {
+                        focusedField = .password
+                    }
             }
             
-            Section("Passwords"){
+            Section("Passwords") {
                 SecureField(
                     "Password",
                     text: $password,
