@@ -7,7 +7,10 @@
 
 import Foundation
 
-public enum TaskState: String, Codable, Equatable, CaseIterable {
+public enum TaskState: String, Codable, Equatable, CaseIterable, Identifiable {
+    
+    public var id: String { rawValue }
+    
     case draft
     case todo
     case inProgress

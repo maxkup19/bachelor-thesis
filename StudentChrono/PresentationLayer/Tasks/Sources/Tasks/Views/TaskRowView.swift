@@ -15,6 +15,8 @@ struct TaskRowView: View {
     
     private let task: Task
     
+    private let imageSize: CGFloat = 15
+    
     init(task: Task) {
         self.task = task
     }
@@ -30,17 +32,23 @@ struct TaskRowView: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Image(systemName: "rectangle.inset.filled.and.person.filled")
+                            .resizable()
+                            .frame(width: imageSize, height: imageSize)
                         Text("Author · \(task.author.name) \(task.author.lastName)")
                     }
                     
                     HStack {
                         Image(systemName: "chevron.down.square")
+                            .resizable()
+                            .frame(width: imageSize, height: imageSize)
                         Text("Status · \(task.state.emoji) \(task.state.title)")
                     }
                     
                     if let assignee = task.assignee {
                         HStack {
                             Image(systemName: "person")
+                                .resizable()
+                                .frame(width: imageSize, height: imageSize)
                             Text("Assignee · \(assignee.name) \(assignee.lastName)")
                         }
                     }
@@ -48,6 +56,8 @@ struct TaskRowView: View {
                     if !task.tags.isEmpty {
                         HStack {
                             Image(systemName: "tag")
+                                .resizable()
+                                .frame(width: imageSize, height: imageSize)
                             Text("Tags ·")
                             ForEach(task.tags, id: \.self) { tag in
                                 Text(tag)

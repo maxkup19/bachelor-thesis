@@ -22,8 +22,8 @@ extension TaskState {
     var imageStatus: some View {
         switch self {
         case .draft: Image(systemName: "smallcircle.filled.circle").foregroundStyle(Color.gray)
-        case .todo, .inProgress: Image(systemName: "smallcircle.filled.circle").foregroundStyle(Color.green)
-        case .review, .done: Image(systemName: "checkmark.circle").foregroundStyle(Color.indigo)
+        case .todo, .inProgress, .review: Image(systemName: "smallcircle.filled.circle").foregroundStyle(Color.green)
+        case  .done: Image(systemName: "checkmark.circle").foregroundStyle(Color.indigo)
         }
     }
     

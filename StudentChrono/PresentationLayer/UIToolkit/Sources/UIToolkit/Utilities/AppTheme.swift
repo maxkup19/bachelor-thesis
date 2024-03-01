@@ -119,6 +119,7 @@ public enum AppTheme {
         public static let list = Image(systemName: "list.bullet")
         public static let calendar = Image(systemName: "calendar")
         public static let exclamationmark = Image(systemName: "exclamationmark")
+        public static let dots = Image(systemName: "ellipsis.circle")
         
     }
     

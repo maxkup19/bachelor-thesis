@@ -28,8 +28,16 @@ struct TasksView: View {
                 )
             } else {
                 List {
-                    ForEach(viewModel.state.tasks) { task in
-                        TaskRowView(task: task)
+                    ForEach(TaskState.allCases) { taskState in
+                        let tasks = viewModel.state.tasks.filter { $0.state == taskState }
+                        
+                        if !tasks.isEmpty {
+                            Section("\(taskState.emoji) \(taskState.title)") {
+                                ForEach(tasks) { task in
+                                    TaskRowView(task: task)
+                                }
+                            }
+                        }
                     }
                 }
                 .listStyle(.plain)
@@ -38,8 +46,17 @@ struct TasksView: View {
                 }
             }
         }
+        .navigationTitle("Tasks")
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Menu {
+                    // TODO: add filter and sorting
+                } label: {
+                    AppTheme.Images.dots
+                }
+            }
+            
+            ToolbarItem(placement: .topBarLeading) {
                 if viewModel.state.showCreateButtonTask {
                     Button(action: { viewModel.onIntent(.createTask) }) {
                         AppTheme.Images.plus
