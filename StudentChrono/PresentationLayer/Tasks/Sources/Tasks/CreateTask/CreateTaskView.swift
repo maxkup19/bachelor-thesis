@@ -50,8 +50,11 @@ struct CreateTaskView: View {
                     Section {
                         NavigationLink {
                             StudentSelectionList(
-                                assigneeIds: .constant([User.studentStub.id]),
-                                users: [.studentStub, .teacherStub]
+                                assignee: Binding(
+                                    get: { viewModel.state.selectedStudentIds },
+                                    set: { studentIds in viewModel.onIntent(.selectedStudentIdsChanged(studentIds)) }
+                                ),
+                                users: viewModel.state.students
                             )
                         } label: {
                             HStack {
@@ -65,7 +68,7 @@ struct CreateTaskView: View {
                                 
                                 Spacer()
                                 
-                                Text("STUDENT_NAME")
+                                Text(viewModel.state.selectedStudentFullName)
                                     .lineLimit(1)
                                     .foregroundStyle(Color.secondary)
                             }
