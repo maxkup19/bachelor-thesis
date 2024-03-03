@@ -19,6 +19,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     private weak var flowController: FlowController?
     
     @Injected(\.createTaskUseCase) private var createTaskUseCase
+    @Injected(\.getMyStudentsUseCase) private var getMyStudentsUseCase
     
     init(flowController: FlowController?) {
         self.flowController = flowController
@@ -40,8 +41,15 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
         var title: String = ""
         var description: String = ""
         var taskDetails: TaskDetails = .init()
+        var students: [User] = []
+        var selectedStudentIds: Set<String> = []
         var isLoading: Bool = false
         var alertData: AlertData?
+        
+        var selectedStudentFullName: String {
+            guard let student = students.first(where: { $0.id == selectedStudentIds.first }) else { return "" }
+            return "\(student.name) \(student.lastName)"
+        }
     }
     
     // MARK: - Intents
@@ -50,6 +58,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
         case titleChanged(String)
         case descriptionChanged(String)
         case taskDetailsChanged(TaskDetails)
+        case selectedStudentIdsChanged(Set<String>)
         case cancelTap
         case dismissAlert
     }
@@ -61,6 +70,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .titleChanged(let title): titleChanged(title)
             case .descriptionChanged(let description): descriptionChanged(description)
             case .taskDetailsChanged(let details): taskDetailsChanged(details)
+            case .selectedStudentIdsChanged(let students): selectedStudentChanged(students)
             case .cancelTap: cancelTap()
             case .dismissAlert: dismissAlert()
             }
@@ -70,21 +80,23 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Private
     
     private func loadData() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
         do {
-            
+            state.students = try await getMyStudentsUseCase.execute()
         } catch {
-            
+            state.alertData = .init(title: error.localizedDescription)
         }
     }
     
     private func createTask() async {
-        #warning("Revisit in future")
         do {
             let data = CreateTaskData(
                 title: state.title,
                 description: state.description,
                 tags: state.taskDetails.tags,
-                assigneeId: state.taskDetails.assigneeId,
+                assigneeId: state.selectedStudentIds.first,
                 dueTo: state.taskDetails.dueTo,
                 priority: state.taskDetails.priority
             )
@@ -105,6 +117,11 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     private func taskDetailsChanged(_ details: TaskDetails) {
         state.taskDetails = details
+    }
+    
+    private func selectedStudentChanged(_ students: Set<String> ) {
+        let newSelected = students.subtracting(state.selectedStudentIds)
+        state.selectedStudentIds = newSelected
     }
     
     private func cancelTap() {

@@ -1,6 +1,6 @@
 //
 //  StudentSelectionList.swift
-//  
+//
 //
 //  Created by Maksym Kupchenko on 03.03.2024.
 //
@@ -10,23 +10,31 @@ import SharedDomain
 
 struct StudentSelectionList: View {
     
-    @Binding private var assigneeIds: Set<String>
+    @Binding private var assignee: Set<User.ID>
     private let users: [User]
     
     init(
-        assigneeIds: Binding<Set<String>>,
+        assignee: Binding<Set<User.ID>>,
         users: [User]
     ) {
-        self._assigneeIds = assigneeIds
+        self._assignee = assignee
         self.users = users
     }
     
     var body: some View {
-        NavigationStack {
-            List(users, selection: $assigneeIds) { user in
-                Text(user.name)
+        Group {
+            if users.isEmpty {
+                ContentUnavailableView(
+                    "No Students",
+                    systemImage: "person.2.slash.fill",
+                    description: Text("You have no students\nWould you like to find any? Go to Students tab")
+                )
+            } else {
+                List(users, selection: $assignee) { user in
+                    Text(user.name)
+                }
+                .environment(\.editMode, .constant(.active))
             }
-            .environment(\.editMode, .constant(.active))
         }
     }
 }
@@ -36,7 +44,7 @@ import SharedDomainMocks
 
 #Preview {
     StudentSelectionList(
-        assigneeIds: .constant([User.studentStub.id]),
+        assignee: .constant([User.studentStub.id]),
         users: [.studentStub, .teacherStub]
     )
 }

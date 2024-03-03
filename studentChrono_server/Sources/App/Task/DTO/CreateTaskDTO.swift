@@ -11,13 +11,13 @@ struct CreateTaskDTO: Content {
     var title: String
     var description: String
     var tags: [String]?
-    var assigneeId: UUID?
+    var assigneeId: String?
     var dueTo: Date?
     var priority: Priority
 }
 
 extension CreateTaskDTO {
-    func asTask(authorId: UUID) -> Task {
+    func asTask(authorId: UUID, assigneeId: UUID?) -> Task {
         Task(
             title: title,
             description: description,

@@ -44,23 +44,31 @@ struct TasksView: View {
                 .refreshable {
                     viewModel.onIntent(.refreshTasks)
                 }
+                #warning("Revisit is Future")
+//                .searchable(
+//                    text: Binding(
+//                        get: { viewModel.state.searchText },
+//                        set: { value in viewModel.onIntent(.searchTextChanged(value)) }
+//                    ),
+//                    placement: .toolbar
+//                )
             }
         }
         .navigationTitle("Tasks")
         .toolbar {
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                Menu {
-                    // TODO: add filter and sorting
-                } label: {
-                    AppTheme.Images.dots
-                }
-            }
-            
             ToolbarItem(placement: .topBarLeading) {
                 if viewModel.state.showCreateButtonTask {
                     Button(action: { viewModel.onIntent(.createTask) }) {
                         AppTheme.Images.plus
                     }
+                }
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+#warning("TODO: add filter and sorting")
+                } label: {
+                    AppTheme.Images.dots
                 }
             }
         }

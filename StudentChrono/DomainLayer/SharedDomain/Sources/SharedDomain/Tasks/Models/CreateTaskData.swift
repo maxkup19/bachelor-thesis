@@ -11,7 +11,7 @@ public struct CreateTaskData: Equatable {
     public let title: String
     public let description: String
     public let tags: [String]
-    public let assigneeId: UUID?
+    public let assigneeId: String?
     public let dueTo: Date?
     public let priority: Priority
     
@@ -19,7 +19,7 @@ public struct CreateTaskData: Equatable {
         title: String,
         description: String,
         tags: [String],
-        assigneeId: UUID?,
+        assigneeId: String?,
         dueTo: Date?,
         priority: Priority
     ) {

@@ -11,6 +11,5 @@ import SharedDomain
 struct TaskDetails: Equatable {
     var dueTo: Date?
     var tags: [String] = []
-    var assigneeId: UUID?
     var priority: Priority = .none
 }
