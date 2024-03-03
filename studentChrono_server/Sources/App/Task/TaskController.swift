@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 24.02.2024.
 //
 
+import Foundation
 import Fluent
 import Vapor
 
@@ -35,14 +36,22 @@ struct TaskController: RouteCollection {
     private func createTask(req: Request) async throws -> HTTPStatus {
         let user = try req.auth.require(User.self)
         let createTaskDTO = try req.content.decode(CreateTaskDTO.self)
+        var assigneeId: UUID?
         
-        if let assigneeId = createTaskDTO.assigneeId {
+        if let id = createTaskDTO.assigneeId {
+            assigneeId = UUID(uuidString: id)
+        }
+        
+        if let assigneeId  {
             try await ensureUserExists(id: assigneeId, on: req.db)
         }
         
-        let task = createTaskDTO.asTask(authorId: try user.requireID())
-        try await task.save(on: req.db)
+        let task = createTaskDTO.asTask(
+            authorId: try user.requireID(),
+            assigneeId: assigneeId
+        )
         
+        try await task.save(on: req.db)
         return .ok
     }
 }
