@@ -18,7 +18,9 @@ struct UserController: RouteCollection {
         userRoutes.get(use: index)
         userRoutes.get(UserRoutes.me, use: getMe)
         userRoutes.delete(UserRoutes.deleteAccount, use: deleteAccount)
-        userRoutes.patch(UserRoutes.me, use: uploadImage)
+        
+        userRoutes.patch(UserRoutes.image, use: uploadImage)
+        userRoutes.delete(UserRoutes.image, use: deleteImage)
     }
     
     private func index(req: Request) async throws -> [UserResponse] {
@@ -42,10 +44,7 @@ struct UserController: RouteCollection {
         let user = try req.auth.require(User.self)
         let file = try req.content.decode(File.self)
         
-        if let prevImage = user.imageURL {
-            let prevPath = req.application.directory.publicDirectory + (prevImage.split(separator: "/").last ?? "")
-            try FileManager.default.removeItem(atPath: prevPath)
-        }
+        try deleteUserImageFromServer(user: user, req: req)
         
         let hashedFileName = try Bcrypt.hash(file.filename).replacingOccurrences(of: "/", with: "")
         let path = req.application.directory.publicDirectory + hashedFileName
@@ -60,6 +59,16 @@ struct UserController: RouteCollection {
         
         return .ok
     }
+    
+    private func deleteImage(req: Request) async throws -> HTTPStatus {
+        let user = try req.auth.require(User.self)
+        
+        try deleteUserImageFromServer(user: user, req: req)
+        user.imageURL = nil
+        try await user.update(on: req.db)
+        
+        return .ok
+    }
 }
 
 // MARK: - Helpers
@@ -70,5 +79,12 @@ private extension UserController {
             .query(on: req.db)
             .filter(\.$email, .equal, email)
             .first()
+    }
+    
+    private func deleteUserImageFromServer(user: User, req: Request) throws {
+        if let prevImage = user.imageURL {
+            let prevPath = req.application.directory.publicDirectory + (prevImage.split(separator: "/").last ?? "")
+            try FileManager.default.removeItem(atPath: prevPath)
+        }
     }
 }
