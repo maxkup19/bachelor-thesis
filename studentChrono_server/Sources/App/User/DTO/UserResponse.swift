@@ -16,6 +16,7 @@ struct UserResponse: Content {
     var birthDay: Date
     var role: UserRoleEnum
     var studentIds: [String]?
+    var imageURL: String?
 }
 
 extension User {
@@ -27,7 +28,8 @@ extension User {
             email: email,
             birthDay: birthDay,
             role: role,
-            studentIds: role == .teacher ? studentIds.map(\.uuidString) : nil
+            studentIds: role == .teacher ? studentIds.map(\.uuidString) : nil,
+            imageURL: imageURL
         )
     }
 }

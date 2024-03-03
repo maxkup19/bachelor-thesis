@@ -37,6 +37,9 @@ final class User: Model {
     @Field(key: FieldKeys.birthDay)
     var birthDay: Date
     
+    @Field(key: FieldKeys.image)
+    var imageURL: String?
+    
     @Timestamp(key: FieldKeys.createdAt, on: .create)
     var createdAt: Date?
     

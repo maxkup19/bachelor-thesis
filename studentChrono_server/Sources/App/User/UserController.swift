@@ -18,7 +18,7 @@ struct UserController: RouteCollection {
         userRoutes.get(use: index)
         userRoutes.get(UserRoutes.me, use: getMe)
         userRoutes.delete(UserRoutes.deleteAccount, use: deleteAccount)
-        
+        userRoutes.patch(UserRoutes.me, use: uploadImage)
     }
     
     private func index(req: Request) async throws -> [UserResponse] {
@@ -35,6 +35,24 @@ struct UserController: RouteCollection {
         let user = try req.auth.require(User.self)
         
         try await user.delete(on: req.db)
+        return .ok
+    }
+    
+    private func uploadImage(req: Request) async throws -> HTTPStatus {
+        let user = try req.auth.require(User.self)
+        let file = try req.content.decode(File.self)
+        let hashedFileName = try Bcrypt.hash(file.filename)
+        
+        let path = req.application.directory.publicDirectory + hashedFileName
+        
+        try await req.fileio.writeFile(file.data, at: path)
+        
+        let serverConfig = req.application.http.server.configuration
+        let hostname = serverConfig.hostname
+        let port = serverConfig.port
+        user.imageURL = "\(hostname):\(port)/\(hashedFileName)"
+        try await user.update(on: req.db)
+        
         return .ok
     }
 }

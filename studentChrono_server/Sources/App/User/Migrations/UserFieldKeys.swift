@@ -15,9 +15,8 @@ extension User {
         static var password: FieldKey {"password"}
         static var role: FieldKey {"role"}
         static var studentIds: FieldKey {"studentIds"}
-        static var teachers: FieldKey {"teachers"}
         static var birthDay: FieldKey {"birthday"}
-        static var tasks: FieldKey {"tasks"}
+        static var image: FieldKey {"image"}
         static var createdAt: FieldKey {"createdAt"}
         static var updatedAt: FieldKey {"updatedAt"}
     }
