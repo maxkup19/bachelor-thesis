@@ -35,6 +35,9 @@ struct StudentsController: RouteCollection {
         guard try user.requireID() != addStudentUUID else {
             throw Abort(.conflict, reason: "Teacher and student must be different")
         }
+        guard !user.studentIds.contains(addStudentUUID) else {
+            throw Abort(.alreadyReported, reason: "This user is already your student")
+        }
         
         user.studentIds.append(addStudentUUID)
         try await user.update(on: req.db)
