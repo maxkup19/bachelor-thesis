@@ -29,7 +29,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     override func onAppear() {
         super.onAppear()
         executeTask(Task {
-            
+            await loadData()
         })
     }
     
@@ -68,6 +68,14 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     // MARK: - Private
+    
+    private func loadData() async {
+        do {
+            
+        } catch {
+            
+        }
+    }
     
     private func createTask() async {
         #warning("Revisit in future")

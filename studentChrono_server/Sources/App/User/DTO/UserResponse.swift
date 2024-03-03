@@ -9,6 +9,7 @@ import Foundation
 import Vapor
 
 struct UserResponse: Content {
+    var id: String
     var name: String
     var lastName: String
     var email: String
@@ -19,6 +20,7 @@ struct UserResponse: Content {
 extension User {
     var asUserResponse: UserResponse {
         UserResponse(
+            id: id?.uuidString ?? "",
             name: name,
             lastName: lastName,
             email: email,

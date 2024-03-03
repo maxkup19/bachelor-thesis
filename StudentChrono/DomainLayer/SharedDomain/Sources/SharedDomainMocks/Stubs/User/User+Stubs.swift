@@ -9,6 +9,7 @@ import SharedDomain
 
 public extension User {
     static let studentStub = User(
+        id: "1",
         name: "Anon",
         lastName: "Anonymous",
         email: "email@email.com",
@@ -17,6 +18,7 @@ public extension User {
     )
     
     static let teacherStub = User(
+        id: "2",
         name: "Anonymous",
         lastName: "Anon",
         email: "email@email",

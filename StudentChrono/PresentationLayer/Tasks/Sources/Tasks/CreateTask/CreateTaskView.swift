@@ -5,6 +5,8 @@
 //  Created by Maksym Kupchenko on 26.02.2024.
 //
 
+import SharedDomain
+import SharedDomainMocks
 import SwiftUI
 import UIToolkit
 
@@ -20,26 +22,17 @@ struct CreateTaskView: View {
         NavigationStack {
             VStack {
                 Form {
-                    Section {
-                        TextField(
-                            "Title",
-                            text: Binding(
-                                get: { viewModel.state.title },
-                                set: { value in viewModel.onIntent(.titleChanged(value)) }
-                            ),
-                            axis: .vertical
+                    
+                    TitleAndDescriptionSection(
+                        title: Binding(
+                            get: { viewModel.state.title },
+                            set: { value in viewModel.onIntent(.titleChanged(value)) }
+                        ),
+                        description: Binding(
+                            get: { viewModel.state.description },
+                            set: { value in viewModel.onIntent(.descriptionChanged(value)) }
                         )
-                        
-                        TextField(
-                            "Description",
-                            text: Binding(
-                                get: { viewModel.state.description },
-                                set: { value in viewModel.onIntent(.descriptionChanged(value)) }
-                            ),
-                            axis: .vertical
-                        )
-                        .lineLimit(4...)
-                    }
+                    )
                     
                     Section {
                         NavigationLink("Details") {
@@ -56,7 +49,10 @@ struct CreateTaskView: View {
                     
                     Section {
                         NavigationLink {
-                            
+                            StudentSelectionList(
+                                assigneeIds: .constant([User.studentStub.id]),
+                                users: [.studentStub, .teacherStub]
+                            )
                         } label: {
                             HStack {
                                 FormImage(
