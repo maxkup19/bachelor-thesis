@@ -41,6 +41,12 @@ struct UserController: RouteCollection {
     private func uploadImage(req: Request) async throws -> HTTPStatus {
         let user = try req.auth.require(User.self)
         let file = try req.content.decode(File.self)
+        
+        if let prevImage = user.imageURL {
+            let prevPath = req.application.directory.publicDirectory + (prevImage.split(separator: "/").last ?? "")
+            try FileManager.default.removeItem(atPath: prevPath)
+        }
+        
         let hashedFileName = try Bcrypt.hash(file.filename).replacingOccurrences(of: "/", with: "")
         let path = req.application.directory.publicDirectory + hashedFileName
         
