@@ -27,19 +27,18 @@ struct StudentsController: RouteCollection {
         let user = try req.auth.require(User.self)
         let addStudentDTO = try req.content.decode(AddStudentDTO.self)
         
-        guard let addStudentUUID = UUID(uuidString: addStudentDTO.studentId) else {
-            throw Abort(.internalServerError, reason: "Error getting UUID")
+        guard let addStudent = try await getUserByEmail(addStudentDTO.email, req: req) else {
+            throw Abort(.internalServerError, reason: "User dont exist")
         }
         
-        try await ensureUserExists(id: addStudentUUID, on: req.db)
-        guard try user.requireID() != addStudentUUID else {
+        guard try user.requireID() != addStudent.requireID() else {
             throw Abort(.conflict, reason: "Teacher and student must be different")
         }
-        guard !user.studentIds.contains(addStudentUUID) else {
+        guard !user.studentIds.contains(try addStudent.requireID()) else {
             throw Abort(.alreadyReported, reason: "This user is already your student")
         }
         
-        user.studentIds.append(addStudentUUID)
+        user.studentIds.append(try addStudent.requireID())
         try await user.update(on: req.db)
         
         return .ok
@@ -69,11 +68,11 @@ struct StudentsController: RouteCollection {
 // MARK: - Helpers
 
 private extension StudentsController {
-    func ensureUserExists(id: UUID, on db: Database) async throws {
-        guard try await User.query(on: db)
-            .filter(\.$id, .equal, id)
-            .count() != 0 else {
-            throw Abort(.notFound, reason: "User with id \(id) doesn't exist")
-        }
+    
+    func getUserByEmail(_ email: String, req: Request) async throws -> User? {
+        return try await User
+            .query(on: req.db)
+            .filter(\.$email, .equal, email)
+            .first()
     }
 }

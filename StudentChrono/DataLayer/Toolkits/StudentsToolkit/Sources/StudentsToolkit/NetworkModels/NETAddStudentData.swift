@@ -9,11 +9,11 @@ import SharedDomain
 import Foundation
 
 struct NETAddStudentData: Codable {
-    let studentId: String
+    let email: String
 }
 
 extension AddStudentData {
     var networkModel: NETAddStudentData {
-        NETAddStudentData(studentId: studentId)
+        NETAddStudentData(email: email)
     }
 }

@@ -80,6 +80,9 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Private
     
     private func loadData() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
         do {
             state.students = try await getMyStudentsUseCase.execute()
         } catch {

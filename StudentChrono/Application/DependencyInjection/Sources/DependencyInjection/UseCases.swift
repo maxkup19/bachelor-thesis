@@ -50,7 +50,8 @@ public extension Container {
     
     // Students
     var addStudentUseCase: Factory<AddStudentUseCase> { self { AddStudentUseCaseImpl(
-        studentsRepository: self.studentsRepository()
+        studentsRepository: self.studentsRepository(),
+        validateEmailUseCase: self.validateEmailUseCase()
     )}}
     var getMyStudentsUseCase: Factory<GetMyStudentsUseCase> { self { GetMyStudentsUseCaseImpl(
         studentsRepository: self.studentsRepository()

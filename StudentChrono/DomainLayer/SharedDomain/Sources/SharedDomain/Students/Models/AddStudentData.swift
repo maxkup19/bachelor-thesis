@@ -6,9 +6,9 @@
 //
 
 public struct AddStudentData: Codable {
-    public let studentId: String
+    public let email: String
     
-    public init(studentId: String) {
-        self.studentId = studentId
+    public init(email: String) {
+        self.email = email
     }
 }

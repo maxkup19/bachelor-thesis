@@ -8,5 +8,5 @@
 import Vapor
 
 struct AddStudentDTO: Content {
-    var studentId: String
+    var email: String
 }

@@ -71,7 +71,6 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
         
         do {
             state.showCreateButtonTask = try await getCurrentUserRoleUseCase.execute() == .teacher
-            
             state.tasks = try await getMyTasksUseCase.execute()
         } catch {
             state.alertData = .init(title: error.localizedDescription)
@@ -83,6 +82,9 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     private func refreshTasks() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
         do {
             state.tasks = try await getMyTasksUseCase.execute()
         } catch {

@@ -22,18 +22,18 @@ struct StudentsView: View {
                 ContentUnavailableView(
                     "No Students",
                     systemImage: "person.2.slash.fill",
-                    description: Text("You have no students\nWould you like to find any? Tap the + button on top")
+                    description: Text("You have no students\nWould you like to add any? Tap the + button on top")
                 )
             } else {
-                
+                List(viewModel.state.students) { student in
+                    Text("\(student.name) \(student.lastName)")
+                }
             }
-            
         }
         .navigationTitle("Students")
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                #warning("Add student")
-                Button(action: { }) {
+                Button(action: { viewModel.onIntent(.showAddStudentDialogue(true)) }) {
                     AppTheme.Images.plus
                 }
             }
@@ -49,6 +49,30 @@ struct StudentsView: View {
         }
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
+        .alert(
+            "Add Student",
+            isPresented: Binding(
+                get: { viewModel.state.showAddStudentDialogue },
+                set: { value in viewModel.onIntent(.showAddStudentDialogue(value)) }
+            ), actions: {
+                TextField(
+                    "Email",
+                    text: Binding(
+                        get: { viewModel.state.addStudentEmail },
+                        set: { email in viewModel.onIntent(.emailChanged(email)) }
+                    ),
+                    prompt: Text("Email")
+                )
+                .autocorrectionDisabled(false)
+                .textInputAutocapitalization(.never)
+                .keyboardType(.emailAddress)
+                
+                Button("Cancel", role: .cancel) { }
+                Button("Add") {
+                    viewModel.onIntent(.addStudent)
+                }
+        }, message: {
+        })
         .alert(item: Binding<AlertData?>(
             get: { viewModel.state.alertData },
             set: { _ in viewModel.onIntent(.dismissAlert) }

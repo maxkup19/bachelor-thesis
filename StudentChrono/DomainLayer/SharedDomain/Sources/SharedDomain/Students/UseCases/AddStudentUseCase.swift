@@ -15,12 +15,18 @@ public protocol AddStudentUseCase {
 public struct AddStudentUseCaseImpl: AddStudentUseCase {
     
     private let studentsRepository: StudentsRepository
+    private let validateEmailUseCase: ValidateEmailUseCase
     
-    public init(studentsRepository: StudentsRepository) {
+    public init(
+        studentsRepository: StudentsRepository,
+        validateEmailUseCase: ValidateEmailUseCase
+    ) {
         self.studentsRepository = studentsRepository
+        self.validateEmailUseCase = validateEmailUseCase
     }
     
     public func execute(_ data: AddStudentData) async throws {
+        try validateEmailUseCase.execute(data.email)
         try await studentsRepository.addStudent(data)
     }
 }
