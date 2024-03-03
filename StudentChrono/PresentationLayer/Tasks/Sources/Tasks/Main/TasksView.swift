@@ -48,19 +48,19 @@ struct TasksView: View {
         }
         .navigationTitle("Tasks")
         .toolbar {
-            ToolbarItemGroup(placement: .topBarTrailing) {
-                Menu {
-                    // TODO: add filter and sorting
-                } label: {
-                    AppTheme.Images.dots
-                }
-            }
-            
             ToolbarItem(placement: .topBarLeading) {
                 if viewModel.state.showCreateButtonTask {
                     Button(action: { viewModel.onIntent(.createTask) }) {
                         AppTheme.Images.plus
                     }
+                }
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+#warning("TODO: add filter and sorting")
+                } label: {
+                    AppTheme.Images.dots
                 }
             }
         }

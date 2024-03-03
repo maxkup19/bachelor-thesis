@@ -18,6 +18,8 @@ final class StudentsViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
+    @Injected(\.getMyStudentsUseCase) private var getMyStudentsUseCase
+    
     init(flowController: FlowController?) {
         self.flowController = flowController
     }
@@ -26,7 +28,7 @@ final class StudentsViewModel: BaseViewModel, ViewModel, ObservableObject {
     override func onAppear() {
         super.onAppear()
         executeTask(Task {
-            
+            await loadData()
         })
     }
     
@@ -34,6 +36,7 @@ final class StudentsViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Published private(set) var state = State()
     
     struct State {
+        var students: [User] = []
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -53,6 +56,13 @@ final class StudentsViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Private
     
+    private func loadData() async {
+        do {
+            state.students = try await getMyStudentsUseCase.execute()
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
+    }
     
     private func dismissAlert() {
         state.alertData = nil

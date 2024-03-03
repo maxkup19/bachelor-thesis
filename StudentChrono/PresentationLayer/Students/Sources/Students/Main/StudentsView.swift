@@ -18,7 +18,34 @@ struct StudentsView: View {
     
     var body: some View {
         VStack {
-            Text("StudentsView")
+            if viewModel.state.students.isEmpty {
+                ContentUnavailableView(
+                    "No Students",
+                    systemImage: "person.2.slash.fill",
+                    description: Text("You have no students\nWould you like to find any? Tap the + button on top")
+                )
+            } else {
+                
+            }
+            
+        }
+        .navigationTitle("Students")
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                #warning("Add student")
+                Button(action: { }) {
+                    AppTheme.Images.plus
+                }
+            }
+            
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+#warning("TODO: add filter and sorting")
+                } label: {
+                    AppTheme.Images.dots
+                }
+            }
         }
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)

@@ -1,6 +1,6 @@
 //
 //  StudentSelectionList.swift
-//  
+//
 //
 //  Created by Maksym Kupchenko on 03.03.2024.
 //
@@ -22,10 +22,20 @@ struct StudentSelectionList: View {
     }
     
     var body: some View {
-        List(users, selection: $assignee) { user in
-            Text(user.name)
+        Group {
+            if users.isEmpty {
+                ContentUnavailableView(
+                    "No Students",
+                    systemImage: "person.2.slash.fill",
+                    description: Text("You have no students\nWould you like to find any? Go to Students tab")
+                )
+            } else {
+                List(users, selection: $assignee) { user in
+                    Text(user.name)
+                }
+                .environment(\.editMode, .constant(.active))
+            }
         }
-        .environment(\.editMode, .constant(.active))
     }
 }
 
