@@ -44,6 +44,14 @@ struct TasksView: View {
                 .refreshable {
                     viewModel.onIntent(.refreshTasks)
                 }
+                #warning("Revisit is Future")
+//                .searchable(
+//                    text: Binding(
+//                        get: { viewModel.state.searchText },
+//                        set: { value in viewModel.onIntent(.searchTextChanged(value)) }
+//                    ),
+//                    placement: .toolbar
+//                )
             }
         }
         .navigationTitle("Tasks")

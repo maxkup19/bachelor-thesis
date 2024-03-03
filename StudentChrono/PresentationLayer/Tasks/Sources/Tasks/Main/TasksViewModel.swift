@@ -40,6 +40,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     struct State {
         var tasks: [SharedDomain.Task] = []
         var showCreateButtonTask: Bool = false
+        var searchText: String = ""
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -48,6 +49,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     enum Intent {
         case createTask
         case refreshTasks
+        case searchTextChanged(String)
         case onTask(String)
         case dismissAlert
     }
@@ -57,6 +59,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
             switch intent {
             case .createTask: createTask()
             case .refreshTasks: await refreshTasks()
+            case .searchTextChanged(let text): searchTextChanged(text)
             case .onTask(let taskId): onTask(taskId: taskId)
             case .dismissAlert: dismissAlert()
             }
@@ -90,6 +93,10 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
+    }
+    
+    private func searchTextChanged(_ text: String) {
+        state.searchText = text
     }
     
     private func onTask(taskId: String) {
