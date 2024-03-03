@@ -12,7 +12,7 @@ struct NETCreateTaskData: Codable {
     let title: String
     let description: String
     let tags: [String]
-    let assigneeId: UUID?
+    let assigneeId: String?
     let dueTo: Date?
     let priority: Priority
 }
