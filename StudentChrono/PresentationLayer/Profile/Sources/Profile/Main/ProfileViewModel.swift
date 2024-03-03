@@ -68,7 +68,6 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         
         do {
             state.user = try await getCurrentUserUseCase.execute()
-            print("DEBUG: \(String(describing: state.user.imageURL)) --> \(URL(string: state.user.imageURL ?? ""))")
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

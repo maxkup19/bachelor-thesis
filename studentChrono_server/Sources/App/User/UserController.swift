@@ -41,12 +41,7 @@ struct UserController: RouteCollection {
     private func uploadImage(req: Request) async throws -> HTTPStatus {
         let user = try req.auth.require(User.self)
         let file = try req.content.decode(File.self)
-        let fileName = file.filename.replacingOccurrences(of: file.extension ?? "", with: "")
-        guard let fileExtension = file.extension else {
-            throw Abort(.badRequest)
-        }
-        
-        let hashedFileName = "\(fileName.hash)." + fileExtension
+        let hashedFileName = try Bcrypt.hash(file.filename).replacingOccurrences(of: "/", with: "")
         let path = req.application.directory.publicDirectory + hashedFileName
         
         try await req.fileio.writeFile(file.data, at: path)
