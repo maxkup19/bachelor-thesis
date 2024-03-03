@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 03.03.2024.
 //
 
+import Foundation
 import Vapor
 import Fluent
 
@@ -25,12 +26,17 @@ struct StudentsController: RouteCollection {
     private func addStudent(req: Request) async throws -> HTTPStatus {
         let user = try req.auth.require(User.self)
         let addStudentDTO = try req.content.decode(AddStudentDTO.self)
-        try await ensureUserExists(id: addStudentDTO.studentId, on: req.db)
         
-        guard try user.requireID() != addStudentDTO.studentId else {
+        guard let addStudentUUID = UUID(uuidString: addStudentDTO.studentId) else {
+            throw Abort(.internalServerError, reason: "Error getting UUID")
+        }
+        
+        try await ensureUserExists(id: addStudentUUID, on: req.db)
+        guard try user.requireID() != addStudentUUID else {
             throw Abort(.conflict, reason: "Teacher and student must be different")
         }
-        user.studentIds.append(addStudentDTO.studentId)
+        
+        user.studentIds.append(addStudentUUID)
         try await user.update(on: req.db)
         
         return .ok
