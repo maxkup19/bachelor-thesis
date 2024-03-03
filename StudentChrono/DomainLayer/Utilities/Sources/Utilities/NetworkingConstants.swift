@@ -7,6 +7,6 @@
 
 public struct NetworkingConstants {
     public static var baseURL: String {
-        return "http://127.0.0.1:8080/api"
+        "http://127.0.0.1:8080/api"
     }
 }

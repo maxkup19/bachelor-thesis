@@ -28,19 +28,29 @@ public extension Container {
         registrationUseCase.register { RegistrationUseCaseSpy() }
         
         // User
+        let getCurrentUserUseCaseSpy = GetCurrentUserUseCaseSpy()
+        getCurrentUserUseCaseSpy.executeReturnValue = User.studentStub
+        getCurrentUserUseCase.register { getCurrentUserUseCaseSpy }
+        
         let getCurrentUserRoleUseCaseSpy = GetCurrentUserRoleUseCaseSpy()
         getCurrentUserRoleUseCaseSpy.executeReturnValue = User.studentStub.role
         getCurrentUserRoleUseCase.register { getCurrentUserRoleUseCaseSpy }
+        
+        deleteAccountUseCase.register { DeleteAccountUseCaseSpy() }
         
         // Task
         let getMyTasksUseCaseSpy = GetMyTasksUseCaseSpy()
         getMyTasksUseCaseSpy.executeReturnValue = [Task.task2Stub]
         getMyTasksUseCase.register { getMyTasksUseCaseSpy }
         
+        createTaskUseCase.register { CreateTaskUseCaseSpy() }
+        
         // Students
         let getMyStudentsUseCaseSpy = GetMyStudentsUseCaseSpy()
         getMyStudentsUseCaseSpy.executeReturnValue = [User.studentStub]
         getMyStudentsUseCase.register { getMyStudentsUseCaseSpy }
+        
+        addStudentUseCase.register { AddStudentUseCaseSpy() }
     }
 }
 #endif

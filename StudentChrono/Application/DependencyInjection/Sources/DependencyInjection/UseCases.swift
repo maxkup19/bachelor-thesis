@@ -32,6 +32,9 @@ public extension Container {
     )}}
     
     // Users
+    var getCurrentUserUseCase: Factory<GetCurrentUserUseCase> { self { GetCurrentUserUseCaseImpl(
+        userRepository: self.userRepository()
+    )}}
     var getCurrentUserRoleUseCase: Factory<GetCurrentUserRoleUseCase> { self { GetCurrentUserRoleUseCaseImpl(
         userRepository: self.userRepository()
     )}}
