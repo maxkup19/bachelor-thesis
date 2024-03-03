@@ -29,6 +29,7 @@ let package = Package(
         .package(name: "AuthToolkit", path: "../../DataLayer/Toolkits/AuthToolkit"),
         .package(name: "UserToolkit", path: "../../DataLayer/Toolkits/UserToolkit"),
         .package(name: "TasksToolkit", path: "../../DataLayer/Toolkits/TasksToolkit"),
+        .package(name: "StudentsToolkit", path: "../../DataLayer/Toolkits/StudentsToolkit"),
         
         // Providers
         .package(name: "KeychainProvider", path: "../../DataLayer/Providers/KeychainProvider"),
@@ -49,6 +50,7 @@ let package = Package(
                 .product(name: "AuthToolkit", package: "AuthToolkit"),
                 .product(name: "UserToolkit", package: "UserToolkit"),
                 .product(name: "TasksToolkit", package: "TasksToolkit"),
+                .product(name: "StudentsToolkit", package: "StudentsToolkit"),
                 
                 // Providers
                 .product(name: "KeychainProvider", package: "KeychainProvider"),

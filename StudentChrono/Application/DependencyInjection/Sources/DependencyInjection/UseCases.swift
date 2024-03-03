@@ -44,9 +44,16 @@ public extension Container {
     var createTaskUseCase: Factory<CreateTaskUseCase> { self { CreateTaskUseCaseImpl(
         taskRepository: self.taskRepository()
     )}}
-    
     var getMyTasksUseCase: Factory<GetMyTasksUseCase> { self { GetMyTasksUseCaseImpl(
         taskRepository: self.taskRepository()
+    )}}
+    
+    // Students
+    var addStudentUseCase: Factory<AddStudentUseCase> { self { AddStudentUseCaseImpl(
+        studentsRepository: self.studentsRepository()
+    )}}
+    var getMyStudentsUseCase: Factory<GetMyStudentsUseCase> { self { GetMyStudentsUseCaseImpl(
+        studentsRepository: self.studentsRepository()
     )}}
     
     // Validation

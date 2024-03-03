@@ -23,6 +23,7 @@
 		0A4810DE2B7A564300F24E72 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810DD2B7A564300F24E72 /* Auth */; };
 		0A571B462B711F86006A3932 /* UserDefaultsProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A571B452B711F86006A3932 /* UserDefaultsProvider */; };
 		0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */ = {isa = PBXBuildFile; productRef = 0A571B472B711FC3006A3932 /* DependencyInjection */; };
+		0ABE9F142B94BA330099DA55 /* StudentsToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0ABE9F132B94BA330099DA55 /* StudentsToolkit */; };
 		0ADCCC2C2B65A76B008E8249 /* StudentChronoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */; };
 		0ADCCC362B65A76B008E8249 /* StudentChronoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC352B65A76B008E8249 /* StudentChronoUITests.swift */; };
 		0ADCCC382B65A76B008E8249 /* StudentChronoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC372B65A76B008E8249 /* StudentChronoUITestsLaunchTests.swift */; };
@@ -67,6 +68,7 @@
 		0A571B4A2B7122DD006A3932 /* NetworkProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkProvider; sourceTree = "<group>"; };
 		0A571B4D2B712B0D006A3932 /* AuthToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AuthToolkit; sourceTree = "<group>"; };
 		0A67655D2B8CA5F60035A437 /* TasksToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = TasksToolkit; sourceTree = "<group>"; };
+		0ABE9F122B94BA210099DA55 /* StudentsToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = StudentsToolkit; sourceTree = "<group>"; };
 		0ADCCC152B65A76A008E8249 /* StudentChrono.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentChrono.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC272B65A76B008E8249 /* StudentChronoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoTests.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				0A05FC872B842CB5007F2C02 /* Students in Frameworks */,
 				0A4810D92B71353700F24E72 /* NetworkProvider in Frameworks */,
 				0A571B482B711FC3006A3932 /* DependencyInjection in Frameworks */,
+				0ABE9F142B94BA330099DA55 /* StudentsToolkit in Frameworks */,
 				0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */,
 				0AFD1DFB2B88085F00E36197 /* Onboarding in Frameworks */,
 				0A4810DE2B7A564300F24E72 /* Auth in Frameworks */,
@@ -140,6 +143,7 @@
 		0A0833CF2B710D4900F29FB8 /* Toolkits */ = {
 			isa = PBXGroup;
 			children = (
+				0ABE9F122B94BA210099DA55 /* StudentsToolkit */,
 				0A67655D2B8CA5F60035A437 /* TasksToolkit */,
 				0A05FC832B841E74007F2C02 /* UserToolkit */,
 				0A571B4D2B712B0D006A3932 /* AuthToolkit */,
@@ -284,6 +288,7 @@
 				0A05FC862B842CB5007F2C02 /* Students */,
 				0A05FC892B842D54007F2C02 /* UserToolkit */,
 				0AFD1DFA2B88085F00E36197 /* Onboarding */,
+				0ABE9F132B94BA330099DA55 /* StudentsToolkit */,
 			);
 			productName = StudentChrono;
 			productReference = 0ADCCC152B65A76A008E8249 /* StudentChrono.app */;
@@ -1144,6 +1149,10 @@
 		0A571B472B711FC3006A3932 /* DependencyInjection */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DependencyInjection;
+		};
+		0ABE9F132B94BA330099DA55 /* StudentsToolkit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StudentsToolkit;
 		};
 		0AFD1DFA2B88085F00E36197 /* Onboarding */ = {
 			isa = XCSwiftPackageProductDependency;
