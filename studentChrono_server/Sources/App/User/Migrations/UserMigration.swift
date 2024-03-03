@@ -19,6 +19,7 @@ extension User {
                 .field(FieldKeys.email, .string, .required)
                 .field(FieldKeys.password, .string, .required)
                 .field(FieldKeys.role, .string, .required)
+                .field(FieldKeys.studentIds, .array(of: .uuid), .required)
                 .field(FieldKeys.birthDay, .date, .required)
                 .field(FieldKeys.createdAt, .datetime)
                 .field(FieldKeys.updatedAt, .datetime)

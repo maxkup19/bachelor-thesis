@@ -30,6 +30,9 @@ final class User: Model {
     
     @Field(key: FieldKeys.role)
     var role: UserRoleEnum
+
+    @Field(key: FieldKeys.studentIds)
+    var studentIds: [UUID]
     
     @Field(key: FieldKeys.birthDay)
     var birthDay: Date
@@ -56,6 +59,7 @@ final class User: Model {
         self.password = password
         self.birthDay = birthDay
         self.role = role
+        self.studentIds = []
     }
     
     init(

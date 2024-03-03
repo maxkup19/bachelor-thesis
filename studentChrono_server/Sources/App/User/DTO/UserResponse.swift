@@ -15,6 +15,7 @@ struct UserResponse: Content {
     var email: String
     var birthDay: Date
     var role: UserRoleEnum
+    var studentIds: [String]?
 }
 
 extension User {
@@ -25,7 +26,8 @@ extension User {
             lastName: lastName,
             email: email,
             birthDay: birthDay,
-            role: role
+            role: role,
+            studentIds: role == .teacher ? studentIds.map(\.uuidString) : nil
         )
     }
 }
