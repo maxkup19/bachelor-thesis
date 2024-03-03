@@ -18,7 +18,8 @@ struct StudentsController: RouteCollection {
             .grouped(EnsureUserIsTeacherMiddleware())
         
         studentsRoutes.patch(use: addStudent)
-        
+        studentsRoutes.get(StudentsRoutes.mine, use: getMine)
+        studentsRoutes.get(StudentsRoutes.nonMine, use: getNonMine)
     }
     
     private func addStudent(req: Request) async throws -> HTTPStatus {
@@ -26,10 +27,31 @@ struct StudentsController: RouteCollection {
         let addStudentDTO = try req.content.decode(AddStudentDTO.self)
         try await ensureUserExists(id: addStudentDTO.studentId, on: req.db)
         
+        guard try user.requireID() != addStudentDTO.studentId else {
+            throw Abort(.conflict, reason: "Teacher and student must be different")
+        }
         user.studentIds.append(addStudentDTO.studentId)
         try await user.update(on: req.db)
         
         return .ok
+    }
+    
+    private func getMine(req: Request) async throws -> [UserResponse] {
+        let me = try req.auth.require(User.self)
+        
+        return try await User.query(on: req.db)
+            .filter(\.$id ~~ me.studentIds)
+            .all()
+            .map(\.asUserResponse)
+    }
+    
+    private func getNonMine(req: Request) async throws -> [UserResponse] {
+        let me = try req.auth.require(User.self)
+        
+        return try await User.query(on: req.db)
+            .filter(\.$id !~ me.studentIds)
+            .all()
+            .map(\.asUserResponse)
     }
     
 }

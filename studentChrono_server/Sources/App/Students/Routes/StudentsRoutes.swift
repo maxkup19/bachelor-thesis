@@ -10,4 +10,6 @@ import Vapor
 enum StudentsRoutes {
     static let base: PathComponent = "students"
     
+    static let mine: PathComponent = "mine"
+    static let nonMine: PathComponent = "nonMine"
 }
