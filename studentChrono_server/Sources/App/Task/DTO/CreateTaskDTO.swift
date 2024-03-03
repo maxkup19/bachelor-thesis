@@ -9,20 +9,24 @@ import Vapor
 
 struct CreateTaskDTO: Content {
     var title: String
-    var description: String?
-    var authorId: UUID
+    var description: String
+    var tags: [String]?
     var assigneeId: UUID?
     var dueTo: Date?
+    var priority: Priority
 }
 
 extension CreateTaskDTO {
-    func asTask() -> Task {
+    func asTask(authorId: UUID) -> Task {
         Task(
             title: title,
             description: description,
+            tags: tags ?? [],
+            state: assigneeId == nil ? .draft : .todo,
             authorId: authorId,
             assigneeId: assigneeId,
-            dueTo: dueTo
+            dueTo: dueTo,
+            priority: priority
         )
     }
 }

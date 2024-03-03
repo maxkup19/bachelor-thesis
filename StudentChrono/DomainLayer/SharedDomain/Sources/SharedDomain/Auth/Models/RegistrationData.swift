@@ -13,18 +13,21 @@ public struct RegistrationData: Equatable {
     public let name: String
     public let lastName: String
     public let birthDay: Date
+    public let role: UserRoleEnum
     
     public init(
         email: String,
         password: String,
         name: String,
         lastName: String,
-        birthDay: Date
+        birthDay: Date,
+        role: UserRoleEnum
     ) {
         self.email = email
         self.password = password
         self.name = name
         self.lastName = lastName
         self.birthDay = birthDay
+        self.role = role
     }
 }

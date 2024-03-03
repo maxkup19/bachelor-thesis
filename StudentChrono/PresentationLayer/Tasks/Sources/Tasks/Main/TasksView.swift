@@ -4,10 +4,13 @@
 //  Created by Maksym Kupchenko on 19.02.2024.
 //
 
+import SharedDomain
 import SwiftUI
 import UIToolkit
 
 struct TasksView: View {
+    
+    typealias Task = SharedDomain.Task
     
     @ObservedObject private var viewModel: TasksViewModel
     
@@ -17,7 +20,49 @@ struct TasksView: View {
     
     var body: some View {
         VStack {
-            Text("Your tasks will be here")
+            if viewModel.state.tasks.isEmpty {
+                ContentUnavailableView(
+                    "No tasks",
+                    systemImage: "list.bullet",
+                    description: Text("You have no tasks available")
+                )
+            } else {
+                List {
+                    ForEach(TaskState.allCases) { taskState in
+                        let tasks = viewModel.state.tasks.filter { $0.state == taskState }
+                        
+                        if !tasks.isEmpty {
+                            Section("\(taskState.emoji) \(taskState.title)") {
+                                ForEach(tasks) { task in
+                                    TaskRowView(task: task)
+                                }
+                            }
+                        }
+                    }
+                }
+                .listStyle(.plain)
+                .refreshable {
+                    viewModel.onIntent(.refreshTasks)
+                }
+            }
+        }
+        .navigationTitle("Tasks")
+        .toolbar {
+            ToolbarItemGroup(placement: .topBarTrailing) {
+                Menu {
+                    // TODO: add filter and sorting
+                } label: {
+                    AppTheme.Images.dots
+                }
+            }
+            
+            ToolbarItem(placement: .topBarLeading) {
+                if viewModel.state.showCreateButtonTask {
+                    Button(action: { viewModel.onIntent(.createTask) }) {
+                        AppTheme.Images.plus
+                    }
+                }
+            }
         }
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)

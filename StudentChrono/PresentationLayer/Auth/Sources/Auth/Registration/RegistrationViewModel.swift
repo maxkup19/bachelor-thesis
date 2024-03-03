@@ -14,6 +14,8 @@ import UIToolkit
 
 final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
     
+    typealias Task = _Concurrency.Task
+    
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
@@ -35,13 +37,18 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         var name: String = ""
         var lastName: String = ""
         var birthDay: Date = .now
-        var isTeacher: Bool = false
+        var role: UserRoleEnum = .student
         var isLoading: Bool = false
         var alertData: AlertData?
         
         var buttonDisabled: Bool {
             email.isEmpty || password.isEmpty ||
             confirmedPassword.isEmpty || name.isEmpty || lastName.isEmpty
+        }
+        
+        var showRoleSelector: Bool {
+            let age = Calendar.current.dateComponents([.year], from: birthDay, to: .now).year
+            return age ?? 0 >= 18
         }
     }
     
@@ -54,7 +61,7 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         case nameChanged(String)
         case lastNameChanged(String)
         case birthDayChanged(Date)
-        case isTeacherToggle
+        case roleChanged(UserRoleEnum)
         case registerTap
         case showLogin
         case dismissAlert
@@ -69,7 +76,7 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .nameChanged(let name): nameChanged(name)
             case .lastNameChanged(let lastName): lastNameChanged(lastName)
             case .birthDayChanged(let date): birthDayChanged(date)
-            case .isTeacherToggle: isTeacherToggle()
+            case .roleChanged(let role): roleChanged(role)
             case .registerTap: await registerTap()
             case .showLogin: showLogin()
             case .dismissAlert: dismissAlert()
@@ -103,8 +110,8 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         state.birthDay = birthDay
     }
     
-    private func isTeacherToggle() {
-        state.isTeacher.toggle()
+    private func roleChanged(_ role: UserRoleEnum) {
+        state.role = role
     }
     
     private func registerTap() async {
@@ -117,16 +124,16 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
         }
         
         do {
-            let userRole: UserRoleEnum = state.isTeacher ? .teacher : .student
             let data = RegistrationData(
                 email: state.email,
                 password: state.password,
                 name: state.name,
                 lastName: state.lastName,
-                birthDay: state.birthDay
+                birthDay: state.birthDay,
+                role: state.role
             )
             try await registrationUseCase.execute(data)
-            flowController?.handleFlow(AuthFlow.login(.login(userRole)))
+            flowController?.handleFlow(AuthFlow.login(.login(state.role)))
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

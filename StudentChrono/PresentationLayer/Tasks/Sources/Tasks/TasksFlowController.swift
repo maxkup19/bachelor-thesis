@@ -13,7 +13,8 @@ enum TasksFlow: Flow, Equatable {
     case tasks(Tasks)
     
     enum Tasks: Equatable {
-        case showTasks
+        case createTask
+        case closeCreateTask
     }
 }
 
@@ -31,17 +32,26 @@ public final class TasksFlowController: FlowController {
         }
     }
     
+    override public func dismiss() {
+        navigationController.dismiss(animated: true)
+    }
 }
 
 // MARK: - Tasks Flow
 extension TasksFlowController {
     func handleFlow(_ flow: TasksFlow.Tasks) {
         switch flow {
-        case .showTasks: showTasks()
+        case .createTask: createTask()
+        case .closeCreateTask: dismiss()
         }
     }
     
-    private func showTasks() {
+    private func createTask() {
+        let vm = CreateTaskViewModel(flowController: self)
+        let view = CreateTaskView(viewModel: vm)
+        let vc = BaseHostingController(rootView: view)
+        vc.modalPresentationStyle = .automatic
         
+        navigationController.present(vc, animated: true)
     }
 }

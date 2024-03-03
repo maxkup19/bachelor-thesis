@@ -8,6 +8,7 @@
 import AuthToolkit
 import Factory
 import SharedDomain
+import TasksToolkit
 import UserToolkit
 
 public extension Container {
@@ -16,6 +17,9 @@ public extension Container {
         networkProvider: self.networkProvider()
     )}}
     var userRepository: Factory<UserRepository> { self { UserRepositoryImpl(
-        network: self.networkProvider()
+        networkProvider: self.networkProvider()
+    )}}
+    var taskRepository: Factory<TaskRepository> { self { TaskRepositoryImpl(
+        networkProvider: self.networkProvider()
     )}}
 }

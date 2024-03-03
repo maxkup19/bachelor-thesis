@@ -32,6 +32,10 @@ public extension Container {
         getCurrentUserRoleUseCaseSpy.executeReturnValue = User.studentStub.role
         getCurrentUserRoleUseCase.register { getCurrentUserRoleUseCaseSpy }
         
+        // Task
+        let getMyTasksUseCaseSpy = GetMyTasksUseCaseSpy()
+        getMyTasksUseCaseSpy.executeReturnValue = [Task.task2Stub]
+        getMyTasksUseCase.register { getMyTasksUseCaseSpy }
     }
 }
 #endif

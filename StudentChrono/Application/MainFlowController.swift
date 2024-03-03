@@ -81,6 +81,20 @@ final class MainFlowController: FlowController, OthersFlowControllerDelegate, Pr
         return tasksNC
     }
     
+    private func setupStudentsTab() -> UINavigationController {
+        let studentsNC = BaseNavigationController(statusBarStyle: .default)
+        studentsNC.tabBarItem = UITabBarItem(
+            title: "Students",
+            image: AppTheme.Images.studentsTabBar,
+            tag: MainTab.students.rawValue
+        )
+        studentsNC.tabBarItem.selectedImage = AppTheme.Images.studentsTabBarSelected
+        let studentsFC = StudentsFlowController(navigationController: studentsNC)
+        let studentRootVC = startChildFlow(studentsFC)
+        studentsNC.viewControllers = [studentRootVC]
+        return studentsNC
+    }
+    
     private func setupProfileTab() -> UINavigationController {
         let profileNC = BaseNavigationController(statusBarStyle: .default)
         profileNC.tabBarItem = UITabBarItem(
@@ -88,6 +102,7 @@ final class MainFlowController: FlowController, OthersFlowControllerDelegate, Pr
             image: AppTheme.Images.profileTabBar,
             tag: MainTab.profile.rawValue
         )
+        profileNC.tabBarItem.selectedImage = AppTheme.Images.profileTabBarSelected
         let profileFC = ProfileFlowController(navigationController: profileNC)
         profileFC.delegate = self
         let profileRootVC = startChildFlow(profileFC)
@@ -107,18 +122,5 @@ final class MainFlowController: FlowController, OthersFlowControllerDelegate, Pr
         let othersRootVC = startChildFlow(othersFC)
         othersNC.viewControllers = [othersRootVC]
         return othersNC
-    }
-    
-    private func setupStudentsTab() -> UINavigationController {
-        let studentsNC = BaseNavigationController(statusBarStyle: .default)
-        studentsNC.tabBarItem = UITabBarItem(
-            title: "Students",
-            image: AppTheme.Images.studentsTabBar,
-            tag: MainTab.students.rawValue
-        )
-        let studentsFC = StudentsFlowController(navigationController: studentsNC)
-        let studentRootVC = startChildFlow(studentsFC)
-        studentsNC.viewControllers = [studentRootVC]
-        return studentsNC
     }
 }

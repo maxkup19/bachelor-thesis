@@ -108,9 +108,18 @@ public enum AppTheme {
         
         // Tabs
         public static let tasksTabBar = UIImage(systemName: "checklist")
-        public static let studentsTabBar = UIImage(systemName: "person.3.fill")
+        public static let studentsTabBar = UIImage(systemName: "person.3")
+        public static let studentsTabBarSelected = UIImage(systemName: "person.3.fill")
         public static let profileTabBar = UIImage(systemName: "person")
+        public static let profileTabBarSelected = UIImage(systemName: "person.fill")
         public static let othersTabBar = UIImage(systemName: "ellipsis")
+        
+        // Tasks
+        public static let plus = Image(systemName: "plus")
+        public static let list = Image(systemName: "list.bullet")
+        public static let calendar = Image(systemName: "calendar")
+        public static let exclamationmark = Image(systemName: "exclamationmark")
+        public static let dots = Image(systemName: "ellipsis.circle")
         
     }
     

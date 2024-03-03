@@ -23,24 +23,24 @@ struct TaskController: RouteCollection {
     }
     
     private func index(req: Request) async throws -> [TaskResponse] {
+        let user = try req.auth.require(User.self)
         return try await Task.query(on: req.db)
             .with(\.$author)
             .with(\.$assignee)
             .all()
+            .filter{ $0.assignee?.id == user.id || $0.author.id == user.id }
             .map { $0.asTaskResponse }
     }
     
-    #warning("TODO: use auth to get creator of task")
     private func createTask(req: Request) async throws -> HTTPStatus {
+        let user = try req.auth.require(User.self)
         let createTaskDTO = try req.content.decode(CreateTaskDTO.self)
-        
-        try await ensureUserExists(id: createTaskDTO.authorId, on: req.db)
         
         if let assigneeId = createTaskDTO.assigneeId {
             try await ensureUserExists(id: assigneeId, on: req.db)
         }
         
-        let task = createTaskDTO.asTask()
+        let task = createTaskDTO.asTask(authorId: try user.requireID())
         try await task.save(on: req.db)
         
         return .ok

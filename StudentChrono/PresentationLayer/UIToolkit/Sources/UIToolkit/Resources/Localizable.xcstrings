@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "%@" : {
+
+    },
     "Back" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -20,6 +23,9 @@
           }
         }
       }
+    },
+    "Deadline" : {
+
     },
     "Loading..." : {
 

@@ -20,7 +20,6 @@ struct StudentsView: View {
         VStack {
             Text("StudentsView")
         }
-        .toolbar(.hidden)
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(

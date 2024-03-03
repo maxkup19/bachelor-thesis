@@ -26,7 +26,6 @@
 		0ADCCC2C2B65A76B008E8249 /* StudentChronoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */; };
 		0ADCCC362B65A76B008E8249 /* StudentChronoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC352B65A76B008E8249 /* StudentChronoUITests.swift */; };
 		0ADCCC382B65A76B008E8249 /* StudentChronoUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC372B65A76B008E8249 /* StudentChronoUITestsLaunchTests.swift */; };
-		0ADCCC4C2B65A88A008E8249 /* AppIcon.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */; };
 		0ADCCC562B65A8E3008E8249 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0ADCCC4E2B65A8E3008E8249 /* InfoPlist.strings */; };
 		0ADCCC5B2B65A99F008E8249 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0ADCCC5A2B65A99F008E8249 /* LaunchScreen.storyboard */; };
 		0ADCCC5E2B65B197008E8249 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCCC5D2B65B197008E8249 /* AppDelegate.swift */; };
@@ -67,13 +66,13 @@
 		0A571B442B711CE4006A3932 /* DependencyInjection */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DependencyInjection; sourceTree = "<group>"; };
 		0A571B4A2B7122DD006A3932 /* NetworkProvider */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NetworkProvider; sourceTree = "<group>"; };
 		0A571B4D2B712B0D006A3932 /* AuthToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = AuthToolkit; sourceTree = "<group>"; };
+		0A67655D2B8CA5F60035A437 /* TasksToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = TasksToolkit; sourceTree = "<group>"; };
 		0ADCCC152B65A76A008E8249 /* StudentChrono.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StudentChrono.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC272B65A76B008E8249 /* StudentChronoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC2B2B65A76B008E8249 /* StudentChronoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoTests.swift; sourceTree = "<group>"; };
 		0ADCCC312B65A76B008E8249 /* StudentChronoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StudentChronoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ADCCC352B65A76B008E8249 /* StudentChronoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoUITests.swift; sourceTree = "<group>"; };
 		0ADCCC372B65A76B008E8249 /* StudentChronoUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentChronoUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppIcon.xcassets; sourceTree = "<group>"; };
 		0ADCCC4F2B65A8E3008E8249 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0ADCCC522B65A8E3008E8249 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0ADCCC532B65A8E3008E8249 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -141,18 +140,11 @@
 		0A0833CF2B710D4900F29FB8 /* Toolkits */ = {
 			isa = PBXGroup;
 			children = (
+				0A67655D2B8CA5F60035A437 /* TasksToolkit */,
 				0A05FC832B841E74007F2C02 /* UserToolkit */,
 				0A571B4D2B712B0D006A3932 /* AuthToolkit */,
 			);
 			path = Toolkits;
-			sourceTree = "<group>";
-		};
-		0A0BCDF02B880E1E0033877C /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				0ADCCC4B2B65A88A008E8249 /* AppIcon.xcassets */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		0A420D3D2B65B8D700B8914C /* Frameworks */ = {
@@ -173,7 +165,6 @@
 				0ADCCC342B65A76B008E8249 /* StudentChronoUITests */,
 				0ADCCC162B65A76A008E8249 /* Products */,
 				0A420D3D2B65B8D700B8914C /* Frameworks */,
-				0A0BCDF02B880E1E0033877C /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -390,7 +381,6 @@
 				0ADCCC562B65A8E3008E8249 /* InfoPlist.strings in Resources */,
 				0ADCCC5B2B65A99F008E8249 /* LaunchScreen.storyboard in Resources */,
 				0A0BCDF22B880E7B0033877C /* AppIcon.xcassets in Resources */,
-				0ADCCC4C2B65A88A008E8249 /* AppIcon.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

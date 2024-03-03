@@ -8,24 +8,30 @@
 import Vapor
 
 struct TaskResponse: Content {
+    var id: String
     var title: String
-    var description: String?
+    var description: String
+    var tags: [String]
     var state: TaskState
     var author: UserResponse
     var assignee: UserResponse?
     var dueTo: Date?
+    var priority: Priority
     var createdAt: Date?
 }
 
 extension Task {
     var asTaskResponse: TaskResponse {
         TaskResponse(
+            id: id?.uuidString ?? "",
             title: title,
             description: description,
+            tags: tags,
             state: state,
             author: author.asUserResponse,
             assignee: assignee?.asUserResponse,
             dueTo: dueTo,
+            priority: priority,
             createdAt: createdAt
         )
     }
