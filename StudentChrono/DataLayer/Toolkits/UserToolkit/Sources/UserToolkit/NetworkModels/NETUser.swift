@@ -27,7 +27,8 @@ public extension NETUser {
             lastName: lastName,
             email: email,
             role: role,
-            birthDay: birthDay
+            birthDay: birthDay,
+            imageURL: imageURL
         )
     }
 }
