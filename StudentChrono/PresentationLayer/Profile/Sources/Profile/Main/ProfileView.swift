@@ -18,13 +18,20 @@ struct ProfileView: View {
     
     var body: some View {
         VStack {
-            Text("ProfileView")
+
+            RemoteImage(
+                stringURL: viewModel.state.user.imageURL,
+                placeholder: Image(systemName: "person.circle.fill")
+            )
             
-            #warning("TODO: Update design!")
+            Text("\(viewModel.state.user.name) \(viewModel.state.user.lastName)")
+            
             Button("Delete account", role: .destructive) {
                 viewModel.onIntent(.showDeleteAccountDialog)
             }
         }
+        .skeleton(viewModel.state.isLoading)
+        .navigationTitle("Profile")
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(

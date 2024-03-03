@@ -8,6 +8,7 @@
 import DependencyInjection
 import Factory
 import SharedDomain
+import SharedDomainMocks
 import SwiftUI
 import UIToolkit
 
@@ -18,6 +19,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
+    @Injected(\.getCurrentUserUseCase) private var getCurrentUserUseCase
     @Injected(\.deleteAccountUseCase) private var deleteAccountUseCase
     
     init(flowController: FlowController?) {
@@ -28,7 +30,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     override func onAppear() {
         super.onAppear()
         executeTask(Task {
-            
+            await loadData()
         })
     }
     
@@ -36,6 +38,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Published private(set) var state = State()
     
     struct State {
+        var user: User = User.studentStub
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -58,6 +61,18 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     // MARK: - Private
+    
+    private func loadData() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
+        do {
+            state.user = try await getCurrentUserUseCase.execute()
+            print("DEBUG: \(String(describing: state.user.imageURL)) --> \(URL(string: state.user.imageURL ?? ""))")
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
+    }
     
     private func showDeleteAccountDialog() {
         state.alertData = .init(
