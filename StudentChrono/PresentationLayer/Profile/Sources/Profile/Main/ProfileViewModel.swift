@@ -46,6 +46,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Intents
     enum Intent {
         case showDeleteAccountDialog
+        case refresh
         case deleteAccount
         case dismissAlert
     }
@@ -54,6 +55,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         executeTask(Task {
             switch intent {
             case .showDeleteAccountDialog: showDeleteAccountDialog()
+            case .refresh: await loadData()
             case .deleteAccount: await deleteAccount()
             case .dismissAlert: dismissAlert()
             }

@@ -56,6 +56,9 @@ struct ProfileView: View {
                 viewModel.onIntent(.showDeleteAccountDialog)
             }
         }
+        .refreshable {
+            viewModel.onIntent(.refresh)
+        }
         .navigationTitle("Profile")
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)

@@ -33,15 +33,27 @@ struct ProfileHeaderView: View {
     
     var body: some View {
         VStack {
-            RemoteImage(
-                stringURL: imageURL,
-                placeholder: Image(systemName: "person.circle.fill")
-            )
+            AsyncImage(url: URL(string: imageURL ?? "")) { phase in
+                if let image = phase.image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                } else if phase.error == nil {
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                }
+            }
             .frame(width: size, height: size)
             .clipShape(Circle())
             .onLongPressGesture {
                 onImageTap()
             }
+            
+//            RemoteImage(
+//                stringURL: imageURL,
+//                placeholder: Image(systemName: "person.circle.fill")
+//            )
+            
             
             
             Text(fullName)
