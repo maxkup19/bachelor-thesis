@@ -16,6 +16,10 @@ public struct User: Equatable, Codable, Identifiable, Hashable {
     public let birthDay: Date
     public let imageURL: String?
     
+    public var fullName: String {
+        name + " " + lastName
+    }
+    
     public init(
         id: String,
         name: String,

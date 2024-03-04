@@ -12,25 +12,27 @@ struct ProfileView: View {
     
     @ObservedObject private var viewModel: ProfileViewModel
     
+    
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
         VStack {
-
-            RemoteImage(
-                stringURL: viewModel.state.user.imageURL,
-                placeholder: Image(systemName: "person.circle.fill")
-            )
-            
-            Text("\(viewModel.state.user.name) \(viewModel.state.user.lastName)")
+            ScrollView {
+                ProfileHeaderView(
+                    imageURL: viewModel.state.user.imageURL,
+                    fullName: viewModel.state.user.fullName,
+                    email: viewModel.state.user.email
+                )
+                
+            }
             
             Button("Delete account", role: .destructive) {
                 viewModel.onIntent(.showDeleteAccountDialog)
             }
         }
-        .skeleton(viewModel.state.isLoading)
+        .padding()
         .navigationTitle("Profile")
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
