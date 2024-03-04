@@ -65,18 +65,6 @@ final class User: Model {
         self.studentIds = []
     }
     
-    init(
-        email: String,
-        password: String
-    ) {
-        self.email = email
-        self.password = password
-    }
-    
-    init(role: UserRoleEnum) {
-        self.role = role
-    }
-    
     func createToken(source: SessionSourceEnum) throws -> Token {
         let calendar = Calendar(identifier: .gregorian)
         let expiryDate = calendar.date(byAdding: Configuration.tokenExpiryDate, to: .now)
