@@ -37,6 +37,7 @@ public extension Container {
         getCurrentUserRoleUseCase.register { getCurrentUserRoleUseCaseSpy }
         
         deleteAccountUseCase.register { DeleteAccountUseCaseSpy() }
+        updateUserInfoUseCase.register { UpdateUserInfoUseCaseSpy() }
         
         // Task
         let getMyTasksUseCaseSpy = GetMyTasksUseCaseSpy()

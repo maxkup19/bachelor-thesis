@@ -38,6 +38,9 @@ public extension Container {
     var getCurrentUserRoleUseCase: Factory<GetCurrentUserRoleUseCase> { self { GetCurrentUserRoleUseCaseImpl(
         userRepository: self.userRepository()
     )}}
+    var updateUserInfoUseCase: Factory<UpdateUserInfoUseCase> { self { UpdateUserInfoUseCaseImpl(
+        userRepository: self.userRepository()
+    )}}
     var deleteAccountUseCase: Factory<DeleteAccountUseCase> { self { DeleteAccountUseCaseImpl(
         userRepository: self.userRepository(),
         logoutUseCase: self.logoutUseCase()
