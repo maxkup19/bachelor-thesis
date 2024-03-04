@@ -10,5 +10,6 @@ import Spyable
 @Spyable
 public protocol UserRepository {
     func getCurrentUser() async throws -> User
+    func updateUserInfo(_ payload: UpdateUserInfoData) async throws
     func deleteAccount() async throws
 }
