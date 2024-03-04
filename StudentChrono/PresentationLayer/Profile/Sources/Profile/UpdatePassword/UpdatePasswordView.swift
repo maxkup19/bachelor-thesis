@@ -10,19 +10,34 @@ import UIToolkit
 
 struct UpdatePasswordView: View {
     
+    @ObservedObject private var viewModel: UpdatePasswordViewModel
     
+    init(viewModel: UpdatePasswordViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Update password View")
+        }
+        .environment(\.isLoading, viewModel.state.isLoading)
+        .lifecycle(viewModel)
+        .alert(item: Binding<AlertData?>(
+            get: { viewModel.state.alertData },
+            set: { _ in viewModel.onIntent(.dismissAlert) }
+        )) { alert in .init(alert) }
     }
 }
 
 #if DEBUG
-import SharedDomain
-import SharedDomainMocks
+import DependencyInjectionMocks
+import Factory
 
 #Preview {
-    UpdatePasswordView()
+    Container.shared.registerUseCaseMocks()
+    
+    let vm = UpdatePasswordViewModel(flowController: nil)
+    return UpdatePasswordView(viewModel: vm)
 }
 
 #endif
