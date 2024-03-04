@@ -8,6 +8,7 @@
 import DependencyInjection
 import Factory
 import SharedDomain
+import SharedDomainMocks
 import SwiftUI
 import UIToolkit
 
@@ -18,6 +19,8 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
+    @Injected(\.getCurrentUserUseCase) private var getCurrentUserUseCase
+    @Injected(\.updateUserInfoUseCase) private var updateUserInfoUseCase
     @Injected(\.deleteAccountUseCase) private var deleteAccountUseCase
     
     init(flowController: FlowController?) {
@@ -28,7 +31,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     override func onAppear() {
         super.onAppear()
         executeTask(Task {
-            
+            await loadData()
         })
     }
     
@@ -36,6 +39,10 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Published private(set) var state = State()
     
     struct State {
+        var user: User = User.studentStub
+        var updateName: String = ""
+        var updateLastName: String = ""
+        var updateBirthDay: Date = .now
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -43,7 +50,14 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Intents
     enum Intent {
         case showDeleteAccountDialog
+        case refresh
         case deleteAccount
+        case updatePasswordTap
+        case verifyUserName
+        case updateUserInfo
+        case updateNameChanged(String)
+        case updateLastNameChanged(String)
+        case updateBirthDayChanged(Date)
         case dismissAlert
     }
     
@@ -51,13 +65,34 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         executeTask(Task {
             switch intent {
             case .showDeleteAccountDialog: showDeleteAccountDialog()
+            case .refresh: await loadData()
             case .deleteAccount: await deleteAccount()
+            case .updatePasswordTap: updatePasswordTap()
+            case .verifyUserName: verifyUserInfo()
+            case .updateUserInfo: await updateUserInfo()
+            case .updateNameChanged(let name): updateNameChanged(name)
+            case .updateLastNameChanged(let lastName): updateLastNameChanged(lastName)
+            case .updateBirthDayChanged(let birthDay): updateBirthDayChanged(birthDay)
             case .dismissAlert: dismissAlert()
             }
         })
     }
     
     // MARK: - Private
+    
+    private func loadData() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
+        do {
+            state.user = try await getCurrentUserUseCase.execute()
+            state.updateName = state.user.name
+            state.updateLastName = state.user.lastName
+            state.updateBirthDay = state.user.birthDay
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
+    }
     
     private func showDeleteAccountDialog() {
         state.alertData = .init(
@@ -75,6 +110,50 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
+    }
+    
+    private func updatePasswordTap() {
+        #warning("TODO: update password tap")
+    }
+    
+    private func verifyUserInfo() {
+        if state.updateName.isEmpty {
+            state.updateName = state.user.name
+        }
+        if state.updateLastName.isEmpty {
+            state.updateLastName = state.user.lastName
+        }
+        
+    }
+    
+    private func updateUserInfo() async {
+        verifyUserInfo()
+        
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
+        do {
+            let payload = UpdateUserInfoData(
+                name: state.updateName,
+                lastName: state.updateLastName,
+                birthDay: state.updateBirthDay
+            )
+            try await updateUserInfoUseCase.execute(payload)
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
+    }
+    
+    private func updateNameChanged(_ name: String) {
+        state.updateName = name
+    }
+    
+    private func updateLastNameChanged(_ lastName: String) {
+        state.updateLastName = lastName
+    }
+    
+    private func updateBirthDayChanged(_ birthday: Date) {
+        state.updateBirthDay = birthday
     }
     
     private func dismissAlert() {

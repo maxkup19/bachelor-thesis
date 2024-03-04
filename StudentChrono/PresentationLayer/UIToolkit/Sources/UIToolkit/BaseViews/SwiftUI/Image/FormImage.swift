@@ -18,7 +18,7 @@ public struct FormImage: View {
     private let image: Image
     private let color: Color
     
-    private let size: CGFloat = 30
+    private let size: CGFloat = 28
     
     public init(
         _ type: Type,
@@ -34,7 +34,7 @@ public struct FormImage: View {
         Group {
             switch type {
             case .circle: Circle()
-            case .rectangle: RoundedRectangle(cornerRadius: 5)
+            case .rectangle: RoundedRectangle(cornerRadius: 7)
             }
         }
         .frame(width: size, height: size)
@@ -48,6 +48,10 @@ public struct FormImage: View {
 #if DEBUG
 
 #Preview {
-    FormImage(.rectangle, image: AppTheme.Images.calendar, color: .green)
+    FormImage(
+        .rectangle,
+        image: AppTheme.Images.calendar,
+        color: .green
+    )
 }
 #endif

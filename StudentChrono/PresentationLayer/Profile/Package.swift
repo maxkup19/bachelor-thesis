@@ -26,7 +26,9 @@ let package = Package(
             dependencies: [
                 .product(name: "UIToolkit", package: "UIToolkit"),
                 .product(name: "SharedDomain", package: "SharedDomain"),
+                .product(name: "SharedDomainMocks", package: "SharedDomain"),
                 .product(name: "DependencyInjection", package: "DependencyInjection"),
+                .product(name: "DependencyInjectionMocks", package: "DependencyInjection"),
                 .product(name: "Factory", package: "Factory")
             ]
         )

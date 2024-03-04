@@ -15,6 +15,7 @@ public struct NETUser: Decodable {
     let email: String
     let birthDay: Date
     let role: UserRoleEnum
+    let imageURL: String?
 }
 
 // Conversion from NetworkModel to DomainModel
@@ -26,7 +27,8 @@ public extension NETUser {
             lastName: lastName,
             email: email,
             role: role,
-            birthDay: birthDay
+            birthDay: birthDay,
+            imageURL: imageURL
         )
     }
 }

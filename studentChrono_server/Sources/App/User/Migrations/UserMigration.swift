@@ -21,6 +21,7 @@ extension User {
                 .field(FieldKeys.role, .string, .required)
                 .field(FieldKeys.studentIds, .array(of: .uuid), .required)
                 .field(FieldKeys.birthDay, .date, .required)
+                .field(FieldKeys.image, .string)
                 .field(FieldKeys.createdAt, .datetime)
                 .field(FieldKeys.updatedAt, .datetime)
                 .unique(on: FieldKeys.email)

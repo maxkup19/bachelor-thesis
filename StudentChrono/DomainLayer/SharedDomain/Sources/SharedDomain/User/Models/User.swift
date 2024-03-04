@@ -14,7 +14,11 @@ public struct User: Equatable, Codable, Identifiable, Hashable {
     public let email: String
     public let role: UserRoleEnum
     public let birthDay: Date
+    public let imageURL: String?
     
+    public var fullName: String {
+        name + " " + lastName
+    }
     
     public init(
         id: String,
@@ -22,7 +26,8 @@ public struct User: Equatable, Codable, Identifiable, Hashable {
         lastName: String,
         email: String,
         role: UserRoleEnum,
-        birthDay: Date
+        birthDay: Date,
+        imageURL: String?
     ) {
         self.id = id
         self.name = name
@@ -30,5 +35,6 @@ public struct User: Equatable, Codable, Identifiable, Hashable {
         self.email = email
         self.role = role
         self.birthDay = birthDay
+        self.imageURL = imageURL
     }
 }

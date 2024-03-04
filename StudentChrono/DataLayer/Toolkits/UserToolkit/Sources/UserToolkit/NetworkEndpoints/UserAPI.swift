@@ -11,6 +11,7 @@ import Utilities
 
 enum UserAPI {
     case currentUser
+    case updateInfo(_ data: [String: Any])
     case deleteAccount
 }
 
@@ -19,12 +20,14 @@ extension UserAPI: NetworkEndpoint {
     var path: String {
         switch self {
         case .currentUser: "/user/me"
+        case .updateInfo: "/user/info"
         case .deleteAccount: "/user/deleteAccount"
         }
     }
     var method: NetworkMethod {
         switch self {
         case .currentUser: .get
+        case .updateInfo: .patch
         case .deleteAccount: .delete
         }
     }
@@ -34,6 +37,7 @@ extension UserAPI: NetworkEndpoint {
     var task: NetworkTask {
         switch self {
         case .currentUser: .requestPlain
+        case .updateInfo(let data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         case .deleteAccount: .requestPlain
         }
     }

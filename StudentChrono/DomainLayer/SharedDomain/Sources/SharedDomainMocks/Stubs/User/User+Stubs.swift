@@ -14,7 +14,8 @@ public extension User {
         lastName: "Anonymous",
         email: "email@email.com",
         role: .student,
-        birthDay: .distantPast
+        birthDay: .distantPast,
+        imageURL: nil
     )
     
     static let teacherStub = User(
@@ -23,6 +24,7 @@ public extension User {
         lastName: "Anon",
         email: "email@email",
         role: .teacher,
-        birthDay: .distantPast
+        birthDay: .distantPast,
+        imageURL: nil
     )
 }

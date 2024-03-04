@@ -24,6 +24,9 @@ public func configure(_ app: Application) async throws {
     app.migrations.add(Task.Migration())
     try await app.autoMigrate()
     
+    // MARK: - Setup Middleware
+    app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
+    app.routes.defaultMaxBodySize = "10mb"
     
     // MARK: - Register routes
     try routes(app)
