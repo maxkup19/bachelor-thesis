@@ -39,6 +39,9 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     struct State {
         var user: User = User.studentStub
+        var updateName: String = ""
+        var updateLastName: String = ""
+        var updateBirthDay: Date = .now
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -48,6 +51,10 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         case showDeleteAccountDialog
         case refresh
         case deleteAccount
+        case updateUserInfo
+        case updateNameChanged(String)
+        case updateLastNameChanged(String)
+        case updateBirthDayChanged(Date)
         case dismissAlert
     }
     
@@ -57,6 +64,10 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .showDeleteAccountDialog: showDeleteAccountDialog()
             case .refresh: await loadData()
             case .deleteAccount: await deleteAccount()
+            case .updateUserInfo: await updateUserInfo()
+            case .updateNameChanged(let name): updateNameChanged(name)
+            case .updateLastNameChanged(let lastName): updateLastNameChanged(lastName)
+            case .updateBirthDayChanged(let birthDay): updateBirthDayChanged(birthDay)
             case .dismissAlert: dismissAlert()
             }
         })
@@ -70,6 +81,9 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         
         do {
             state.user = try await getCurrentUserUseCase.execute()
+            state.updateName = state.user.name
+            state.updateLastName = state.user.lastName
+            state.updateBirthDay = state.user.birthDay
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
@@ -91,6 +105,29 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
+    }
+    
+    private func updateUserInfo() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        #warning("Update user info")
+        do {
+            
+        } catch {
+            
+        }
+    }
+    
+    private func updateNameChanged(_ name: String) {
+        state.updateName = name
+    }
+    
+    private func updateLastNameChanged(_ lastName: String) {
+        state.updateLastName = lastName
+    }
+    
+    private func updateBirthDayChanged(_ birthday: Date) {
+        state.updateBirthDay = birthday
     }
     
     private func dismissAlert() {

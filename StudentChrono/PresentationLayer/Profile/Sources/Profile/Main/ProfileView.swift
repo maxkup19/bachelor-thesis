@@ -12,6 +12,7 @@ struct ProfileView: View {
     
     @ObservedObject private var viewModel: ProfileViewModel
     
+    @State private var d :Date = .now
     
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
@@ -32,7 +33,21 @@ struct ProfileView: View {
             
             Section {
                 NavigationLink {
-                    
+                    PersonalInformationView(
+                        name: Binding(
+                            get: { viewModel.state.updateName },
+                            set: { name in viewModel.onIntent(.updateNameChanged(name)) }
+                        ),
+                        lastName: Binding(
+                            get: { viewModel.state.updateLastName },
+                            set: { lastName in viewModel.onIntent(.updateLastNameChanged(lastName)) }
+                        ),
+                        birthDay: Binding(
+                            get: { viewModel.state.updateBirthDay },
+                            set: { birthDay in viewModel.onIntent(.updateBirthDayChanged(birthDay)) }
+                        ),
+                        onDisappear: { viewModel.onIntent(.updateUserInfo)}
+                    )
                 } label: {
                     Label(
                         "Personal Information",
