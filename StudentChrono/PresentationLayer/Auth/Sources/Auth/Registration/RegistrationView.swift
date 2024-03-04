@@ -67,6 +67,10 @@ struct RegistrationView: View {
                     .pickerStyle(.palette)
                 }
                 
+                Button("Already have an account?") {
+                    viewModel.onIntent(.showLogin)
+                }
+                
                 Button {
                     viewModel.onIntent(.registerTap)
                 } label: {

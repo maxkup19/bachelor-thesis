@@ -61,15 +61,9 @@ public final class AuthFlowController: FlowController {
 extension AuthFlowController {
     func handleAuthFlow(_ flow: AuthFlow.Auth) {
         switch flow {
-        case .showLogin: showLogin()
+        case .showLogin: pop()
         case .showRegistration: showRegistration()
         }
-    }
-    
-    private func showLogin() {
-        let vm = LoginViewModel(flowController: self)
-        let vc = BaseHostingController(rootView: LoginView(viewModel: vm), statusBarStyle: .default)
-        navigationController.show(vc, sender: nil)
     }
     
     private func showRegistration() {
