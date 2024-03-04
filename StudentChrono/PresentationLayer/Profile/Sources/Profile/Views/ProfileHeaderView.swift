@@ -49,13 +49,6 @@ struct ProfileHeaderView: View {
                 onImageTap()
             }
             
-//            RemoteImage(
-//                stringURL: imageURL,
-//                placeholder: Image(systemName: "person.circle.fill")
-//            )
-            
-            
-            
             Text(fullName)
                 .font(.title)
                 .foregroundStyle(Color.primary)
