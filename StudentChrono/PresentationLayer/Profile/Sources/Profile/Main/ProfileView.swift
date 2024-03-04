@@ -12,8 +12,6 @@ struct ProfileView: View {
     
     @ObservedObject private var viewModel: ProfileViewModel
     
-    @State private var d :Date = .now
-    
     init(viewModel: ProfileViewModel) {
         self.viewModel = viewModel
     }
@@ -48,7 +46,8 @@ struct ProfileView: View {
                             get: { viewModel.state.updateBirthDay },
                             set: { birthDay in viewModel.onIntent(.updateBirthDayChanged(birthDay)) }
                         ),
-                        onDisappear: { viewModel.onIntent(.updateUserInfo)}
+                        updateInfo: { viewModel.onIntent(.updateUserInfo) },
+                        verifyName: { viewModel.onIntent(.verifyUserName) }
                     )
                 } label: {
                     Label(

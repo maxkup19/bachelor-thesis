@@ -9,10 +9,13 @@ import SwiftUI
 
 struct PersonalInformationView: View {
     
+    @Environment(\.dismiss) private var dismiss
+    
     @Binding private var name: String
     @Binding private var lastName: String
     @Binding private var birthDay: Date
-    private let onDisappear: () -> Void
+    private let updateInfo: () -> Void
+    private let verifyName: () -> Void
     
     @State private var showDatePicker: Bool = false
     
@@ -20,18 +23,24 @@ struct PersonalInformationView: View {
         name: Binding<String>,
         lastName: Binding<String>,
         birthDay: Binding<Date>,
-        onDisappear: @escaping () -> Void
+        updateInfo: @escaping () -> Void,
+        verifyName: @escaping () -> Void
     ) {
         self._name = name
         self._lastName = lastName
         self._birthDay = birthDay
-        self.onDisappear = onDisappear
+        self.updateInfo = updateInfo
+        self.verifyName = verifyName
     }
     
     var body: some View {
         Form {
             NavigationLink {
-                
+                UpdateNameView(
+                    name: $name,
+                    lastName: $lastName,
+                    verifyName: verifyName
+                )
             } label: {
                 HStack {
                     Text("Name")
@@ -70,7 +79,21 @@ struct PersonalInformationView: View {
                 .datePickerStyle(.graphical)
             }
         }
-        .onDisappear(perform: onDisappear)
+        .navigationTitle("Personal Information")
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    updateInfo()
+                    dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                        Text("Back")
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -83,7 +106,8 @@ import SharedDomainMocks
         name: .constant(User.studentStub.name),
         lastName: .constant(User.studentStub.lastName),
         birthDay: .constant(User.studentStub.birthDay),
-        onDisappear: { }
+        updateInfo: { },
+        verifyName: { }
     )
 }
 #endif

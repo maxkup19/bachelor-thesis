@@ -20,6 +20,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     private weak var flowController: FlowController?
     
     @Injected(\.getCurrentUserUseCase) private var getCurrentUserUseCase
+    @Injected(\.updateUserInfoUseCase) private var updateUserInfoUseCase
     @Injected(\.deleteAccountUseCase) private var deleteAccountUseCase
     
     init(flowController: FlowController?) {
@@ -51,6 +52,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         case showDeleteAccountDialog
         case refresh
         case deleteAccount
+        case verifyUserName
         case updateUserInfo
         case updateNameChanged(String)
         case updateLastNameChanged(String)
@@ -64,6 +66,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .showDeleteAccountDialog: showDeleteAccountDialog()
             case .refresh: await loadData()
             case .deleteAccount: await deleteAccount()
+            case .verifyUserName: verifyUserInfo()
             case .updateUserInfo: await updateUserInfo()
             case .updateNameChanged(let name): updateNameChanged(name)
             case .updateLastNameChanged(let lastName): updateLastNameChanged(lastName)
@@ -107,14 +110,31 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         }
     }
     
+    private func verifyUserInfo() {
+        if state.updateName.isEmpty {
+            state.updateName = state.user.name
+        }
+        if state.updateLastName.isEmpty {
+            state.updateLastName = state.user.lastName
+        }
+        
+    }
+    
     private func updateUserInfo() async {
+        verifyUserInfo()
+        
         state.isLoading = true
         defer { state.isLoading = false }
-        #warning("Update user info")
+        
         do {
-            
+            let payload = UpdateUserInfoData(
+                name: state.updateName,
+                lastName: state.updateLastName,
+                birthDay: state.updateBirthDay
+            )
+            try await updateUserInfoUseCase.execute(payload)
         } catch {
-            
+            state.alertData = .init(title: error.localizedDescription)
         }
     }
     
