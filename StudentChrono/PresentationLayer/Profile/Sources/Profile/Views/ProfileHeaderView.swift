@@ -15,17 +15,20 @@ struct ProfileHeaderView: View {
     private let imageURL: String?
     private let fullName: String
     private let email: String
+    private let onImageTap: () -> Void
     
     private let size: CGFloat = 100
     
     public init(
         imageURL: String?,
         fullName: String,
-        email: String
+        email: String,
+        onImageTap: @escaping () -> Void
     ) {
         self.imageURL = imageURL
         self.fullName = fullName
         self.email = email
+        self.onImageTap = onImageTap
     }
     
     var body: some View {
@@ -36,6 +39,10 @@ struct ProfileHeaderView: View {
             )
             .frame(width: size, height: size)
             .clipShape(Circle())
+            .onLongPressGesture {
+                onImageTap()
+            }
+            
             
             Text(fullName)
                 .font(.title)
@@ -57,7 +64,8 @@ import SharedDomainMocks
     ProfileHeaderView(
         imageURL: User.studentStub.imageURL,
         fullName: User.studentStub.fullName,
-        email: User.studentStub.email
+        email: User.studentStub.email,
+        onImageTap: { }
     )
 }
 

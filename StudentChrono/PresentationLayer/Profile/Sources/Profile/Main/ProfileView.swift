@@ -18,21 +18,44 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        VStack {
-            ScrollView {
-                ProfileHeaderView(
-                    imageURL: viewModel.state.user.imageURL,
-                    fullName: viewModel.state.user.fullName,
-                    email: viewModel.state.user.email
-                )
+        Form {
+            
+            ProfileHeaderView(
+                imageURL: viewModel.state.user.imageURL,
+                fullName: viewModel.state.user.fullName,
+                email: viewModel.state.user.email,
+                onImageTap: { print("HEHEEH") }
+            )
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            .listRowInsets(EdgeInsets())
+            .background(Color(UIColor.systemBackground))
+            
+            Section {
+                NavigationLink {
+                    
+                } label: {
+                    Label(
+                        "Personal Information",
+                        systemImage: "person.text.rectangle.fill"
+                    )
+                    .labelStyle(ColorfulIconLabelStyle())
+                }
                 
+                NavigationLink {
+                    
+                } label: {
+                    Label(
+                        "Sign-In & Security",
+                        systemImage: "lock.shield"
+                    )
+                    .labelStyle(ColorfulIconLabelStyle())
+                }
             }
             
             Button("Delete account", role: .destructive) {
                 viewModel.onIntent(.showDeleteAccountDialog)
             }
         }
-        .padding()
         .navigationTitle("Profile")
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
