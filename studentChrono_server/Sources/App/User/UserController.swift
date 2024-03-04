@@ -21,6 +21,8 @@ struct UserController: RouteCollection {
         
         userRoutes.patch(UserRoutes.image, use: uploadImage)
         userRoutes.delete(UserRoutes.image, use: deleteImage)
+        
+        userRoutes.patch(UserRoutes.info, use: updateInfo)
     }
     
     private func index(req: Request) async throws -> [UserResponse] {
@@ -67,6 +69,18 @@ struct UserController: RouteCollection {
         user.imageURL = nil
         try await user.update(on: req.db)
         
+        return .ok
+    }
+    
+    private func updateInfo(req: Request) async throws -> HTTPStatus {
+        let user = try req.auth.require(User.self)
+        let updateInfoDTO = try req.content.decode(UpdateUserInfoDTO.self)
+        
+        user.name = updateInfoDTO.name ?? user.name
+        user.lastName = updateInfoDTO.lastName ?? user.lastName
+        user.birthDay = updateInfoDTO.birthDay ?? user.birthDay
+        
+        try await user.update(on: req.db)
         return .ok
     }
 }

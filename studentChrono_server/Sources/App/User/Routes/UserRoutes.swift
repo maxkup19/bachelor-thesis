@@ -13,5 +13,6 @@ enum UserRoutes {
     static let me: PathComponent = "me"
     static let deleteAccount: PathComponent = "deleteAccount"
     static let image: PathComponent = "image"
+    static let info: PathComponent = "info"
 }
 

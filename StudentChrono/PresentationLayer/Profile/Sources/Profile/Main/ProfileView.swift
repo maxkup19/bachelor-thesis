@@ -25,7 +25,9 @@ struct ProfileView: View {
                 imageURL: viewModel.state.user.imageURL,
                 fullName: viewModel.state.user.fullName,
                 email: viewModel.state.user.email,
-                onImageTap: { print("HEHEEH") }
+                onImageTap: {
+                    #warning("Update image implement")
+                }
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .listRowInsets(EdgeInsets())
