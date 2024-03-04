@@ -63,6 +63,7 @@ struct ProfileHeaderView: View {
 }
 
 #if DEBUG
+import SharedDomain
 import SharedDomainMocks
 
 #Preview {

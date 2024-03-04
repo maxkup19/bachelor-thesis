@@ -82,7 +82,8 @@ import SharedDomainMocks
     PersonalInformationView(
         name: .constant(User.studentStub.name),
         lastName: .constant(User.studentStub.lastName),
-        birthDay: .constant(User.studentStub.birthDay)
+        birthDay: .constant(User.studentStub.birthDay),
+        onDisappear: { }
     )
 }
 #endif
