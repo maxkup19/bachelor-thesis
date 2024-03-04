@@ -58,7 +58,10 @@ struct ProfileView: View {
                 }
                 
                 NavigationLink {
-                    
+                    SecurityView(
+                        email: .constant(viewModel.state.user.email),
+                        onChangePassword: { viewModel.onIntent(.updatePasswordTap)}
+                    )
                 } label: {
                     Label(
                         "Sign-In & Security",

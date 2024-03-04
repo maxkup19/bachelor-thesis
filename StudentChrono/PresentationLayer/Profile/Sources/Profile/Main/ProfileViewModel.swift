@@ -52,6 +52,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         case showDeleteAccountDialog
         case refresh
         case deleteAccount
+        case updatePasswordTap
         case verifyUserName
         case updateUserInfo
         case updateNameChanged(String)
@@ -66,6 +67,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .showDeleteAccountDialog: showDeleteAccountDialog()
             case .refresh: await loadData()
             case .deleteAccount: await deleteAccount()
+            case .updatePasswordTap: updatePasswordTap()
             case .verifyUserName: verifyUserInfo()
             case .updateUserInfo: await updateUserInfo()
             case .updateNameChanged(let name): updateNameChanged(name)
@@ -108,6 +110,10 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
+    }
+    
+    private func updatePasswordTap() {
+        #warning("TODO: update password tap")
     }
     
     private func verifyUserInfo() {
