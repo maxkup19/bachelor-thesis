@@ -23,6 +23,9 @@ struct UserController: RouteCollection {
         userRoutes.delete(UserRoutes.image, use: deleteImage)
         
         userRoutes.patch(UserRoutes.info, use: updateInfo)
+        
+        userRoutes.get(UserRoutes.password, use: verifyPassword)
+        userRoutes.patch(UserRoutes.password, use: updatePassword)
     }
     
     private func index(req: Request) async throws -> [UserResponse] {
@@ -80,6 +83,26 @@ struct UserController: RouteCollection {
         user.lastName = updateInfoDTO.lastName ?? user.lastName
         user.birthDay = updateInfoDTO.birthDay ?? user.birthDay
         
+        try await user.update(on: req.db)
+        return .ok
+    }
+    
+    private func verifyPassword(req: Request) async throws -> HTTPStatus {
+        let user = try req.auth.require(User.self)
+        let password = try req.content.decode(PasswordDTO.self).password
+        
+        guard try Bcrypt.verify(password, created: user.password) else {
+            throw Abort(.expectationFailed, reason: "Incorrect password")
+        }
+        
+        return .ok
+    }
+    
+    private func updatePassword(req: Request) async throws -> HTTPStatus {
+        let user = try req.auth.require(User.self)
+        let newPassword = try req.content.decode(PasswordDTO.self).password
+        
+        user.password = try Bcrypt.hash(newPassword)
         try await user.update(on: req.db)
         return .ok
     }
