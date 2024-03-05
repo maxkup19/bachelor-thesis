@@ -47,6 +47,7 @@ struct VerifyPasswordView: View {
             .focused($isFocused)
             .padding(.horizontal, AppTheme.Dimens.spaceXXXLarge)
             .onAppear { isFocused = true }
+            .submitLabel(.next)
             .onSubmit(onSubmit)
             
             Spacer()

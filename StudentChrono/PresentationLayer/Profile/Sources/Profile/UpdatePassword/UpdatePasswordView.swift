@@ -34,7 +34,10 @@ struct UpdatePasswordView: View {
                     ),
                     onSubmit: { viewModel.onIntent(.currentPasswordSubmit) }
                 )
-                case .change: EmptyView()
+                case .change: ChangePasswordView(
+                    newPassword: .constant(""),
+                    verifyNewPassword: .constant("")
+                )
                 }
             }
             .toolbar {
@@ -48,10 +51,12 @@ struct UpdatePasswordView: View {
                     Button(viewModel.state.viewState.toolbarButtonTitle) {
                         switch viewModel.state.viewState {
                         case .verify: viewModel.onIntent(.currentPasswordSubmit)
-                        case .update: viewModel.onIntent(.changePassword)
+                        case .change: viewModel.onIntent(.changePassword)
                         }
                     }
+                    
                 }
+                
             }
         }
         .environment(\.isLoading, viewModel.state.isLoading)
