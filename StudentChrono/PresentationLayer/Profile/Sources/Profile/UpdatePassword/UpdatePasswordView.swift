@@ -35,8 +35,14 @@ struct UpdatePasswordView: View {
                     onSubmit: { viewModel.onIntent(.currentPasswordSubmit) }
                 )
                 case .change: ChangePasswordView(
-                    newPassword: .constant(""),
-                    verifyNewPassword: .constant("")
+                    newPassword: Binding(
+                        get: { viewModel.state.newPassword },
+                        set: { newPassword in viewModel.onIntent(.newPasswordChanged(newPassword)) }
+                    ),
+                    verifyNewPassword: Binding(
+                        get: { viewModel.state.verifyNewPassword },
+                        set: { verifyNewPassword in viewModel.onIntent(.verifyNewPasswordChanged(verifyNewPassword)) }
+                    )
                 )
                 }
             }

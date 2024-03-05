@@ -38,6 +38,8 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
         var viewState: UpdatePasswordState = .verify
         
         var currentPassword: String = ""
+        var newPassword: String = ""
+        var verifyNewPassword: String = ""
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -46,6 +48,8 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
     enum Intent {
         case currentPasswordChanged(String)
         case currentPasswordSubmit
+        case newPasswordChanged(String)
+        case verifyNewPasswordChanged(String)
         case changePassword
         case cancelTap
         case dismissAlert
@@ -56,6 +60,8 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
             switch intent {
             case .currentPasswordChanged(let currentPassword): currentPasswordChanged(currentPassword)
             case .currentPasswordSubmit: await currentPasswordSubmit()
+            case .newPasswordChanged(let newPassword): newPasswordChanged(newPassword)
+            case .verifyNewPasswordChanged(let verifyNewPasswor): newPasswordChanged(verifyNewPasswor)
             case .changePassword: await changePassword()
             case .cancelTap: cancelTap()
             case .dismissAlert: dismissAlert()
@@ -78,6 +84,14 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
             state.viewState = .change
         }
 #warning("TODO: call verify current poassword")
+    }
+    
+    private func newPasswordChanged(_ newPassword: String) {
+        state.newPassword = newPassword
+    }
+    
+    private func verifyNewPasswordChanged(_ verifyNewPassword: String) {
+        state.verifyNewPassword = verifyNewPassword
     }
     
     private func changePassword() async {

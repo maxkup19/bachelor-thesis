@@ -10,8 +10,16 @@ import UIToolkit
 
 struct ChangePasswordView: View {
     
+    enum Field {
+        case new
+        case verify
+    }
+    
     @Binding private var newPassword: String
     @Binding private var verifyNewPassword: String
+    
+    @FocusState private var focusedField: Field?
+    
     
     private let textWidth: CGFloat = 50
     
@@ -35,6 +43,8 @@ struct ChangePasswordView: View {
                         prompt: Text("Enter Password"),
                         label: { }
                     )
+                    .focused($focusedField, equals: .new)
+                    .onSubmit { focusedField = .verify}
                 }
                 
                 HStack(spacing: AppTheme.Dimens.spaceXXXLarge) {
@@ -46,6 +56,8 @@ struct ChangePasswordView: View {
                         prompt: Text("Re-Enter Password"),
                         label: { }
                     )
+                    .focused($focusedField, equals: .verify)
+                    .onSubmit { focusedField = nil }
                 }
             } footer: {
                 Text("Your password should be at least 8 characters long, include a number, an uppercase letter and a lowercase letter for better security.")
