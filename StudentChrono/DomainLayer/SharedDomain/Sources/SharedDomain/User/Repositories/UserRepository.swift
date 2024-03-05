@@ -11,5 +11,7 @@ import Spyable
 public protocol UserRepository {
     func getCurrentUser() async throws -> User
     func updateUserInfo(_ payload: UpdateUserInfoData) async throws
+    func verifyPassword(_ payload: UpdatePasswordData) async throws
+    func updatePassword(_ payload: UpdatePasswordData) async throws
     func deleteAccount() async throws
 }
