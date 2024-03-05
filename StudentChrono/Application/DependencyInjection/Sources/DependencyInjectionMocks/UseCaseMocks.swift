@@ -36,6 +36,10 @@ public extension Container {
         getCurrentUserRoleUseCaseSpy.executeReturnValue = User.studentStub.role
         getCurrentUserRoleUseCase.register { getCurrentUserRoleUseCaseSpy }
         
+        let verifyPasswordUseCaseSpy = VerifyPasswordUseCaseSpy()
+        verifyPasswordUseCaseSpy.executeReturnValue = true
+        verifyPasswordUseCase.register { verifyPasswordUseCaseSpy }
+        
         deleteAccountUseCase.register { DeleteAccountUseCaseSpy() }
         updateUserInfoUseCase.register { UpdateUserInfoUseCaseSpy() }
         

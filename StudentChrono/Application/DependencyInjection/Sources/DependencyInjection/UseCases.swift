@@ -41,6 +41,9 @@ public extension Container {
     var updateUserInfoUseCase: Factory<UpdateUserInfoUseCase> { self { UpdateUserInfoUseCaseImpl(
         userRepository: self.userRepository()
     )}}
+    var verifyPasswordUseCase: Factory<VerifyPasswordUseCase> { self { VerifyPasswordUseCaseImpl(
+        userRepoisitory: self.userRepository()
+    )}}
     var deleteAccountUseCase: Factory<DeleteAccountUseCase> { self { DeleteAccountUseCaseImpl(
         userRepository: self.userRepository(),
         logoutUseCase: self.logoutUseCase()

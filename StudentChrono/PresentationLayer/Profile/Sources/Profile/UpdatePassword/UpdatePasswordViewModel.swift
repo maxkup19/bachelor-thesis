@@ -79,10 +79,6 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
         state.isLoading = true
         defer { state.isLoading = false }
         
-        try? await Task.sleep(nanoseconds: 5_000_000)
-        withAnimation {
-            state.viewState = .change
-        }
 #warning("TODO: call verify current poassword")
     }
     
