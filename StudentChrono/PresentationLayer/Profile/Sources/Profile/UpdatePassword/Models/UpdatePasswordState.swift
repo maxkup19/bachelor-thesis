@@ -9,19 +9,19 @@ import SwiftUI
 
 enum UpdatePasswordState: Equatable {
     case verify
-    case update
+    case change
     
     var progressViewTitle: LocalizedStringKey {
         switch self {
         case .verify: "Verifying..."
-        case .update: "Updating..."
+        case .change: "Updating..."
         }
     }
     
     var toolbarButtonTitle: String {
         switch self {
         case .verify: "Next"
-        case .update: "**Change**"
+        case .change: "**Change**"
         }
     }
 }
