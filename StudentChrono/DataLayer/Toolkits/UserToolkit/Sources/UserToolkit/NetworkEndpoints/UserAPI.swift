@@ -32,7 +32,7 @@ extension UserAPI: NetworkEndpoint {
         switch self {
         case .currentUser: .get
         case .updateInfo: .patch
-        case .verifyPassword: .get
+        case .verifyPassword: .post
         case .updatePassword: .patch
         case .deleteAccount: .delete
         }

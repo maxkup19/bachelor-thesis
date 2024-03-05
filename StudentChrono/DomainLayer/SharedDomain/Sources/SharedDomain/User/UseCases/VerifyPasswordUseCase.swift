@@ -14,17 +14,19 @@ public protocol VerifyPasswordUseCase {
 
 public struct VerifyPasswordUseCaseImpl: VerifyPasswordUseCase {
     
-    private let userRepoisitory: UserRepository
+    private let userRepository: UserRepository
     
-    public init(userRepoisitory: UserRepository) {
-        self.userRepoisitory = userRepoisitory
+    public init(userRepository: UserRepository) {
+        self.userRepository = userRepository
     }
     
     public func execute(_ payload: UpdatePasswordData) async -> Bool {
         do {
-            try await userRepoisitory.verifyPassword(payload)
+            try await userRepository.verifyPassword(payload)
             return true
-        } catch { return false }
+        } catch {
+            print("DEBUG: \(error)")
+            return false }
     }
     
 }

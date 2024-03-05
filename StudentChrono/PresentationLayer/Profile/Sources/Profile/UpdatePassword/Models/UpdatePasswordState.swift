@@ -18,10 +18,10 @@ enum UpdatePasswordState: Equatable {
         }
     }
     
-    var toolbarButtonTitle: LocalizedStringKey {
+    var toolbarButtonTitle: String {
         switch self {
-        case .verify: "**Next**"
-        case .change: "**Change**"
+        case .verify: "Next"
+        case .change: "Change"
         }
     }
 }

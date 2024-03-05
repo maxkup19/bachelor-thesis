@@ -19,6 +19,9 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
+    @Injected(\.verifyPasswordUseCase) private var verifyPasswordUseCase
+    @Injected(\.updatePasswordUseCase) private var updatePasswordUseCase
+    
     init(flowController: FlowController?) {
         self.flowController = flowController
     }
@@ -42,6 +45,13 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
         var verifyNewPassword: String = ""
         var isLoading: Bool = false
         var alertData: AlertData?
+        
+        var toolbarButtonDisabled: Bool {
+            switch viewState {
+            case .verify: currentPassword.isEmpty
+            case .change: newPassword.isEmpty || verifyNewPassword.isEmpty
+            }
+        }
     }
     
     // MARK: - Intents
@@ -61,7 +71,7 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
             case .currentPasswordChanged(let currentPassword): currentPasswordChanged(currentPassword)
             case .currentPasswordSubmit: await currentPasswordSubmit()
             case .newPasswordChanged(let newPassword): newPasswordChanged(newPassword)
-            case .verifyNewPasswordChanged(let verifyNewPasswor): newPasswordChanged(verifyNewPasswor)
+            case .verifyNewPasswordChanged(let verifyNewPasswor): verifyNewPasswordChanged(verifyNewPasswor)
             case .changePassword: await changePassword()
             case .cancelTap: cancelTap()
             case .dismissAlert: dismissAlert()
@@ -79,7 +89,14 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
         state.isLoading = true
         defer { state.isLoading = false }
         
-#warning("TODO: call verify current poassword")
+        guard await verifyPasswordUseCase.execute(UpdatePasswordData(password: state.currentPassword)) else {
+            state.alertData = .init(title: "Wrong Password")
+            return
+        }
+        
+        withAnimation {
+            state.viewState = .change
+        }
     }
     
     private func newPasswordChanged(_ newPassword: String) {
@@ -94,11 +111,22 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
         state.isLoading = true
         defer { state.isLoading = false }
         
-#warning("TODO: call Change password use case")
+        guard state.newPassword == state.verifyNewPassword else {
+            state.alertData = .init(title: "Password are not the same")
+            return
+        }
+        
+        do {
+            try await updatePasswordUseCase.execute(UpdatePasswordData(password: state.newPassword))
+            flowController?.handleFlow(ProfileFlow.profile(.dismissSheet))
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
+        
     }
     
     private func cancelTap() {
-#warning("TODO: add flow handler")
+        flowController?.handleFlow(ProfileFlow.profile(.dismissSheet))
     }
     
     private func dismissAlert() {

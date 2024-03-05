@@ -31,8 +31,7 @@ struct UpdatePasswordView: View {
                     currentPassword: Binding(
                         get: { viewModel.state.currentPassword },
                         set: { currentPassword in viewModel.onIntent(.currentPasswordChanged(currentPassword)) }
-                    ),
-                    onSubmit: { viewModel.onIntent(.currentPasswordSubmit) }
+                    )
                 )
                 case .change: ChangePasswordView(
                     newPassword: Binding(
@@ -60,7 +59,8 @@ struct UpdatePasswordView: View {
                         case .change: viewModel.onIntent(.changePassword)
                         }
                     }
-                    
+                    .bold()
+                    .disabled(viewModel.state.toolbarButtonDisabled)
                 }
                 
             }

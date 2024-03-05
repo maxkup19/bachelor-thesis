@@ -42,7 +42,7 @@ public extension Container {
         userRepository: self.userRepository()
     )}}
     var verifyPasswordUseCase: Factory<VerifyPasswordUseCase> { self { VerifyPasswordUseCaseImpl(
-        userRepoisitory: self.userRepository()
+        userRepository: self.userRepository()
     )}}
     var updatePasswordUseCase: Factory<UpdatePasswordUseCase> { self { UpdatePasswordUserCaseImpl(
         userRepository: self.userRepository()

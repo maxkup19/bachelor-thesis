@@ -12,13 +12,13 @@ import UIToolkit
 struct VerifyPasswordView: View {
     
     @Binding private var currentPassword: String
-    private let onSubmit: () -> Void
+    private let onSubmit: (() -> Void)?
     
     @FocusState private var isFocused: Bool
     
     init(
         currentPassword: Binding<String>,
-        onSubmit: @escaping () -> Void
+        onSubmit: (() -> Void)? = nil
     ) {
         self._currentPassword = currentPassword
         self.onSubmit = onSubmit
@@ -48,7 +48,9 @@ struct VerifyPasswordView: View {
             .padding(.horizontal, AppTheme.Dimens.spaceXXXLarge)
             .onAppear { isFocused = true }
             .submitLabel(.next)
-            .onSubmit(onSubmit)
+            .onSubmit {
+                onSubmit?()
+            }
             
             Spacer()
         }
