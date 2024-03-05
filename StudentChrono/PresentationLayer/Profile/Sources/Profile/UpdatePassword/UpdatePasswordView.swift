@@ -17,8 +17,20 @@ struct UpdatePasswordView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("Update password View")
+        NavigationStack  {
+            Group {
+                switch viewModel.state.viewState {
+                case .verify: VerifyPasswordView(currentPassword: .constant(""))
+                case .update: EmptyView()
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button("Cancel") {
+                        viewModel.onIntent(.cancelTap)
+                    }
+                }
+            }
         }
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
