@@ -35,19 +35,18 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
     @Published private(set) var state = State()
     
     struct State {
+        var viewState: UpdatePasswordState = .verify
         
-        var viewState: ViewState = .verify
+        var currentPassword: String = ""
         var isLoading: Bool = false
         var alertData: AlertData?
-        
-        enum ViewState {
-            case verify
-            case update
-        }
     }
     
     // MARK: - Intents
     enum Intent {
+        case currentPasswordChanged(String)
+        case currentPasswordSubmit
+        case changePassword
         case cancelTap
         case dismissAlert
     }
@@ -55,6 +54,9 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
+            case .currentPasswordChanged(let currentPassword): currentPasswordChanged(currentPassword)
+            case .currentPasswordSubmit: currentPasswordSubmit()
+            case .changePassword: changePassword()
             case .cancelTap: cancelTap()
             case .dismissAlert: dismissAlert()
             }
@@ -63,8 +65,20 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
     
     // MARK: - Private
     
+    private func currentPasswordChanged(_ currentPassword: String) {
+        state.currentPassword = currentPassword
+    }
+    
+    private func currentPasswordSubmit() {
+#warning("TODO: call verify current poassword")
+    }
+    
+    private func changePassword() {
+#warning("TODO: call Change password use case")
+    }
+    
     private func cancelTap() {
-        
+#warning("TODO: add flow handler")
     }
     
     private func dismissAlert() {

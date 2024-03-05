@@ -18,9 +18,21 @@ struct UpdatePasswordView: View {
     
     var body: some View {
         NavigationStack  {
-            Group {
+            ZStack {
+                
+                if viewModel.state.isLoading {
+                    ProgressView(viewModel.state.viewState.progressViewTitle)
+                        .zIndex(1)
+                }
+                
                 switch viewModel.state.viewState {
-                case .verify: VerifyPasswordView(currentPassword: .constant(""))
+                case .verify: VerifyPasswordView(
+                    currentPassword: Binding(
+                        get: { viewModel.state.currentPassword },
+                        set: { currentPassword in viewModel.onIntent(.currentPasswordChanged(currentPassword)) }
+                    ),
+                    onSubmit: { viewModel.onIntent(.currentPasswordSubmit) }
+                )
                 case .update: EmptyView()
                 }
             }
@@ -28,6 +40,15 @@ struct UpdatePasswordView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     Button("Cancel") {
                         viewModel.onIntent(.cancelTap)
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button(viewModel.state.viewState.toolbarButtonTitle) {
+                        switch viewModel.state.viewState {
+                        case .verify: viewModel.onIntent(.currentPasswordSubmit)
+                        case .update: viewModel.onIntent(.changePassword)
+                        }
                     }
                 }
             }
