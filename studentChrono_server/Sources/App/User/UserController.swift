@@ -24,7 +24,8 @@ struct UserController: RouteCollection {
         
         userRoutes.patch(UserRoutes.info, use: updateInfo)
         
-        userRoutes.get(UserRoutes.password, use: verifyPassword)
+        // MARK: - the only reason it's not get request is iOS doesn't allow to send request with body
+        userRoutes.post(UserRoutes.password, use: verifyPassword)
         userRoutes.patch(UserRoutes.password, use: updatePassword)
     }
     

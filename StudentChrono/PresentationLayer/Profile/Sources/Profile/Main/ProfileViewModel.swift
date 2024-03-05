@@ -113,7 +113,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     private func updatePasswordTap() {
-        #warning("TODO: update password tap")
+        flowController?.handleFlow(ProfileFlow.profile(.updatePassword))
     }
     
     private func verifyUserInfo() {

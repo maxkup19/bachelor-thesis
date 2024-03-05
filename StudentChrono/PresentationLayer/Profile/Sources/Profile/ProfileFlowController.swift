@@ -14,6 +14,8 @@ enum ProfileFlow: Flow, Equatable {
     
     enum Profile: Equatable {
         case deleteAccount
+        case updatePassword
+        case dismissSheet
     }
 }
 
@@ -37,6 +39,9 @@ public final class ProfileFlowController: FlowController {
         }
     }
     
+    override public func dismiss() {
+        navigationController.dismiss(animated: true)
+    }
 }
 
 // MARK: - Profile Flow
@@ -44,7 +49,18 @@ extension ProfileFlowController {
     func handleFlow(_ flow: ProfileFlow.Profile) {
         switch flow {
         case .deleteAccount: deleteAccount()
+        case .updatePassword: updatePassword()
+        case .dismissSheet: dismiss()
         }
+    }
+    
+    private func updatePassword() {
+        let vm = UpdatePasswordViewModel(flowController: self)
+        let view = UpdatePasswordView(viewModel: vm)
+        let vc = BaseHostingController(rootView: view)
+        vc.modalPresentationStyle = .automatic
+        
+        navigationController.present(vc, animated: true)
     }
     
     private func deleteAccount() {

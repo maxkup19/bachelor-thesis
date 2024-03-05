@@ -12,6 +12,8 @@ import Utilities
 enum UserAPI {
     case currentUser
     case updateInfo(_ data: [String: Any])
+    case verifyPassword(_ data: [String: Any])
+    case updatePassword(_ data: [String: Any])
     case deleteAccount
 }
 
@@ -21,6 +23,8 @@ extension UserAPI: NetworkEndpoint {
         switch self {
         case .currentUser: "/user/me"
         case .updateInfo: "/user/info"
+        case .verifyPassword: "/user/password"
+        case .updatePassword: "/user/password"
         case .deleteAccount: "/user/deleteAccount"
         }
     }
@@ -28,6 +32,8 @@ extension UserAPI: NetworkEndpoint {
         switch self {
         case .currentUser: .get
         case .updateInfo: .patch
+        case .verifyPassword: .post
+        case .updatePassword: .patch
         case .deleteAccount: .delete
         }
     }
@@ -38,6 +44,8 @@ extension UserAPI: NetworkEndpoint {
         switch self {
         case .currentUser: .requestPlain
         case .updateInfo(let data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
+        case .verifyPassword(let data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
+        case .updatePassword(let data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         case .deleteAccount: .requestPlain
         }
     }

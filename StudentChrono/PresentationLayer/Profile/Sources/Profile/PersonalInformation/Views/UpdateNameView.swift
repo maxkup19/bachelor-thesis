@@ -16,6 +16,8 @@ struct UpdateNameView: View {
     @Binding private var lastName: String
     private let verifyName: () -> Void
     
+    private let textWidth: CGFloat = 50
+    
     init(
         name: Binding<String>,
         lastName: Binding<String>,
@@ -30,6 +32,7 @@ struct UpdateNameView: View {
         Form {
             HStack(spacing: AppTheme.Dimens.spaceXXXLarge) {
                 Text("First")
+                    .frame(width: textWidth, alignment: .leading)
                     
                 TextField(
                     text: $name,
@@ -40,7 +43,8 @@ struct UpdateNameView: View {
             
             HStack(spacing: AppTheme.Dimens.spaceXXXLarge) {
                 Text("Last")
-                    
+                    .frame(width: textWidth, alignment: .leading)
+                
                 TextField(
                     text: $lastName,
                     prompt: Text("Required"),

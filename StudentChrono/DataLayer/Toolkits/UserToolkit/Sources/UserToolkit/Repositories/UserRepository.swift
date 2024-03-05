@@ -27,6 +27,16 @@ public struct UserRepositoryImpl: UserRepository {
         try await network.request(UserAPI.updateInfo(data), withInterceptor: false)
     }
     
+    public func verifyPassword(_ payload: UpdatePasswordData) async throws {
+        let data = try payload.networkModel.encode()
+        try await network.request(UserAPI.verifyPassword(data), withInterceptor: false)
+    }
+    
+    public func updatePassword(_ payload: UpdatePasswordData) async throws {
+        let data = try payload.networkModel.encode()
+        try await network.request(UserAPI.updatePassword(data), withInterceptor: false)
+    }
+    
     public func deleteAccount() async throws {
         try await network.request(UserAPI.deleteAccount, withInterceptor: false)
     }
