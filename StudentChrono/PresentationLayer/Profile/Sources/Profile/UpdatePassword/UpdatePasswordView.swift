@@ -34,7 +34,7 @@ struct UpdatePasswordView: View {
                     ),
                     onSubmit: { viewModel.onIntent(.currentPasswordSubmit) }
                 )
-                case .update: EmptyView()
+                case .change: EmptyView()
                 }
             }
             .toolbar {
