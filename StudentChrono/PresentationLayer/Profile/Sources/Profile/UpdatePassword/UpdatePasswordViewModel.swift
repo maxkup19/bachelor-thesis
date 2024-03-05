@@ -55,8 +55,8 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
         executeTask(Task {
             switch intent {
             case .currentPasswordChanged(let currentPassword): currentPasswordChanged(currentPassword)
-            case .currentPasswordSubmit: currentPasswordSubmit()
-            case .changePassword: changePassword()
+            case .currentPasswordSubmit: await currentPasswordSubmit()
+            case .changePassword: await changePassword()
             case .cancelTap: cancelTap()
             case .dismissAlert: dismissAlert()
             }
@@ -69,11 +69,17 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
         state.currentPassword = currentPassword
     }
     
-    private func currentPasswordSubmit() {
+    private func currentPasswordSubmit() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
 #warning("TODO: call verify current poassword")
     }
     
-    private func changePassword() {
+    private func changePassword() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
 #warning("TODO: call Change password use case")
     }
     

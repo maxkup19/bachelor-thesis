@@ -22,6 +22,7 @@ struct UpdatePasswordView: View {
                 
                 if viewModel.state.isLoading {
                     ProgressView(viewModel.state.viewState.progressViewTitle)
+                        .padding(.top, 200)
                         .zIndex(1)
                 }
                 
