@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 04.03.2024.
 //
 
+import PhotosUI
 import SwiftUI
 import UIToolkit
 
@@ -45,7 +46,7 @@ struct ProfileHeaderView: View {
             }
             .frame(width: size, height: size)
             .clipShape(Circle())
-            .onLongPressGesture {
+            .onTapGesture {
                 onImageTap()
             }
             

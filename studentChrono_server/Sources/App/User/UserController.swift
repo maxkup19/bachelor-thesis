@@ -46,7 +46,7 @@ struct UserController: RouteCollection {
         return .ok
     }
     
-    private func uploadImage(req: Request) async throws -> HTTPStatus {
+    private func uploadImage(req: Request) async throws -> User {
         let user = try req.auth.require(User.self)
         let file = try req.content.decode(File.self)
         
@@ -60,10 +60,12 @@ struct UserController: RouteCollection {
         let serverConfig = req.application.http.server.configuration
         let hostname = serverConfig.hostname
         let port = serverConfig.port
-        user.imageURL = "http://\(hostname):\(port)/\(hashedFileName)"
+        
+        let imageURL = "http://\(hostname):\(port)/\(hashedFileName)"
+        user.imageURL = imageURL
         try await user.update(on: req.db)
         
-        return .ok
+        return user
     }
     
     private func deleteImage(req: Request) async throws -> HTTPStatus {

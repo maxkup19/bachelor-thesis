@@ -24,7 +24,7 @@ struct ProfileView: View {
                 fullName: viewModel.state.user.fullName,
                 email: viewModel.state.user.email,
                 onImageTap: {
-                    #warning("Update image implement")
+                    viewModel.onIntent(.userImageTap)
                 }
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
@@ -78,6 +78,16 @@ struct ProfileView: View {
         .refreshable {
             viewModel.onIntent(.refresh)
         }
+        .photosPicker(
+            isPresented: Binding(
+                get: { viewModel.state.photoPickerPresented },
+                set: { changed in viewModel.onIntent(.photoPickerPresentedChanged(changed)) }
+            ),
+            selection: Binding(
+                get: { viewModel.state.photoPickerItem },
+                set: { item in viewModel.onIntent(.photoPickerItemChanged(item)) }
+            )
+        )
         .navigationTitle("Profile")
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
