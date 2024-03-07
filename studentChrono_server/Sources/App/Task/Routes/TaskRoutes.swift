@@ -9,5 +9,9 @@ import Vapor
 
 enum TaskRoutes {
     static let base: PathComponent = "task"
+    static let all: PathComponent = "all"
     
+    enum Parameter {
+        static let taskId: String = "taskId"
+    }
 }

@@ -11,4 +11,5 @@ import Spyable
 public protocol TaskRepository {
     func createTask(_ payload: CreateTaskData) async throws
     func getMyTasks() async throws -> [Task]
+    func getTaskById(id: String) async throws -> Task
 }

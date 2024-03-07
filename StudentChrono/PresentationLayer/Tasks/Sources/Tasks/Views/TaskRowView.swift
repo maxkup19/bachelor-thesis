@@ -6,6 +6,7 @@
 //
 
 import SharedDomain
+import SharedDomainMocks
 import SwiftUI
 import UIToolkit
 
@@ -13,11 +14,13 @@ struct TaskRowView: View {
     
     typealias Task = SharedDomain.Task
     
+    @Environment(\.isLoading) private var isLoading
+    
     private let task: Task
     
     private let imageSize: CGFloat = 15
     
-    init(task: Task) {
+    init(task: Task = .task1Stub) {
         self.task = task
     }
     
@@ -78,15 +81,17 @@ struct TaskRowView: View {
                 }
             }
         }
+        .skeleton(isLoading)
     }
 }
 
 #if DEBUG
+import SharedDomainMocks
 
 #Preview {
     List {
-        TaskRowView(task: Task.task1Stub)
-        TaskRowView(task: Task.task2Stub)
+        TaskRowView()
+        TaskRowView()
     }
 }
 #endif
