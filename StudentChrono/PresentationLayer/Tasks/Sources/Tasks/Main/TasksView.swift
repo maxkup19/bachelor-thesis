@@ -20,13 +20,16 @@ struct TasksView: View {
     
     var body: some View {
         VStack {
-            if viewModel.state.tasks.isEmpty {
-                ContentUnavailableView(
-                    "No tasks",
-                    systemImage: "list.bullet",
-                    description: Text("You have no tasks available")
-                )
-            } else {
+            if viewModel.state.isLoading {
+                List {
+                    ForEach(TaskState.allCases) { taskState in
+                        Section("\(taskState.emoji) \(taskState.title)") {
+                            TaskRowView()
+                        }
+                    }
+                }
+                .disabled(true)
+            } else if !viewModel.state.tasks.isEmpty {
                 List {
                     ForEach(TaskState.allCases) { taskState in
                         let tasks = viewModel.state.tasks.filter { $0.state == taskState }
@@ -35,6 +38,9 @@ struct TasksView: View {
                             Section("\(taskState.emoji) \(taskState.title)") {
                                 ForEach(tasks) { task in
                                     TaskRowView(task: task)
+                                        .onTapGesture {
+                                            viewModel.onIntent(.onTaskTap(task.id))
+                                        }
                                 }
                             }
                         }
@@ -44,14 +50,20 @@ struct TasksView: View {
                 .refreshable {
                     viewModel.onIntent(.refreshTasks)
                 }
-                #warning("Revisit is Future")
-//                .searchable(
-//                    text: Binding(
-//                        get: { viewModel.state.searchText },
-//                        set: { value in viewModel.onIntent(.searchTextChanged(value)) }
-//                    ),
-//                    placement: .toolbar
-//                )
+#warning("Revisit is Future")
+                //                .searchable(
+                //                    text: Binding(
+                //                        get: { viewModel.state.searchText },
+                //                        set: { value in viewModel.onIntent(.searchTextChanged(value)) }
+                //                    ),
+                //                    placement: .toolbar
+                //                )
+            } else {
+                ContentUnavailableView(
+                    "No tasks",
+                    systemImage: "list.bullet",
+                    description: Text("You have no tasks available")
+                )
             }
         }
         .navigationTitle("Tasks")

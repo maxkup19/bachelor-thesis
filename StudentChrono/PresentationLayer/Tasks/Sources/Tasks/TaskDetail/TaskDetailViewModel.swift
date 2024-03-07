@@ -8,6 +8,7 @@
 import DependencyInjection
 import Factory
 import SharedDomain
+import SharedDomainMocks
 import SwiftUI
 import UIToolkit
 
@@ -18,6 +19,8 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     private let taskId: String
+    
+    @Injected(\.getTaskByIdUseCase) private var getTaskByIdUseCase
     
     init(
         flowController: FlowController?,
@@ -40,6 +43,7 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Published private(set) var state = State()
     
     struct State {
+        var task: SharedDomain.Task = .task1Stub
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -58,6 +62,17 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     // MARK: - Private
+    
+    private func loadData() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
+        do {
+            state.task = try await getTaskByIdUseCase.execute(taskId: taskId)
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
+    }
     
     private func dismissAlert() {
         state.alertData = nil

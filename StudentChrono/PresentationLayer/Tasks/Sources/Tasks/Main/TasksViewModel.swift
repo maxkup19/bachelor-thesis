@@ -50,7 +50,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
         case createTask
         case refreshTasks
         case searchTextChanged(String)
-        case onTask(String)
+        case onTaskTap(String)
         case dismissAlert
     }
     
@@ -60,7 +60,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .createTask: createTask()
             case .refreshTasks: await refreshTasks()
             case .searchTextChanged(let text): searchTextChanged(text)
-            case .onTask(let taskId): onTask(taskId: taskId)
+            case .onTaskTap(let taskId): onTaskTap(taskId: taskId)
             case .dismissAlert: dismissAlert()
             }
         })
@@ -75,6 +75,8 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
         do {
             state.showCreateButtonTask = try await getCurrentUserRoleUseCase.execute() == .teacher
             state.tasks = try await getMyTasksUseCase.execute()
+            #warning("UI improvement?")
+//            try? await Task.sleep(nanoseconds: 200_000_000)
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
@@ -99,8 +101,8 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
         state.searchText = text
     }
     
-    private func onTask(taskId: String) {
-        #warning("TODO: add implementation")
+    private func onTaskTap(taskId: String) {
+        flowController?.handleFlow(TasksFlow.tasks(.showTaskDetail(taskId)))
     }
     
     private func dismissAlert() {

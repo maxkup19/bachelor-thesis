@@ -15,6 +15,7 @@ enum TasksFlow: Flow, Equatable {
     enum Tasks: Equatable {
         case createTask
         case closeCreateTask
+        case showTaskDetail(String)
     }
 }
 
@@ -43,6 +44,7 @@ extension TasksFlowController {
         switch flow {
         case .createTask: createTask()
         case .closeCreateTask: dismiss()
+        case .showTaskDetail(let id): showTaskDetail(id: id)
         }
     }
     
@@ -53,5 +55,15 @@ extension TasksFlowController {
         vc.modalPresentationStyle = .automatic
         
         navigationController.present(vc, animated: true)
+    }
+    
+    private func showTaskDetail(id: String) {
+        let vm = TaskDetailViewModel(
+            flowController: self,
+            taskId: id
+        )
+        let view = TaskDetailView(viewModel: vm)
+        let vc = BaseHostingController(rootView: view)
+        navigationController.show(vc, sender: nil)
     }
 }

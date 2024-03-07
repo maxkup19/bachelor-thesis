@@ -36,7 +36,7 @@ import Factory
 #Preview {
     Container.shared.registerUseCaseMocks()
     
-    let vm = TaskDetailViewModel(flowController: nil)
+    let vm = TaskDetailViewModel(flowController: nil, taskId: "")
     return TaskDetailView(viewModel: vm)
 }
 #endif
