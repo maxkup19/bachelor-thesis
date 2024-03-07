@@ -37,6 +37,11 @@ public struct UserRepositoryImpl: UserRepository {
         try await network.request(UserAPI.updatePassword(data), withInterceptor: false)
     }
     
+    public func uploadUserImage(_ payload: File) async throws -> User {
+        let data = try payload.networkModel.encode()
+        return try await network.request(UserAPI.uploadUserImage(data), withInterceptor: false).map(NETUser.self).domainModel
+    }
+    
     public func deleteAccount() async throws {
         try await network.request(UserAPI.deleteAccount, withInterceptor: false)
     }

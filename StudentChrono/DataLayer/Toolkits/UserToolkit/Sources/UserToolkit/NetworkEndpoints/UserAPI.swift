@@ -14,6 +14,7 @@ enum UserAPI {
     case updateInfo(_ data: [String: Any])
     case verifyPassword(_ data: [String: Any])
     case updatePassword(_ data: [String: Any])
+    case uploadUserImage(_ data: [String: Any])
     case deleteAccount
 }
 
@@ -25,6 +26,7 @@ extension UserAPI: NetworkEndpoint {
         case .updateInfo: "/user/info"
         case .verifyPassword: "/user/password"
         case .updatePassword: "/user/password"
+        case .uploadUserImage: "/user/image"
         case .deleteAccount: "/user/deleteAccount"
         }
     }
@@ -34,6 +36,7 @@ extension UserAPI: NetworkEndpoint {
         case .updateInfo: .patch
         case .verifyPassword: .post
         case .updatePassword: .patch
+        case .uploadUserImage: .patch
         case .deleteAccount: .delete
         }
     }
@@ -46,6 +49,7 @@ extension UserAPI: NetworkEndpoint {
         case .updateInfo(let data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         case .verifyPassword(let data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         case .updatePassword(let data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
+        case .uploadUserImage(let data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         case .deleteAccount: .requestPlain
         }
     }
