@@ -40,6 +40,10 @@ public extension Container {
         verifyPasswordUseCaseSpy.executeReturnValue = true
         verifyPasswordUseCase.register { verifyPasswordUseCaseSpy }
         
+        let uploadImageUseCaseSpy = UploadImageUseCaseSpy()
+        uploadImageUseCaseSpy.executeReturnValue = User.studentStub
+        uploadImageUseCase.register { uploadImageUseCaseSpy }
+        
         deleteAccountUseCase.register { DeleteAccountUseCaseSpy() }
         updateUserInfoUseCase.register { UpdateUserInfoUseCaseSpy() }
         

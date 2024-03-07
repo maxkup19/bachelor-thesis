@@ -46,7 +46,7 @@ final class AuthRepositoryTests: XCTestCase {
     
     func testLoginInvalidPassword() async throws {
         let repository = createRepository()
-        networkProvider.requestReturnError = NetworkProviderError.requestFailed(statusCode: .unathorized, message: "")
+        networkProvider.requestReturnError = NetworkProviderError.requestFailed(statusCode: .unauthorised, message: "")
         
         do {
             _ = try await repository.login(.stubValid)
