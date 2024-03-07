@@ -17,10 +17,14 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Dependencies
     private weak var flowController: FlowController?
+    private let taskId: String
     
-    
-    init(flowController: FlowController?) {
+    init(
+        flowController: FlowController?,
+        taskId: String
+    ) {
         self.flowController = flowController
+        self.taskId = taskId
         super.init()
     }
     
