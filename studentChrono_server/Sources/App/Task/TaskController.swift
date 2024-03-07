@@ -42,7 +42,6 @@ struct TaskController: RouteCollection {
             .with(\.$author)
             .with(\.$assignee)
             .first() else {
-            print(id)
             throw Abort(.notFound)
         }
         
