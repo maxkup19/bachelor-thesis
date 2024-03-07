@@ -13,5 +13,6 @@ public protocol UserRepository {
     func updateUserInfo(_ payload: UpdateUserInfoData) async throws
     func verifyPassword(_ payload: UpdatePasswordData) async throws
     func updatePassword(_ payload: UpdatePasswordData) async throws
+    func uploadUserImage(_ payload: File) async throws -> User
     func deleteAccount() async throws
 }

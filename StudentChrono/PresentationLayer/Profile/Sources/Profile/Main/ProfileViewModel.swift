@@ -12,6 +12,7 @@ import SharedDomain
 import SharedDomainMocks
 import SwiftUI
 import UIToolkit
+import UIKit
 
 final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     
@@ -170,7 +171,12 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     private func photoPickerItemChanged(_ item: PhotosPickerItem?) {
-        state.photoPickerItem = item
+        if let item {
+            // MARK: upload on BE
+            item.loadTransferable(type: Data.self) { result in
+                print(result)
+            }
+        }
     }
     
     private func userImageTap() {
