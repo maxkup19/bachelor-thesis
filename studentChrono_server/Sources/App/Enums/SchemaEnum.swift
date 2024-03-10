@@ -9,4 +9,5 @@ enum SchemaEnum: String {
     case users
     case tokens
     case tasks
+    case feedback
 }

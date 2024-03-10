@@ -18,11 +18,11 @@ struct OthersView: View {
     
     var body: some View {
         VStack {
-            Text("OthersView")
             Button("Logout") {
                 viewModel.onIntent(.logout)
             }
         }
+        .navigationTitle("Others")
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(
