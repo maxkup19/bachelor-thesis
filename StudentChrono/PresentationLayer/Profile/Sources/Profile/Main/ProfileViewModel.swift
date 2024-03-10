@@ -7,10 +7,12 @@
 
 import DependencyInjection
 import Factory
+import PhotosUI
 import SharedDomain
 import SharedDomainMocks
 import SwiftUI
 import UIToolkit
+import UIKit
 
 final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     
@@ -21,6 +23,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     @Injected(\.getCurrentUserUseCase) private var getCurrentUserUseCase
     @Injected(\.updateUserInfoUseCase) private var updateUserInfoUseCase
+    @Injected(\.uploadImageUseCase) private var uploadImageUseCase
     @Injected(\.deleteAccountUseCase) private var deleteAccountUseCase
     
     init(flowController: FlowController?) {
@@ -40,6 +43,8 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     struct State {
         var user: User = User.studentStub
+        var photoPickerPresented: Bool = false
+        var photoPickerItem: PhotosPickerItem?
         var updateName: String = ""
         var updateLastName: String = ""
         var updateBirthDay: Date = .now
@@ -52,12 +57,15 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         case showDeleteAccountDialog
         case refresh
         case deleteAccount
+        case userImageTap
         case updatePasswordTap
         case verifyUserName
         case updateUserInfo
         case updateNameChanged(String)
         case updateLastNameChanged(String)
         case updateBirthDayChanged(Date)
+        case photoPickerPresentedChanged(Bool)
+        case photoPickerItemChanged(PhotosPickerItem?)
         case dismissAlert
     }
     
@@ -67,12 +75,15 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .showDeleteAccountDialog: showDeleteAccountDialog()
             case .refresh: await loadData()
             case .deleteAccount: await deleteAccount()
+            case .userImageTap: userImageTap()
             case .updatePasswordTap: updatePasswordTap()
             case .verifyUserName: verifyUserInfo()
             case .updateUserInfo: await updateUserInfo()
             case .updateNameChanged(let name): updateNameChanged(name)
             case .updateLastNameChanged(let lastName): updateLastNameChanged(lastName)
             case .updateBirthDayChanged(let birthDay): updateBirthDayChanged(birthDay)
+            case .photoPickerPresentedChanged(let changed): photoPickerPresentedChanged(changed)
+            case .photoPickerItemChanged(let item): await photoPickerItemChanged(item)
             case .dismissAlert: dismissAlert()
             }
         })
@@ -154,6 +165,33 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     private func updateBirthDayChanged(_ birthday: Date) {
         state.updateBirthDay = birthday
+    }
+    
+    private func photoPickerPresentedChanged(_ changed: Bool) {
+        state.photoPickerPresented = changed
+    }
+    
+    private func photoPickerItemChanged(_ item: PhotosPickerItem?) async {
+        guard let item else { return }
+        defer { state.isLoading = false }
+        
+        do {
+            guard let data = try await item.loadTransferable(type: Data.self) else {
+                return
+            }
+            
+            state.isLoading = true
+            state.user = try await uploadImageUseCase.execute(File(
+                filename: state.user.fullName,
+                data: data
+            ))
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
+    }
+    
+    private func userImageTap() {
+        state.photoPickerPresented = true
     }
     
     private func dismissAlert() {

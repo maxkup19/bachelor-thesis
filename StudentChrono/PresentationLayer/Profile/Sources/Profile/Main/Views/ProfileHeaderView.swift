@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 04.03.2024.
 //
 
+import PhotosUI
 import SwiftUI
 import UIToolkit
 
@@ -37,7 +38,7 @@ struct ProfileHeaderView: View {
                 if let image = phase.image {
                     image
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .aspectRatio(contentMode: .fill)
                 } else if phase.error == nil {
                     Image(systemName: "person.circle.fill")
                         .resizable()
@@ -45,7 +46,7 @@ struct ProfileHeaderView: View {
             }
             .frame(width: size, height: size)
             .clipShape(Circle())
-            .onLongPressGesture {
+            .onTapGesture {
                 onImageTap()
             }
             
