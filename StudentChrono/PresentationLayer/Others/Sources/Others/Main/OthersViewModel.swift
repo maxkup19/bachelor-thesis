@@ -18,6 +18,7 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
+    @Injected(\.logoutUseCase) private var logoutUseCase
     @Injected(\.deleteAccountUseCase) private var deleteAccountUseCase
     
     init(flowController: FlowController?) {
@@ -43,6 +44,7 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Intents
     enum Intent {
         case showDeleteAccountDialog
+        case logout
         case dismissAlert
         case deleteAccount
     }
@@ -51,6 +53,7 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
         executeTask(Task {
             switch intent {
             case .showDeleteAccountDialog: showDeleteAccountDialog()
+            case .logout: await logout()
             case .deleteAccount: await deleteAccount()
             case .dismissAlert: dismissAlert()
             }
@@ -72,6 +75,15 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
         do {
             try await deleteAccountUseCase.execute()
             flowController?.handleFlow(OthersFlow.others(.deleteAccount))
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
+    }
+    
+    private func logout() async {
+        do {
+            try logoutUseCase.execute()
+            flowController?.handleFlow(OthersFlow.others(.logout))
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

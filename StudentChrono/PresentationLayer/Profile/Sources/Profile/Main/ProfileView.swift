@@ -70,10 +70,6 @@ struct ProfileView: View {
                     .labelStyle(ColorfulIconLabelStyle())
                 }
             }
-            
-            Button("Sign Out", role: .destructive) {
-                viewModel.onIntent(.logout)
-            }
         }
         .refreshable {
             viewModel.onIntent(.refresh)

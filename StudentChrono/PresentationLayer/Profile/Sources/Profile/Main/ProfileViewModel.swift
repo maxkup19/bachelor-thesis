@@ -24,7 +24,6 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Injected(\.getCurrentUserUseCase) private var getCurrentUserUseCase
     @Injected(\.updateUserInfoUseCase) private var updateUserInfoUseCase
     @Injected(\.uploadImageUseCase) private var uploadImageUseCase
-    @Injected(\.logoutUseCase) private var logoutUseCase
     
     init(flowController: FlowController?) {
         self.flowController = flowController
@@ -55,7 +54,6 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Intents
     enum Intent {
         case refresh
-        case logout
         case userImageTap
         case updatePasswordTap
         case verifyUserName
@@ -72,7 +70,6 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         executeTask(Task {
             switch intent {
             case .refresh: await loadData()
-            case .logout: await logout()
             case .userImageTap: userImageTap()
             case .updatePasswordTap: updatePasswordTap()
             case .verifyUserName: verifyUserInfo()
@@ -98,15 +95,6 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
             state.updateName = state.user.name
             state.updateLastName = state.user.lastName
             state.updateBirthDay = state.user.birthDay
-        } catch {
-            state.alertData = .init(title: error.localizedDescription)
-        }
-    }
-    
-    private func logout() async {
-        do {
-            try logoutUseCase.execute()
-            flowController?.handleFlow(ProfileFlow.profile(.logout))
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

@@ -13,19 +13,12 @@ enum ProfileFlow: Flow, Equatable {
     case profile(Profile)
     
     enum Profile: Equatable {
-        case logout
         case updatePassword
         case dismissSheet
     }
 }
 
-public protocol ProfileFlowControllerDelegate: AnyObject {
-    func logout()
-}
-
 public final class ProfileFlowController: FlowController {
-    
-    public weak var delegate: ProfileFlowControllerDelegate?
     
     override public func setup() -> UIViewController {
         let vm = ProfileViewModel(flowController: self)
@@ -48,7 +41,6 @@ public final class ProfileFlowController: FlowController {
 extension ProfileFlowController {
     func handleFlow(_ flow: ProfileFlow.Profile) {
         switch flow {
-        case .logout: delegate?.logout()
         case .updatePassword: updatePassword()
         case .dismissSheet: dismiss()
         }
