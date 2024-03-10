@@ -9,14 +9,14 @@ import Foundation
 import SharedDomain
 
 struct NETFile: Codable {
-    var name: String
+    var filename: String
     var data: Data
 }
 
 extension File {
     var networkModel: NETFile {
         NETFile(
-            name: name,
+            filename: filename,
             data: data
         )
     }

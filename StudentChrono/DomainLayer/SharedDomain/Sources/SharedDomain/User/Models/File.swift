@@ -8,14 +8,14 @@
 import Foundation
 
 public struct File: Equatable, Codable {
-    public let name: String
+    public let filename: String
     public let data: Data
     
     public init(
-        name: String,
+        filename: String,
         data: Data
     ) {
-        self.name = name
+        self.filename = filename
         self.data = data
     }
 }

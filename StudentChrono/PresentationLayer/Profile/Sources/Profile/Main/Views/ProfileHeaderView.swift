@@ -38,7 +38,7 @@ struct ProfileHeaderView: View {
                 if let image = phase.image {
                     image
                         .resizable()
-                        .aspectRatio(contentMode: .fit)
+                        .aspectRatio(contentMode: .fill)
                 } else if phase.error == nil {
                     Image(systemName: "person.circle.fill")
                         .resizable()

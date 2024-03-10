@@ -23,6 +23,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     @Injected(\.getCurrentUserUseCase) private var getCurrentUserUseCase
     @Injected(\.updateUserInfoUseCase) private var updateUserInfoUseCase
+    @Injected(\.uploadImageUseCase) private var uploadImageUseCase
     @Injected(\.deleteAccountUseCase) private var deleteAccountUseCase
     
     init(flowController: FlowController?) {
@@ -82,7 +83,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .updateLastNameChanged(let lastName): updateLastNameChanged(lastName)
             case .updateBirthDayChanged(let birthDay): updateBirthDayChanged(birthDay)
             case .photoPickerPresentedChanged(let changed): photoPickerPresentedChanged(changed)
-            case .photoPickerItemChanged(let item): photoPickerItemChanged(item)
+            case .photoPickerItemChanged(let item): await photoPickerItemChanged(item)
             case .dismissAlert: dismissAlert()
             }
         })
@@ -170,12 +171,22 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         state.photoPickerPresented = changed
     }
     
-    private func photoPickerItemChanged(_ item: PhotosPickerItem?) {
-        if let item {
-            // MARK: upload on BE
-            item.loadTransferable(type: Data.self) { result in
-                print(result)
+    private func photoPickerItemChanged(_ item: PhotosPickerItem?) async {
+        guard let item else { return }
+        defer { state.isLoading = false }
+        
+        do {
+            guard let data = try await item.loadTransferable(type: Data.self) else {
+                return
             }
+            
+            state.isLoading = true
+            state.user = try await uploadImageUseCase.execute(File(
+                filename: state.user.fullName,
+                data: data
+            ))
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
         }
     }
     
