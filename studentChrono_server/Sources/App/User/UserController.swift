@@ -41,8 +41,15 @@ struct UserController: RouteCollection {
     
     private func deleteAccount(req: Request) async throws -> HTTPStatus {
         let user = try req.auth.require(User.self)
+        if let tasks = try? await Task.query(on: req.db)
+            .with(\.$author)
+            .filter(\.$author.$id, .equal, try user.requireID())
+            .all() {
+            try await tasks.delete(on: req.db)
+        }
         
         try await user.delete(on: req.db)
+        
         return .ok
     }
     

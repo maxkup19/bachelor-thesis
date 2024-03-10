@@ -71,8 +71,8 @@ struct ProfileView: View {
                 }
             }
             
-            Button("Delete account", role: .destructive) {
-                viewModel.onIntent(.showDeleteAccountDialog)
+            Button("Sign Out", role: .destructive) {
+                viewModel.onIntent(.logout)
             }
         }
         .refreshable {

@@ -14,7 +14,7 @@ enum OthersFlow: Flow, Equatable {
     case others(Others)
     
     enum Others: Equatable {
-        case logout
+        case deleteAccount
     }
 }
 
@@ -44,7 +44,7 @@ public final class OthersFlowController: FlowController {
 extension OthersFlowController {
     func handleFlow(_ flow: OthersFlow.Others) {
         switch flow {
-        case .logout: delegate?.logout()
+        case .deleteAccount: delegate?.logout()
         }
     }
 }

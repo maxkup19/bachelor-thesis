@@ -18,7 +18,7 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Dependencies
     private weak var flowController: FlowController?
     
-    @Injected(\.logoutUseCase) private var logoutUseCase
+    @Injected(\.deleteAccountUseCase) private var deleteAccountUseCase
     
     init(flowController: FlowController?) {
         self.flowController = flowController
@@ -42,32 +42,43 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Intents
     enum Intent {
+        case showDeleteAccountDialog
         case dismissAlert
-        case logout
+        case deleteAccount
     }
     
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
+            case .showDeleteAccountDialog: showDeleteAccountDialog()
+            case .deleteAccount: await deleteAccount()
             case .dismissAlert: dismissAlert()
-            case .logout: await logout()
             }
         })
     }
     
     // MARK: - Private
     
-    private func dismissAlert() {
-        state.alertData = nil
+    private func showDeleteAccountDialog() {
+        state.alertData = .init(
+            title: "Delete Account",
+            message: "Are you sure you want to delete your account? This will permanently erase your account.",
+            primaryAction: .init(title: "Cancel", style: .cancel, handler: dismissAlert),
+            secondaryAction: .init(title: "Delete", style: .destruction, handler: { self.onIntent(.deleteAccount) })
+        )
     }
     
-    private func logout() async {
+    private func deleteAccount() async {
         do {
-            try logoutUseCase.execute()
-            flowController?.handleFlow(OthersFlow.others(.logout))
+            try await deleteAccountUseCase.execute()
+            flowController?.handleFlow(OthersFlow.others(.deleteAccount))
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
+    }
+    
+    private func dismissAlert() {
+        state.alertData = nil
     }
 }
 

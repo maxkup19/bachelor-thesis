@@ -24,7 +24,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Injected(\.getCurrentUserUseCase) private var getCurrentUserUseCase
     @Injected(\.updateUserInfoUseCase) private var updateUserInfoUseCase
     @Injected(\.uploadImageUseCase) private var uploadImageUseCase
-    @Injected(\.deleteAccountUseCase) private var deleteAccountUseCase
+    @Injected(\.logoutUseCase) private var logoutUseCase
     
     init(flowController: FlowController?) {
         self.flowController = flowController
@@ -54,9 +54,8 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Intents
     enum Intent {
-        case showDeleteAccountDialog
         case refresh
-        case deleteAccount
+        case logout
         case userImageTap
         case updatePasswordTap
         case verifyUserName
@@ -72,9 +71,8 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
-            case .showDeleteAccountDialog: showDeleteAccountDialog()
             case .refresh: await loadData()
-            case .deleteAccount: await deleteAccount()
+            case .logout: await logout()
             case .userImageTap: userImageTap()
             case .updatePasswordTap: updatePasswordTap()
             case .verifyUserName: verifyUserInfo()
@@ -105,19 +103,10 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         }
     }
     
-    private func showDeleteAccountDialog() {
-        state.alertData = .init(
-            title: "Delete Account",
-            message: "Are you sure you want to delete your account? This will permanently erase your account.",
-            primaryAction: .init(title: "Cancel", style: .cancel, handler: dismissAlert),
-            secondaryAction: .init(title: "Delete", style: .destruction, handler: { self.onIntent(.deleteAccount) })
-        )
-    }
-    
-    private func deleteAccount() async {
+    private func logout() async {
         do {
-            try await deleteAccountUseCase.execute()
-            flowController?.handleFlow(ProfileFlow.profile(.deleteAccount))
+            try logoutUseCase.execute()
+            flowController?.handleFlow(ProfileFlow.profile(.logout))
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

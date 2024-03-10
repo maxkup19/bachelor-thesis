@@ -18,8 +18,8 @@ struct OthersView: View {
     
     var body: some View {
         VStack {
-            Button("Logout") {
-                viewModel.onIntent(.logout)
+            Button("Delete Account") {
+                viewModel.onIntent(.deleteAccount)
             }
         }
         .navigationTitle("Others")
