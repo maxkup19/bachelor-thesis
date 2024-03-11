@@ -27,7 +27,7 @@ protocol MainFlowControllerDelegate: AnyObject {
     func presentAuth(animated: Bool, completion: (() -> Void)?)
 }
 
-final class MainFlowController: FlowController, OthersFlowControllerDelegate, ProfileFlowControllerDelegate {
+final class MainFlowController: FlowController, OthersFlowControllerDelegate {
     
     private let userRole: UserRoleEnum
     weak var delegate: MainFlowControllerDelegate?
@@ -104,7 +104,6 @@ final class MainFlowController: FlowController, OthersFlowControllerDelegate, Pr
         )
         profileNC.tabBarItem.selectedImage = AppTheme.Images.profileTabBarSelected
         let profileFC = ProfileFlowController(navigationController: profileNC)
-        profileFC.delegate = self
         let profileRootVC = startChildFlow(profileFC)
         profileNC.viewControllers = [profileRootVC]
         return profileNC

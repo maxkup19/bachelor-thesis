@@ -110,6 +110,7 @@ struct RegistrationInputView: View, KeyboardReadable {
                 .focused($focusedField, equals: .password)
                 .autocorrectionDisabled()
                 .submitLabel(.next)
+                .textContentType(.password)
                 .onSubmit {
                     focusedField = .confirmPassword
                 }
@@ -122,6 +123,7 @@ struct RegistrationInputView: View, KeyboardReadable {
                 .focused($focusedField, equals: .confirmPassword)
                 .autocorrectionDisabled()
                 .submitLabel(.done)
+                .textContentType(.newPassword)
                 .onSubmit {
                     focusedField = nil
                 }

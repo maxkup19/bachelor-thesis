@@ -89,7 +89,7 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
         state.isLoading = true
         defer { state.isLoading = false }
         
-        guard await verifyPasswordUseCase.execute(UpdatePasswordData(password: state.currentPassword)) else {
+        guard await verifyPasswordUseCase.execute(state.currentPassword) else {
             state.alertData = .init(title: "Wrong Password")
             return
         }

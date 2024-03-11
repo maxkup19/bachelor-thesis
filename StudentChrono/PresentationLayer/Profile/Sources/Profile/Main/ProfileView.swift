@@ -70,10 +70,6 @@ struct ProfileView: View {
                     .labelStyle(ColorfulIconLabelStyle())
                 }
             }
-            
-            Button("Delete account", role: .destructive) {
-                viewModel.onIntent(.showDeleteAccountDialog)
-            }
         }
         .refreshable {
             viewModel.onIntent(.refresh)

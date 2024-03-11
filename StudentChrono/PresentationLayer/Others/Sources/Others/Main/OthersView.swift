@@ -17,12 +17,43 @@ struct OthersView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("OthersView")
-            Button("Logout") {
-                viewModel.onIntent(.logout)
+        Form {
+            Section {
+                NavigationButton(action: { viewModel.onIntent(.aboutAppTap) }) {
+                    Label(
+                        "About App",
+                        systemImage: "questionmark.circle"
+                    )
+                    .labelStyle(ColorfulIconLabelStyle(iconColor: .accentColor))
+                }
+                
+                NavigationButton(action: { viewModel.onIntent(.feedbackTap) }) {
+                    Label(
+                        "Feedback",
+                        systemImage: "envelope"
+                    )
+                    .labelStyle(ColorfulIconLabelStyle(iconColor: .purple))
+                }
+            }
+            
+            Section {
+                NavigationButton(action: { viewModel.onIntent(.deleteAccountTap) }) {
+                    Label(
+                        "Delete Account",
+                        systemImage: "person.crop.circle.badge.xmark"
+                    )
+                    .labelStyle(ColorfulIconLabelStyle(iconColor: .red, textColor: .red))
+                }
+            }
+            
+            Section {
+                Button(action: { viewModel.onIntent(.logout) }) {
+                    Text("Sign Out")
+                        .frame(maxWidth: .infinity, alignment: .center)
+                }
             }
         }
+        .navigationTitle("Others")
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(

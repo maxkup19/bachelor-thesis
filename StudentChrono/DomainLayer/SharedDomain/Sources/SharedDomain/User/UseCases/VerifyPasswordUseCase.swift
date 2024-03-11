@@ -9,7 +9,7 @@ import Spyable
 
 @Spyable
 public protocol VerifyPasswordUseCase {
-    func execute(_ payload: UpdatePasswordData) async -> Bool
+    func execute(_ password: String) async -> Bool
 }
 
 public struct VerifyPasswordUseCaseImpl: VerifyPasswordUseCase {
@@ -20,13 +20,11 @@ public struct VerifyPasswordUseCaseImpl: VerifyPasswordUseCase {
         self.userRepository = userRepository
     }
     
-    public func execute(_ payload: UpdatePasswordData) async -> Bool {
+    public func execute(_ password: String) async -> Bool {
         do {
-            try await userRepository.verifyPassword(payload)
+            try await userRepository.verifyPassword(UpdatePasswordData(password: password))
             return true
-        } catch {
-            print("DEBUG: \(error)")
-            return false }
+        } catch { return false }
     }
     
 }

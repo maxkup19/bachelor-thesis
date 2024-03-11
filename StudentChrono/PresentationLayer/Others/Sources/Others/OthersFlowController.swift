@@ -14,6 +14,8 @@ enum OthersFlow: Flow, Equatable {
     case others(Others)
     
     enum Others: Equatable {
+        case feedback
+        case deleteAccount
         case logout
     }
 }
@@ -44,7 +46,25 @@ public final class OthersFlowController: FlowController {
 extension OthersFlowController {
     func handleFlow(_ flow: OthersFlow.Others) {
         switch flow {
+        case .feedback: presentFeedback()
+        case .deleteAccount: presentAccountDelete()
         case .logout: delegate?.logout()
         }
+    }
+    
+    private func presentFeedback() {
+        let vm = FeedbackViewModel(flowController: self)
+        let view = FeedbackView(viewModel: vm)
+        let vc = BaseHostingController(rootView: view)
+        vc.title = "Feedback"
+        navigationController.show(vc, sender: nil)
+    }
+    
+    private func presentAccountDelete() {
+        let vm = DeleteAccountViewModel(flowController: self)
+        let view = DeleteAccountView(viewModel: vm)
+        let vc = BaseHostingController(rootView: view)
+        vc.title = "Delete Account"
+        navigationController.show(vc, sender: nil)
     }
 }

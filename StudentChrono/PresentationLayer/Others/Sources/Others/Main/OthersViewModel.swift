@@ -36,31 +36,46 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Published private(set) var state = State()
     
     struct State {
+        var password: String = ""
         var isLoading: Bool = false
         var alertData: AlertData?
     }
     
     // MARK: - Intents
     enum Intent {
-        case dismissAlert
+        case aboutAppTap
+        case feedbackTap
+        case deleteAccountTap
         case logout
+        case dismissAlert
     }
     
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
-            case .dismissAlert: dismissAlert()
+            case .aboutAppTap: aboutAppTap()
+            case .feedbackTap: feedbackTap()
+            case .deleteAccountTap: deleteAccountTap()
             case .logout: await logout()
+            case .dismissAlert: dismissAlert()
             }
         })
     }
     
     // MARK: - Private
     
-    private func dismissAlert() {
-        state.alertData = nil
+    private func aboutAppTap() {
+        
     }
     
+    private func feedbackTap() {
+        flowController?.handleFlow(OthersFlow.others(.feedback))
+    }
+    
+    private func deleteAccountTap() {
+        flowController?.handleFlow(OthersFlow.others(.deleteAccount))
+    }
+     
     private func logout() async {
         do {
             try logoutUseCase.execute()
@@ -68,6 +83,10 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
+    }
+    
+    private func dismissAlert() {
+        state.alertData = nil
     }
 }
 
