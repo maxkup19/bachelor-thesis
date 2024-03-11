@@ -19,55 +19,35 @@ struct OthersView: View {
     var body: some View {
         Form {
             Section {
-                NavigationLink {
-                    EmptyView()
-                } label: {
+                NavigationButton(action: { viewModel.onIntent(.aboutAppTap) }) {
                     Label(
                         "About App",
                         systemImage: "questionmark.circle"
                     )
-                    .labelStyle(ColorfulIconLabelStyle(color: .accentColor))
+                    .labelStyle(ColorfulIconLabelStyle(iconColor: .accentColor))
                 }
                 
-                NavigationLink {
-                    EmptyView()
-                } label: {
+                NavigationButton(action: { viewModel.onIntent(.feedbackTap) }) {
                     Label(
                         "Feedback",
                         systemImage: "envelope"
                     )
-                    .labelStyle(ColorfulIconLabelStyle(color: .purple))
-                }
-            }
-
-            Section {
-                NavigationLink {
-                    DeleteAccountView(
-                        password: Binding(
-                            get: { viewModel.state.password },
-                            set: { password in viewModel.onIntent(.passwordChanged(password)) }
-                        ),
-                        onDelete: { viewModel.onIntent(.showDeleteAccountDialog) }
-                    )
-                    .alert(item: Binding<AlertData?>(
-                        get: { viewModel.state.alertData },
-                        set: { _ in viewModel.onIntent(.dismissAlert) }
-                    )) { alert in .init(alert) }
-                    
-                } label: {
-                    Label(
-                        "Delete Account",
-                        systemImage: "person.crop.circle.badge.xmark"
-                    )
-                    .labelStyle(ColorfulIconLabelStyle(color: .red))
-                    .foregroundStyle(Color.red)
+                    .labelStyle(ColorfulIconLabelStyle(iconColor: .purple))
                 }
             }
             
             Section {
-                Button {
-                    viewModel.onIntent(.logout)
-                } label: {
+                NavigationButton(action: { viewModel.onIntent(.deleteAccountTap) }) {
+                    Label(
+                        "Delete Account",
+                        systemImage: "person.crop.circle.badge.xmark"
+                    )
+                    .labelStyle(ColorfulIconLabelStyle(iconColor: .red, textColor: .red))
+                }
+            }
+            
+            Section {
+                Button(action: { viewModel.onIntent(.logout) }) {
                     Text("Sign Out")
                         .frame(maxWidth: .infinity, alignment: .center)
                 }

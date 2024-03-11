@@ -10,15 +10,10 @@ import UIToolkit
 
 struct DeleteAccountView: View {
     
-    @Binding private var password: String
-    private let onDelete: () -> Void
+    @ObservedObject private var viewModel: DeleteAccountViewModel
     
-    init(
-        password: Binding<String>,
-        onDelete: @escaping () -> Void
-    ) {
-        self._password = password
-        self.onDelete = onDelete
+    init(viewModel: DeleteAccountViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {
@@ -37,7 +32,10 @@ struct DeleteAccountView: View {
             
             SecureField(
                 "Password",
-                text: $password,
+                text: Binding(
+                    get: { viewModel.state.password },
+                    set: { password in viewModel.onIntent(.passwordChanged(password)) }
+                ),
                 prompt: Text("Enter Your Password")
             )
             .autocorrectionDisabled()
@@ -47,7 +45,7 @@ struct DeleteAccountView: View {
             
             Spacer()
             
-            Button(role: .destructive, action: onDelete) {
+            Button(role: .destructive, action: { viewModel.onIntent(.showDeleteAccountDialog) }) {
                 Text("Delete")
                     .bold()
                     .padding(AppTheme.Dimens.spaceSmall)
@@ -56,17 +54,24 @@ struct DeleteAccountView: View {
             .buttonStyle(.borderedProminent)
         }
         .padding(AppTheme.Dimens.spaceLarge)
-        .navigationTitle("Others")
+        .lifecycle(viewModel)
+        .environment(\.isLoading, viewModel.state.isLoading)
+        .alert(item: Binding<AlertData?>(
+            get: { viewModel.state.alertData },
+            set: { _ in viewModel.onIntent(.dismissAlert) }
+        )) { alert in .init(alert) }
     }
 }
 
 
 #if DEBUG
+import Factory
+import DependencyInjectionMocks
 
 #Preview {
-    DeleteAccountView(
-        password: .constant(""),
-        onDelete: { }
-    )
+    Container.shared.registerUseCaseMocks()
+    
+    let vm = DeleteAccountViewModel(flowController: nil)
+    return DeleteAccountView(viewModel: vm)
 }
 #endif

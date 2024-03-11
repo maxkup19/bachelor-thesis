@@ -19,8 +19,6 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     private weak var flowController: FlowController?
     
     @Injected(\.logoutUseCase) private var logoutUseCase
-    @Injected(\.verifyPasswordUseCase) private var verifyPasswordUseCase
-    @Injected(\.deleteAccountUseCase) private var deleteAccountUseCase
     
     init(flowController: FlowController?) {
         self.flowController = flowController
@@ -45,20 +43,20 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Intents
     enum Intent {
-        case showDeleteAccountDialog
-        case passwordChanged(String)
+        case aboutAppTap
+        case feedbackTap
+        case deleteAccountTap
         case logout
         case dismissAlert
-        case deleteAccount
     }
     
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
-            case .showDeleteAccountDialog: await showDeleteAccountDialog()
-            case .passwordChanged(let password): passwordChanged(password)
+            case .aboutAppTap: aboutAppTap()
+            case .feedbackTap: feedbackTap()
+            case .deleteAccountTap: deleteAccountTap()
             case .logout: await logout()
-            case .deleteAccount: await deleteAccount()
             case .dismissAlert: dismissAlert()
             }
         })
@@ -66,30 +64,18 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Private
     
-    private func showDeleteAccountDialog() async {
+    private func aboutAppTap() {
         
-        guard await verifyPasswordUseCase.execute(state.password) else {
-            state.alertData = .init(title: "Wrong password")
-            return
-        }
-        
-        state.alertData = .init(
-            title: "Delete Account",
-            message: "Are you sure you want to delete your account? This will permanently erase your account.",
-            primaryAction: .init(title: "Cancel", style: .cancel, handler: dismissAlert),
-            secondaryAction: .init(title: "Delete", style: .destruction, handler: { self.onIntent(.deleteAccount) })
-        )
     }
     
-    private func deleteAccount() async {
-        do {
-            try await deleteAccountUseCase.execute()
-            flowController?.handleFlow(OthersFlow.others(.deleteAccount))
-        } catch {
-            state.alertData = .init(title: error.localizedDescription)
-        }
+    private func feedbackTap() {
+        flowController?.handleFlow(OthersFlow.others(.feedback))
     }
     
+    private func deleteAccountTap() {
+        flowController?.handleFlow(OthersFlow.others(.deleteAccount))
+    }
+     
     private func logout() async {
         do {
             try logoutUseCase.execute()
@@ -97,10 +83,6 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
-    }
-    
-    private func passwordChanged(_ password: String) {
-        state.password = password
     }
     
     private func dismissAlert() {
