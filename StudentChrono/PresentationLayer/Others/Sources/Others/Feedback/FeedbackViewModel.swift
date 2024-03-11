@@ -20,6 +20,7 @@ final class FeedbackViewModel: BaseViewModel, ViewModel, ObservableObject {
     private weak var flowController: FlowController?
     
     @Injected(\.getCurrentUserUseCase) private var getCurrentUserUseCase
+    @Injected(\.sendFeedbackUseCase) private var sendFeedbackUseCase
     
     init(flowController: FlowController?) {
         self.flowController = flowController
@@ -105,7 +106,22 @@ final class FeedbackViewModel: BaseViewModel, ViewModel, ObservableObject {
         }
         
         do {
-            #warning("ADD USECASES")
+            var file: File?
+            if let data = try await state.photoPickerItem?.loadTransferable(type: Data.self) {
+                file = File(
+                    filename: state.userEmail,
+                    data: data
+                )
+            }
+            
+            try await sendFeedbackUseCase.execute(
+                CreateFeedbackData(
+                    email: state.userEmail,
+                    description: state.feedbackDescription,
+                    screenshot: file
+                )
+            )
+            flowController?.pop()
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
