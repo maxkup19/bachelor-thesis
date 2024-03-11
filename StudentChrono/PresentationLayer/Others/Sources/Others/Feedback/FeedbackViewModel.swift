@@ -99,7 +99,16 @@ final class FeedbackViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     private func submitFeedback() async {
+        guard !state.feedbackDescription.isEmpty else {
+            state.alertData = .init(title: "Description can't be empty")
+            return
+        }
         
+        do {
+            #warning("ADD USECASES")
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
     }
     
     private func dismissAlert() {
