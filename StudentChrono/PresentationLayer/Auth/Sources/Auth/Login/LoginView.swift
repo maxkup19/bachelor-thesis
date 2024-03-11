@@ -27,7 +27,7 @@ struct LoginView: View {
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 
-                Text("Sign in with an email to acces your tasks")
+                Text("Sign in with an email to access your tasks")
                     .font(.subheadline)
             }
             

@@ -19,6 +19,7 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     private weak var flowController: FlowController?
     
     @Injected(\.logoutUseCase) private var logoutUseCase
+    @Injected(\.verifyPasswordUseCase) private var verifyPasswordUseCase
     @Injected(\.deleteAccountUseCase) private var deleteAccountUseCase
     
     init(flowController: FlowController?) {
@@ -37,6 +38,7 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Published private(set) var state = State()
     
     struct State {
+        var password: String = ""
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -44,6 +46,7 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Intents
     enum Intent {
         case showDeleteAccountDialog
+        case passwordChanged(String)
         case logout
         case dismissAlert
         case deleteAccount
@@ -52,7 +55,8 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
-            case .showDeleteAccountDialog: showDeleteAccountDialog()
+            case .showDeleteAccountDialog: await showDeleteAccountDialog()
+            case .passwordChanged(let password): passwordChanged(password)
             case .logout: await logout()
             case .deleteAccount: await deleteAccount()
             case .dismissAlert: dismissAlert()
@@ -62,7 +66,13 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Private
     
-    private func showDeleteAccountDialog() {
+    private func showDeleteAccountDialog() async {
+        
+        guard await verifyPasswordUseCase.execute(state.password) else {
+            state.alertData = .init(title: "Wrong password")
+            return
+        }
+        
         state.alertData = .init(
             title: "Delete Account",
             message: "Are you sure you want to delete your account? This will permanently erase your account.",
@@ -87,6 +97,10 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
+    }
+    
+    private func passwordChanged(_ password: String) {
+        state.password = password
     }
     
     private func dismissAlert() {
