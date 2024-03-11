@@ -20,43 +20,13 @@ struct FeedbackView: View {
     var body: some View {
         
         Form {
-            Section("Screenshot (optional)") {
-                VStack {
-                    HStack {
-                        Text("Screenshot")
-                        
-                        Spacer()
-                        
-                        if viewModel.state.loadedImage == nil {
-                            Button("Add") {
-                                viewModel.onIntent(.addScreenshotTap)
-                            }
-                            .padding(.horizontal, AppTheme.Dimens.spaceSmall)
-                            .padding(.vertical, AppTheme.Dimens.spaceXSmall)
-                            .background(Color.accentColor.opacity(0.4))
-                            .clipShape(Capsule())
-                        } else {
-                            
-                            Button("Remove") {
-                                viewModel.onIntent(.photoPickerItemChanged(nil))
-                            }
-                            .padding(.horizontal, AppTheme.Dimens.spaceSmall)
-                            .padding(.vertical, AppTheme.Dimens.spaceXSmall)
-                            .foregroundStyle(Color.red)
-                            .background(Color.red.opacity(0.4))
-                            .clipShape(Capsule())
-                        }
-                    }
-                    
-                    if let image = viewModel.state.loadedImage {
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .disabled(true)
-                    }
-                }
-            }
             
+            ScreenshotSection(
+                showAddButton: viewModel.state.loadedImage == nil,
+                image: viewModel.state.loadedImage,
+                onAddTap: { viewModel.onIntent(.addScreenshotTap) },
+                onRemoveTap: { viewModel.onIntent(.photoPickerItemChanged(nil)) }
+            )
             
             Section("Email") {
                 TextField("Email", text: .constant(viewModel.state.userEmail))
@@ -80,6 +50,7 @@ struct FeedbackView: View {
                 Button("Submit") {
                     viewModel.onIntent(.submitFeedback)
                 }
+                .bold()
             }
         }
         .photosPicker(
