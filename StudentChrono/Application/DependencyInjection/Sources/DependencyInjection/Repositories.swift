@@ -7,6 +7,7 @@
 
 import AuthToolkit
 import Factory
+import FeedbackToolkit
 import SharedDomain
 import StudentsToolkit
 import TasksToolkit
@@ -25,6 +26,10 @@ public extension Container {
     )}}
     var studentsRepository: Factory<StudentsRepository> { self {
         StudentsRepositoryImpl(
+            network: self.networkProvider()
+    )}}
+    var feedbackRepository: Factory<FeedbackRepository> { self {
+        FeedbackRepositoryImpl(
             network: self.networkProvider()
     )}}
 }

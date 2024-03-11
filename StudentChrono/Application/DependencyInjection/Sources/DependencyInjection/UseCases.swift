@@ -75,6 +75,11 @@ public extension Container {
         studentsRepository: self.studentsRepository()
     )}}
     
+    // Feedback
+    var sendFeedbackUseCase: Factory<SendFeedbackUseCase> { self { SendFeedbackUseCaseImpl(
+        feedbackRepository: self.feedbackRepository()
+    )}}
+    
     // Validation
     var validateEmailUseCase: Factory<ValidateEmailUseCase> { self { ValidateEmailUseCaseImpl() } }
     var validatePasswordUseCase: Factory<ValidatePasswordUseCase> { self { ValidatePasswordUseCaseImpl() } }

@@ -85,6 +85,7 @@
 		0ADCCC5F2B65B1F4008E8249 /* AppFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlowController.swift; sourceTree = "<group>"; };
 		0ADCCC642B65B21E008E8249 /* MainFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowController.swift; sourceTree = "<group>"; };
 		0ADCCC6E2B65B2FD008E8249 /* UIToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = UIToolkit; sourceTree = "<group>"; };
+		0AEB2D712B9F9A9500F6FCBA /* FeedbackToolkit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = FeedbackToolkit; sourceTree = "<group>"; };
 		0AFD1DF92B88068300E36197 /* Onboarding */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Onboarding; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +144,7 @@
 		0A0833CF2B710D4900F29FB8 /* Toolkits */ = {
 			isa = PBXGroup;
 			children = (
+				0AEB2D712B9F9A9500F6FCBA /* FeedbackToolkit */,
 				0ABE9F122B94BA210099DA55 /* StudentsToolkit */,
 				0A67655D2B8CA5F60035A437 /* TasksToolkit */,
 				0A05FC832B841E74007F2C02 /* UserToolkit */,
