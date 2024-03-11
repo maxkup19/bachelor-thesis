@@ -8,12 +8,12 @@
 import Foundation
 import SharedDomain
 
-struct NETFile: Codable {
-    var filename: String
-    var data: Data
+public struct NETFile: Codable {
+    public var filename: String
+    public var data: Data
 }
 
-extension File {
+public extension File {
     var networkModel: NETFile {
         NETFile(
             filename: filename,
