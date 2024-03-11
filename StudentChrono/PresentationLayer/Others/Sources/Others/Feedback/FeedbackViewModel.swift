@@ -41,6 +41,7 @@ final class FeedbackViewModel: BaseViewModel, ViewModel, ObservableObject {
         var feedbackDescription: String = ""
         var photoPickerPresented: Bool = false
         var photoPickerItem: PhotosPickerItem?
+        var loadedImage: Image?
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -61,7 +62,7 @@ final class FeedbackViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .feedbackDescriptionChanged(let description): feedbackDescriptionChanged(description)
             case .addScreenshotTap: addScreenshotTap()
             case .photoPickerPresentedChanged(let present): photoPickerPresentedChanged(present)
-            case .photoPickerItemChanged(let item): photoPickerItemChanged(item)
+            case .photoPickerItemChanged(let item): await photoPickerItemChanged(item)
             case .submitFeedback: await submitFeedback()
             case .dismissAlert: dismissAlert()
             }
@@ -84,8 +85,13 @@ final class FeedbackViewModel: BaseViewModel, ViewModel, ObservableObject {
         state.photoPickerPresented = presented
     }
     
-    private func photoPickerItemChanged(_ item: PhotosPickerItem?) {
+    private func photoPickerItemChanged(_ item: PhotosPickerItem?) async {
         state.photoPickerItem = item
+        do {
+            state.loadedImage = try await item?.loadTransferable(type: Image.self)
+        } catch {
+            state.loadedImage = nil
+        }
     }
     
     private func feedbackDescriptionChanged(_ description: String) {
