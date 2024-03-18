@@ -74,8 +74,10 @@ public extension Container {
     var getMyStudentsUseCase: Factory<GetMyStudentsUseCase> { self { GetMyStudentsUseCaseImpl(
         studentsRepository: self.studentsRepository()
     )}}
-    
     var removeStudentUseCase: Factory<RemoveStudentUseCase> { self { RemoveStudentUseCaseImpl(
+        studentsRepository: self.studentsRepository()
+    )}}
+    var getStudentByIdUseCase: Factory<GetStudentByIdUseCase> { self { GetStudentByIdUseCaseImpl(
         studentsRepository: self.studentsRepository()
     )}}
     

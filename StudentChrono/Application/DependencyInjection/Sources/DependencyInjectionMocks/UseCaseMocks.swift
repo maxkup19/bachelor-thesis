@@ -63,6 +63,10 @@ public extension Container {
         getMyStudentsUseCaseSpy.executeReturnValue = [User.studentStub]
         getMyStudentsUseCase.register { getMyStudentsUseCaseSpy }
         
+        let getStudentByIdUseCaseSpy = GetStudentByIdUseCaseSpy()
+        getStudentByIdUseCaseSpy.executeIdReturnValue = User.studentStub
+        getStudentByIdUseCase.register { getStudentByIdUseCaseSpy }
+        
         addStudentUseCase.register { AddStudentUseCaseSpy() }
         removeStudentUseCase.register { RemoveStudentUseCaseSpy() }
         

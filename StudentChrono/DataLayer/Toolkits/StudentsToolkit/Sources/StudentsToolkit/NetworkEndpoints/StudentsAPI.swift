@@ -13,6 +13,7 @@ enum StudentsAPI {
     case addStudent(_ data: [String: Any])
     case removeStudent(_ data: [String: Any])
     case getMyStudents
+    case getStudentById(_ id: String)
 }
 
 extension StudentsAPI: NetworkEndpoint {
@@ -22,6 +23,7 @@ extension StudentsAPI: NetworkEndpoint {
         case .addStudent: "/students"
         case .removeStudent: "/students"
         case .getMyStudents: "/students/mine"
+        case .getStudentById(let id): "/students?studentId=\(id)"
         }
     }
     var method: NetworkMethod {
@@ -29,6 +31,7 @@ extension StudentsAPI: NetworkEndpoint {
         case .addStudent: .patch
         case .removeStudent: .delete
         case .getMyStudents: .get
+        case .getStudentById: .get
         }
     }
     var headers: [String: String]? {
@@ -39,6 +42,7 @@ extension StudentsAPI: NetworkEndpoint {
         case let .addStudent(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         case let .removeStudent(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         case .getMyStudents: .requestPlain
+        case .getStudentById: .requestPlain
         }
     }
 }
