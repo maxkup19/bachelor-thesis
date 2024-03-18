@@ -21,7 +21,7 @@ public struct GetMyStudentsUseCaseImpl: GetMyStudentsUseCase {
     }
     
     public func execute() async throws -> [User] {
-        try await studentsRepository.getMyStudents()
+        try await studentsRepository.getMyStudents().sorted { $0.fullName < $1.fullName }
     }
     
 }

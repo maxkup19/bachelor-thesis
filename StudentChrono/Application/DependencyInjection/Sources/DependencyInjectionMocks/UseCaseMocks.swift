@@ -64,6 +64,7 @@ public extension Container {
         getMyStudentsUseCase.register { getMyStudentsUseCaseSpy }
         
         addStudentUseCase.register { AddStudentUseCaseSpy() }
+        removeStudentUseCase.register { RemoveStudentUseCaseSpy() }
         
         // Feedback
         sendFeedbackUseCase.register { SendFeedbackUseCaseSpy() }

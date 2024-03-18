@@ -22,6 +22,11 @@ public struct StudentsRepositoryImpl: StudentsRepository {
         try await network.request(StudentsAPI.addStudent(data), withInterceptor: false)
     }
     
+    public func removeStudent(_ payload: RemoveStudentData) async throws {
+        let data = try payload.networkModel.encode()
+        try await network.request(StudentsAPI.removeStudent(data), withInterceptor: false)
+    }
+    
     public func getMyStudents() async throws -> [User] {
         try await network
             .request(StudentsAPI.getMyStudents, withInterceptor: false)

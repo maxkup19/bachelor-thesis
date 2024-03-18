@@ -11,6 +11,7 @@ import Utilities
 
 enum StudentsAPI {
     case addStudent(_ data: [String: Any])
+    case removeStudent(_ data: [String: Any])
     case getMyStudents
 }
 
@@ -19,12 +20,14 @@ extension StudentsAPI: NetworkEndpoint {
     var path: String {
         switch self {
         case .addStudent: "/students"
+        case .removeStudent: "/students"
         case .getMyStudents: "/students/mine"
         }
     }
     var method: NetworkMethod {
         switch self {
         case .addStudent: .patch
+        case .removeStudent: .delete
         case .getMyStudents: .get
         }
     }
@@ -34,6 +37,7 @@ extension StudentsAPI: NetworkEndpoint {
     var task: NetworkTask {
         switch self {
         case let .addStudent(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
+        case let .removeStudent(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         case .getMyStudents: .requestPlain
         }
     }
