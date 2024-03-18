@@ -65,7 +65,7 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     // MARK: - Private
     
     private func aboutAppTap() {
-        
+        flowController?.handleFlow(OthersFlow.others(.aboutApp))
     }
     
     private func feedbackTap() {
