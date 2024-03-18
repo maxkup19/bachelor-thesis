@@ -6,40 +6,29 @@
 //
 
 import SwiftUI
+import UIToolkit
 
 struct PersonalInformationView: View {
     
-    @Environment(\.dismiss) private var dismiss
+    @ObservedObject private var viewModel: PersonalInformationViewModel
     
-    @Binding private var name: String
-    @Binding private var lastName: String
-    @Binding private var birthDay: Date
-    private let updateInfo: () -> Void
-    private let verifyName: () -> Void
-    
-    @State private var showDatePicker: Bool = false
-    
-    public init(
-        name: Binding<String>,
-        lastName: Binding<String>,
-        birthDay: Binding<Date>,
-        updateInfo: @escaping () -> Void,
-        verifyName: @escaping () -> Void
-    ) {
-        self._name = name
-        self._lastName = lastName
-        self._birthDay = birthDay
-        self.updateInfo = updateInfo
-        self.verifyName = verifyName
+    init(viewModel: PersonalInformationViewModel) {
+        self.viewModel = viewModel
     }
     
     var body: some View {
         Form {
             NavigationLink {
                 UpdateNameView(
-                    name: $name,
-                    lastName: $lastName,
-                    verifyName: verifyName
+                    name: Binding(
+                        get: { viewModel.state.name },
+                        set: { value in viewModel.onIntent(.nameChanged(value)) }
+                    ),
+                    lastName: Binding(
+                        get: { viewModel.state.lastName },
+                        set: { value in viewModel.onIntent(.lastNameChanged(value)) }
+                    ),
+                    verifyName: { viewModel.onIntent(.verifyUserInfo) }
                 )
             } label: {
                 HStack {
@@ -48,66 +37,53 @@ struct PersonalInformationView: View {
                     
                     Spacer()
                     
-                    Text("\(name) \(lastName)")
+                    Text("\(viewModel.state.name) \(viewModel.state.lastName)")
                         .foregroundStyle(Color.secondary)
                 }
             }
             
-            Button {
-                withAnimation {
-                    showDatePicker.toggle()
-                }
-            } label: {
+            Button(action: { viewModel.onIntent(.showDatePickerTap) }) {
                 HStack {
                     Text("Date of birth")
                         .foregroundStyle(Color.primary)
                     
                     Spacer()
                     
-                    Text(birthDay.formatted(date: .numeric, time: .omitted))
+                    Text(viewModel.state.birthDay.formatted(date: .numeric, time: .omitted))
                         .foregroundStyle(Color.secondary)
                 }
             }
             
             
-            if showDatePicker {
+            if viewModel.state.showDatePicker {
                 DatePicker(
                     "Date of birth",
-                    selection: $birthDay,
+                    selection: Binding(
+                        get: { viewModel.state.birthDay },
+                        set: { value in viewModel.onIntent(.birthDayChanged(value)) }
+                    ),
                     displayedComponents: .date
                 )
                 .datePickerStyle(.graphical)
             }
         }
-        .navigationTitle("Personal Information")
-        .navigationBarBackButtonHidden()
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    updateInfo()
-                    dismiss()
-                } label: {
-                    HStack {
-                        Image(systemName: "chevron.left")
-                        Text("Back")
-                    }
-                }
-            }
-        }
+        .environment(\.isLoading, viewModel.state.isLoading)
+        .lifecycle(viewModel)
+        .alert(item: Binding<AlertData?>(
+            get: { viewModel.state.alertData },
+            set: { _ in viewModel.onIntent(.dismissAlert) }
+        )) { alert in .init(alert) }
     }
 }
 
 #if DEBUG
-import SharedDomain
-import SharedDomainMocks
+import DependencyInjectionMocks
+import Factory
 
 #Preview {
-    PersonalInformationView(
-        name: .constant(User.studentStub.name),
-        lastName: .constant(User.studentStub.lastName),
-        birthDay: .constant(User.studentStub.birthDay),
-        updateInfo: { },
-        verifyName: { }
-    )
+    Container.shared.registerUseCaseMocks()
+    
+    let vm = PersonalInformationViewModel(flowController: nil)
+    return PersonalInformationView(viewModel: vm)
 }
 #endif

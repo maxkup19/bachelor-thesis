@@ -13,6 +13,7 @@ enum ProfileFlow: Flow, Equatable {
     case profile(Profile)
     
     enum Profile: Equatable {
+        case personalInformation
         case updatePassword
         case dismissSheet
     }
@@ -41,12 +42,22 @@ public final class ProfileFlowController: FlowController {
 extension ProfileFlowController {
     func handleFlow(_ flow: ProfileFlow.Profile) {
         switch flow {
-        case .updatePassword: updatePassword()
+        case .personalInformation: presentPersonalInformation()
+        case .updatePassword: presentUpdatePassword()
         case .dismissSheet: dismiss()
         }
     }
     
-    private func updatePassword() {
+    private func presentPersonalInformation() {
+        let vm = PersonalInformationViewModel(flowController: self)
+        let view = PersonalInformationView(viewModel: vm)
+        let vc = BaseHostingController(rootView: view)
+        
+        vc.title = "Personal Information"
+        navigationController.show(vc, sender: nil)
+    }
+    
+    private func presentUpdatePassword() {
         let vm = UpdatePasswordViewModel(flowController: self)
         let view = UpdatePasswordView(viewModel: vm)
         let vc = BaseHostingController(rootView: view)

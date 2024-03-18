@@ -32,24 +32,7 @@ struct ProfileView: View {
             .background(Color(UIColor.systemBackground))
             
             Section {
-                NavigationLink {
-                    PersonalInformationView(
-                        name: Binding(
-                            get: { viewModel.state.updateName },
-                            set: { name in viewModel.onIntent(.updateNameChanged(name)) }
-                        ),
-                        lastName: Binding(
-                            get: { viewModel.state.updateLastName },
-                            set: { lastName in viewModel.onIntent(.updateLastNameChanged(lastName)) }
-                        ),
-                        birthDay: Binding(
-                            get: { viewModel.state.updateBirthDay },
-                            set: { birthDay in viewModel.onIntent(.updateBirthDayChanged(birthDay)) }
-                        ),
-                        updateInfo: { viewModel.onIntent(.updateUserInfo) },
-                        verifyName: { viewModel.onIntent(.verifyUserName) }
-                    )
-                } label: {
+                NavigationButton(action: { viewModel.onIntent(.personalInformationTap)}) {
                     Label(
                         "Personal Information",
                         systemImage: "person.text.rectangle.fill"
