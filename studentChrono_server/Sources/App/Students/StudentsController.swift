@@ -20,6 +20,7 @@ struct StudentsController: RouteCollection {
         
         studentsRoutes.patch(use: addStudent)
         studentsRoutes.delete(use: removeStudent)
+        studentsRoutes.get(use: getStudentById)
         
         studentsRoutes.get(StudentsRoutes.mine, use: getMine)
         studentsRoutes.get(StudentsRoutes.nonMine, use: getNonMine)
@@ -66,6 +67,18 @@ struct StudentsController: RouteCollection {
         try await tasks.delete(on: req.db)
         
         return .ok
+    }
+    
+    private func getStudentById(req: Request) async throws -> UserResponse {
+        let id = try req.query.get(UUID.self, at: StudentsRoutes.Parameter.studentId)
+        
+        guard let student = try await User.query(on: req.db)
+            .filter(\.$id, .equal, id)
+            .first() else {
+            throw Abort(.notFound)
+        }
+        
+        return student.asUserResponse
     }
     
     private func getMine(req: Request) async throws -> [UserResponse] {

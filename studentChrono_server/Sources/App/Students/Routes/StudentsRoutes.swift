@@ -12,4 +12,8 @@ enum StudentsRoutes {
     
     static let mine: PathComponent = "mine"
     static let nonMine: PathComponent = "nonMine"
+    
+    enum Parameter {
+        static let studentId: String = "studentId"
+    }
 }
