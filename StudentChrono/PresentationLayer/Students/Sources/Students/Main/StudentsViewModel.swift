@@ -49,7 +49,7 @@ final class StudentsViewModel: BaseViewModel, ViewModel, ObservableObject {
     enum Intent {
         case showAddStudentDialogue(Bool)
         case emailChanged(String)
-        case deleteStudent(String)
+        case deleteStudent(IndexSet)
         case refresh
         case addStudent
         case dismissAlert
@@ -60,7 +60,7 @@ final class StudentsViewModel: BaseViewModel, ViewModel, ObservableObject {
             switch intent {
             case .emailChanged(let email): emailChanged(email)
             case .showAddStudentDialogue(let show): showAddStudentDialogue(show)
-            case .deleteStudent(let id): await deleteStudent(id)
+            case .deleteStudent(let index): await deleteStudent(index)
             case .refresh: await loadData()
             case .addStudent: await addStudent()
             case .dismissAlert: dismissAlert()
@@ -104,10 +104,11 @@ final class StudentsViewModel: BaseViewModel, ViewModel, ObservableObject {
         }
     }
     
-    private func deleteStudent(_ id: String) async {
+    private func deleteStudent(_ index: IndexSet) async {
         do {
-            try await removeStudentUseCase.execute(RemoveStudentData(studentId: id))
-            state.students.removeAll { $0.id == id }
+            let student = state.students[index.first ?? 0]
+            try await removeStudentUseCase.execute(RemoveStudentData(studentId: student.id))
+            state.students.remove(atOffsets: index)
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

@@ -13,6 +13,8 @@ struct StudentRowView: View {
     
     private let student: User
     
+    private let imageSize: CGFloat = 60
+    
     init(student: User) {
         self.student = student
     }
@@ -29,7 +31,7 @@ struct StudentRowView: View {
                         .resizable()
                 }
             }
-            .frame(width: 40, height: 40)
+            .frame(width: imageSize, height: imageSize)
             .clipShape(Circle())
             
             Text(student.fullName)

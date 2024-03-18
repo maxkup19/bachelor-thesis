@@ -26,11 +26,13 @@ struct StudentsView: View {
                 )
             } else {
                 List {
-                    ForEach(viewModel.state.students.sorted(by: { $0.name > $1.name })) { student in
+                    ForEach(viewModel.state.students) { student in
                         StudentRowView(student: student)
                             .padding(.vertical, AppTheme.Dimens.spaceMedium)
                     }
-                    .onDelete(perform: {_ in })
+                    .onDelete { index in
+                        viewModel.onIntent(.deleteStudent(index))
+                    }
                 }
                 .listStyle(.plain)
             }
