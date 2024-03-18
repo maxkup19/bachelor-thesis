@@ -56,11 +56,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         case refresh
         case userImageTap
         case updatePasswordTap
-        case verifyUserName
-        case updateUserInfo
-        case updateNameChanged(String)
-        case updateLastNameChanged(String)
-        case updateBirthDayChanged(Date)
+        case personalInformationTap
         case photoPickerPresentedChanged(Bool)
         case photoPickerItemChanged(PhotosPickerItem?)
         case dismissAlert
@@ -72,11 +68,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .refresh: await loadData()
             case .userImageTap: userImageTap()
             case .updatePasswordTap: updatePasswordTap()
-            case .verifyUserName: verifyUserInfo()
-            case .updateUserInfo: await updateUserInfo()
-            case .updateNameChanged(let name): updateNameChanged(name)
-            case .updateLastNameChanged(let lastName): updateLastNameChanged(lastName)
-            case .updateBirthDayChanged(let birthDay): updateBirthDayChanged(birthDay)
+            case .personalInformationTap: personalInformationTap()
             case .photoPickerPresentedChanged(let changed): photoPickerPresentedChanged(changed)
             case .photoPickerItemChanged(let item): await photoPickerItemChanged(item)
             case .dismissAlert: dismissAlert()
@@ -104,46 +96,6 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         flowController?.handleFlow(ProfileFlow.profile(.updatePassword))
     }
     
-    private func verifyUserInfo() {
-        if state.updateName.isEmpty {
-            state.updateName = state.user.name
-        }
-        if state.updateLastName.isEmpty {
-            state.updateLastName = state.user.lastName
-        }
-        
-    }
-    
-    private func updateUserInfo() async {
-        verifyUserInfo()
-        
-        state.isLoading = true
-        defer { state.isLoading = false }
-        
-        do {
-            let payload = UpdateUserInfoData(
-                name: state.updateName,
-                lastName: state.updateLastName,
-                birthDay: state.updateBirthDay
-            )
-            try await updateUserInfoUseCase.execute(payload)
-        } catch {
-            state.alertData = .init(title: error.localizedDescription)
-        }
-    }
-    
-    private func updateNameChanged(_ name: String) {
-        state.updateName = name
-    }
-    
-    private func updateLastNameChanged(_ lastName: String) {
-        state.updateLastName = lastName
-    }
-    
-    private func updateBirthDayChanged(_ birthday: Date) {
-        state.updateBirthDay = birthday
-    }
-    
     private func photoPickerPresentedChanged(_ changed: Bool) {
         state.photoPickerPresented = changed
     }
@@ -165,6 +117,10 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
+    }
+    
+    private func personalInformationTap() {
+        flowController?.handleFlow(ProfileFlow.profile(.personalInformation))
     }
     
     private func userImageTap() {
