@@ -75,6 +75,10 @@ public extension Container {
         studentsRepository: self.studentsRepository()
     )}}
     
+    var removeStudentUseCase: Factory<RemoveStudentUseCase> { self { RemoveStudentUseCaseImpl(
+        studentsRepository: self.studentsRepository()
+    )}}
+    
     // Feedback
     var sendFeedbackUseCase: Factory<SendFeedbackUseCase> { self { SendFeedbackUseCaseImpl(
         feedbackRepository: self.feedbackRepository()

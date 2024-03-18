@@ -19,6 +19,8 @@ struct StudentsController: RouteCollection {
             .grouped(EnsureUserIsTeacherMiddleware())
         
         studentsRoutes.patch(use: addStudent)
+        studentsRoutes.delete(use: removeStudent)
+        
         studentsRoutes.get(StudentsRoutes.mine, use: getMine)
         studentsRoutes.get(StudentsRoutes.nonMine, use: getNonMine)
     }
@@ -44,6 +46,24 @@ struct StudentsController: RouteCollection {
         
         user.studentIds.append(try addStudent.requireID())
         try await user.update(on: req.db)
+        
+        return .ok
+    }
+    
+    private func removeStudent(req: Request) async throws -> HTTPStatus {
+        let user = try req.auth.require(User.self)
+        let studentIdToDelete = try req.content.decode(RemoveStudentDTO.self)
+        
+        user.studentIds.removeAll { $0.uuidString == studentIdToDelete.studentId }
+        try await user.update(on: req.db)
+        
+        let tasks = try await Task.query(on: req.db)
+            .with(\.$assignee)
+            .with(\.$author)
+            .all()
+            .filter{ $0.assignee?.id?.uuidString == studentIdToDelete.studentId && $0.author.id == user.id }
+        
+        try await tasks.delete(on: req.db)
         
         return .ok
     }

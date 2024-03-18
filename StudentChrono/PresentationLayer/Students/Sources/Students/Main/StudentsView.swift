@@ -25,11 +25,17 @@ struct StudentsView: View {
                     description: Text("You have no students\nWould you like to add any? Tap the + button on top")
                 )
             } else {
-                List(viewModel.state.students) { student in
-                    Text("\(student.name) \(student.lastName)")
+                List {
+                    ForEach(viewModel.state.students.sorted(by: { $0.name > $1.name })) { student in
+                        StudentRowView(student: student)
+                            .padding(.vertical, AppTheme.Dimens.spaceMedium)
+                    }
+                    .onDelete(perform: {_ in })
                 }
+                .listStyle(.plain)
             }
         }
+        .refreshable(action: { viewModel.onIntent(.refresh) })
         .navigationTitle("Students")
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
