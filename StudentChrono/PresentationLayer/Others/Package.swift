@@ -17,6 +17,7 @@ let package = Package(
     dependencies: [
         .package(name: "UIToolkit", path: "../UIToolkit"),
         .package(name: "SharedDomain", path: "../../DomainLayer/SharedDomain"),
+        .package(name: "Utilities", path: "../../DomainLayer/Utilities"),
         .package(name: "DependencyInjection", path: "../../Application/DependencyInjection"),
         .package(url: "https://github.com/hmlongco/Factory.git", .upToNextMajor(from: "2.3.0"))
     ],
@@ -28,6 +29,7 @@ let package = Package(
             dependencies: [
                 .product(name: "UIToolkit", package: "UIToolkit"),
                 .product(name: "SharedDomain", package: "SharedDomain"),
+                .product(name: "Utilities", package: "Utilities"),
                 .product(name: "DependencyInjection", package: "DependencyInjection"),
                 .product(name: "Factory", package: "Factory")
             ]
