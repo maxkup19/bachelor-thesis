@@ -42,6 +42,9 @@ extension StudentsFlowController {
     }
     
     private func showStudentDetail(id: String) {
-        
+        let vm = StudentDetailViewModel(studentId: id, flowController: self)
+        let view = StudentDetailView(viewModel: vm)
+        let vc = BaseHostingController(rootView: view)
+        navigationController.show(vc, sender: nil)
     }
 }

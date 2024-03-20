@@ -29,6 +29,9 @@ struct StudentsView: View {
                     ForEach(viewModel.state.students) { student in
                         StudentRowView(student: student)
                             .padding(.vertical, AppTheme.Dimens.spaceMedium)
+                            .onTapGesture {
+                                viewModel.onIntent(.studentTap(student.id))
+                            }
                     }
                     .onDelete { index in
                         viewModel.onIntent(.deleteStudent(index))

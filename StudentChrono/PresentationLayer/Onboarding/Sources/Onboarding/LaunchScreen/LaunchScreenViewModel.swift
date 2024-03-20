@@ -22,8 +22,8 @@ final class LaunchScreenViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Injected(\.getCurrentUserRoleUseCase) private var getCurrentUserRoleUseCase
 
     init(flowController: FlowController?) {
-        self.flowController = flowController
         super.init()
+        self.flowController = flowController
     }
     
     // MARK: Lifecycle

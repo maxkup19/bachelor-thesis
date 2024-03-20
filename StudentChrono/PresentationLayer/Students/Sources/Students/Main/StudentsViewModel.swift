@@ -23,6 +23,7 @@ final class StudentsViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Injected(\.removeStudentUseCase) private var removeStudentUseCase
     
     init(flowController: FlowController?) {
+        super.init()
         self.flowController = flowController
     }
     
@@ -50,6 +51,7 @@ final class StudentsViewModel: BaseViewModel, ViewModel, ObservableObject {
         case showAddStudentDialogue(Bool)
         case emailChanged(String)
         case deleteStudent(IndexSet)
+        case studentTap(String)
         case refresh
         case addStudent
         case dismissAlert
@@ -61,6 +63,7 @@ final class StudentsViewModel: BaseViewModel, ViewModel, ObservableObject {
             case .emailChanged(let email): emailChanged(email)
             case .showAddStudentDialogue(let show): showAddStudentDialogue(show)
             case .deleteStudent(let index): await deleteStudent(index)
+            case .studentTap(let id): studentTap(id: id)
             case .refresh: await loadData()
             case .addStudent: await addStudent()
             case .dismissAlert: dismissAlert()
@@ -112,6 +115,10 @@ final class StudentsViewModel: BaseViewModel, ViewModel, ObservableObject {
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
+    }
+    
+    private func studentTap(id: String) {
+        flowController?.handleFlow(StudentsFlow.students(.showStudentDetail(id)))
     }
     
     private func dismissAlert() {

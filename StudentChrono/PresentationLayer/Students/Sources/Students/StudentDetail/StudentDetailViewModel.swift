@@ -1,8 +1,8 @@
 //
-//  TaskDetailViewModel.swift
+//  StudentDetailViewModel.swift
 //
 //
-//  Created by Maksym Kupchenko on 07.03.2024.
+//  Created by Maksym Kupchenko on 18.03.2024.
 //
 
 import DependencyInjection
@@ -12,24 +12,26 @@ import SharedDomainMocks
 import SwiftUI
 import UIToolkit
 
-final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
+final class StudentDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     typealias Task = _Concurrency.Task
     
     // MARK: - Dependencies
+    private let studentId: String
     private weak var flowController: FlowController?
-    private let taskId: String
     
-    @Injected(\.getTaskByIdUseCase) private var getTaskByIdUseCase
+    @Injected(\.getStudentByIdUseCase) private var getStudentByIdUseCase
+    
     
     init(
-        flowController: FlowController?,
-        taskId: String
+        studentId: String,
+        flowController: FlowController?
     ) {
         super.init()
+        self.studentId = studentId
         self.flowController = flowController
-        self.taskId = taskId
     }
+    
     
     // MARK: - Lifecycle
     override func onAppear() {
@@ -40,15 +42,15 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     // MARK: - State
-    @Published private(set) var state = State()
+    @Published private(set) var state: State = State()
     
     struct State {
-        var task: SharedDomain.Task = .task1Stub
+        var user: User = User.studentStub
         var isLoading: Bool = false
         var alertData: AlertData?
     }
     
-    // MARK: - Intents
+    // MARK: - Intent
     enum Intent {
         case dismissAlert
     }
@@ -62,13 +64,9 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     // MARK: - Private
-    
     private func loadData() async {
-        state.isLoading = true
-        defer { state.isLoading = false }
-        
         do {
-            state.task = try await getTaskByIdUseCase.execute(taskId: taskId)
+            state.user = try await getStudentByIdUseCase.execute(id: studentId)
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

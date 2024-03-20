@@ -26,6 +26,7 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Injected(\.uploadImageUseCase) private var uploadImageUseCase
     
     init(flowController: FlowController?) {
+        super.init()
         self.flowController = flowController
     }
     

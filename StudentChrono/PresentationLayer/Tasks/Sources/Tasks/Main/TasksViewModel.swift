@@ -22,8 +22,8 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Injected(\.getMyTasksUseCase) private var getMyTasksUseCase
     
     init(flowController: FlowController?) {
-        self.flowController = flowController
         super.init()
+        self.flowController = flowController
     }
     
     // MARK: - Lifecycle
