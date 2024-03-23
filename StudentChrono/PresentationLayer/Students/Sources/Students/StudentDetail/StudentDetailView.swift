@@ -12,14 +12,44 @@ struct StudentDetailView: View {
     
     @ObservedObject private var viewModel: StudentDetailViewModel
     
+    private let size: CGFloat = 80
+    
     init(viewModel: StudentDetailViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        VStack {
-            Text(viewModel.state.user.fullName)
+        VStack(alignment: .leading) {
+            HStack(spacing: AppTheme.Dimens.spaceMedium) {
+                AsyncImage(url: URL(string: viewModel.state.user.imageURL ?? "")) { phase in
+                    if let image = phase.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    } else if phase.error == nil {
+                        Image(systemName: "person.circle.fill")
+                            .resizable()
+                    }
+                }
+                .frame(width: size, height: size)
+                .clipShape(Circle())
+                
+                VStack(alignment: .leading) {
+                    Text(viewModel.state.user.fullName)
+                        .font(.title2)
+                        .foregroundStyle(Color.primary)
+                    
+                    Text(viewModel.state.user.email)
+                        .font(.headline)
+                        .foregroundStyle(Color.secondary)
+                }
+                
+                Spacer()
+            }
+            
+            Spacer()
         }
+        .padding()
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(

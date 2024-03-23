@@ -8,19 +8,16 @@
 import SharedDomain
 import SharedDomainMocks
 import SwiftUI
-import UIToolkit
 
 struct TaskRowView: View {
     
-    typealias Task = SharedDomain.Task
-    
     @Environment(\.isLoading) private var isLoading
     
-    private let task: Task
+    private let task: SharedDomain.Task
     
     private let imageSize: CGFloat = 15
     
-    init(task: Task = .task1Stub) {
+    init(task: SharedDomain.Task = .task1Stub) {
         self.task = task
     }
     

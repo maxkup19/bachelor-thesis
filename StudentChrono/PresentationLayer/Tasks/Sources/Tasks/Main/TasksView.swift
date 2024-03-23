@@ -20,36 +20,18 @@ struct TasksView: View {
     
     var body: some View {
         VStack {
-            if viewModel.state.isLoading {
-                List {
-                    ForEach(TaskState.allCases) { taskState in
-                        Section("\(taskState.emoji) \(taskState.title)") {
-                            TaskRowView()
-                        }
-                    }
-                }
-                .disabled(true)
-            } else if !viewModel.state.tasks.isEmpty {
-                List {
-                    ForEach(TaskState.allCases) { taskState in
-                        let tasks = viewModel.state.tasks.filter { $0.state == taskState }
-                        
-                        if !tasks.isEmpty {
-                            Section("\(taskState.emoji) \(taskState.title)") {
-                                ForEach(tasks) { task in
-                                    TaskRowView(task: task)
-                                        .onTapGesture {
-                                            viewModel.onIntent(.onTaskTap(task.id))
-                                        }
-                                }
-                            }
-                        }
-                    }
-                }
-                .listStyle(.plain)
-                .refreshable {
-                    viewModel.onIntent(.refreshTasks)
-                }
+            if !viewModel.state.isLoading && viewModel.state.tasks.isEmpty {
+                ContentUnavailableView(
+                    "No tasks",
+                    systemImage: "list.bullet",
+                    description: Text("You have no tasks available")
+                )
+            } else {
+                TasksList(
+                    tasks: viewModel.state.tasks,
+                    onTaskTap: { id in viewModel.onIntent(.onTaskTap(id))},
+                    onRefresh: { viewModel.onIntent(.refreshTasks) }
+                )
 #warning("Revisit is Future")
                 //                .searchable(
                 //                    text: Binding(
@@ -58,12 +40,6 @@ struct TasksView: View {
                 //                    ),
                 //                    placement: .toolbar
                 //                )
-            } else {
-                ContentUnavailableView(
-                    "No tasks",
-                    systemImage: "list.bullet",
-                    description: Text("You have no tasks available")
-                )
             }
         }
         .navigationTitle("Tasks")

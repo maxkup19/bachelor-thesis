@@ -7,6 +7,36 @@
     "%@" : {
 
     },
+    "%@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$@"
+          }
+        }
+      }
+    },
+    "Assignee · %@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Assignee · %1$@ %2$@"
+          }
+        }
+      }
+    },
+    "Author · %@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Author · %1$@ %2$@"
+          }
+        }
+      }
+    },
     "Back" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -27,10 +57,26 @@
     "Deadline" : {
 
     },
+    "Deadline: %@" : {
+
+    },
     "Loading..." : {
 
     },
+    "Status · %@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Status · %1$@ %2$@"
+          }
+        }
+      }
+    },
     "SwiftUI Shimmer" : {
+
+    },
+    "Tags ·" : {
 
     }
   },
