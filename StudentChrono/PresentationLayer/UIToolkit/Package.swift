@@ -14,6 +14,7 @@ let package = Package(
             targets: ["UIToolkit"]),
     ],
     dependencies: [
+        .package(name: "SharedDomain", path: "../../DomainLayer/SharedDomain"),
         .package(name: "Utilities", path: "../../DomainLayer/Utilities"),
     ],
     targets: [
@@ -22,6 +23,7 @@ let package = Package(
         .target(
             name: "UIToolkit",
             dependencies: [
+                .product(name: "SharedDomain", package: "SharedDomain"),
                 .product(name: "Utilities", package: "Utilities")
             ]
         )

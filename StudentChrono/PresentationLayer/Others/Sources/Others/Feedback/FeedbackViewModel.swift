@@ -23,6 +23,7 @@ final class FeedbackViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Injected(\.sendFeedbackUseCase) private var sendFeedbackUseCase
     
     init(flowController: FlowController?) {
+        super.init()
         self.flowController = flowController
     }
     

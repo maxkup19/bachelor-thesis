@@ -11,5 +11,6 @@ import Spyable
 public protocol StudentsRepository {
     func addStudent(_ payload: AddStudentData) async throws
     func removeStudent(_ payload: RemoveStudentData) async throws
+    func getStudentById(_ id: String) async throws -> User
     func getMyStudents() async throws -> [User]
 }

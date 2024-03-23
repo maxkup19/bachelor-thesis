@@ -19,10 +19,17 @@ enum TasksFlow: Flow, Equatable {
     }
 }
 
-public final class TasksFlowController: FlowController {
+public protocol TaskDetailOpenerDelegate: AnyObject {
+    func presentTaskDetail(for id: String)
+}
+
+public final class TasksFlowController: FlowController, TaskDetailOpenerDelegate {
+    
+    weak var taskDetailOpener: TaskDetailOpenerDelegate?
     
     override public func setup() -> UIViewController {
         let vm = TasksViewModel(flowController: self)
+        taskDetailOpener = vm
         return BaseHostingController(rootView: TasksView(viewModel: vm))
     }
     
@@ -35,6 +42,10 @@ public final class TasksFlowController: FlowController {
     
     override public func dismiss() {
         navigationController.dismiss(animated: true)
+    }
+    
+    public func presentTaskDetail(for id: String) {
+        taskDetailOpener?.presentTaskDetail(for: id)
     }
 }
 
@@ -59,11 +70,13 @@ extension TasksFlowController {
     
     private func showTaskDetail(id: String) {
         let vm = TaskDetailViewModel(
-            flowController: self,
-            taskId: id
+            taskId: id,
+            flowController: self
         )
         let view = TaskDetailView(viewModel: vm)
         let vc = BaseHostingController(rootView: view)
+        vc.title = "Task Detail"
+        
         navigationController.show(vc, sender: nil)
     }
 }

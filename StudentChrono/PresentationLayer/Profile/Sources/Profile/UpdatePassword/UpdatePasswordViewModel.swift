@@ -23,6 +23,7 @@ final class UpdatePasswordViewModel: BaseViewModel, ViewModel, ObservableObject 
     @Injected(\.updatePasswordUseCase) private var updatePasswordUseCase
     
     init(flowController: FlowController?) {
+        super.init()
         self.flowController = flowController
     }
     

@@ -14,10 +14,17 @@ enum StudentsFlow: Flow, Equatable {
     
     enum Students: Equatable {
         case showStudentDetail(String)
+        case showTaskDetail(String)
     }
 }
 
+public protocol StudentsFlowControllerDelegate: AnyObject {
+    func showTaskDetail(id: String)
+}
+
 public final class StudentsFlowController: FlowController {
+    
+    public weak var delegate: StudentsFlowControllerDelegate?
     
     override public func setup() -> UIViewController {
         let vm = StudentsViewModel(flowController: self)
@@ -38,10 +45,16 @@ extension StudentsFlowController {
     func handleFlow(_ flow: StudentsFlow.Students) {
         switch flow {
         case .showStudentDetail(let id): showStudentDetail(id: id)
+        case .showTaskDetail(let id): delegate?.showTaskDetail(id: id)
         }
     }
     
     private func showStudentDetail(id: String) {
+        let vm = StudentDetailViewModel(studentId: id, flowController: self)
+        let view = StudentDetailView(viewModel: vm)
+        let vc = BaseHostingController(rootView: view)
+        vc.title = "Student Detail"
         
+        navigationController.show(vc, sender: nil)
     }
 }

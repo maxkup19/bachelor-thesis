@@ -23,6 +23,7 @@ final class PersonalInformationViewModel: BaseViewModel, ViewModel, ObservableOb
     @Injected(\.getCurrentUserUseCase) private var getCurrentUserUseCase
     
     init(flowController: FlowController?) {
+        super.init()
         self.flowController = flowController
     }
     

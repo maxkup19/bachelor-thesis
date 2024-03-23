@@ -17,8 +17,9 @@ struct TaskController: RouteCollection {
             .grouped(TaskRoutes.base)
             .grouped(Token.authenticator())
         
-        taskRoutes.get(TaskRoutes.all, use: index)
+        taskRoutes.get(TaskRoutes.my, use: index)
         taskRoutes.get(use: getTaskById)
+        taskRoutes.get(TaskRoutes.all, use: getTasksForStudentId)
         
         let teacherRoutes = taskRoutes.grouped(EnsureUserIsTeacherMiddleware())
         teacherRoutes.post(use: createTask)
@@ -35,7 +36,8 @@ struct TaskController: RouteCollection {
     }
     
     private func getTaskById(req: Request) async throws -> TaskResponse {
-        let id = try req.query.get(UUID.self, at: TaskRoutes.Parameter.taskId)
+        guard let id = UUID(req.headers.first(name: TaskRoutes.Parameter.taskId) ?? "") else { throw Abort(.badRequest)
+        }
         
         guard let task = try await Task.query(on: req.db)
             .filter(\.$id, .equal, id)
@@ -46,6 +48,18 @@ struct TaskController: RouteCollection {
         }
         
         return task.asTaskResponse
+    }
+    
+    private func getTasksForStudentId(req: Request) async throws -> [TaskResponse] {
+        guard let studentId = UUID(req.headers.first(name: TaskRoutes.Parameter.studentId) ?? "") else { throw Abort(.badRequest)
+        }
+        
+        return try await Task.query(on: req.db)
+            .with(\.$author)
+            .with(\.$assignee)
+            .filter(\.$assignee.$id, .equal, studentId)
+            .all()
+            .map(\.asTaskResponse)
     }
     
     private func createTask(req: Request) async throws -> HTTPStatus {

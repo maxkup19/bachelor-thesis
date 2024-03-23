@@ -65,6 +65,9 @@ public extension Container {
     var getTaskByIdUseCase: Factory<GetTaskByIdUseCase> { self { GetTaskByIdUseCaseImpl(
         taskRepository: self.taskRepository()
     )}}
+    var getTasksForStudentUseCase: Factory<GetTasksForStudentUseCase> { self { GetTasksForStudentUseCaseImpl(
+        taskRepository: self.taskRepository()
+    )}}
     
     // Students
     var addStudentUseCase: Factory<AddStudentUseCase> { self { AddStudentUseCaseImpl(
@@ -74,8 +77,10 @@ public extension Container {
     var getMyStudentsUseCase: Factory<GetMyStudentsUseCase> { self { GetMyStudentsUseCaseImpl(
         studentsRepository: self.studentsRepository()
     )}}
-    
     var removeStudentUseCase: Factory<RemoveStudentUseCase> { self { RemoveStudentUseCaseImpl(
+        studentsRepository: self.studentsRepository()
+    )}}
+    var getStudentByIdUseCase: Factory<GetStudentByIdUseCase> { self { GetStudentByIdUseCaseImpl(
         studentsRepository: self.studentsRepository()
     )}}
     

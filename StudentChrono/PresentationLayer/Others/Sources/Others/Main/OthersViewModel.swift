@@ -21,6 +21,7 @@ final class OthersViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Injected(\.logoutUseCase) private var logoutUseCase
     
     init(flowController: FlowController?) {
+        super.init()
         self.flowController = flowController
     }
     

@@ -22,6 +22,7 @@ final class DeleteAccountViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Injected(\.deleteAccountUseCase) private var deleteAccountUseCase
     
     init(flowController: FlowController?) {
+        super.init()
         self.flowController = flowController
     }
     
