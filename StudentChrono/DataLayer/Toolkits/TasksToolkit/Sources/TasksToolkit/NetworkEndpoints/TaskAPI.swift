@@ -13,6 +13,7 @@ enum TaskAPI {
     case createTask(_ data: [String: Any])
     case getMyTasks
     case getTaskById(_ id: String)
+    case getTasksForStudent(_ id: String)
 }
 
 extension TaskAPI: NetworkEndpoint {
@@ -20,8 +21,9 @@ extension TaskAPI: NetworkEndpoint {
     var path: String {
         switch self {
         case .createTask: "/task"
-        case .getMyTasks: "/task/all"
+        case .getMyTasks: "/task/my"
         case .getTaskById: "/task"
+        case .getTasksForStudent: "/task/all"
         }
     }
     var method: NetworkMethod {
@@ -29,11 +31,13 @@ extension TaskAPI: NetworkEndpoint {
         case .createTask: .post
         case .getMyTasks: .get
         case .getTaskById: .get
+        case .getTasksForStudent: .get
         }
     }
     var headers: [String: String]? {
         switch self {
         case .getTaskById(let id): ["taskId": id]
+        case .getTasksForStudent(let id): ["studentId": id]
         default: .none
         }
     }
@@ -42,6 +46,7 @@ extension TaskAPI: NetworkEndpoint {
         case let .createTask(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         case .getMyTasks: .requestPlain
         case .getTaskById: .requestPlain
+        case .getTasksForStudent: .requestPlain
         }
     }
 }

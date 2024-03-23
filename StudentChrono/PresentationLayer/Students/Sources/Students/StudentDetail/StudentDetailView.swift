@@ -19,7 +19,7 @@ struct StudentDetailView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: AppTheme.Dimens.spaceLarge) {
             HStack(spacing: AppTheme.Dimens.spaceMedium) {
                 AsyncImage(url: URL(string: viewModel.state.user.imageURL ?? "")) { phase in
                     if let image = phase.image {
@@ -46,10 +46,36 @@ struct StudentDetailView: View {
                 
                 Spacer()
             }
+            .padding(.horizontal)
+            .padding(.top)
+            
+            Picker(
+                "Tasks",
+                selection: Binding(
+                    get: { viewModel.state.pickerSelection },
+                    set: { selection in viewModel.onIntent(.selectionChanged(selection)) }
+                )
+            ) {
+                Text("Active").tag(0)
+                Text("Closed").tag(1)
+            }
+            .pickerStyle(.segmented)
+            
+            
+            if !viewModel.state.filteredTasks.isEmpty {
+                TasksList(
+                    tasks: viewModel.state.filteredTasks,
+                    onTaskTap: { id in viewModel.onIntent(.onTaskTap(id)) }
+                )
+            } else {
+                ContentUnavailableView(
+                    "No closed tasks",
+                    systemImage: "list.bullet"
+                )
+            }
             
             Spacer()
         }
-        .padding()
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(

@@ -25,7 +25,10 @@ public struct AuthRepositoryImpl: AuthRepository {
     public func login(_ payload: LoginData) async throws {
         do {
             let data = try payload.networkModel.encode()
-            let authToken = try await network.request(AuthAPI.login(data), withInterceptor: false).map(NETAuthToken.self).domainModel
+            let authToken = try await network.request(AuthAPI.login(data), withInterceptor: false)
+                .map(NETAuthToken.self)
+                .domainModel
+            
             try keychain.update(.authToken, value: authToken.token)
             try keychain.update(.userId, value: authToken.userId)
         } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .unauthorised {
@@ -38,7 +41,10 @@ public struct AuthRepositoryImpl: AuthRepository {
     public func registration(_ payload: RegistrationData) async throws {
         do {
             let data = try payload.networkModel.encode()
-            let authToken = try await network.request(AuthAPI.registration(data)).map(NETAuthToken.self).domainModel
+            let authToken = try await network.request(AuthAPI.registration(data))
+                .map(NETAuthToken.self)
+                .domainModel
+            
             try keychain.update(.authToken, value: authToken.token)
             try keychain.update(.userId, value: authToken.userId)
         } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .conflict {

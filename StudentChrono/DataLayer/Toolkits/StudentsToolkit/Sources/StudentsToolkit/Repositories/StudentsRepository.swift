@@ -35,6 +35,8 @@ public struct StudentsRepositoryImpl: StudentsRepository {
     }
     
     public func getStudentById(_ id: String) async throws -> User {
-        try await network.request(StudentsAPI.getStudentById(id), withInterceptor: false).map(NETUser.self).domainModel
+        try await network.request(StudentsAPI.getStudentById(id), withInterceptor: false)
+            .map(NETUser.self)
+            .domainModel
     }
 }

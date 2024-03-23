@@ -11,7 +11,7 @@ import SharedDomain
 import SwiftUI
 import UIToolkit
 
-final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
+final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject, TaskDetailOpenerDelegate {
     
     typealias Task = _Concurrency.Task
     
@@ -107,5 +107,9 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     private func dismissAlert() {
         state.alertData = nil
+    }
+    
+    public func presentTaskDetail(for id: String) {
+        onTaskTap(taskId: id)
     }
 }

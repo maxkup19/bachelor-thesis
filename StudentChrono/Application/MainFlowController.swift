@@ -27,10 +27,11 @@ protocol MainFlowControllerDelegate: AnyObject {
     func presentAuth(animated: Bool, completion: (() -> Void)?)
 }
 
-final class MainFlowController: FlowController, OthersFlowControllerDelegate {
+final class MainFlowController: FlowController, OthersFlowControllerDelegate, StudentsFlowControllerDelegate {
     
     private let userRole: UserRoleEnum
     weak var delegate: MainFlowControllerDelegate?
+    weak var taskDetailOpener: TaskDetailOpenerDelegate?
     
     public init(
         userRole: UserRoleEnum,
@@ -55,6 +56,11 @@ final class MainFlowController: FlowController, OthersFlowControllerDelegate {
         })
     }
     
+    func showTaskDetail(id: String) {
+        switchTab(.tasks)
+        taskDetailOpener?.presentTaskDetail(for: id)
+    }
+    
     private func setupTabBarAppearance() {
         // Here you can setup Tab bar appearance
     }
@@ -76,6 +82,7 @@ final class MainFlowController: FlowController, OthersFlowControllerDelegate {
             tag: MainTab.tasks.rawValue
         )
         let tasksFC = TasksFlowController(navigationController: tasksNC)
+        self.taskDetailOpener = tasksFC
         let tasksRootVC = startChildFlow(tasksFC)
         tasksNC.viewControllers = [tasksRootVC]
         return tasksNC
@@ -90,6 +97,7 @@ final class MainFlowController: FlowController, OthersFlowControllerDelegate {
         )
         studentsNC.tabBarItem.selectedImage = AppTheme.Images.studentsTabBarSelected
         let studentsFC = StudentsFlowController(navigationController: studentsNC)
+        studentsFC.delegate = self
         let studentRootVC = startChildFlow(studentsFC)
         studentsNC.viewControllers = [studentRootVC]
         return studentsNC
@@ -122,4 +130,11 @@ final class MainFlowController: FlowController, OthersFlowControllerDelegate {
         othersNC.viewControllers = [othersRootVC]
         return othersNC
     }
+    
+    @discardableResult private func switchTab(_ index: MainTab) -> FlowController? {
+            guard let tabController = rootViewController as? UITabBarController,
+                let tabs = tabController.viewControllers, index.rawValue < tabs.count else { return nil }
+            tabController.selectedIndex = index.rawValue
+            return childControllers[index.rawValue]
+        }
 }

@@ -24,11 +24,21 @@ public struct TaskRepositoryImpl: TaskRepository {
     }
     
     public func getMyTasks() async throws -> [Task] {
-        try await network.request(TaskAPI.getMyTasks, withInterceptor: false).map([NETTask].self).map(\.domainModel)
+        try await network.request(TaskAPI.getMyTasks, withInterceptor: false)
+            .map([NETTask].self)
+            .map(\.domainModel)
     }
     
     public func getTaskById(id: String) async throws -> Task {
         try await network.request(TaskAPI.getTaskById(id), withInterceptor: false)
-            .map(NETTask.self).domainModel
+            .map(NETTask.self)
+            .domainModel
+    }
+    
+    public func getStudentsTasks(id: String) async throws -> [Task] {
+        try await network.request(TaskAPI.getTasksForStudent(id), withInterceptor: false)
+            .map([NETTask].self)
+            .map(\.domainModel)
+            
     }
 }
