@@ -12,14 +12,22 @@ struct TaskDetailView: View {
     
     @ObservedObject private var viewModel: TaskDetailViewModel
     
+    let size: CGFloat = 60
+    
     init(viewModel: TaskDetailViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        VStack {
-            Text("TaskDetailView")
+        VStack(alignment: .leading, spacing: AppTheme.Dimens.spaceLarge) {
+            
+            TaskDetailHeaderView(task: viewModel.state.task)
+            
+            Spacer()
+            
+            
         }
+        .padding()
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(
@@ -36,7 +44,7 @@ import Factory
 #Preview {
     Container.shared.registerUseCaseMocks()
     
-    let vm = TaskDetailViewModel(flowController: nil, taskId: "")
+    let vm = TaskDetailViewModel(taskId: "", flowController: nil)
     return TaskDetailView(viewModel: vm)
 }
 #endif
