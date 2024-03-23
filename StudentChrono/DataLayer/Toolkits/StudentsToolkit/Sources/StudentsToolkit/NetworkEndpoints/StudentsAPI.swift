@@ -23,7 +23,7 @@ extension StudentsAPI: NetworkEndpoint {
         case .addStudent: "/students"
         case .removeStudent: "/students"
         case .getMyStudents: "/students/mine"
-        case .getStudentById(let id): "/students?studentId=\(id)"
+        case .getStudentById: "/students"
         }
     }
     var method: NetworkMethod {
@@ -35,7 +35,10 @@ extension StudentsAPI: NetworkEndpoint {
         }
     }
     var headers: [String: String]? {
-        nil
+        switch self {
+        case .getStudentById(let id): ["studentId": id]
+        default: .none
+        }
     }
     var task: NetworkTask {
         switch self {

@@ -35,7 +35,8 @@ struct TaskController: RouteCollection {
     }
     
     private func getTaskById(req: Request) async throws -> TaskResponse {
-        let id = try req.query.get(UUID.self, at: TaskRoutes.Parameter.taskId)
+        guard let id = UUID(req.headers.first(name: TaskRoutes.Parameter.taskId) ?? "") else { throw Abort(.badRequest)
+        }
         
         guard let task = try await Task.query(on: req.db)
             .filter(\.$id, .equal, id)

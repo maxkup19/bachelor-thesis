@@ -70,8 +70,8 @@ struct StudentsController: RouteCollection {
     }
     
     private func getStudentById(req: Request) async throws -> UserResponse {
-        let studentId = try req.query.get(UUID.self, at: StudentsRoutes.Parameter.studentId)
-        print("DEBUG: \(req.query)")
+        guard let studentId = UUID(req.headers.first(name: StudentsRoutes.Parameter.studentId) ?? "")else { throw Abort(.badRequest) }
+        
         guard let student = try await User.query(on: req.db)
             .filter(\.$id, .equal, studentId)
             .first() else {

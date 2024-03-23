@@ -12,7 +12,7 @@ import Utilities
 enum TaskAPI {
     case createTask(_ data: [String: Any])
     case getMyTasks
-    case getTaskById(String)
+    case getTaskById(_ id: String)
 }
 
 extension TaskAPI: NetworkEndpoint {
@@ -21,7 +21,7 @@ extension TaskAPI: NetworkEndpoint {
         switch self {
         case .createTask: "/task"
         case .getMyTasks: "/task/all"
-        case .getTaskById(let id): "/task?taskId=\(id)"
+        case .getTaskById: "/task"
         }
     }
     var method: NetworkMethod {
@@ -32,7 +32,10 @@ extension TaskAPI: NetworkEndpoint {
         }
     }
     var headers: [String: String]? {
-        nil
+        switch self {
+        case .getTaskById(let id): ["taskId": id]
+        default: .none
+        }
     }
     var task: NetworkTask {
         switch self {
