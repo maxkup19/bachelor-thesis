@@ -27,9 +27,9 @@ final class StudentDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
         studentId: String,
         flowController: FlowController?
     ) {
-        super.init()
         self.studentId = studentId
         self.flowController = flowController
+        super.init()
     }
     
     

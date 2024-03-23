@@ -17,18 +17,18 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     typealias Task = _Concurrency.Task
     
     // MARK: - Dependencies
-    private weak var flowController: FlowController?
     private let taskId: String
+    private weak var flowController: FlowController?
     
     @Injected(\.getTaskByIdUseCase) private var getTaskByIdUseCase
     
     init(
-        flowController: FlowController?,
-        taskId: String
+        taskId: String,
+        flowController: FlowController?
     ) {
-        super.init()
-        self.flowController = flowController
         self.taskId = taskId
+        self.flowController = flowController
+        super.init()
     }
     
     // MARK: - Lifecycle

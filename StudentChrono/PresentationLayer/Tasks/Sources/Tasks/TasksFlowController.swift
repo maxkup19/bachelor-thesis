@@ -59,8 +59,8 @@ extension TasksFlowController {
     
     private func showTaskDetail(id: String) {
         let vm = TaskDetailViewModel(
-            flowController: self,
-            taskId: id
+            taskId: id,
+            flowController: self
         )
         let view = TaskDetailView(viewModel: vm)
         let vc = BaseHostingController(rootView: view)
