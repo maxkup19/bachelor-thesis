@@ -53,6 +53,7 @@ struct TaskDetailHeaderView: View {
                     
                     if let dueTo = task.dueTo {
                         Text("Due to \(dueTo.formatted(date: .numeric, time: .omitted))")
+                            .foregroundStyle(dueTo > Date() ? Color.primary : Color.red)
                     }
                     
                 }

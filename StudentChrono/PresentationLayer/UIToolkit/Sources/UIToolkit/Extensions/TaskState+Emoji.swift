@@ -8,7 +8,7 @@
 import SharedDomain
 import SwiftUI
 
-extension TaskState {
+public extension TaskState {
     var emoji: String {
         switch self {
         case .draft: "📋"

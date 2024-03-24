@@ -75,6 +75,7 @@ struct TaskRowView: View {
                 if let deadline = task.dueTo {
                     Text("Deadline: \(deadline.formatted(date: .abbreviated, time: .shortened))")
                         .font(.caption)
+                        .foregroundStyle(deadline > .now ? Color.primary : Color.red)
                 }
             }
         }

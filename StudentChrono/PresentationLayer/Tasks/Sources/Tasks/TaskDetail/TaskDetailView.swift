@@ -29,6 +29,8 @@ struct TaskDetailView: View {
                     Text("Elaboration")
                         .font(.title2)
                         .foregroundStyle(Color.primary)
+                    
+                    Text("**Current State**: \(viewModel.state.task.state.emoji) \(viewModel.state.task.state.title)")
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -68,6 +70,11 @@ struct TaskDetailView: View {
                 Button("Add Comment") {
                     
                 }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                // TODO: submit button for student and review button for teacher
             }
         }
         .environment(\.isLoading, viewModel.state.isLoading)
