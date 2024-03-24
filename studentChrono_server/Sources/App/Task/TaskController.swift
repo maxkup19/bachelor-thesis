@@ -19,10 +19,11 @@ struct TaskController: RouteCollection {
         
         taskRoutes.get(TaskRoutes.my, use: index)
         taskRoutes.get(use: getTaskById)
-        taskRoutes.get(TaskRoutes.all, use: getTasksForStudentId)
+        taskRoutes.post(TaskRoutes.message, use: addMessageToTask)
         
         let teacherRoutes = taskRoutes.grouped(EnsureUserIsTeacherMiddleware())
         teacherRoutes.post(use: createTask)
+        teacherRoutes.get(TaskRoutes.all, use: getTasksForStudentId)
     }
     
     private func index(req: Request) async throws -> [TaskResponse] {
@@ -32,7 +33,7 @@ struct TaskController: RouteCollection {
             .with(\.$assignee)
             .all()
             .filter{ $0.assignee?.id == user.id || $0.author.id == user.id }
-            .map { $0.asTaskResponse }
+            .map { $0.asTaskResponse(comments: []) }
     }
     
     private func getTaskById(req: Request) async throws -> TaskResponse {
@@ -40,14 +41,71 @@ struct TaskController: RouteCollection {
         }
         
         guard let task = try await Task.query(on: req.db)
-            .filter(\.$id, .equal, id)
             .with(\.$author)
             .with(\.$assignee)
+            .filter(\.$id, .equal, id)
             .first() else {
             throw Abort(.notFound)
         }
         
-        return task.asTaskResponse
+        let comments = try await Message.query(on: req.db)
+            .with(\.$author)
+            .filter(\.$id ~~ task.comments)
+            .all()
+            .map(\.asResponse)
+        
+        return task.asTaskResponse(comments: comments)
+    }
+    
+    private func addMessageToTask(req: Request) async throws -> TaskResponse {
+        let author = try req.auth.require(User.self)
+        let addMessageDTO = try req.content.decode(AddMessageToTaskDTO.self)
+        
+        guard
+            let taskId = UUID(addMessageDTO.taskId),
+            let task = try await Task.query(on: req.db)
+                .with(\.$author)
+                .with(\.$assignee)
+                .filter(\.$id, .equal, taskId)
+                .first(),
+            try task.author.requireID() == author.requireID()  || task.assignee?.requireID() == author.requireID()
+        else { throw Abort(.badRequest) }
+        
+        var fileURL: String?
+        
+        if let file = addMessageDTO.file {
+            let hashedFileName = try Bcrypt.hash(file.filename).replacingOccurrences(of: "/", with: "")
+            let path = req.application.directory.publicDirectory + hashedFileName
+            
+            try await req.fileio.writeFile(file.data, at: path)
+            
+            let serverConfig = req.application.http.server.configuration
+            let hostname = serverConfig.hostname
+            let port = serverConfig.port
+            
+            fileURL = "http://\(hostname):\(port)/\(hashedFileName)"
+            guard ["jpeg", "png", "jpg", "png"].contains(file.extension) else {
+                throw Abort(.expectationFailed, reason: "Invalid file format")
+            }
+        }
+        
+        let message = Message(
+            authorId: try author.requireID(),
+            text: addMessageDTO.text,
+            file: fileURL
+        )
+        
+        try await message.save(on: req.db)
+        task.comments.append(try message.requireID())
+        try await task.save(on: req.db)
+        
+        let comments = try await Message.query(on: req.db)
+            .with(\.$author)
+            .filter(\.$id ~~ task.comments)
+            .all()
+            .map(\.asResponse)
+        
+        return task.asTaskResponse(comments: comments)
     }
     
     private func getTasksForStudentId(req: Request) async throws -> [TaskResponse] {
@@ -59,7 +117,7 @@ struct TaskController: RouteCollection {
             .with(\.$assignee)
             .filter(\.$assignee.$id, .equal, studentId)
             .all()
-            .map(\.asTaskResponse)
+            .map { $0.asTaskResponse(comments: [])}
     }
     
     private func createTask(req: Request) async throws -> HTTPStatus {

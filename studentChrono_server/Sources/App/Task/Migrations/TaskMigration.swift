@@ -17,6 +17,7 @@ extension Task {
                 .field(FieldKeys.title, .string, .required)
                 .field(FieldKeys.description, .string, .required)
                 .field(FieldKeys.tags, .array(of: .string), .required)
+                .field(FieldKeys.comments, .array(of: .string), .required)
                 .field(FieldKeys.state, .string, .required)
                 .field(FieldKeys.authorId, .uuid, .references(SchemaEnum.users.rawValue, FieldKey.id), .required)
                 .field(FieldKeys.assigneeId, .uuid, .references(SchemaEnum.users.rawValue, FieldKey.id))

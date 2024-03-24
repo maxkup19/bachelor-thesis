@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 24.02.2024.
 //
 
+import Foundation
 import Fluent
 import Vapor
 
@@ -23,6 +24,9 @@ final class Task: Model {
     
     @Field(key: FieldKeys.tags)
     var tags: [String]
+    
+    @Field(key: FieldKeys.comments)
+    var comments: [UUID]
     
     @Enum(key: FieldKeys.state)
     var state: TaskState
@@ -62,6 +66,7 @@ final class Task: Model {
         self.title = title
         self.description = description
         self.tags = tags
+        self.comments = []
         self.state = state
         self.$author.id = authorId
         self.$assignee.id = assigneeId
