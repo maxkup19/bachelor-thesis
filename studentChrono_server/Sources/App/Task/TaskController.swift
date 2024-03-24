@@ -97,7 +97,8 @@ struct TaskController: RouteCollection {
         
         try await message.save(on: req.db)
         task.comments.append(try message.requireID())
-        if task.state != .review {
+        
+        if try author.requireID() == task.assignee?.requireID() && task.state != .review {
             task.state = .inProgress
         }
         try await task.save(on: req.db)
