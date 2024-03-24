@@ -46,7 +46,7 @@ struct TaskDetailHeaderView: View {
                     Spacer()
                     
                     if let createdAt = task.createdAt {
-                        Text("Assigned \(createdAt.formatted(date: .numeric, time: .omitted))")
+                        Text("Created \(createdAt.formatted(date: .numeric, time: .omitted))")
                     }
                     
                     Spacer()
