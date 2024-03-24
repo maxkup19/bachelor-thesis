@@ -109,6 +109,7 @@ struct TaskController: RouteCollection {
     }
     
     private func getTasksForStudentId(req: Request) async throws -> [TaskResponse] {
+        let user = try req.auth.require(User.self)
         guard let studentId = UUID(req.headers.first(name: TaskRoutes.Parameter.studentId) ?? "") else { throw Abort(.badRequest)
         }
         
@@ -116,6 +117,7 @@ struct TaskController: RouteCollection {
             .with(\.$author)
             .with(\.$assignee)
             .filter(\.$assignee.$id, .equal, studentId)
+            .filter(\.$author.$id, .equal, user.requireID())
             .all()
             .map { $0.asTaskResponse(comments: [])}
     }

@@ -36,7 +36,6 @@ struct StudentDetailView: View {
             }
             .pickerStyle(.segmented)
             
-            
             if !viewModel.state.filteredTasks.isEmpty {
                 TasksList(
                     tasks: viewModel.state.filteredTasks,
@@ -44,7 +43,7 @@ struct StudentDetailView: View {
                 )
             } else {
                 ContentUnavailableView(
-                    "No closed tasks",
+                    viewModel.state.pickerSelection == 0 ? "No active tasks" : "No closed tasks",
                     systemImage: "list.bullet"
                 )
             }
