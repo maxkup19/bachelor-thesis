@@ -46,6 +46,7 @@ final class PersonalInformationViewModel: BaseViewModel, ViewModel, ObservableOb
     @Published private(set) var state = State()
     
     struct State {
+        var shouldReloadUser: Bool = true
         var user: User = User.studentStub
         var showDatePicker: Bool = false
         var name: String = ""
@@ -62,6 +63,7 @@ final class PersonalInformationViewModel: BaseViewModel, ViewModel, ObservableOb
         case birthDayChanged(Date)
         case showDatePickerTap
         case verifyUserInfo
+        case updateUserName
         case dismissAlert
     }
     
@@ -73,6 +75,7 @@ final class PersonalInformationViewModel: BaseViewModel, ViewModel, ObservableOb
             case .birthDayChanged(let birthDay): birthDayChanged(birthDay)
             case .showDatePickerTap: showDatePickerTap()
             case .verifyUserInfo: verifyUserInfo()
+            case .updateUserName: await updateUserInfo()
             case .dismissAlert: dismissAlert()
             }
         })
@@ -83,9 +86,12 @@ final class PersonalInformationViewModel: BaseViewModel, ViewModel, ObservableOb
     private func loadData() async {
         do {
             state.user = try await getCurrentUserUseCase.execute()
-            state.name = state.user.name
-            state.lastName = state.user.lastName
-            state.birthDay = state.user.birthDay
+            if state.shouldReloadUser {
+                state.name = state.user.name
+                state.lastName = state.user.lastName
+                state.birthDay = state.user.birthDay
+                state.shouldReloadUser = false
+            }
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

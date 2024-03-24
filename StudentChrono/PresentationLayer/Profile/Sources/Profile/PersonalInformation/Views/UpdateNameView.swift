@@ -14,18 +14,18 @@ struct UpdateNameView: View {
     
     @Binding private var name: String
     @Binding private var lastName: String
-    private let verifyName: () -> Void
+    private let updateName: () -> Void
     
     private let textWidth: CGFloat = 50
     
     init(
         name: Binding<String>,
         lastName: Binding<String>,
-        verifyName: @escaping () -> Void
+        updateName: @escaping () -> Void
     ) {
         self._name = name
         self._lastName = lastName
-        self.verifyName = verifyName
+        self.updateName = updateName
     }
     
     var body: some View {
@@ -57,7 +57,7 @@ struct UpdateNameView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    verifyName()
+                    updateName()
                     dismiss()
                 } label: {
                     HStack {
@@ -79,7 +79,7 @@ import SharedDomainMocks
     UpdateNameView(
         name: .constant(User.studentStub.name),
         lastName: .constant(User.studentStub.lastName),
-        verifyName: { }
+        updateName: { }
     )
 }
 #endif

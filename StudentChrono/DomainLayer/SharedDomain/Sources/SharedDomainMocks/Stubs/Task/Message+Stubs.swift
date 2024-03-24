@@ -12,6 +12,7 @@ public extension Message {
         id: "1",
         text: "This is comment by teacher",
         author: User.teacherStub,
-        fileLink: nil
+        fileLink: nil,
+        createdAt: nil
     )
 }
