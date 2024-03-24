@@ -47,8 +47,6 @@ extension SystemNetworkProvider: NetworkProvider {
         var request = URLRequest(url: endpoint.baseURL.appendingPathComponent(endpoint.path))
         request.httpMethod = endpoint.method.rawValue
         
-//        print("DEBUG: \(request)")
-        
         
         // Add headers
         serviceHeaders.forEach { request.addValue($0.value, forHTTPHeaderField: $0.key) }

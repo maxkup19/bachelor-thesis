@@ -85,9 +85,6 @@ final class ProfileViewModel: BaseViewModel, ViewModel, ObservableObject {
         
         do {
             state.user = try await getCurrentUserUseCase.execute()
-            state.updateName = state.user.name
-            state.updateLastName = state.user.lastName
-            state.updateBirthDay = state.user.birthDay
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

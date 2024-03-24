@@ -60,6 +60,10 @@ public extension Container {
         getTasksForStudentUseCaseSpy.executeStudentIdReturnValue = [Task.task1Stub, Task.task2Stub]
         getTasksForStudentUseCase.register { getTasksForStudentUseCaseSpy }
         
+        let addMessageToTaskUseCaseSpy = AddMessageToTaskUseCaseSpy()
+        addMessageToTaskUseCaseSpy.executeReturnValue = Task.task1Stub
+        addMessageToTaskUseCase.register { addMessageToTaskUseCaseSpy }
+        
         createTaskUseCase.register { CreateTaskUseCaseSpy() }
         
         // Students

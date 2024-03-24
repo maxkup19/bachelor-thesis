@@ -14,6 +14,7 @@ struct NETTask: Decodable {
     let title: String
     let description: String
     let tags: [String]
+    let comments: [NETMessage]
     let author: NETUser
     let assignee: NETUser?
     let state: TaskState
@@ -29,6 +30,7 @@ extension NETTask {
             title: title,
             description: description,
             tags: tags,
+            comments: comments.map(\.domainModel),
             author: author.domainModel,
             assignee: assignee?.domainModel,
             state: state,

@@ -12,6 +12,8 @@ enum TaskRoutes {
     static let all: PathComponent = "all"
     static let my: PathComponent = "my"
     
+    static let message: PathComponent = "message"
+    
     enum Parameter {
         static let taskId: String = "taskId"
         static let studentId: String = "studentId"

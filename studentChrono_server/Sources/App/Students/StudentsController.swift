@@ -41,8 +41,8 @@ struct StudentsController: RouteCollection {
             throw Abort(.alreadyReported, reason: "This user is already your student")
         }
         
-        guard addStudent.role == .teacher else {
-            throw Abort(.badRequest, reason: "Yopu cant add another teacher as student")
+        guard addStudent.role == .student else {
+            throw Abort(.badRequest, reason: "You cant add another teacher as student")
         }
         
         user.studentIds.append(try addStudent.requireID())

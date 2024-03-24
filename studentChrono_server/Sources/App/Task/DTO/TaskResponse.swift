@@ -12,6 +12,7 @@ struct TaskResponse: Content {
     var title: String
     var description: String
     var tags: [String]
+    var comments: [MessageResponse]
     var state: TaskState
     var author: UserResponse
     var assignee: UserResponse?
@@ -21,12 +22,13 @@ struct TaskResponse: Content {
 }
 
 extension Task {
-    var asTaskResponse: TaskResponse {
+    func asTaskResponse(comments: [MessageResponse]) -> TaskResponse {
         TaskResponse(
             id: id?.uuidString ?? "",
             title: title,
             description: description,
             tags: tags,
+            comments: comments,
             state: state,
             author: author.asUserResponse,
             assignee: assignee?.asUserResponse,

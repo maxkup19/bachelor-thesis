@@ -12,42 +12,17 @@ struct StudentDetailView: View {
     
     @ObservedObject private var viewModel: StudentDetailViewModel
     
-    private let size: CGFloat = 80
-    
     init(viewModel: StudentDetailViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: AppTheme.Dimens.spaceLarge) {
-            HStack(spacing: AppTheme.Dimens.spaceMedium) {
-                AsyncImage(url: URL(string: viewModel.state.user.imageURL ?? "")) { phase in
-                    if let image = phase.image {
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } else if phase.error == nil {
-                        Image(systemName: "person.circle.fill")
-                            .resizable()
-                    }
-                }
-                .frame(width: size, height: size)
-                .clipShape(Circle())
-                
-                VStack(alignment: .leading) {
-                    Text(viewModel.state.user.fullName)
-                        .font(.title2)
-                        .foregroundStyle(Color.primary)
-                    
-                    Text(viewModel.state.user.email)
-                        .font(.headline)
-                        .foregroundStyle(Color.secondary)
-                }
-                
-                Spacer()
-            }
-            .padding(.horizontal)
-            .padding(.top)
+            StudentDetailHeaderView(
+                imageURL: viewModel.state.user.imageURL,
+                fullName: viewModel.state.user.fullName,
+                email: viewModel.state.user.email
+            )
             
             Picker(
                 "Tasks",
@@ -61,7 +36,6 @@ struct StudentDetailView: View {
             }
             .pickerStyle(.segmented)
             
-            
             if !viewModel.state.filteredTasks.isEmpty {
                 TasksList(
                     tasks: viewModel.state.filteredTasks,
@@ -69,7 +43,7 @@ struct StudentDetailView: View {
                 )
             } else {
                 ContentUnavailableView(
-                    "No closed tasks",
+                    viewModel.state.pickerSelection == 0 ? "No active tasks" : "No closed tasks",
                     systemImage: "list.bullet"
                 )
             }

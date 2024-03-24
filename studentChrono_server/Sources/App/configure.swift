@@ -23,6 +23,7 @@ public func configure(_ app: Application) async throws {
     app.migrations.add(Token.Migration())
     app.migrations.add(Task.Migration())
     app.migrations.add(Feedback.Migration())
+    app.migrations.add(Message.Migration())
     try await app.autoMigrate()
     
     // MARK: - Setup Middleware

@@ -28,7 +28,7 @@ struct PersonalInformationView: View {
                         get: { viewModel.state.lastName },
                         set: { value in viewModel.onIntent(.lastNameChanged(value)) }
                     ),
-                    verifyName: { viewModel.onIntent(.verifyUserInfo) }
+                    updateName: { viewModel.onIntent(.updateUserName) }
                 )
             } label: {
                 HStack {

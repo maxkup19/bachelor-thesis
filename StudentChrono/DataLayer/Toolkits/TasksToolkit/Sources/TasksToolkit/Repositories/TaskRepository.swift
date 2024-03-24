@@ -1,6 +1,6 @@
 //
 //  TaskRepository.swift
-//  
+//
 //
 //  Created by Maksym Kupchenko on 26.02.2024.
 //
@@ -39,6 +39,12 @@ public struct TaskRepositoryImpl: TaskRepository {
         try await network.request(TaskAPI.getTasksForStudent(id), withInterceptor: false)
             .map([NETTask].self)
             .map(\.domainModel)
-            
+    }
+    
+    public func addMessageToTask(_ payload: AddMessageToTaskData) async throws -> Task {
+        let data = try payload.networkModel.encode()
+        return try await network.request(TaskAPI.addMessageToTask(data), withInterceptor: false)
+            .map(NETTask.self)
+            .domainModel
     }
 }

@@ -11,9 +11,9 @@ public struct FoldableDatePicker: View {
     
     @Binding private var date: Date?
     
-    @State private var dateEnabled: Bool = false
+    @State private var dateEnabled: Bool
+    @State private var selectedDate: Date
     @State private var showDatePicker: Bool = false
-    @State private var selectedDate: Date = .now
     
     public init(date: Binding<Date?>) {
         self._date = date
