@@ -14,6 +14,7 @@ enum TaskAPI {
     case getMyTasks
     case getTaskById(_ id: String)
     case getTasksForStudent(_ id: String)
+    case addMessageToTask(_ data: [String: Any])
 }
 
 extension TaskAPI: NetworkEndpoint {
@@ -24,6 +25,7 @@ extension TaskAPI: NetworkEndpoint {
         case .getMyTasks: "/task/my"
         case .getTaskById: "/task"
         case .getTasksForStudent: "/task/all"
+        case .addMessageToTask: "/task/message"
         }
     }
     var method: NetworkMethod {
@@ -32,6 +34,7 @@ extension TaskAPI: NetworkEndpoint {
         case .getMyTasks: .get
         case .getTaskById: .get
         case .getTasksForStudent: .get
+        case .addMessageToTask: .post
         }
     }
     var headers: [String: String]? {
@@ -47,6 +50,7 @@ extension TaskAPI: NetworkEndpoint {
         case .getMyTasks: .requestPlain
         case .getTaskById: .requestPlain
         case .getTasksForStudent: .requestPlain
+        case let .addMessageToTask(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         }
     }
 }

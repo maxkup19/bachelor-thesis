@@ -10,6 +10,8 @@ import Fluent
 import Vapor
 
 struct MessageResponse: Content {
+    var id: String
+    var author: UserResponse
     var text: String
     var fileLink: String?
     var createdAt: Date?
@@ -18,6 +20,8 @@ struct MessageResponse: Content {
 extension Message {
     var asResponse: MessageResponse {
         MessageResponse(
+            id: id?.uuidString ?? "",
+            author: author.asUserResponse,
             text: text,
             fileLink: file,
             createdAt: createdAt

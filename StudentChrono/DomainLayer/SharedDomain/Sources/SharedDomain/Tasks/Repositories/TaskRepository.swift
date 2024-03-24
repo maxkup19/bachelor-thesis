@@ -13,4 +13,5 @@ public protocol TaskRepository {
     func getMyTasks() async throws -> [Task]
     func getTaskById(id: String) async throws -> Task
     func getStudentsTasks(id: String) async throws -> [Task]
+    func addMessageToTask(_ payload: AddMessageToTaskData) async throws -> Task
 }
