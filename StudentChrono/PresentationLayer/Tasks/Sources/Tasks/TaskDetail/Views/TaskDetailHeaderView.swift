@@ -58,8 +58,15 @@ struct TaskDetailHeaderView: View {
                 }
                 .font(.subheadline)
                 .foregroundStyle(Color.primary)
+                
             }
             .frame(height: size)
+            
+            Text(task.description)
+                .font(.headline)
+                .foregroundStyle(Color.secondary)
+            
+            
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -69,6 +76,6 @@ struct TaskDetailHeaderView: View {
 import SharedDomainMocks
 
 #Preview {
-    TaskDetailHeaderView(task: Task.task1Stub)
+    TaskDetailHeaderView(task: Task.task2Stub)
 }
 #endif

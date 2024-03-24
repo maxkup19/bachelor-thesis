@@ -21,6 +21,7 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     private weak var flowController: FlowController?
     
     @Injected(\.getTaskByIdUseCase) private var getTaskByIdUseCase
+    @Injected(\.getCurrentUserUseCase) private var getCurrentUserUseCase
     
     init(
         taskId: String,
@@ -44,6 +45,7 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     struct State {
         var task: SharedDomain.Task = .task1Stub
+        var user: User = .teacherStub
         var isLoading: Bool = false
         var alertData: AlertData?
     }
@@ -68,6 +70,7 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
         defer { state.isLoading = false }
         
         do {
+            state.user = try await getCurrentUserUseCase.execute()
             state.task = try await getTaskByIdUseCase.execute(taskId: taskId)
         } catch {
             state.alertData = .init(title: error.localizedDescription)

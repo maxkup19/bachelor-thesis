@@ -84,7 +84,7 @@ struct TaskController: RouteCollection {
             let port = serverConfig.port
             
             fileURL = "http://\(hostname):\(port)/\(hashedFileName)"
-            guard ["jpeg", "png", "jpg", "png"].contains(file.extension) else {
+            guard ["jpeg", "png", "jpg", "pdf"].contains(file.extension) else {
                 throw Abort(.expectationFailed, reason: "Invalid file format")
             }
         }
@@ -97,6 +97,9 @@ struct TaskController: RouteCollection {
         
         try await message.save(on: req.db)
         task.comments.append(try message.requireID())
+        if task.state != .review {
+            task.state = .inProgress
+        }
         try await task.save(on: req.db)
         
         let comments = try await Message.query(on: req.db)

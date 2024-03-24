@@ -10,6 +10,8 @@ import UIToolkit
 
 struct TaskDetailView: View {
     
+    @Environment(\.openURL) private var openURL
+    
     @ObservedObject private var viewModel: TaskDetailViewModel
     
     let size: CGFloat = 60
@@ -19,15 +21,55 @@ struct TaskDetailView: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: AppTheme.Dimens.spaceLarge) {
+        Form {
+            Section {
+                VStack(alignment: .leading, spacing: AppTheme.Dimens.spaceLarge) {
+                    TaskDetailHeaderView(task: viewModel.state.task)
+                    
+                    Text("Elaboration")
+                        .font(.title2)
+                        .foregroundStyle(Color.primary)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+            .listRowInsets(EdgeInsets())
+            .background(Color(UIColor.systemBackground))
             
-            TaskDetailHeaderView(task: viewModel.state.task)
+            if viewModel.state.task.comments.isEmpty {
+                
+                ContentUnavailableView(
+                    "Elaboration wasn't started yet...",
+                    systemImage: "text.book.closed"
+                )
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .listRowInsets(EdgeInsets())
+                .background(Color(UIColor.systemBackground))
+                
+            } else {
+                ForEach(viewModel.state.task.comments) { comment in
+                    Section {
+                        TextField("Comment", text: .constant(comment.text), axis: .vertical)
+                            .disabled(true)
+                            .lineLimit(nil)
+                        if let attachment = URL(string: comment.fileLink ?? "") {
+                            Link("Attachment", destination: attachment)
+                        }
+                    } header: {
+                        Text(viewModel.state.user.id == comment.author.id ? "You" : comment.author.fullName)
+                    } footer: {
+                        if let createdAt = comment.createdAt{
+                            Text(createdAt.formatted(date: .abbreviated, time: .shortened))
+                        }
+                    }
+                }
+            }
             
-            Spacer()
-            
-            
+            Section {
+                Button("Add Comment") {
+                    
+                }
+            }
         }
-        .padding()
         .environment(\.isLoading, viewModel.state.isLoading)
         .lifecycle(viewModel)
         .alert(item: Binding<AlertData?>(
