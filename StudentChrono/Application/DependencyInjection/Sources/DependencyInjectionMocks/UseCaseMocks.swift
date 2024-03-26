@@ -65,6 +65,7 @@ public extension Container {
         addMessageToTaskUseCase.register { addMessageToTaskUseCaseSpy }
         
         createTaskUseCase.register { CreateTaskUseCaseSpy() }
+        updateTaskUseCase.register { UpdateTaskUseCaseSpy() }
         
         // Students
         let getMyStudentsUseCaseSpy = GetMyStudentsUseCaseSpy()

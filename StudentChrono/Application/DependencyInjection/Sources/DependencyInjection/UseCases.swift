@@ -59,6 +59,9 @@ public extension Container {
     var createTaskUseCase: Factory<CreateTaskUseCase> { self { CreateTaskUseCaseImpl(
         taskRepository: self.taskRepository()
     )}}
+    var updateTaskUseCase: Factory<UpdateTaskUseCase> { self { UpdateTaskUseCaseImpl(
+        taskRepository: self.taskRepository()
+    )}}
     var getMyTasksUseCase: Factory<GetMyTasksUseCase> { self { GetMyTasksUseCaseImpl(
         taskRepository: self.taskRepository()
     )}}
