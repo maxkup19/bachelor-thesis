@@ -59,7 +59,7 @@ struct TaskDetailView: View {
                     } header: {
                         Text(viewModel.state.user.id == comment.author.id ? "You" : comment.author.fullName)
                     } footer: {
-                        if let createdAt = comment.createdAt{
+                        if let createdAt = comment.createdAt {
                             Text(createdAt.formatted(date: .abbreviated, time: .shortened))
                         }
                     }
