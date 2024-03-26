@@ -26,11 +26,11 @@ struct TaskDetailView: View {
                 VStack(alignment: .leading, spacing: AppTheme.Dimens.spaceLarge) {
                     TaskDetailHeaderView(task: viewModel.state.task)
                     
+                    Text("**Current State**: \(viewModel.state.task.state.emoji) \(viewModel.state.task.state.title)")
+                    
                     Text("Elaboration")
                         .font(.title2)
                         .foregroundStyle(Color.primary)
-                    
-                    Text("**Current State**: \(viewModel.state.task.state.emoji) \(viewModel.state.task.state.title)")
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
@@ -59,7 +59,7 @@ struct TaskDetailView: View {
                     } header: {
                         Text(viewModel.state.user.id == comment.author.id ? "You" : comment.author.fullName)
                     } footer: {
-                        if let createdAt = comment.createdAt{
+                        if let createdAt = comment.createdAt {
                             Text(createdAt.formatted(date: .abbreviated, time: .shortened))
                         }
                     }
@@ -68,7 +68,7 @@ struct TaskDetailView: View {
             
             Section {
                 Button("Add Comment") {
-                    
+                    viewModel.onIntent(.addComment)
                 }
             }
         }
@@ -97,3 +97,8 @@ import Factory
     return TaskDetailView(viewModel: vm)
 }
 #endif
+
+extension URL: Identifiable {
+    
+    public var id: String { absoluteString }
+}
