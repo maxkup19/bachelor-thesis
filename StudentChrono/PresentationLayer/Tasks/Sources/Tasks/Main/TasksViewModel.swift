@@ -102,7 +102,8 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject, TaskDeta
     }
     
     private func onTaskTap(taskId: String) {
-        flowController?.handleFlow(TasksFlow.tasks(.showTaskDetail(taskId)))
+        let task = state.tasks.first { $0.id == taskId }
+        flowController?.handleFlow(TasksFlow.tasks(.showTaskDetail(taskId, task)))
     }
     
     private func dismissAlert() {

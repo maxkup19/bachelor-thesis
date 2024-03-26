@@ -5,6 +5,7 @@
 //  Created by Maksym Kupchenko on 19.02.2024.
 //
 
+import SharedDomain
 import SwiftUI
 import UIKit
 import UIToolkit
@@ -15,7 +16,7 @@ enum TasksFlow: Flow, Equatable {
     enum Tasks: Equatable {
         case createTask
         case closeCreateTask
-        case showTaskDetail(String)
+        case showTaskDetail(String, SharedDomain.Task?)
         case addComment(String)
     }
 }
@@ -56,13 +57,13 @@ extension TasksFlowController {
         switch flow {
         case .createTask: createTask()
         case .closeCreateTask: dismiss()
-        case .showTaskDetail(let id): showTaskDetail(id: id)
+        case let .showTaskDetail(id, task): task?.state == .draft ? createTask(task: task) : showTaskDetail(id: id)
         case .addComment(let id): addComment(id: id)
         }
     }
     
-    private func createTask() {
-        let vm = CreateTaskViewModel(flowController: self)
+    private func createTask(task: SharedDomain.Task? = nil) {
+        let vm = CreateTaskViewModel(task: task, flowController: self)
         let view = CreateTaskView(viewModel: vm)
         let vc = BaseHostingController(rootView: view)
         vc.modalPresentationStyle = .automatic

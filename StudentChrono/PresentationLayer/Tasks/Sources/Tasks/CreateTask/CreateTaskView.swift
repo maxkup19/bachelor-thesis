@@ -87,7 +87,7 @@ struct CreateTaskView: View {
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("**Add**") {
-                        viewModel.onIntent(.createTask)
+                        viewModel.onIntent(.addButtonTap)
                     }
                     .disabled(viewModel.state.title.isEmpty)
                 }

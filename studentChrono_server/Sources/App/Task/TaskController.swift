@@ -23,6 +23,7 @@ struct TaskController: RouteCollection {
         
         let teacherRoutes = taskRoutes.grouped(EnsureUserIsTeacherMiddleware())
         teacherRoutes.post(use: createTask)
+        teacherRoutes.patch(use: updateTask)
         teacherRoutes.get(TaskRoutes.all, use: getTasksForStudentId)
     }
     
@@ -132,7 +133,7 @@ struct TaskController: RouteCollection {
         var assigneeId: UUID?
         
         if let id = createTaskDTO.assigneeId {
-            assigneeId = UUID(uuidString: id)
+            assigneeId = UUID(id)
         }
         
         if let assigneeId  {
@@ -145,6 +146,30 @@ struct TaskController: RouteCollection {
         )
         
         try await task.save(on: req.db)
+        return .ok
+    }
+    
+    private func updateTask(req: Request) async throws -> HTTPStatus {
+        let updateTaskDTO = try req.content.decode(UpdateTaskDTO.self)
+        guard
+            let taskId = UUID(updateTaskDTO.taskId),
+            let assigneeId = UUID(updateTaskDTO.assigneeId),
+            let task = try await Task.query(on: req.db)
+                .filter(\.$id, .equal, taskId)
+                .first()
+        else {
+            throw Abort(.internalServerError)
+        }
+        
+        task.$assignee.id = assigneeId
+        task.title = updateTaskDTO.title ?? task.title
+        task.description = updateTaskDTO.description ?? task.description
+        task.tags = updateTaskDTO.tags ?? task.tags
+        task.dueTo = updateTaskDTO.dueTo ?? task.dueTo
+        task.priority = updateTaskDTO.priority ?? task.priority
+        
+        task.state = .todo
+        
         return .ok
     }
 }

@@ -16,13 +16,27 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     typealias Task = _Concurrency.Task
     
     // MARK: - Dependencies
+    private let task: SharedDomain.Task?
     private weak var flowController: FlowController?
     
     @Injected(\.createTaskUseCase) private var createTaskUseCase
     @Injected(\.getMyStudentsUseCase) private var getMyStudentsUseCase
     
-    init(flowController: FlowController?) {
+    init(
+        task: SharedDomain.Task? = nil,
+        flowController: FlowController?
+    ) {
         self.flowController = flowController
+        self.task = task
+        self.state = State(
+            title: task?.title ?? "",
+            description: task?.description ?? "",
+            taskDetails: TaskDetails(
+                dueTo: task?.dueTo ?? .now,
+                tags: task?.tags ?? [],
+                priority: task?.priority ?? .none
+            )
+        )
         super.init()
     }
     
@@ -35,12 +49,12 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     // MARK: - State
-    @Published private(set) var state = State()
+    @Published private(set) var state: State
     
     struct State {
-        var title: String = ""
-        var description: String = ""
-        var taskDetails: TaskDetails = .init()
+        var title: String
+        var description: String
+        var taskDetails: TaskDetails
         var students: [User] = []
         var selectedStudentIds: Set<String> = []
         var isLoading: Bool = false
@@ -54,7 +68,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Intents
     enum Intent {
-        case createTask
+        case addButtonTap
         case titleChanged(String)
         case descriptionChanged(String)
         case taskDetailsChanged(TaskDetails)
@@ -66,7 +80,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
-            case .createTask: await createTask()
+            case .addButtonTap: task == nil ? await createTask() : await updateTask()
             case .titleChanged(let title): titleChanged(title)
             case .descriptionChanged(let description): descriptionChanged(description)
             case .taskDetailsChanged(let details): taskDetailsChanged(details)
@@ -91,6 +105,9 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     private func createTask() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
         do {
             let data = CreateTaskData(
                 title: state.title,
@@ -102,6 +119,18 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
             )
             try await createTaskUseCase.execute(data)
             flowController?.handleFlow(TasksFlow.tasks(.closeCreateTask))
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
+    }
+    
+    private func updateTask() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
+        do {
+            
+            #warning("Update Task")
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
