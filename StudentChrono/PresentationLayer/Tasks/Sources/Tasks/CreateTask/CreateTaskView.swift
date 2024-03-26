@@ -41,8 +41,9 @@ struct CreateTaskView: View {
                                     get: { viewModel.state.taskDetails },
                                     set: { value in viewModel.onIntent(.taskDetailsChanged(value)) }
                                 ),
+                                toolbarButtonTitle: viewModel.state.toolbarButtonTitle,
                                 addButtonDisabled: viewModel.state.title.isEmpty,
-                                onAddButtonTap: { viewModel.onIntent(.createTask) }
+                                onAddButtonTap: { viewModel.onIntent(.addButtonTap) }
                             )
                         }
                     }
@@ -86,9 +87,10 @@ struct CreateTaskView: View {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("**Add**") {
+                    Button(viewModel.state.toolbarButtonTitle) {
                         viewModel.onIntent(.addButtonTap)
                     }
+                    .bold()
                     .disabled(viewModel.state.title.isEmpty)
                 }
             }

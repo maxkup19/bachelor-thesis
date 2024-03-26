@@ -9,10 +9,10 @@ import Vapor
 
 struct UpdateTaskDTO: Content {
     var taskId: String
-    var title: String?
-    var description: String?
-    var tags: [String]?
-    var assigneeId: String
+    var title: String
+    var description: String
+    var tags: [String]
+    var assigneeId: String?
     var dueTo: Date?
-    var priority: Priority?
+    var priority: Priority
 }

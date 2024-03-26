@@ -10,12 +10,12 @@ import SharedDomain
 
 struct NETUpdateTaskData: Codable {
     let taskId: String
-    let title: String?
-    let description: String?
-    let tags: [String]?
-    let assigneeId: String
+    let title: String
+    let description: String
+    let tags: [String]
+    let assigneeId: String?
     let dueTo: Date?
-    let priority: Priority?
+    let priority: Priority
 }
 
 extension UpdateTaskData {

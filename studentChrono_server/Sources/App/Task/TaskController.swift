@@ -153,7 +153,6 @@ struct TaskController: RouteCollection {
         let updateTaskDTO = try req.content.decode(UpdateTaskDTO.self)
         guard
             let taskId = UUID(updateTaskDTO.taskId),
-            let assigneeId = UUID(updateTaskDTO.assigneeId),
             let task = try await Task.query(on: req.db)
                 .filter(\.$id, .equal, taskId)
                 .first()
@@ -161,14 +160,19 @@ struct TaskController: RouteCollection {
             throw Abort(.internalServerError)
         }
         
-        task.$assignee.id = assigneeId
-        task.title = updateTaskDTO.title ?? task.title
-        task.description = updateTaskDTO.description ?? task.description
-        task.tags = updateTaskDTO.tags ?? task.tags
-        task.dueTo = updateTaskDTO.dueTo ?? task.dueTo
-        task.priority = updateTaskDTO.priority ?? task.priority
+        task.title = updateTaskDTO.title
+        task.description = updateTaskDTO.description
+        task.tags = updateTaskDTO.tags
+        task.dueTo = updateTaskDTO.dueTo
+        task.priority = updateTaskDTO.priority
         
-        task.state = .todo
+        if let assigneeId = updateTaskDTO.assigneeId,
+           let assignee = UUID(assigneeId) {
+            task.$assignee.id = assignee
+            task.state = .todo
+        }
+        
+        try await task.save(on: req.db)
         
         return .ok
     }

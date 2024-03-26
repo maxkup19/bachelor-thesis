@@ -16,10 +16,10 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     typealias Task = _Concurrency.Task
     
     // MARK: - Dependencies
-    private let task: SharedDomain.Task?
     private weak var flowController: FlowController?
     
     @Injected(\.createTaskUseCase) private var createTaskUseCase
+    @Injected(\.updateTaskUseCase) private var updateTaskUseCase
     @Injected(\.getMyStudentsUseCase) private var getMyStudentsUseCase
     
     init(
@@ -27,12 +27,12 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
         flowController: FlowController?
     ) {
         self.flowController = flowController
-        self.task = task
         self.state = State(
+            task: task,
             title: task?.title ?? "",
             description: task?.description ?? "",
             taskDetails: TaskDetails(
-                dueTo: task?.dueTo ?? .now,
+                dueTo: task?.dueTo,
                 tags: task?.tags ?? [],
                 priority: task?.priority ?? .none
             )
@@ -52,6 +52,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     @Published private(set) var state: State
     
     struct State {
+        fileprivate var task: SharedDomain.Task?
         var title: String
         var description: String
         var taskDetails: TaskDetails
@@ -63,6 +64,10 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
         var selectedStudentFullName: String {
             guard let student = students.first(where: { $0.id == selectedStudentIds.first }) else { return "" }
             return "\(student.name) \(student.lastName)"
+        }
+        
+        var toolbarButtonTitle: String {
+            task == nil ? "Add" : "Update"
         }
     }
     
@@ -80,7 +85,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
-            case .addButtonTap: task == nil ? await createTask() : await updateTask()
+            case .addButtonTap: state.task == nil ? await createTask() : await updateTask()
             case .titleChanged(let title): titleChanged(title)
             case .descriptionChanged(let description): descriptionChanged(description)
             case .taskDetailsChanged(let details): taskDetailsChanged(details)
@@ -125,12 +130,23 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     private func updateTask() async {
+        guard let task = state.task else { return }
+        
         state.isLoading = true
         defer { state.isLoading = false }
         
         do {
-            
-            #warning("Update Task")
+            let data = UpdateTaskData(
+                taskId: task.id,
+                title: state.title,
+                description: state.description,
+                tags: state.taskDetails.tags,
+                assigneeId: state.selectedStudentIds.first,
+                dueTo: state.taskDetails.dueTo,
+                priority: state.taskDetails.priority
+            )
+            try await updateTaskUseCase.execute(data)
+            flowController?.handleFlow(TasksFlow.tasks(.closeCreateTask))
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
