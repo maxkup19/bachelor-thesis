@@ -17,6 +17,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Dependencies
     private weak var flowController: FlowController?
+    private let onSuccess: () -> Void
     
     @Injected(\.createTaskUseCase) private var createTaskUseCase
     @Injected(\.updateTaskUseCase) private var updateTaskUseCase
@@ -24,7 +25,8 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     init(
         task: SharedDomain.Task? = nil,
-        flowController: FlowController?
+        flowController: FlowController?,
+        onSuccess: @escaping () -> Void
     ) {
         self.flowController = flowController
         self.state = State(
@@ -37,6 +39,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
                 priority: task?.priority ?? .none
             )
         )
+        self.onSuccess = onSuccess
         super.init()
     }
     
@@ -124,6 +127,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
             )
             try await createTaskUseCase.execute(data)
             flowController?.handleFlow(TasksFlow.tasks(.closeCreateTask))
+            onSuccess()
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
@@ -147,6 +151,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
             )
             try await updateTaskUseCase.execute(data)
             flowController?.handleFlow(TasksFlow.tasks(.closeCreateTask))
+            onSuccess()
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

@@ -83,7 +83,7 @@ final class TasksViewModel: BaseViewModel, ViewModel, ObservableObject, TaskDeta
     }
     
     private func createTask() {
-        flowController?.handleFlow(TasksFlow.tasks(.createTask))
+        flowController?.handleFlow(TasksFlow.tasks(.createTask(self.onAppear)))
     }
     
     private func refreshTasks() async {
