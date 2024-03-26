@@ -5,17 +5,18 @@
 //  Created by Maksym Kupchenko on 19.02.2024.
 //
 
+import SharedDomain
 import SwiftUI
 import UIKit
 import UIToolkit
 
-enum TasksFlow: Flow, Equatable {
+enum TasksFlow: Flow {
     case tasks(Tasks)
     
-    enum Tasks: Equatable {
-        case createTask
+    enum Tasks {
+        case createTask(() -> Void)
         case closeCreateTask
-        case showTaskDetail(String)
+        case showTaskDetail(String, SharedDomain.Task?)
         case addComment(String)
     }
 }
@@ -54,15 +55,15 @@ public final class TasksFlowController: FlowController, TaskDetailOpenerDelegate
 extension TasksFlowController {
     func handleFlow(_ flow: TasksFlow.Tasks) {
         switch flow {
-        case .createTask: createTask()
+        case .createTask(let onDisappear): createTask(onDisappear: onDisappear)
         case .closeCreateTask: dismiss()
-        case .showTaskDetail(let id): showTaskDetail(id: id)
+        case let .showTaskDetail(id, task): task?.state == .draft ? createTask(task: task, onDisappear: { }) : showTaskDetail(id: id)
         case .addComment(let id): addComment(id: id)
         }
     }
     
-    private func createTask() {
-        let vm = CreateTaskViewModel(flowController: self)
+    private func createTask(task: SharedDomain.Task? = nil, onDisappear: @escaping () -> Void) {
+        let vm = CreateTaskViewModel(task: task, flowController: self, onSuccess: onDisappear)
         let view = CreateTaskView(viewModel: vm)
         let vc = BaseHostingController(rootView: view)
         vc.modalPresentationStyle = .automatic

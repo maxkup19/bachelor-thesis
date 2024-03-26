@@ -17,12 +17,29 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Dependencies
     private weak var flowController: FlowController?
+    private let onSuccess: () -> Void
     
     @Injected(\.createTaskUseCase) private var createTaskUseCase
+    @Injected(\.updateTaskUseCase) private var updateTaskUseCase
     @Injected(\.getMyStudentsUseCase) private var getMyStudentsUseCase
     
-    init(flowController: FlowController?) {
+    init(
+        task: SharedDomain.Task? = nil,
+        flowController: FlowController?,
+        onSuccess: @escaping () -> Void
+    ) {
         self.flowController = flowController
+        self.state = State(
+            task: task,
+            title: task?.title ?? "",
+            description: task?.description ?? "",
+            taskDetails: TaskDetails(
+                dueTo: task?.dueTo,
+                tags: task?.tags ?? [],
+                priority: task?.priority ?? .none
+            )
+        )
+        self.onSuccess = onSuccess
         super.init()
     }
     
@@ -35,12 +52,13 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     // MARK: - State
-    @Published private(set) var state = State()
+    @Published private(set) var state: State
     
     struct State {
-        var title: String = ""
-        var description: String = ""
-        var taskDetails: TaskDetails = .init()
+        fileprivate var task: SharedDomain.Task?
+        var title: String
+        var description: String
+        var taskDetails: TaskDetails
         var students: [User] = []
         var selectedStudentIds: Set<String> = []
         var isLoading: Bool = false
@@ -50,11 +68,15 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
             guard let student = students.first(where: { $0.id == selectedStudentIds.first }) else { return "" }
             return "\(student.name) \(student.lastName)"
         }
+        
+        var toolbarButtonTitle: String {
+            task == nil ? "Add" : "Update"
+        }
     }
     
     // MARK: - Intents
     enum Intent {
-        case createTask
+        case addButtonTap
         case titleChanged(String)
         case descriptionChanged(String)
         case taskDetailsChanged(TaskDetails)
@@ -66,7 +88,7 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
-            case .createTask: await createTask()
+            case .addButtonTap: state.task == nil ? await createTask() : await updateTask()
             case .titleChanged(let title): titleChanged(title)
             case .descriptionChanged(let description): descriptionChanged(description)
             case .taskDetailsChanged(let details): taskDetailsChanged(details)
@@ -91,6 +113,9 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     private func createTask() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
         do {
             let data = CreateTaskData(
                 title: state.title,
@@ -102,6 +127,31 @@ final class CreateTaskViewModel: BaseViewModel, ViewModel, ObservableObject {
             )
             try await createTaskUseCase.execute(data)
             flowController?.handleFlow(TasksFlow.tasks(.closeCreateTask))
+            onSuccess()
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
+    }
+    
+    private func updateTask() async {
+        guard let task = state.task else { return }
+        
+        state.isLoading = true
+        defer { state.isLoading = false }
+        
+        do {
+            let data = UpdateTaskData(
+                taskId: task.id,
+                title: state.title,
+                description: state.description,
+                tags: state.taskDetails.tags,
+                assigneeId: state.selectedStudentIds.first,
+                dueTo: state.taskDetails.dueTo,
+                priority: state.taskDetails.priority
+            )
+            try await updateTaskUseCase.execute(data)
+            flowController?.handleFlow(TasksFlow.tasks(.closeCreateTask))
+            onSuccess()
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

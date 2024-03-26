@@ -12,15 +12,18 @@ import UIToolkit
 struct AddTaskDetailsView: View {
     
     @Binding private var taskDetails: TaskDetails
+    private let toolbarButtonTitle: String
     private let addButtonDisabled: Bool
     private let onAddButtonTap: () -> Void
     
     init(
         taskDetails: Binding<TaskDetails>,
+        toolbarButtonTitle: String,
         addButtonDisabled: Bool,
         onAddButtonTap: @escaping () -> Void
     ) {
         self._taskDetails = taskDetails
+        self.toolbarButtonTitle = toolbarButtonTitle
         self.addButtonDisabled = addButtonDisabled
         self.onAddButtonTap = onAddButtonTap
     }
@@ -59,9 +62,10 @@ struct AddTaskDetailsView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("**Add**") {
+                    Button(toolbarButtonTitle) {
                         onAddButtonTap()
                     }
+                    .bold()
                     .disabled(addButtonDisabled)
                 }
             }
@@ -76,6 +80,7 @@ struct AddTaskDetailsView: View {
 #Preview {
     AddTaskDetailsView(
         taskDetails: .constant(TaskDetails()),
+        toolbarButtonTitle: "vmsklckdmsdc",
         addButtonDisabled: false,
         onAddButtonTap: { }
     )

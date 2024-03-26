@@ -5,13 +5,16 @@
 //  Created by Maksym Kupchenko on 03.03.2024.
 //
 
-import SwiftUI
 import SharedDomain
+import SwiftUI
+import UIToolkit
 
 struct StudentSelectionList: View {
     
     @Binding private var assignee: Set<User.ID>
     private let users: [User]
+    
+    private let imageSize: CGFloat = 60
     
     init(
         assignee: Binding<Set<User.ID>>,
@@ -30,12 +33,36 @@ struct StudentSelectionList: View {
                     description: Text("You have no students\nWould you like to find any? Go to Students tab")
                 )
             } else {
-                List(users, selection: $assignee) { user in
-                    Text(user.name)
+                List(users, selection: $assignee) { student in
+                    HStack(spacing: AppTheme.Dimens.spaceLarge) {
+                        AsyncImage(url: URL(string: student.imageURL ?? "")) { phase in
+                            if let image = phase.image {
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                            } else if phase.error == nil {
+                                Image(systemName: "person.circle.fill")
+                                    .resizable()
+                            }
+                        }
+                        .frame(width: imageSize, height: imageSize)
+                        .clipShape(Circle())
+                        
+                        VStack(alignment: .leading) {
+                            Text(student.fullName)
+                                .foregroundStyle(Color.primary)
+                            
+                            Text(student.email)
+                                .foregroundStyle(Color.secondary)
+                        }
+                        
+                    }
                 }
                 .environment(\.editMode, .constant(.active))
+                .listStyle(.plain)
             }
         }
+        .navigationTitle("Students")
     }
 }
 
