@@ -34,9 +34,18 @@ struct StudentRowView: View {
             .frame(width: imageSize, height: imageSize)
             .clipShape(Circle())
             
-            Text(student.fullName)
-                .foregroundStyle(Color.primary)
-                .font(.title3)
+            VStack(alignment: .leading) {
+                Text(student.fullName)
+                    .foregroundStyle(Color.primary)
+                    .font(.title2)
+                
+                Spacer()
+                
+                Text(student.email)
+                    .foregroundStyle(Color.secondary)
+                    .font(.title3)
+            }
+            .frame(maxHeight: imageSize)
         }
     }
 }
