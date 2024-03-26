@@ -52,12 +52,14 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     // MARK: - Intents
     enum Intent {
+        case addComment
         case dismissAlert
     }
     
     func onIntent(_ intent: Intent) {
         executeTask(Task {
             switch intent {
+            case .addComment: addComment()
             case .dismissAlert: dismissAlert()
             }
         })
@@ -75,6 +77,10 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }
+    }
+    
+    private func addComment() {
+        flowController?.handleFlow(TasksFlow.tasks(.addComment(state.task.id)))
     }
     
     private func dismissAlert() {

@@ -16,6 +16,7 @@ enum TasksFlow: Flow, Equatable {
         case createTask
         case closeCreateTask
         case showTaskDetail(String)
+        case addComment(String)
     }
 }
 
@@ -56,6 +57,7 @@ extension TasksFlowController {
         case .createTask: createTask()
         case .closeCreateTask: dismiss()
         case .showTaskDetail(let id): showTaskDetail(id: id)
+        case .addComment(let id): addComment(id: id)
         }
     }
     
@@ -76,6 +78,18 @@ extension TasksFlowController {
         let view = TaskDetailView(viewModel: vm)
         let vc = BaseHostingController(rootView: view)
         vc.title = "Task Detail"
+        
+        navigationController.show(vc, sender: nil)
+    }
+    
+    private func addComment(id: String) {
+        let vm = AddCommentViewModel(
+            taskId: id,
+            flowController: self
+        )
+        let view = AddComentView(viewModel: vm)
+        let vc = BaseHostingController(rootView: view)
+        vc.title = "Add Comment"
         
         navigationController.show(vc, sender: nil)
     }
