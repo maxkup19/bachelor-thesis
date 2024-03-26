@@ -18,4 +18,16 @@ public struct File: Equatable, Codable {
         self.filename = filename
         self.data = data
     }
+    
+    public init?(
+        filename: String,
+        data: Data?
+    ) {
+        self.filename = filename
+        if let data {
+            self.data = data
+        } else {
+            return nil
+        }
+    }
 }
