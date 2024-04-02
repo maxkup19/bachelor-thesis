@@ -10,7 +10,9 @@ public func configure(_ app: Application) async throws {
     
     if let urlString = Environment.get("DATABASE_URL") {
         var postgersConfig = try SQLPostgresConfiguration(url: urlString)
-        postgersConfig.coreConfiguration.tls = .prefer(try .init(configuration: .clientDefault))
+        var tlsConfig = TLSConfiguration.makeClientConfiguration()
+        tlsConfig.certificateVerification = .none
+        postgersConfig.coreConfiguration.tls = .prefer(try .init(configuration: tlsConfig))
         app.databases.use(.postgres(configuration: postgersConfig), as: .psql)
     } else {
         app.databases.use(DatabaseConfigurationFactory.postgres(configuration: .init(
