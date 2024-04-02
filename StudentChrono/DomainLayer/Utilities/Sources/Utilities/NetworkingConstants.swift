@@ -7,6 +7,6 @@
 
 public struct NetworkingConstants {
     public static var baseURL: String {
-        "http://127.0.0.1:8080/api"
+        "https://student-chrono-ff033acb5f18.herokuapp.com/api"
     }
 }
