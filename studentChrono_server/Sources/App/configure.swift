@@ -31,9 +31,9 @@ public func configure(_ app: Application) async throws {
     app.migrations.add(Feedback.Migration())
     app.migrations.add(Message.Migration())
     
-    if app.environment == .development {
+//    if app.environment == .development {
         try await app.autoMigrate()
-    }
+//    }
     
     // MARK: - Setup Middleware
     app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
