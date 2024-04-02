@@ -4,7 +4,7 @@ import Vapor
 func routes(_ app: Application) throws {
     
     app.get { req in
-        "IT WORKS"
+        return "IT WORKS"
     }
     
     try app.register(collection: UserController())
