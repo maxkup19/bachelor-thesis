@@ -14,7 +14,7 @@ enum FeedbackAPI {
 }
 
 extension FeedbackAPI: NetworkEndpoint {
-    var baseURL: URL { URL(string: NetworkingConstants.baseURL + "/api")! }
+    var baseURL: URL { URL(string: NetworkingConstants.baseURL + "api")! }
     var path: String {
         switch self {
         case .feedback: "feedback"
