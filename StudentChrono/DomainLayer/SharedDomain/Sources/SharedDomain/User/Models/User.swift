@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Utilities
 
 public struct User: Equatable, Codable, Identifiable, Hashable {
     public let id: String
@@ -35,6 +36,11 @@ public struct User: Equatable, Codable, Identifiable, Hashable {
         self.email = email
         self.role = role
         self.birthDay = birthDay
-        self.imageURL = imageURL
+        
+        if let imageURL {
+            self.imageURL = NetworkingConstants.baseURL + imageURL
+        } else {
+            self.imageURL = nil
+        }
     }
 }

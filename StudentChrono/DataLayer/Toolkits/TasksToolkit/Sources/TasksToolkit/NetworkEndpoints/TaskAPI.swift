@@ -19,7 +19,7 @@ enum TaskAPI {
 }
 
 extension TaskAPI: NetworkEndpoint {
-    var baseURL: URL { URL(string: NetworkingConstants.baseURL)! }
+    var baseURL: URL { URL(string: NetworkingConstants.baseURL + "/api")! }
     var path: String {
         switch self {
         case .createTask: "/task"

@@ -7,6 +7,6 @@
 
 public struct NetworkingConstants {
     public static var baseURL: String {
-        "https://student-chrono-ff033acb5f18.herokuapp.com/api"
+        "https://student-chrono-ff033acb5f18.herokuapp.com"
     }
 }

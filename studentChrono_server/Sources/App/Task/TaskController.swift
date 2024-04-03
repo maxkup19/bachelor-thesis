@@ -84,7 +84,7 @@ struct TaskController: RouteCollection {
             let hostname = serverConfig.hostname
             let port = serverConfig.port
             
-            fileURL = "http://\(hostname):\(port)/\(hashedFileName)"
+            fileURL = hashedFileName
             guard ["jpeg", "png", "jpg", "pdf"].contains(file.extension) else {
                 throw Abort(.badRequest, reason: "Invalid file format")
             }

@@ -15,7 +15,7 @@ enum AuthAPI {
 }
 
 extension AuthAPI: NetworkEndpoint {
-    var baseURL: URL { URL(string: NetworkingConstants.baseURL)! }
+    var baseURL: URL { URL(string: NetworkingConstants.baseURL + "/api")! }
     var path: String {
         switch self {
         case .login: "/auth/login"

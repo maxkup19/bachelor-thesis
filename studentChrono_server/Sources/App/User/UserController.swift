@@ -64,12 +64,7 @@ struct UserController: RouteCollection {
         
         try await req.fileio.writeFile(file.data, at: path)
         
-        let serverConfig = req.application.http.server.configuration
-        let hostname = serverConfig.hostname
-        let port = serverConfig.port
-        
-        let imageURL = "http://\(hostname):\(port)/\(hashedFileName)"
-        user.imageURL = imageURL
+        user.imageURL = hashedFileName
         try await user.update(on: req.db)
         
         return user
