@@ -57,8 +57,8 @@
 \annotation[english]{Bachelor thesis explores the development of a Vapor server with PostgreSQL and a SwiftUI iOS application. It covers server-side Swift development, authentication, data validation, and error handling. The work evaluates performance, usability, and security. It contributes to knowledge on server-side Swift, showcasing the potential of Vapor and SwiftUI for scalable iOS app solutions.}
 
 %% Klíčová slova práce, včetně anglických. Oddělená (obvykle) středníkem.
-\keywords[czech]{Swift, Vapor, SwiftUI, iOS, PostgreSQL}
-\keywords[english]{Swift, Vapor, SwiftUI, iOS, PostgreSQL}
+\keywords[czech]{Swift; Vapor; SwiftUI; iOS; PostgreSQL}
+\keywords[english]{Swift; Vapor; SwiftUI; iOS; PostgreSQL}
 
 %% Volitelná specifikace příloh textu práce, i anglicky. Výchozí je
 %% 'elektronická data v systému katedry informatiky / electronic data
@@ -98,34 +98,337 @@
 \section{Introduction}
 
 \subsection{Background and motivation for the project}
-\subsection{Research questions and objectives}
-\subsection{Scope and limitations of the project}
+In today's fast-paced educational environment, students face numerous challenges in managing their time effectively. Balancing coursework, extracurricular activities, and personal commitments can often lead to overwhelming schedules and difficulty prioritizing tasks. Recognizing the importance of efficient time management skills for academic success, there is a growing demand for tools and resources to assist students in optimizing their time utilization. This project seeks to address this need by developing a comprehensive time tracking application tailored specifically for students. By providing intuitive features and functionalities, the application aims to empower students to take control of their schedules, enhance productivity, and ultimately achieve their academic goals.
 
-\section{Literature Review}
+\subsection{Research questions and objectives}
+The primary research question driving this project is: How can a student-centric time tracking application be designed and implemented to effectively address the unique challenges faced by students in managing their time? To answer this question, the project will pursue the following objectives:
+
+\begin{enumerate}
+    \item Conduct a comprehensive review of existing time management tools and methodologies utilized in educational contexts.
+    \item Identify key features and functionalities essential for a student-focused time tracking application through user surveys and stakeholder interviews.
+    \item Design an intuitive and user-friendly interface that facilitates seamless time tracking, task prioritization, and goal setting.
+    \item Develop a robust and scalable mobile application using modern software development technologies, with a focus on iOS development utilizing the Swift programming language and SwiftUI framework.
+    \item Evaluate the usability and effectiveness of the application through user testing and feedback sessions, aiming to refine and enhance the application based on user input.
+\end{enumerate}
+
+\subsection{Scope and limitations of the project}
+The scope of this project encompasses the design, development, and evaluation of a mobile time tracking application specifically tailored for students. The application will be built for the iOS platform, targeting both iPhone and iPad devices. Key features to be included in the application may include:
+\begin{itemize}
+    \item Time logging and tracking functionality for various academic and personal activities.
+    \item Task management capabilities, allowing users to create, organize, and prioritize tasks.
+    \item Goal setting and progress tracking features to help students establish and achieve academic objectives.
+    \item Integration with system calendars and reminders to synchronize tasks and deadlines across devices.
+    \item Customizable reporting and analytics tools to provide insights into time usage patterns and productivity trends.
+\end{itemize}
+
+While the project aims to deliver a comprehensive time tracking solution, it is important to acknowledge certain limitations:
+\begin{itemize}
+    \item The project will focus primarily on the development of the mobile application and may not cover the implementation of backend services or server-side functionalities.
+    \item Usability testing and feedback collection will be conducted with a limited number of users, potentially limiting the generalizability of the findings.
+    \item Due to time and resource constraints, the application's feature set may be subject to prioritization and iteration based on project timelines and available resources.
+\end{itemize}
+
+By clearly defining the project's scope and objectives, this research aims to contribute to the development of innovative solutions to support student success through effective time management practices.
+
+
+\section{Technologies Overview}
+
 \subsection{Overview of server-side Swift development with Vapor}
+
+Server-side Swift development has gained popularity in recent years due to its simplicity, performance, and scalability. Vapor is one of the leading frameworks for building server-side Swift applications. Leveraging Swift's expressive syntax and powerful features, Vapor provides a robust toolkit for developing high-performance web services and APIs.
+
+One of the key advantages of using Vapor is its asynchronous programming model, which allows for non-blocking I/O operations. This enables Vapor applications to handle a large number of concurrent connections efficiently, making them well-suited for high-throughput scenarios.
+
+Here's a simple example of defining a route handler in Vapor:
+
+\begin{kicode}{Swift}{}{Swift}
+import Vapor
+
+let app = Application()
+
+app.get("hello") { req -> String in
+    return "Hello, Vapor!"
+}
+
+app.start()
+\end{kicode}
+
+In this example, we define a route handler for the "/hello" endpoint that returns the string "Hello, Vapor!" when accessed via an HTTP GET request.
+
+Vapor also provides built-in support for protocols like Codable, which simplifies the process of parsing and serializing JSON data. This makes it easy to work with JSON payloads when building RESTful APIs.
+
+Overall, Vapor offers a powerful and elegant solution for server-side Swift development, allowing developers to build scalable and performant web applications with ease.
+
 \subsection{PostgreSQL as a database solution}
+PostgreSQL is a powerful open-source relational database management system known for its reliability, extensibility, and advanced features. It offers support for complex data types, transactions, and advanced querying capabilities, making it a popular choice for a wide range of applications, from small-scale projects to large-scale enterprise systems.
+
+PostgreSQL provides features like ACID (Atomicity, Consistency, Isolation, Durability) transactions, ensuring data integrity and consistency. It also supports multi-version concurrency control (MVCC), allowing for high levels of concurrency without sacrificing data consistency.
+
+One of PostgreSQL's strengths is its extensibility, with support for custom data types, functions, and extensions. This enables developers to tailor the database to their specific requirements and extend its functionality as needed.
+
 \subsection{Review of SwiftUI for iOS app development}
+SwiftUI is a declarative framework introduced by Apple for building user interfaces across all Apple platforms. It offers a simple and intuitive way to create dynamic and interactive user interfaces using Swift code.
+
+SwiftUI uses a declarative syntax, allowing developers to describe the layout and behavior of UI components using simple and readable code. This approach simplifies UI development and improves code maintainability.
+
+SwiftUI provides built-in support for features like state management, animations, and layout customization. It integrates seamlessly with other iOS development technologies like Combine for reactive programming and Core Data for data management, enhancing its capabilities for iOS app development.
+
+With SwiftUI's real-time previews, developers can see the changes to UI components instantly, speeding up the development process and facilitating rapid iteration. SwiftUI's native integration with Xcode also streamlines the development workflow, making it easier for developers to build modern and engaging iOS applications.
+
+Here's an example of creating a simple SwiftUI view:
+
+\begin{kicode}{Swift}{}{Swift}
+import SwiftUI
+
+struct ContentView: View {
+    var body: some View {
+        VStack {
+            Text("Hello, SwiftUI!")
+                .font(.title)
+                .foregroundColor(.blue)
+            Button("Tap me!") {
+                // Handle button tap
+            }
+            .padding()
+            .background(Color.green)
+            .foregroundColor(.white)
+            .cornerRadius(10)
+        }
+        .padding()
+    }
+}
+\end{kicode}
+
+In this example, we define a SwiftUI view called ContentView that displays a text view and a button. The text view shows "Hello, SwiftUI!" in blue color and the button has the text "Tap me!" with a green background color. When the button is tapped, the associated action is triggered.
+
 
 \section{Server-side Development}
 \subsection{Exploring Vapor framework and its key components}
+
+Vapor is a robust server-side Swift framework designed for building scalable and high-performance web applications and APIs. Its elegant design and powerful features make it a popular choice among developers for creating modern server-side solutions.
+
+At the heart of Vapor lies its routing system, which maps incoming HTTP requests to corresponding handler functions. This enables developers to define endpoints and implement various HTTP methods such as GET, POST, PUT, and DELETE to handle client requests effectively.
+
+Controllers play a vital role in organizing route handlers and encapsulating related logic within the application. They provide a structured approach to defining the behavior of different parts of the application, enhancing code organization and maintainability.
+
+Models in Vapor represent the application's data structures and leverage Swift's strong type system to ensure type safety and consistency. With Fluent, Vapor's built-in ORM (Object-Relational Mapping) library, developers can seamlessly interact with databases using Swift-friendly APIs for querying, inserting, updating, and deleting data.
+
+Middleware acts as a bridge between the incoming requests and outgoing responses, allowing developers to perform additional processing or add functionalities such as logging, authentication, and authorization. This enhances the security and extensibility of Vapor applications.
+
+Templating engines like Leaf enable developers to generate dynamic HTML content by combining static templates with dynamic data. This simplifies the process of rendering dynamic views and enhances the application's user interface.
+
+Error handling in Vapor is robust, providing developers with mechanisms to gracefully handle errors and provide meaningful responses to clients. This ensures a smooth user experience and helps maintain the reliability of the application.
+
+With these key components, Vapor empowers developers to build sophisticated server-side applications using Swift, delivering scalable, efficient, and maintainable solutions.
+
 \subsection{Building RESTful APIs with Vapor and PostgreSQL}
-\subsection{Authentication and authorization mechanisms}
-\subsection{Handling data validation and error handling on the server side}
+
+Vapor, coupled with PostgreSQL, provides a powerful combination for building RESTful APIs. Leveraging Vapor's robust framework and PostgreSQL's reliability, developers can create scalable and performant APIs to serve various client applications.
+
+To build RESTful APIs with Vapor and PostgreSQL, developers typically follow these steps:
+
+\begin{enumerate}
+    \item \textbf{Define Routes}: Begin by defining routes in Vapor to map incoming HTTP requests to appropriate handler functions. Routes should follow RESTful conventions, including endpoints for CRUD operations (Create, Read, Update, Delete).
+    
+    \item \textbf{Implement Controllers}: Create controller classes or structures to encapsulate the business logic for handling different API endpoints. Controllers are responsible for processing requests, interacting with the database, and returning appropriate responses.
+    
+    \item \textbf{Integrate PostgreSQL}: Configure Vapor to connect to a PostgreSQL database using Fluent, Vapor's ORM library. Define models representing database tables and establish relationships between them as needed.
+    
+    \item \textbf{CRUD Operations}: Implement CRUD operations (Create, Read, Update, Delete) within the controller methods to interact with the PostgreSQL database. Use Fluent's query APIs to perform database operations such as fetching records, creating new entries, updating existing data, and deleting records.
+    
+    \item \textbf{Middleware}: Utilize Vapor's middleware to add functionalities such as authentication, authorization, request logging, and error handling to the API endpoints. Middleware intercepts incoming requests and outgoing responses, allowing developers to perform additional processing.
+    
+    \item \textbf{Testing}: Write unit tests and integration tests to ensure the reliability and correctness of the API endpoints. Test various scenarios, including success cases, error handling, and edge cases, to validate the API's behavior.
+    
+    \item \textbf{Deployment}: Deploy the Vapor application to a production environment, ensuring that it is configured securely and efficiently. Use tools like Docker and Kubernetes for containerization and orchestration, and consider deploying to platforms like AWS, Google Cloud, or Heroku.
+\end{enumerate}
+
+By following these steps, developers can build robust and scalable RESTful APIs using Vapor and PostgreSQL, empowering client applications to interact seamlessly with the backend services.
+
+\subsection{Authentication and Authorization Mechanisms}
+
+Authentication and authorization mechanisms are essential components of any secure web application, including RESTful APIs built with Vapor and PostgreSQL. These mechanisms help ensure that only authorized users can access protected resources and perform certain actions within the application.
+
+In the context of Vapor and PostgreSQL, developers can implement authentication and authorization using various techniques:
+
+\begin{itemize}
+    \item \textbf{User Authentication}: Implement user authentication to verify the identity of users accessing the API. This typically involves validating user credentials, such as username and password, against stored user data in the PostgreSQL database. Vapor provides tools and libraries for implementing authentication, including token-based authentication using JWT (JSON Web Tokens).
+    
+    \item \textbf{Access Control}: Define access control rules to determine which users have permission to access specific resources or perform certain actions within the application. This can be achieved using role-based access control (RBAC), where users are assigned roles with corresponding permissions. Access control rules can be enforced at the route level or within controller methods using middleware.
+    
+    \item \textbf{Token Management}: Manage authentication tokens securely to prevent unauthorized access to protected resources. Vapor supports token-based authentication mechanisms, where users obtain access tokens after successful authentication. These tokens are then included in subsequent requests to authenticate and authorize access to protected endpoints.
+    
+    \item \textbf{Session Management}: Implement session management to maintain user sessions and track authenticated users across multiple requests. Sessions can be stored server-side or client-side using cookies or tokens. Vapor provides built-in support for session management, allowing developers to configure session storage options and expiration policies.
+    
+    \item \textbf{Security Best Practices}: Adhere to security best practices to mitigate common security vulnerabilities, such as cross-site scripting (XSS), cross-site request forgery (CSRF), and injection attacks. This includes input validation, data sanitization, and secure communication protocols (HTTPS).
+\end{itemize}
+
+By implementing robust authentication and authorization mechanisms in Vapor applications, developers can ensure the security and integrity of their RESTful APIs, protecting sensitive data and resources from unauthorized access and misuse.
+
+\subsection{Handling Data Validation and Error Handling on the Server Side}
+
+Data validation and error handling are crucial aspects of server-side development, ensuring the integrity of the application's data and providing meaningful responses to clients in case of errors.
+
+In the context of Vapor and PostgreSQL, developers can implement data validation and error handling using various techniques:
+
+\begin{itemize}
+    \item \textbf{Input Validation}: Validate incoming data to ensure that it meets the expected format, constraints, and business rules. This can include validating request parameters, query parameters, and request bodies. Vapor provides validation utilities and libraries to simplify data validation, allowing developers to define validation rules and automatically validate incoming data.
+    
+    \item \textbf{Error Handling Middleware}: Implement error handling middleware to intercept exceptions and errors thrown during request processing. Error handling middleware can catch errors, log them, and generate appropriate error responses to send back to clients. This ensures that clients receive informative error messages and HTTP status codes indicating the nature of the error.
+    
+    \item \textbf{Custom Error Responses}: Define custom error response structures to standardize error responses across the application. This can include standardizing error formats, error codes, and error messages to provide consistency and clarity to clients. By defining custom error response structures, developers can ensure that clients can easily understand and handle errors returned by the server.
+    
+    \item \textbf{Database Constraints}: Leverage database constraints to enforce data integrity at the database level. PostgreSQL supports various constraints such as unique constraints, foreign key constraints, and check constraints, which help ensure that data stored in the database adheres to predefined rules and constraints. By defining appropriate constraints, developers can prevent invalid data from being inserted into the database and maintain data consistency.
+    
+    \item \textbf{Transaction Management}: Use database transactions to group multiple database operations into atomic units of work. Transactions ensure data consistency by either committing all changes to the database or rolling back changes if an error occurs during the transaction. Vapor provides support for managing database transactions, allowing developers to handle complex database operations reliably and efficiently.
+\end{itemize}
+
+By implementing robust data validation and error handling mechanisms in Vapor applications, developers can improve the reliability and usability of their APIs, ensuring that clients receive accurate and informative responses under all circumstances.
+
 
 \section{Client-side Development}
-\subsection{Introduction to SwiftUI and its core concepts}
-\subsection{Designing the user interface using SwiftUI components}
-\subsection{Consuming RESTful APIs from the Vapor server}
+\subsection{Introduction to SwiftUI and its Core Concepts}
 
-\section{Integration and Testing}
-\subsection{Integrating the Vapor server with the SwiftUI application}
-\subsection{Performing unit testing for the server}
-\subsection{UI testing for mobile app}
+SwiftUI is a modern framework introduced by Apple for building user interfaces across all Apple platforms. It offers a declarative syntax for defining user interfaces, making it easier and more intuitive for developers to create dynamic and interactive UIs using Swift code.
+
+Key concepts of SwiftUI include:
+
+\begin{itemize}
+    \item \textbf{Declarative Syntax}: SwiftUI uses a declarative syntax to describe the layout and behavior of UI components. Instead of imperative programming, where developers specify step-by-step instructions for building the UI, SwiftUI allows developers to declare the desired UI structure and let the framework handle the rest.
+    
+    \item \textbf{Views and View Modifiers}: In SwiftUI, UI components are represented as views, which are lightweight structures that define the visual elements of the UI. Views can be modified using view modifiers to change their appearance, behavior, and layout. SwiftUI provides a rich set of built-in view modifiers for customizing views.
+    
+    \item \textbf{State and Data Flow}: SwiftUI introduces the concept of state to manage the dynamic behavior of UI components. State allows developers to track changes to the UI's data and update the UI accordingly. SwiftUI employs a unidirectional data flow model, where changes to the UI's state trigger updates to the UI, ensuring consistency and predictability.
+    
+    \item \textbf{Layout and Stacks}: SwiftUI simplifies UI layout by using stacks to arrange UI components horizontally or vertically. Stacks can be nested to create complex layouts, and SwiftUI provides various stack types, such as HStack, VStack, and ZStack, for organizing UI elements.
+    
+    \item \textbf{Modifiers and Gestures}: SwiftUI offers a wide range of modifiers and gestures for customizing the appearance and behavior of UI components. Modifiers can be used to add effects, animations, and interactions to views, while gestures enable users to interact with UI elements through taps, swipes, and other touch gestures.
+    
+    \item \textbf{Preview and Canvas}: SwiftUI provides built-in support for real-time previews, allowing developers to see how their UI looks and behaves across different device sizes and orientations. The Canvas feature in Xcode provides a visual editor for designing UI layouts and previewing changes in real time.
+\end{itemize}
+
+By understanding these core concepts of SwiftUI, developers can leverage the power and simplicity of the framework to create modern and intuitive user interfaces for their iOS, macOS, watchOS, and tvOS applications.
+
+\subsection{Designing the User Interface Using SwiftUI Components}
+
+In SwiftUI, user interfaces are built using a wide range of components and layout techniques provided by the framework. These components allow developers to create modern and interactive user interfaces for their applications.
+
+Key SwiftUI components for designing user interfaces include:
+
+\begin{itemize}
+    \item \textbf{Views}: Views are the fundamental building blocks of user interfaces in SwiftUI. They represent visual elements such as text, images, buttons, lists, and forms. SwiftUI provides a rich set of predefined views that developers can use to construct UI layouts.
+    
+    \item \textbf{Modifiers}: Modifiers are used to customize the appearance and behavior of views in SwiftUI. They allow developers to apply effects, styling, animations, and interactions to views. SwiftUI offers a wide range of built-in modifiers for customizing views, and developers can also create custom modifiers to encapsulate reusable styling logic.
+    
+    \item \textbf{Stacks}: Stacks are layout containers used to arrange views horizontally or vertically. SwiftUI provides several stack types, including HStack (horizontal stack), VStack (vertical stack), and ZStack (z-axis stack), for organizing UI elements. Stacks can be nested to create complex layouts, and developers can use alignment and spacing modifiers to adjust the layout of views within stacks.
+    
+    \item \textbf{Lists and Grids}: SwiftUI offers built-in components for displaying lists and grids of data. List views are used to present vertically scrollable lists of data, while Grid views are used to display data in a grid layout. Developers can customize the appearance and behavior of list and grid views using modifiers and styling options.
+    
+    \item \textbf{Navigation}: SwiftUI provides navigation components for building hierarchical navigation interfaces. Navigation views, navigation links, and navigation bars are used to navigate between different screens and present navigation controls such as back buttons and navigation titles. SwiftUI's navigation system simplifies the implementation of navigation patterns such as master-detail and navigation stacks.
+    
+    \item \textbf{Forms and Controls}: SwiftUI includes components for building forms and collecting user input. Form views are used to organize groups of controls such as text fields, sliders, pickers, and toggles. SwiftUI's declarative syntax makes it easy to define form layouts and handle user input events.
+    
+    \item \textbf{Animations and Transitions}: SwiftUI supports animations and transitions for creating dynamic and engaging user interfaces. Developers can use built-in animation modifiers to animate view changes, transitions between views, and gestures. SwiftUI's animation system is fully integrated with its declarative syntax, allowing developers to define animations using simple and intuitive code.
+\end{itemize}
+
+By leveraging these SwiftUI components, developers can design expressive, responsive, and visually appealing user interfaces for their iOS, macOS, watchOS, and tvOS applications.
+
+Additionally, it's essential to adhere to Apple's Human Interface Guidelines (HIG) when designing user interfaces for Apple platforms. The HIG provides design principles, best practices, and guidelines for creating intuitive and consistent user experiences across Apple devices. By following the HIG, developers can ensure that their applications meet Apple's standards for usability, accessibility, and visual design.
+
+It's also worth noting that SwiftUI complements Apple's native UI frameworks, such as UIKit and AppKit, allowing developers to integrate SwiftUI views seamlessly with existing native UI components and leverage the full power of Apple's ecosystem when building applications for Apple platforms.
+
+\subsection{Consuming RESTful APIs from the Vapor Server}
+
+In modern web development, it's common to have multiple services communicating with each other through APIs. Vapor allows developers to easily consume external RESTful APIs from within their server-side Swift applications.
+
+Key steps for consuming RESTful APIs from a Vapor server include:
+
+\begin{itemize}
+    \item \textbf{HTTP Client}: Vapor provides an HTTP client library that enables developers to make HTTP requests to external APIs. Developers can use this HTTP client to send GET, POST, PUT, DELETE, and other HTTP requests to RESTful endpoints and receive responses.
+    
+    \item \textbf{Endpoint Configuration}: Before making requests to an external API, developers need to configure the endpoint URL, request method, headers, query parameters, request body, and other relevant details. Vapor's HTTP client allows developers to configure these parameters easily.
+    
+    \item \textbf{Handling Responses}: After sending an HTTP request, developers need to handle the response returned by the external API. This includes parsing the response body, handling different HTTP status codes, and extracting relevant data from the response.
+    
+    \item \textbf{JSON Decoding}: When consuming RESTful APIs that return JSON data, developers can use Swift's built-in Codable protocol along with JSONDecoder to decode JSON responses into native Swift data structures. This allows for seamless integration of API data with the mobile part of the application.
+    
+    \item \textbf{Error Handling}: It's essential to implement error handling when consuming external APIs to handle potential network errors, timeouts, invalid responses, and other exceptional conditions. Vapor provides mechanisms for handling errors gracefully and returning meaningful error messages to clients.
+    
+    \item \textbf{Asynchronous Operations}: When consuming external APIs, it's common to perform asynchronous operations to avoid blocking the server's main thread. Vapor's asynchronous programming model allows developers to make non-blocking HTTP requests and handle responses asynchronously.
+    
+    \item \textbf{Testing and Debugging}: It's crucial to test and debug the code for consuming external APIs to ensure that it works as expected in different scenarios. Developers can use Vapor's testing utilities and debugging tools to test API integration code and troubleshoot any issues that arise.
+\end{itemize}
+
+By leveraging Vapor's HTTP client library and Swift's Codable protocol, developers can easily consume RESTful APIs from their server-side Swift applications and seamlessly integrate API data with the mobile part of the application.
+
+\section{Deployment}
+
+Deploying the server-side and mobile components of the application is a crucial step in making the application accessible to users. This section covers the deployment process for both the server and the mobile app.
+
+\subsection{Server Deployment to Heroku}
+
+Heroku provides a platform-as-a-service (PaaS) solution that simplifies the deployment of server-side applications. Follow these steps to deploy the Vapor server to Heroku:
+
+\begin{enumerate}
+    \item \textbf{Prepare the Vapor App}: Ensure that the Vapor app is configured and tested locally. Make sure that all dependencies are listed in the Package.swift file.
+    
+    \item \textbf{Create a Heroku Account}: Sign up for a Heroku account if you haven't already done so. Heroku offers a free tier that allows you to deploy and run applications with certain limitations.
+    
+    \item \textbf{Install the Heroku CLI}: Download and install the Heroku Command Line Interface (CLI) tool, which provides a set of commands for interacting with Heroku services from the terminal.
+    
+    \item \textbf{Initialize a Git Repository}: Initialize a Git repository in the project directory if you haven't already done so. Heroku uses Git for deploying applications.
+    
+    \item \textbf{Create a Heroku App}: Use the Heroku CLI to create a new Heroku app. This will create a remote repository on Heroku where you can deploy your Vapor app.
+    
+    \item \textbf{Deploy the App}: Use the Git push command to deploy the Vapor app to Heroku. Heroku will automatically build and run the app using the specified buildpacks.
+    
+    \item \textbf{Verify Deployment}: Once the deployment process is complete, verify that the app is running correctly by accessing the Heroku app URL in a web browser.
+    
+    \item \textbf{Monitor and Scale}: Use the Heroku Dashboard or CLI to monitor the app's performance and scale resources as needed.
+\end{enumerate}
+
+\subsection{App Publishing to TestFlight}
+
+TestFlight is Apple's platform for distributing pre-release versions of iOS apps to testers. Follow these steps to publish the mobile app to TestFlight:
+
+\begin{enumerate}
+    \item \textbf{Prepare the Xcode Project}: Ensure that the Xcode project for the iOS app is configured and tested locally. Make sure that all necessary provisioning profiles and certificates are set up in Xcode.
+    
+    \item \textbf{Archive the App}: Archive the iOS app using Xcode's archive feature. This will generate an archive file containing the app binary and metadata.
+    
+    \item \textbf{Upload to App Store Connect}: Use Xcode or the Transporter app to upload the app archive to App Store Connect, Apple's platform for managing app submissions.
+    
+    \item \textbf{Submit for Review}: Once the app archive is uploaded, submit the app for review to initiate the App Store review process. Apple will review the app to ensure that it meets the App Store guidelines and policies.
+    
+    \item \textbf{Beta Testing with TestFlight}: After the app passes review, it will be available for beta testing in TestFlight. Invite testers to join the beta testing group and distribute the app for testing.
+    
+    \item \textbf{Collect Feedback}: Gather feedback from testers using TestFlight's feedback feature. Use this feedback to identify and fix any issues before releasing the app to the App Store.
+\end{enumerate}
+
+By following these deployment steps, you can make the server-side and mobile components of the application accessible to users for testing and use.
+
+
 
 
 \begin{kiconclusions}
 Conclusions
+
+In this project, we embarked on a comprehensive journey to develop a modern iOS application integrated with a Vapor server backend, exploring various facets of software engineering along the way. From the foundational principles of server-side Swift development to the intricacies of iOS app design using SwiftUI, we delved into the heart of contemporary software development practices. As we wrap up this project, it's essential to reflect on the insights gained and the lessons learned throughout the process.
+
+One of the most significant revelations of this project is the power and versatility of server-side Swift with Vapor. Leveraging Vapor's expressive syntax and powerful libraries, we were able to construct a robust backend infrastructure capable of handling complex business logic and serving data to our iOS client application. The ease of use and efficiency of server-side Swift development proved to be instrumental in accelerating the development process, allowing us to focus more on implementing features and less on boilerplate code.
+
+On the frontend, SwiftUI emerged as a game-changer in iOS app development. Its declarative syntax and live preview capabilities revolutionized the way we design and build user interfaces. With SwiftUI, we could create dynamic and responsive UIs with significantly less code compared to traditional UIKit development. The ability to compose complex layouts using SwiftUI's view modifiers and stacks empowered us to craft visually stunning interfaces while maintaining a high degree of flexibility and scalability.
+
+One of the most rewarding aspects of this project was the seamless integration of the frontend and backend components. By adopting a unified development approach with Swift, we were able to establish a tight coupling between the iOS app and the Vapor server, enabling seamless data exchange and real-time updates. This integration not only streamlined the development process but also enhanced the overall user experience by ensuring consistency and coherence across the application.
+
+Throughout the deployment phase, we gained valuable insights into best practices for deploying server-side and mobile applications. Deploying the Vapor server to Heroku provided us with a scalable and reliable hosting solution, while publishing the iOS app to TestFlight allowed us to distribute pre-release versions to testers for feedback and testing. These deployment strategies underscored the importance of following industry best practices to ensure that our application is accessible, secure, and performant in production environments.
+
+Looking back on this project, it's clear that continuous learning and improvement are integral to the software development process. As technology evolves and new tools and frameworks emerge, staying abreast of the latest trends and best practices becomes paramount. This project has provided us with a solid foundation in modern software development methodologies, equipping us with the skills and knowledge to tackle future challenges and projects with confidence.
+
+In conclusion, this project has been a transformative journey, both personally and professionally. From mastering the intricacies of server-side Swift development to crafting elegant user interfaces with SwiftUI, we have pushed the boundaries of what is possible with the Swift programming language. As we move forward, we carry with us the invaluable lessons learned from this project, confident in our ability to tackle new challenges and make meaningful contributions to the ever-evolving field of software engineering.
+
 \end{kiconclusions}
+
 
 %% Přílohy obsahu textu práce, za makrem \appendix.
 \appendix
