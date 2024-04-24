@@ -298,6 +298,8 @@ extension SomeModel {
 }
 \end{kicode}
 
+\subsubsection{Working with the database}
+Vapor offers methods for working with the database directly in the Model protocol. The methods serve to create a database request and return the QueryBuilder type. Records can be filtered using the filter function, which takes as a parameter a predicate that the returned records must meet. The processing of the database request is processed asynchronously. The resulting records from the database can be obtained, for example, using the first (first record) or all (all records) methods.
 
 
 
