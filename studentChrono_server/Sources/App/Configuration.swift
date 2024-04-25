@@ -10,6 +10,6 @@ import Vapor
 enum Configuration {
     
     static let baseApi: PathComponent = "api"
-    static let tokenExpiryDate: DateComponents = DateComponents(year: 4 )
+    static let tokenExpiryDate: DateComponents = DateComponents(year: 1)
     
 }
