@@ -17,13 +17,13 @@
 
 \documentclass[
 %  printversion,
- % biblatex,
+  biblatex,
   language=english,
 %  font=sans,
   figures=false,
 %  tables=false,
   sourcecodes,
-%  glossaries,
+  glossaries,
   index
 ]{kidiplom}
 
@@ -174,12 +174,12 @@ For mobile application programming, the programmer must realize that the applica
 \subsubsection{Application life cycle}
 As the application works and changes its state, the programmer must adjust its behavior to suit the current state. For example, if an application is in the background, it should not perform any activity. \ref{fig:image2} shows individual possible states that make up the life cycle of the application\cite{bib4}.
 
-%\begin{figure}[t]
-%\centering
-%\includegraphics[width=8cm]{image2}
-%\capition{Lifecyle of iOS application}
-%\label{fig:image2}
-%\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm]{image2}
+\caption{Lifecyle of iOS application}
+\label{fig:image2}
+\end{figure}
 
 The picture shows that the application does not work at the beginning. At startup, the main window is inactive and the application has time to load the necessary data. Due to the imprecise name of the state, it should be noted that the inactive application is actually still running in the foreground, but is not receiving any events. After loading the data, the application is presented to the user and events are sent to it. From this state, however, it can go into the background at any time, but it must go through the inactive state again. In the background, the application is then expected not to work or, with certain exceptions, to work only minimally. Another possible state is suspend, which the application enters when its code cannot be executed.
 
@@ -235,12 +235,12 @@ When programming a server application, it is necessary to configure the server f
 A frequently required practice is for the server application to always respond to the client with a message containing at least information on whether the request was processed correctly.
 Although such a simple application will work correctly under certain circumstances, today's trend considers it incapable of normal functioning. If a new request arrives while the previous one is being processed, this request is ignored. To avoid dropping the right request due to load, requests can be stored in an array and processed sequentially. However, stored requests may not be processed quickly enough, so their time may run out. Therefore, processes and or threads are used. The application then has one main process that waits for requests in an infinite loop.
 
-%\begin{figure}[t]
-%\centering
-%\includegraphics[width=8cm]{image1}
-%\capition{Parallelisation of request handling}
-%\label{fig:image1}
-%\end{figure}
+\begin{figure}[h]
+\centering
+\includegraphics[width=10cm]{image1}
+\caption{Parallelisation of request handling}
+\label{fig:image1}
+\end{figure}
 
 After receiving the request, the main process creates a new thread to handle the request and then continues to wait. The child thread processes the request, performs some operations, and sends the response back to the client. \ref{fig:image1} shows such a parallel reception of a request. The programmer then creates routes for individual supported request types and their possible variants or subsets. Paths have an identifier and some functionality. Thanks to the Identifier, it is possible to further divide the resources of the server application.
 
@@ -248,7 +248,7 @@ After receiving the request, the main process creates a new thread to handle the
 The Vapor framework was created for creating server-side applications. It is a library with an expressive, protocol-oriented design focused on type safety. Vapor directly supports authentication using Basic or Bearer algorithms. It also supports working with database systems such as MySQL, PostgreSQL, SQLite and MongoDB. It allows you to create HTML templates, it also allows you to create client and server applications using HTTP and many other concepts.
 
 \subsubsection{Vapor basics}
-Like any server application, an application created in the Vapor framework waits in an infinite loop for queries. To do this, Vapor uses concurrency, which allows an endless loop processing input and output processes. In order to ensure the processing of as many requests arriving at a similar time as possible, it is possible to operate processes from several threads. Working with processes is based on the modern Async/Await principle, which simplifies work with multiple threads and asynchronous processes.
+Like any server application, an application created in the Vapor framework\cite{bib5} waits in an infinite loop for queries. To do this, Vapor uses concurrency, which allows an endless loop processing input and output processes. In order to ensure the processing of as many requests arriving at a similar time as possible, it is possible to operate processes from several threads. Working with processes is based on the modern Async/Await principle, which simplifies work with multiple threads and asynchronous processes.
 This principle works in such a way that an asynchronous process is executed on another thread, while an object representing the result of the asynchronous code obtained sometime in the future is created in the current thread. It is possible to call other functions above this object and thereby determine further processing of the asynchronous result.
 
 \subsubsection{Request routing}
@@ -301,7 +301,785 @@ extension SomeModel {
 \subsubsection{Working with the database}
 Vapor offers methods for working with the database directly in the Model protocol. The methods serve to create a database request and return the QueryBuilder type. Records can be filtered using the filter function, which takes as a parameter a predicate that the returned records must meet. The processing of the database request is processed asynchronously. The resulting records from the database can be obtained, for example, using the first (first record) or all (all records) methods.
 
+\section{Analysis}
+In this chapter, I analyze existing solutions, define requirements, outline use cases, and examine the integration of the iOS application with API.
 
+\subsection{Existing solutions}
+\subsubsection{Todoist}
+Todoist is a popular task management application known for its simplicity and powerful features. It allows users to create tasks, organize them into projects and labels, set due dates and priorities, and collaborate with others. Main functionalities:
+\begin{itemize}
+	\item Task creation and organization
+	\item Prioritization with labels and priority levels
+	\item Due dates and reminders
+	\item Collaboration features for sharing tasks and projects
+	\item Integration with calendars, emails, and other applications
+\end{itemize}
+
+\subsubsection{Trello}
+Trello is a flexible and visual task management tool based on the concept of Kanban boards. It allows users to create boards, lists, and cards to organize tasks and projects in a highly customizable way. Main functionalities:
+\begin{itemize}
+	\item Kanban-style task boards for organizing tasks into lists
+	\item Drag-and-drop functionality for easy task management
+	\item Customizable task cards with labels, due dates, and 
+	\item Collaboration features for team 
+	\item Integration with third-party tools and services
+ \end{itemize}
+
+\subsubsection{Jira}
+Jira is a widely used project management tool developed by Atlassian. It is designed for agile teams and offers features for planning, tracking, and releasing software projects. Main Functionalities:
+\begin{itemize}
+	\item Agile project management with Scrum and Kanban boards
+	\item Issue tracking and workflow management
+         \item Customizable dashboards and reports
+	\item Integration with development tools such as Git, Bitbucket, and Jenkins
+	\item Extensive plugin ecosystem for additional functionalities
+\end{itemize}
+
+\subsection{Requirements}
+Functional and nonfunctional requirements’ of iOS and server applications are based on the main functionalities of applications that i analyzed in previous section. Some of the requirements are also based on simplicity of use, eliminating problems of corporation-aimed tools and providing users native OS experience.
+
+\subsubsection{Functional requirements}
+
+\subsubsubsection{Authentication}
+User can register by providing name, surname, birthday and email or log in to the application through email and password. The application supports two roles - student and teacher. Role is selected during registration, only users older than 18 years can be teachers. User can log out of the application and delete account if needed.
+
+\subsubsubsection{List of tasks}
+User with role teacher can see all tasks he created. User with role student can see all the tasks he was assigned, their current status, author and deadline. 
+
+\subsubsubsection{Work with tasks}
+User with role teacher can create tasks, assign them to his students and control task elaboration. User can provide comments and files for task elaboration in form of comments.
+
+\subsubsubsection{List of students}
+User with role teacher can add students and delete them. He laso can history of their tasks.
+
+\subsubsubsection{User profile}
+Every user has it's own profile and can upload profile picture. User with role student also sees his histor of ongoing and closed tasks.
+
+\subsubsubsection{Feedback}
+Every user can send feedback for app developer providing text and optionally screenshot of a problem.
+
+\subsubsection{Nonfunctional reqirements}
+\subsubsubsection{Operating system}
+Mobile application supports operating system iOS 17.
+
+\subsubsubsection{Frameworks}
+Mobile application  uses SwiftUI as UI framework. Server application is written in Swift 5 using Vapor framework.
+
+\subsubsubsection{Server architecture}
+Server application implements REST API and conforms to its design principles.
+
+\subsubsubsection{Authorization}
+User is authorized through Bearer token for all endpoints that require authorization.
+
+\subsubsubsection{User interface}
+User interface is designed to be native and user-friendly. It utilizes best practices of native iOS development and is inspired by system iOS applications.
+
+\subsection{Use cases}
+
+There are two user roles in the application - student and teacher. The use case diagram Figure \ref{fig:image3} shows activities that they can do.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=15cm]{image3}
+\caption{Use case diagram}
+\label{fig:image3}
+\end{figure}
+
+\section{Mobile Application Design and Architecture}
+In this chapter i dive in software and graphic design aspects of the applications. In the first part I provide overview of design and architecture of mobile application and reasons for choosing it.
+\subsection{Architecture}
+I have chosen Clean Architecture, so whole application is separated into three layers according to the Clean Architecture principles. Layers are Presentation, Domain and Data Figure \ref{fig:image4} shows dependencies between layers. Further in the text I will dive into details of each layer.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=15cm]{image4}
+\caption{Depenencies in Clean Architecture}
+\label{fig:image4}
+\end{figure}
+
+Mobile app utilizes advanced modularisation with SPM(Swift Package Manager), so each layer is divided to logical parts. It also improves application build time, which is crucial during app development.
+
+\subsubsection{Application Layer}
+Application Layer isn't a part of traditional Clean Architecture representation, but is crucial for application lifecycle. As displayed in Figure \ref{fig:image5} it contains:
+\begin{itemize}
+	\item Dependency Injection Package - helps to utilize dependency inversion and single responsibility principles by decoupling the usage of objects from its creations. Use case, providers and toolkits are registered here, and then used in other parts of application.
+	\item Info folder - contains all \texttt{Info.plist} and other privacy files needed for application start.
+	\item AppDelegate - object that manages app's shared behaviors.
+	\item AppFlowController, MainFlowController - top-level flow controllers of the application
+\end{itemize}
+
+These parts of the application are not suitable for the other layers, so they are in their own layer - Application.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=8cm]{image5}
+\caption{Application Layer}
+\label{fig:image5}
+\end{figure}
+
+\subsubsection{Presentation Layer}
+Presentation layer handles the user interface of application. It is represented by FlowControllers and ViewModels + Views. This layer follows MVI architecture - each ViewModel has its state and intents, which are then used in a relevant SwiftUI View. Asynchronous functions are represented via native \texttt{async/await}.
+Every app feature has its own presentation module (Onboarding / Tasks / Profile / Others) that contains Views + ViewModels. 
+
+\subsubsubsection{FlowControllers}
+Flow controllers control the flow of the app. All feature parts of the app should have their own flow controller, such as \texttt{OnboardingFlowController}, \texttt{AuthFlowController} etc. \texttt{AppFlowController} is the top-level flow controller, and it's defined in the Application layer. All flow controllers are a subclass of the \texttt{FlowController} class, which provides a common interface for all flow controllers. Flow controllers therefore inherit the \texttt{handleFlow()} method, which should be used in the view models to handle the flow. \texttt{handleFlow()} takes a parameter of type \texttt{Flow}, which is just an empty protocol, but all subflow enums (\texttt{OnboardingFlow}, \texttt{AuthFlow}, ...), which come with the feature flow controllers (\texttt{OnboardingFlowController}, \texttt{AuthFlowController}, ...), conform to this protocol, so that they can be used as the parameter of that method.
+
+\begin{kicode}{Swift}{}{Flow Example}
+enum AuthFlow: Flow, Equatable {
+    case auth(Auth)
+    case login(Login)
+    case registration(Registration)
+    
+    enum Auth: Equatable {
+        case showLogin
+        case showRegistration
+    }
+    
+    enum Login: Equatable {
+        case login(UserRoleEnum)
+    }
+    
+    enum Registration: Equatable {
+        case register
+    }
+}
+\end{kicode}
+
+In this example, we then implement how the \texttt{ProfileFlowController} handles specific flows.
+
+\begin{kicode}{Swift}{}{Flow Example}
+override public func handleFlow(_ flow: 
+	guard let authFlow = flow as? AuthFlow else { return }
+        switch authFlow {
+        case .auth(let authFlow): handleAuthFlow(authFlow)
+        case .login(let loginFlow): handleLoginFlow(loginFlow)
+        case .registration(let registrationFlow): handleRegistrationFlow(registrationFlow)
+        }
+}
+\end{kicode}
+
+\subsubsubsection{Views and View Models}
+Each top level View has its own ViewModel, that hadle state of entire view and passes data via \texttt{State} struct and \texttt{onIntent(Intent)} function handles interaction with View.
+
+\begin{kicode}{Swift}{}{ViewModel Example}
+final class SomeViewModel: BaseViewModel, ViewModel, ObservableObject {
+
+    // MARK: Dependencies
+    private weak var flowController: FlowController?
+
+    @Injected(\.someUseCase) private var someUseCase
+
+    init(flowController: FlowController?) {
+        self.flowController = flowController
+        super.init()
+    }
+
+    // MARK: State
+    struct State {
+        var isLoading = false
+        var items: [SomeDomainModel] = []
+        var someInput = ""
+        var alertData: AlertData?
+    }
+
+    @Published private(set) var state: State = State()
+
+    // MARK: Intent
+    enum Intent {
+        case changeInput(to string: String)
+        case cancel
+    }
+
+    func onIntent(_ intent: Intent)  {
+        executeTask(Task {
+            switch intent {
+            case .changeInput(let string): changeInput(to: string)
+            case .cancel: cancel()
+            }
+        })
+    }
+
+    private func changeInput(to string: String) {
+        state.someInput = string
+    }
+
+    private func cancel() {
+        flowController?.handleFlow(SomeFlow.flow(.dismiss))
+    }
+}
+\end{kicode}
+
+The \texttt{executeTask()} function serves to handle tasks in each view model, so that all tasks will be cancelled when the view disappears.
+
+\begin{kicode}{Swift}{}{View Example}
+struct SomeView: View {
+
+    @ObservedObject private var viewModel: SomeViewModel
+
+    init(viewModel: SomeViewModel) {
+        self.viewModel = viewModel
+    }
+
+    var body: some View {
+        SomeBackgroundView {
+            VStack {
+                SomeSubview(someInput: Binding<String>(
+                    get: { viewModel.state.someInput },
+                    set: { string in viewModel.onIntent(.changeInput(to: string)) }
+                ))
+
+                Button("Cancel") {
+                    viewModel.onIntent(.cancel)
+                }
+            }
+        }
+    }
+}
+\end{kicode}
+
+
+\subsubsection{Domain Layer}
+Domain layer reflect the whole business logic of the application via DomainModels and UseCases. It also defines protocols for repositories. This layer is separated into logical parts by feature.
+
+\subsubsubsection{Domain models}
+Domain models are used as the standard way to represent objects in the application. These models are used when passing data between layers
+App should only use these domain models and not models from some third-party libraries, as that would make the app strictly dependent on those specific libraries.  These models are defined under the Models directory for each logical part.
+
+\begin{kicode}{Swift}{}{Domain Model Example}
+public struct AuthToken: Equatable, Codable {
+    public let userId: String
+    public let token: String
+    
+    public init(
+        userId: String,
+        token: String
+    ) {
+        self.userId = userId
+        self.token = token
+    }
+}
+\end{kicode}
+
+\subsubsubsection{Use Cases and their implementations}
+Use cases represent the business logic functionalities. The presentation layer only calls these use cases, and that's where its responsibility ends. Use cases can call repository functions and other use cases. Each Use Case is represented by a protocol defining the \texttt{execute} function, allowing us to create more implementations, mocks, etc. Dependency Injection is then responsible for selecting the correct use case implementation. 
+
+\begin{kicode}{Swift}{}{UseCase example}
+public protocol SomeUseCase {
+    func execute() async throws
+}
+
+public struct SomeUseCaseImpl: SomeUseCase {
+    
+    private let repository: SomeRepository
+    
+    public init(repository: SomeRepository) {
+        self.repository = repository
+    }
+    
+    public func execute() async throws {
+        try await someRepository.doSomething()
+    }
+}
+\end{kicode}
+
+\subsubsubsection{Repositories}
+Domain layer defines protocols for repositories - functions and their interfaces. Repositories are created for each logical part of applcaition.
+
+\subsubsection{Data Layer}
+Data layer is responsible for providing data via repositories and providers from network. It is separated into \texttt{Toolkits} and \texttt{Providers}. There is a toolkit for each logical part of the domain layer. These toolkits provide repository implementations and relevant \texttt{NetworkModels}, \texttt{NetworkEndpoints}, etc. \texttt{Providers} define provider protocols and implementations.
+
+\subsubsubsection{Repository implementation}
+Repository implementations use providers and add some business logic. They're independent of the specific provider implementation. Repositories are registered for dependency injection in \texttt{DependencyInjection/Repositories.swift}
+
+\begin{kicode}{Swift}{}{Repository Implementation Example}
+public struct SomeRepositoryImpl: SomeRepository {
+    
+    private let networkProvider: NetworkProvider
+    
+    public init(networkProvider: NetworkProvider) {
+        self.networkProvider = networkProvider
+    }
+    
+    public func someRepositoryMethod() async throws {
+        try await networkProvider.request(SomeAPI.someEndpointNoParams)
+    }
+}
+\end{kicode}
+
+\subsubsubsection{Providers implementation}
+Providers are used for handling data sources. A provider is defined by protocol, each can have multiple implementations, for example, one using a third-party library, and another one using our own custom implementation. They also have to be registered for dependecy injection in \texttt{DependencyInjection/Providers.swift}
+
+\begin{kicode}{Swift}{}{Provider Example}
+public protocol KeychainProvider {
+    
+    /// Try to read a value for the given key
+    func read(_ key: KeychainCoding) throws -> String
+
+    /// Create or update the given key with a given value
+    func update(_ key: KeychainCoding, value: String) throws
+
+    /// Delete value for the given key
+    func delete(_ key: KeychainCoding) throws
+
+    /// Delete all records
+    func deleteAll() throws
+}
+
+public struct SystemKeychainProvider: KeychainProvider {
+    public init() {}
+    
+    public func read(_ key: KeychainCoding) throws -> String {
+        guard let bundleId = Bundle.app.bundleIdentifier else { throw KeychainProviderError.invalidBundleIdentifier }
+        let keychain = Keychain(service: bundleId)
+        guard let value = try? keychain.get(key.rawValue) else { throw KeychainProviderError.valueForKeyNotFound }
+        return value
+    }
+    
+    public func update(_ key: KeychainCoding, value: String) throws {
+        guard let bundleId = Bundle.app.bundleIdentifier else { throw KeychainProviderError.invalidBundleIdentifier }
+        let keychain = Keychain(service: bundleId)
+        try keychain.set(value, key: key.rawValue)
+    }
+    
+    public func delete(_ key: KeychainCoding) throws {
+        guard let bundleId = Bundle.app.bundleIdentifier else { throw KeychainProviderError.invalidBundleIdentifier }
+        let keychain = Keychain(service: bundleId)
+        try keychain.remove(key.rawValue)
+    }
+    
+    public func deleteAll() throws {
+        for key in KeychainCoding.allCases {
+            try delete(key)
+        }
+    }
+}
+\end{kicode}
+
+\subsection{Design}
+In this section, I list designed key components and their responsibilities.
+
+\subsubsection{Screens}
+Here I present main Views of the iOS application. Each of them has corresponding viewmodel.
+\begin{itemize}
+	\item \texttt{LoginView} and \texttt{RegistrationView}
+	\item \texttt{TasksView}
+	\item \texttt{CreateTaskView}
+	\item \texttt{ProfileView}
+\end{itemize}
+
+\subsubsection{Server connection}
+Below I list important data providing components with their description.
+\begin{itemize}
+	\item Models
+	\begin{itemize}
+		\item \texttt{User} - student or teacher;
+		\item \texttt{Task}
+		\item \texttt{AuthToken}
+		\item \texttt{Message} - item of task elaboration
+	\end{itemize}
+	\item Repositories
+	\begin{itemize}
+		\item \texttt{AuthRepository}
+		\item \texttt{UserRepository}
+		\item \texttt{StudentsRepository}
+		\item \texttt{TaskRepository}
+		\item \texttt{FeedbackRepository}
+	\end{itemize}
+	\item Providers
+	\begin{itemize}
+		\item \texttt{NetworkProvider}
+		\item \texttt{UserDefaultsProvider}
+		\item \texttt{KeyChainProvider}
+	\end{itemize}
+\end{itemize}
+
+\subsection{User Interface}
+In this chapter, I describe the application's UI. User interface was designed based on native system look and Apple Human Interface Guidelines.
+
+\subsubsection{Login and registration screen}
+These screens in Figure \ref{fig:image6-7} consist mainly from \texttt{TextField} for entering needed information.
+\begin{figure}[ht]
+\centering
+\begin{minipage}[b]{0.4\textwidth}
+	\includegraphics[height=10cm]{image6}
+\end{minipage}
+\begin{minipage}[b]{0.4\textwidth}
+	\includegraphics[height=10cm]{image7}
+\end{minipage}
+\caption{Login and registration views}
+\label{fig:image6-7}
+\end{figure}
+
+\subsubsection{Tasks list and task detail screen}
+\texttt{TasksView} shows all the tasks. This view consist of \texttt{List} component and custom \texttt{TaskRowView} implementation to show information about task.
+\texttt{TaskDetailView} provides information about task details and its elaboration in form of conversation with option to upload files if needed.
+
+\begin{figure}[ht]
+\centering
+\begin{minipage}[b]{0.4\textwidth}
+	\includegraphics[height=10cm]{image8}
+\end{minipage}
+\begin{minipage}[b]{0.4\textwidth}
+	\includegraphics[height=10cm]{image9}
+\end{minipage}
+\caption{Task List and Task Detail}
+\label{fig:image8-9}
+\end{figure}
+
+\subsubsection{Create task screen}
+This is one of the key screens of the entire application. Here teachers can create tasks, provide a description, deadline, priority and assign them to students.
+
+\begin{figure}[ht]
+\centering
+\begin{minipage}[b]{0.4\textwidth}
+	\includegraphics[height=10cm]{image10}
+\end{minipage}
+\begin{minipage}[b]{0.4\textwidth}
+	\includegraphics[height=10cm]{image11}
+\end{minipage}
+\caption{Create task screen}
+\label{fig:image10-11}
+\end{figure}
+
+\subsubsection{Profile screen}
+Here users can update their personal information, such as name and surname, upload profile photo and update their password if needed.
+\begin{figure}[ht]
+\centering
+\includegraphics[height=10cm]{image12}
+\caption{Profile Screen}
+\label{fig:image12}
+\end{figure}
+
+\section{Server-side application design}
+In this chapter I dive into designing architecture of web application and explain my decisions.
+
+\subsection{MVC architecture}
+Server-side applications often use the Model-View-Controller (MVC) architectural pattern, which separates the application into three interconnected components:
+
+\begin{itemize}
+	\item \texttt{Model}  - represents the data and business logic of the application. It encapsulates the underlying data structures, performs data manipulation operations, and enforces business rules. In web applications, models typically correspond to database tables or external data sources and define the structure and behavior of the data.
+	\item \texttt{View} - handles the presentation layer of the application, responsible for rendering data and generating responses to client requests. In API applications, views are often represented as JSON representations of the underlying data. Views in backend applications focus on serializing data into a format that can be easily consumed by clients.
+	\item \texttt{Controller} - acts as an intermediary between the model and the view, handling incoming requests, processing data, and generating appropriate responses. They contain route handlers that define the behavior of different endpoints in the application. They parse incoming requests, invoke the appropriate business logic in the model layer, and format the response data for the client.
+\end{itemize}
+
+\subsection{Routing}
+Routing is a fundamental aspect of server-side applications, defining how incoming requests are mapped to specific controller actions. Routes in API applications are typically configured using a routing table or configuration file, which maps URL patterns to corresponding controller actions. Routes specify the HTTP method (GET, POST, PUT, DELETE) and URL path for each endpoint, allowing to define the behavior of different API endpoints.
+
+\subsection{Middleware}
+Middleware are components that intercept incoming requests and outgoing responses, allowing to add additional functionality to the request-response lifecycle. Common uses of middleware in API applications include authentication, authorization, request logging, error handling, and request validation. Middleware can be chained together to create a middleware pipeline, where each middleware component processes the request and passes it on to the next component in the pipeline.
+
+\section{Implementation}
+This chapter is about the implementation of the iOS and server-side applications which I implemented by architecture and design described in the earlier chapter. I point out some interesting implementation parts and decisions I made. The project with all source code can be found in the public \href{https://github.com/maxkup19/bachelor-thesis}{GitHub repository}.
+
+\subsection{iOS application}
+\subsubsection{User interface development}
+Mobile application is created based on design provided in previous parts using primarily SwiftUI framework. \texttt{Tasks screen} that is considered as main application's screen is presented by \texttt{TasksView}. It consists of \texttt{TaskList} if tasks are present, and \texttt{ContentUnavailabelView} otherwise. The screen has title "Tasks" and button to create a new task if user role is teacher.
+
+\begin{kicode}{Swift}{}{TasksView}
+struct TasksView: View {
+    @ObservedObject private var viewModel: TasksViewModel
+    init(viewModel: TasksViewModel) {
+        self.viewModel = viewModel
+    }
+    var body: some View {
+        VStack {
+            if !viewModel.state.isLoading && viewModel.state.tasks.isEmpty {
+                ContentUnavailableView(
+                    "No tasks",
+                    systemImage: "list.bullet",
+                    description: Text("You have no tasks available")
+                )
+            } else {
+                TasksList(
+                    tasks: viewModel.state.tasks,
+                    onTaskTap: { id in viewModel.onIntent(.onTaskTap(id))},
+                    onRefresh: { viewModel.onIntent(.refreshTasks) }
+                )
+            }
+        }
+        .navigationTitle("Tasks")
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                if viewModel.state.showCreateButtonTask {
+                    Button(action: { viewModel.onIntent(.createTask) }) {
+                        AppTheme.Images.plus
+                    }
+                }
+            }
+        }
+    }
+}
+\end{kicode}
+
+Other views also have same structure, subviews don't have their own viewmodels, but the data is passed from high-level viewmodels. through initializers.
+
+ViewModels have a specific structure to conform to an MVI architecture, so it always has some \texttt{State} and enum \texttt{Intent}, taht contains all the intents that this ViewModel must handle.
+
+\begin{kicode}{Swift}{}{ViewModel protocol}
+public protocol ViewModel {
+    // Lifecycle
+    func onAppear()
+    func onDisappear()
+    
+    // State
+    associatedtype State
+    var state: State { get }
+    
+    // Intent
+    associatedtype Intent
+    func onIntent(_ intent: Intent)
+}
+\end{kicode}
+
+\subsubsection{Communication with server application}
+For communication with server \texttt{NetworkProvider Package} was created. It defines encodings used, provides protocol for describing \texttt{NetworkEndpoint} and \texttt{NetworkProvider}, implments \texttt{SystemNetworkProvider}.
+
+\begin{kicode}{Swift}{}{NetworkEndpoint Protocol}
+public protocol NetworkEndpoint {
+    /// The endpoint's base `URL`.s
+    var baseURL: URL { get }
+    /// The path to be appended to `baseURL` to form the full `URL`.
+    var path: String { get }
+    /// The HTTP method used in the request.
+    var method: NetworkMethod { get }
+    /// The headers to be used in the request.
+    var headers: [String: String]? { get }
+    /// The type of HTTP task to be performed.
+    var task: NetworkTask { get }
+}
+\end{kicode}
+
+\begin{kicode}{Swift}{}{NetworkProvider Protocol}
+public protocol NetworkProvider {   
+    /// Function for triggering a specified network call.
+    /// Automatically throws API errors.
+    ///
+    /// - parameter endpoint: NetworkTarget which specify API endpoint to be called.
+    /// - parameter withInterceptor: Optional parameter to specify whether build-in interceptor should be enabled.
+    /// - returns: Data from a network call.
+    ///
+    @discardableResult
+    func request(_ endpoint: NetworkEndpoint, withInterceptor: Bool) async throws -> Data
+}
+\end{kicode}
+
+Each logical part of application has its own toolkit to call specific APIs using \texttt{NetworkProvider}. As example I provide \texttt{AuthTookit}. It has own declaration of API endpoints and \texttt{AuthRepository} that makes these API calls.
+
+\begin{kicode}{Swift}{}{AuthAPI enum}
+enum AuthAPI {
+    case login(_ data: [String: Any])
+    case registration(_ data: [String: Any])
+}
+extension AuthAPI: NetworkEndpoint {
+    var baseURL: URL { URL(string: NetworkingConstants.baseURL + "api")! }
+    var path: String {
+        switch self {
+        case .login: "/auth/login"
+        case .registration: "/auth/signup"
+        }
+    }
+    var method: NetworkMethod {
+        switch self {
+        case .login, .registration: .post
+        }
+    }
+    var headers: [String: String]? { nil }
+    var task: NetworkTask {
+        switch self {
+        case let .login(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
+        case let .registration(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
+        }
+    }
+}
+\end{kicode}
+
+\begin{kicode}{Swift}{}{AuthRepository}
+public struct AuthRepositoryImpl: AuthRepository {
+    private let keychain: KeychainProvider
+    private let network: NetworkProvider
+    public init(keychainProvider: KeychainProvider, networkProvider: NetworkProvider) {
+        keychain = keychainProvider
+        network = networkProvider
+    }
+    
+    public func login(_ payload: LoginData) async throws {
+        do {
+            let data = try payload.networkModel.encode()
+            let authToken = try await network.request(AuthAPI.login(data), withInterceptor: false)
+                .map(NETAuthToken.self)
+                .domainModel
+            
+            try keychain.update(.authToken, value: authToken.token)
+            try keychain.update(.userId, value: authToken.userId)
+        } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .unauthorised {
+            throw AuthError.login(.invalidCredentials)
+        } catch {
+            throw AuthError.login(.failed)
+        }
+    }
+    
+    public func registration(_ payload: RegistrationData) async throws {
+        do {
+            let data = try payload.networkModel.encode()
+            let authToken = try await network.request(AuthAPI.registration(data))
+                .map(NETAuthToken.self)
+                .domainModel
+            
+            try keychain.update(.authToken, value: authToken.token)
+            try keychain.update(.userId, value: authToken.userId)
+        } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .conflict {
+            throw AuthError.registration(.userAlreadyExists)
+        } catch {
+            throw AuthError.registration(.failed)
+        }
+    }
+}
+\end{kicode}
+
+Then data provided by repositories is passed to ViewModels via injected UseCases.
+
+\subsection{Server application}
+The server application was written using the Vapor framework. To ensure the correct database schema, it was necessary to create migration structures responsible for the correct creation of tables and links between them. Another important part implemented is the authorization of access to the application's resources using the User and Token classes.
+
+\subsubsection{Access authorization}
+Authorization is handled using authorization codes (tokens), which are entered in the HTTP request header. An authorization token is sent to the mobile application in response to the login and registration. The application saves this token and adds it to the headers of other requests. Every request (except login and registration) must contain this token.
+
+\subsubsubsection{Token class}
+This class wraps the authorization token table. Token validation is then implemented by extending the class with the ModelTokenAuthenticatable protocol.
+
+\begin{kicode}{Swift}{}{Token class extension with the ModelTokenAuthenticatable protocol}
+extension Token: ModelTokenAuthenticatable {
+  static let valueKey = \Token.$value
+  static let userKey = \Token.$user
+  
+  var isValid: Bool {
+    guard let expiresAt else {
+      return false
+    }
+    return expiresAt > Date()
+  }
+}
+\end{kicode}
+
+\subsubsubsection{User class}
+The User class is used to manipulate the records of the user table. The class is extended by the createToken function, which creates a new token valid for a year and stores it in the database.
+
+\begin{kicode}{Swift}{}{Creating token for user}
+func createToken(source: SessionSourceEnum) throws -> Token {
+        let calendar = Calendar(identifier: .gregorian)
+        let expiryDate = calendar.date(byAdding: Configuration.tokenExpiryDate, to: .now)
+        return try Token(
+            userId: requireID(),
+            token: [UInt8].random(count: 16).base64,
+            source: source.rawValue,
+            expiresAt: expiryDate
+        )
+}
+\end{kicode}
+
+\subsubsubsection{Allowing access to authorized users only}
+In order to authorize the client based on the token in the HTTP header, it was necessary to mark the given path and at the same time call the authorization method in the body of the function as shown below. Itis a simplified version of the UserController structure that registers a path to retrieve information about the user.
+
+\begin{kicode}{Swift}{}{Authorized access handling}
+struct UserController: RouteCollection {
+    
+    func boot(routes: RoutesBuilder) throws {
+        let userRoutes = routes
+            .grouped(Configuration.baseApi)
+            .grouped(UserRoutes.base)
+            .grouped(Token.authenticator())
+
+        userRoutes.get(UserRoutes.me, use: getMe)
+    }
+   
+    private func getMe(req: Request) async throws -> UserResponse {
+        try req.auth.require(User.self).asUserResponse
+    }
+}
+\end{kicode}
+
+\subsubsection{Processing requests}
+The server application recognizes 21 different requests. Requests are distributed among route collection structures using structures that implement the RouteCollection protocol. All but two paths ("signup" and "login") are accessible only to authorized users using authorization tokens.
+
+\subsubsubsection{User registration}
+The code below shows a user registering. User inforamtion is obtained from HTTP body of a request. Then app checks whether user's email already exists in database. Aftert check, user is saved to db, accessToken is generated and sent back.
+
+\begin{kicode}{Swift}{}{User creation and saving to db}
+private func create(req: Request) async throws -> AuthResponse {
+        try SignupDTO.validate(content: req)
+        let signupDTO = try req.content.decode(SignupDTO.self)
+        
+        let user = try signupDTO.asUserModel()
+        var token: Token!
+        
+        guard try await getUserByEmail(user.email, req: req) == nil else {
+            throw Abort(.badRequest, reason: "User already exists!")
+        }
+        
+        try await user.save(on: req.db)
+        
+        guard let newToken = try? user.createToken(source: .signup) else {
+            throw Abort(.internalServerError, reason: "Create token failed")
+        }
+        
+        token = newToken
+        try await token.save(on: req.db)
+        
+        return try AuthResponse(
+            userId: user.requireID(),
+            token: token.value
+        )
+    }
+\end{kicode}
+
+\subsubsubsection{Role specific requests routing}
+Some endpoints can be accessed only by users with the teacher role. To ensure this I have created \texttt{EnsureUserIsTeacherMiddleware}. This helps to verify user role, before reaching an endpoint and create configurable routing depending on logic of application. Middleware responds to request and either aborts it if requirements are not met, or continues routing it for an actual endpoint.
+
+\begin{kicode}{Swift}{}{EnsureUserIsTeacherMiddleware}
+struct EnsureUserIsTeacherMiddleware: AsyncMiddleware {
+    func respond(to request: Request, chainingTo next: AsyncResponder) async throws -> Response {
+        guard let user = request.auth.get(User.self),
+              user.role == .teacher else {
+            throw Abort(.forbidden, reason: "Teacher role required")
+        }
+        return try await next.respond(to: request)
+    }
+}
+\end{kicode}
+
+\section{Deployment}
+
+Deploying API and iOS app is a crucial step in bringing software to production. Below, I cover the deployment process for both components.
+
+\subsection{Deploying the Server to Heroku}
+
+Heroku is a popular platform-as-a-service (PaaS) that simplifies the deployment process. To deploy API server, I have:
+
+\begin{enumerate}
+    \item \textbf{Prepared Application:} Ensured API server is configured correctly and meets Heroku's requirements, such as using a supported programming language and providing a \texttt{Procfile}.
+    \item \textbf{Created a Heroku Account:} Signed up for a Heroku account. Heroku offers a free tier that allows you to deploy and run applications with certain limitations.
+    \item \textbf{Installed the Heroku CLI:} Downloaded and installed the Heroku Command Line Interface (CLI). The CLI allows to interact with Heroku from the terminal.
+    \item \textbf{Login to Heroku:} Logged in to Heroku account from the terminal using the \texttt{heroku login} command.
+    \item \textbf{Created a New Heroku App:} Created a new Heroku app using the \texttt{heroku create} command. This generates a unique URL for application.
+    \item \textbf{Deployed Code:} Pushed code to Heroku's Git repository using the \texttt{git push heroku master} command. Heroku automatically builds and deploys application.
+    
+    \item \textbf{Configured Environment Variables:} Set required environment variables using the Heroku Dashboard. This includes sensitive information such as database credentials or API keys.
+\end{enumerate}
+After doing these steps, I have successfully deployed my app, and now it has its own URL \url{http://student-chrono-ff033acb5f18.herokuapp.com}
+
+\subsection{Publishing the iOS App to TestFlight}
+
+TestFlight is Apple's platform for distributing beta versions of iOS apps to testers before releasing them to the App Store. To publish iOS app to TestFlight, I have made these steps:
+
+\begin{enumerate}
+    \item \textbf{Prepared  app:} iOS app is fully tested and ready for beta testing. I've ensured it meets Apple's App Store Review Guidelines.
+    \item \textbf{Created an App Store Connect Record:} Logged in to App Store Connect with Apple Developer account and created a new app record for my iOS app.
+    \item \textbf{Build and Archive App:} Build my iOS app in Xcode and creatde an archive using the Archive feature.    
+    \item \textbf{Uploaded Build to App Store Connect:} Used Xcode's Organizer window to upload the app archive to App Store Connect. This submits app for review and processing.
+    \item \textbf{Distributed Beta Build:} Published my beta build to TestFlight, and testers are able to download and install the app on their iOS devices.
+ \end{enumerate}
+ 
+After doing these iOS app StudentChrono is available for public testing. Public test URL is \url{https://testflight.apple.com/join/ENm8Gj5q}
 
 \begin{kiconclusions}
 
@@ -313,7 +1091,7 @@ On the frontend, SwiftUI emerged as a game-changer in iOS app development. Its d
 
 One of the most rewarding aspects of this project was the seamless integration of the frontend and backend components. By adopting a unified development approach with Swift, I was able to establish a tight coupling between the iOS app and the Vapor server, enabling seamless data exchange and real-time updates. This integration not only streamlined the development process but also enhanced the overall user experience by ensuring consistency and coherence across the application.
 
-Throughout the deployment phase, I gained valuable insights into best practices for deploying server-side and mobile applications. Deploying the Vapor server to Heroku provided us with a scalable and reliable hosting solution, while publishing the iOS app to TestFlight allowed us to distribute pre-release versions to testers for feedback and testing. These deployment strategies underscored the importance of following industry best practices to ensure that our application is accessible, secure, and performant in production environments.
+Throughout the deployment phase, I gained valuable insights into best practices for deploying server-side and mobile applications. Deploying the Vapor server to Heroku provided a scalable and reliable hosting solution, while publishing the iOS app to TestFlight allowed to distribute pre-release versions to testers for feedback and testing. These deployment strategies underscored the importance of following industry best practices to ensure that our application is accessible, secure, and performant in production environments.
 
 Looking back on this project, it's clear that continuous learning and improvement are integral to the software development process. As technology evolves and new tools and frameworks emerge, staying abreast of the latest trends and best practices becomes paramount. This project has provided me with a solid foundation in modern software development methodologies, equipping with the skills and knowledge to tackle future challenges and projects with confidence.
 
@@ -330,10 +1108,11 @@ In conclusion, this project has been a transformative journey, both personally a
 \section{Sources} \label{sec:ObsahData}
 
 \begin{thebibliography}{9}
-\bibitem{bib1} \uppercase{Imperva} OSI Model [online] [cit. 20. april 2021]. Available at: \url{https://www.imperva.com/learn/application-security/osi-model/}.
+\bibitem{bib1} \uppercase{Imperva.} OSI Model [online] [cit. 20. april 2021]. Available at: \url{https://www.imperva.com/learn/application-security/osi-model/}.
 \bibitem{bib2} \uppercase{Hoffman, J.} Mastering Swift 4. Packt Publishing Ltd, 2017. ISBN978-1-78847-780-2.
 \bibitem{bib3} \uppercase{Apple.} The powerful programming language that is easy to learn. Swift [online]. [cit. 20. march 2021]. Available at: \url{https://developer.apple.com/swift/}.
 \bibitem{bib4} \uppercase{Apple.} Managing Your App’s Life Cycle: Respond to system notifications when your app is in the foreground or background, and handle other significant system-related events [online]. [cit. 19. february 2021]. Available at: \url{https://developer.apple.com/ documentation/uikit/app_and_environment/managing_your_app_s_life_cycle}.
+\bibitem{bib5} \uppercase{Vapor.} Vapor framework [online]. Available at: \url{https://vapor.codes}
 \end{thebibliography}
 
 %% Sazba volitelného rejstříku, za bibliografií.
