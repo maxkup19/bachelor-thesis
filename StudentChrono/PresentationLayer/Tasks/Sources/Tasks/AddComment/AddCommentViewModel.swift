@@ -82,10 +82,10 @@ final class AddCommentViewModel: BaseViewModel, ViewModel, ObservableObject {
         executeTask(Task {
             switch intent {
             case .addAttachmentTap: addAttachmentTap()
-            case .removeAttachmentTap: removeAttachmentTap()
+            case .removeAttachmentTap: await removeAttachmentTap()
             case .submit: await submitComment()
             case .commentTextChanged(let text): commentTextChanged(text)
-            case .pickerStateChanged(let state): pickerStateChanged(state)
+            case .pickerStateChanged(let state): await pickerStateChanged(state)
             case .photoPickerPresentedChanged(let presented): photoPickerPresentedChanged(presented)
             case .photoPickerItemChanged(let item): await photoPickerItemChanged(item)
             case .fileImporterPresentedChanged(let changed): fileImporterPresentedChanged(changed)
@@ -122,7 +122,6 @@ final class AddCommentViewModel: BaseViewModel, ViewModel, ObservableObject {
                 )
             )
             let _ = try await addMessageToTaskUseCase.execute(data)
-            print("DEBUGL ivsniofvois")
             flowController?.pop()
         } catch {
             state.alertData = .init(title: error.localizedDescription)
@@ -137,21 +136,20 @@ final class AddCommentViewModel: BaseViewModel, ViewModel, ObservableObject {
         }
     }
     
-    private func removeAttachmentTap() {
+    private func removeAttachmentTap() async {
         state.fileURL = nil
-        state.photoPickerItem = nil
-        state.loadedImage = nil
+        await photoPickerItemChanged(nil)
     }
     
     private func commentTextChanged(_ text: String) {
         state.commentText = text
     }
     
-    private func pickerStateChanged(_ pickerState: Int) {
+    private func pickerStateChanged(_ pickerState: Int) async {
         state.pickerState = pickerState
         switch pickerState{
-        case State.PickerState.file.rawValue: state.photoPickerItem = nil
-        case State.PickerState.image.rawValue: state.fileURL = nil
+        case State.PickerState.file.rawValue: await photoPickerItemChanged(nil)
+        case State.PickerState.image.rawValue: fileURLChanged(nil)
         default: break
         }
     }
@@ -170,6 +168,7 @@ final class AddCommentViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     private func fileURLChanged(_ url: URL?) {
+        print("DEBUG: \(url)")
         state.fileURL = url
     }
     

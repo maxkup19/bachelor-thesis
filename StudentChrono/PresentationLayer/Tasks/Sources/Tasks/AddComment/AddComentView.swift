@@ -47,14 +47,24 @@ struct AddComentView: View {
             if viewModel.state.photoPickerItem == nil && viewModel.state.fileURL == nil {
                 Button("Add Attachment", action: { viewModel.onIntent(.addAttachmentTap) })
             } else {
-                Button("Delete Attachment", role: .destructive, action: { viewModel.onIntent(.removeAttachmentTap) })
+                HStack {
+                    Button(
+                        "Delete Attachment",
+                        role: .destructive,
+                        action: { viewModel.onIntent(.removeAttachmentTap) }
+                    )
+                    
+                    Spacer()
+                    
+                    if let name = viewModel.state.fileURL?.lastPathComponent {
+                        Text(name)
+                    }
+                }
             }
             
-            if let image = viewModel.state.loadedImage {
-                image
-                    .resizable()
-                    .scaledToFit()
-            }
+            viewModel.state.loadedImage?
+                .resizable()
+                .scaledToFit()
             
         }
         .toolbar {
