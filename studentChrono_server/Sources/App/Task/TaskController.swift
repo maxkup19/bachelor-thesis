@@ -127,6 +127,8 @@ struct TaskController: RouteCollection {
         guard
             let taskId = UUID(changeTaskStateDTO.taskId),
             let task = try await Task.query(on: req.db)
+                .with(\.$author)
+                .with(\.$assignee)
                 .filter(\.$id, .equal, taskId)
                 .first()
         else {
