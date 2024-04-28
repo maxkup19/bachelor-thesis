@@ -69,10 +69,14 @@ struct AddComentView: View {
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button("**Submit**") {
-                    viewModel.onIntent(.submit)
+                if viewModel.state.isLoading {
+                    ProgressView()
+                } else {
+                    Button("**Submit**") {
+                        viewModel.onIntent(.submit)
+                    }
+                    .disabled(viewModel.state.commentText.isEmpty)
                 }
-                .disabled(viewModel.state.commentText.isEmpty)
             }
         }
         .fileImporter(

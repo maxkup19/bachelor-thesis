@@ -109,7 +109,12 @@ final class AddCommentViewModel: BaseViewModel, ViewModel, ObservableObject {
                 fileData = try await photo.loadTransferable(type: Data.self)
                 filename.append(".png")
             } else if let fileURL = state.fileURL {
+                guard fileURL.startAccessingSecurityScopedResource() else {
+                    state.alertData = .init(title: "Choose another file.")
+                    return
+                }
                 fileData = PDFDocument(url: fileURL)?.dataRepresentation()
+                fileURL.stopAccessingSecurityScopedResource()
                 filename.append(".pdf")
             }
 
@@ -168,7 +173,6 @@ final class AddCommentViewModel: BaseViewModel, ViewModel, ObservableObject {
     }
     
     private func fileURLChanged(_ url: URL?) {
-        print("DEBUG: \(url)")
         state.fileURL = url
     }
     
