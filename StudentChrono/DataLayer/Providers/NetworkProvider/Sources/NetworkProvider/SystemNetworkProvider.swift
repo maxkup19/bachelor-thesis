@@ -6,6 +6,7 @@
 //
 
 import OSLog
+import SharedDomain
 import UIKit
 
 public struct SystemNetworkProvider {
@@ -86,7 +87,7 @@ extension SystemNetworkProvider: NetworkProvider {
             if !(200...299).contains(httpResponse.statusCode) {
                 throw NetworkProviderError.requestFailed(
                     statusCode: NetworkStatusCode(rawValue: httpResponse.statusCode) ?? .unknown,
-                    message: String(data: data, encoding: .utf8) ?? ""
+                    message: try? data.map(NetworkProviderErrorResponse.self)
                 )
             }
         }

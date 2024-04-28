@@ -5,17 +5,14 @@
 //  Created by Maksym Kupchenko on 05.02.2024.
 //
 
-public enum AuthError: Error, Equatable {
-    case login(Login)
-    case registration(Registration)
+import Foundation
+
+public enum AuthError: Error, LocalizedError {
+    case authError(description: String?)
     
-    public enum Login {
-        case invalidCredentials
-        case failed
-    }
-    
-    public enum Registration {
-        case userAlreadyExists
-        case failed
+    public var errorDescription: String? {
+        switch self {
+        case .authError(let description): description
+        }
     }
 }

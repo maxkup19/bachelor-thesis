@@ -31,10 +31,8 @@ public struct AuthRepositoryImpl: AuthRepository {
             
             try keychain.update(.authToken, value: authToken.token)
             try keychain.update(.userId, value: authToken.userId)
-        } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .unauthorised {
-            throw AuthError.login(.invalidCredentials)
-        } catch {
-            throw AuthError.login(.failed)
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw AuthError.authError(description: message?.reason ?? "")
         }
     }
     
@@ -47,10 +45,8 @@ public struct AuthRepositoryImpl: AuthRepository {
             
             try keychain.update(.authToken, value: authToken.token)
             try keychain.update(.userId, value: authToken.userId)
-        } catch let NetworkProviderError.requestFailed(statusCode, _) where statusCode == .conflict {
-            throw AuthError.registration(.userAlreadyExists)
-        } catch {
-            throw AuthError.registration(.failed)
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw AuthError.authError(description: message?.reason)
         }
     }
     

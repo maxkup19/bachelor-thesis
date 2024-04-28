@@ -17,10 +17,18 @@ let package = Package(
             targets: ["NetworkProviderMocks"]
         )
     ],
+    dependencies: [
+        .package(name: "SharedDomain", path: "../../../DomainLayer/SharedDomain")
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
-        .target(name: "NetworkProvider"),
+        .target(
+            name: "NetworkProvider",
+            dependencies: [
+                .product(name: "SharedDomain", package: "SharedDomain")
+            ]
+        ),
         .target(
             name: "NetworkProviderMocks",
             dependencies: [

@@ -31,18 +31,18 @@ struct StudentsController: RouteCollection {
         let addStudentDTO = try req.content.decode(AddStudentDTO.self)
         
         guard let addStudent = try await getUserByEmail(addStudentDTO.email, req: req) else {
-            throw Abort(.internalServerError, reason: "User dont exist")
+            throw Abort(.internalServerError, reason: "User don't exist")
         }
         
         guard try user.requireID() != addStudent.requireID() else {
-            throw Abort(.conflict, reason: "Teacher and student must be different")
+            throw Abort(.conflict, reason: "You can't add yourself!")
         }
         guard !user.studentIds.contains(try addStudent.requireID()) else {
             throw Abort(.alreadyReported, reason: "This user is already your student")
         }
         
         guard addStudent.role == .student else {
-            throw Abort(.badRequest, reason: "You cant add another teacher as student")
+            throw Abort(.badRequest, reason: "You can't add another teacher as student")
         }
         
         user.studentIds.append(try addStudent.requireID())

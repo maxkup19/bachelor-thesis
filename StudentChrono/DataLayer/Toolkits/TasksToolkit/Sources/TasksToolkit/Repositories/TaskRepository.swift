@@ -20,36 +20,60 @@ public struct TaskRepositoryImpl: TaskRepository {
     
     public func createTask(_ payload: CreateTaskData) async throws {
         let data = try payload.networkModel.encode()
-        try await network.request(TaskAPI.createTask(data), withInterceptor: false)
+        do {
+            try await network.request(TaskAPI.createTask(data), withInterceptor: false)
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw TasksError.tasksError(description: message?.reason)
+        }
     }
     
     public func updateTask(_ payload: UpdateTaskData) async throws {
         let data = try payload.networkModel.encode()
-        try await network.request(TaskAPI.updateTask(data), withInterceptor: false)
+        do {
+            try await network.request(TaskAPI.updateTask(data), withInterceptor: false)
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw TasksError.tasksError(description: message?.reason)
+        }
     }
     
     public func getMyTasks() async throws -> [Task] {
-        try await network.request(TaskAPI.getMyTasks, withInterceptor: false)
-            .map([NETTask].self)
-            .map(\.domainModel)
+        do {
+            return try await network.request(TaskAPI.getMyTasks, withInterceptor: false)
+                .map([NETTask].self)
+                .map(\.domainModel)
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw TasksError.tasksError(description: message?.reason)
+        }
     }
     
     public func getTaskById(id: String) async throws -> Task {
-        try await network.request(TaskAPI.getTaskById(id), withInterceptor: false)
-            .map(NETTask.self)
-            .domainModel
+        do {
+            return try await network.request(TaskAPI.getTaskById(id), withInterceptor: false)
+                .map(NETTask.self)
+                .domainModel
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw TasksError.tasksError(description: message?.reason)
+        }
     }
     
     public func getStudentsTasks(id: String) async throws -> [Task] {
-        try await network.request(TaskAPI.getTasksForStudent(id), withInterceptor: false)
-            .map([NETTask].self)
-            .map(\.domainModel)
+        do {
+            return try await network.request(TaskAPI.getTasksForStudent(id), withInterceptor: false)
+                .map([NETTask].self)
+                .map(\.domainModel)
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw TasksError.tasksError(description: message?.reason)
+        }
     }
     
     public func addMessageToTask(_ payload: AddMessageToTaskData) async throws -> Task {
         let data = try payload.networkModel.encode()
-        return try await network.request(TaskAPI.addMessageToTask(data), withInterceptor: false)
-            .map(NETTask.self)
-            .domainModel
+        do {
+            return try await network.request(TaskAPI.addMessageToTask(data), withInterceptor: false)
+                .map(NETTask.self)
+                .domainModel
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw TasksError.tasksError(description: message?.reason)
+        }
     }
 }

@@ -19,24 +19,40 @@ public struct StudentsRepositoryImpl: StudentsRepository {
     
     public func addStudent(_ payload: AddStudentData) async throws {
         let data = try payload.networkModel.encode()
-        try await network.request(StudentsAPI.addStudent(data), withInterceptor: false)
+        do {
+            try await network.request(StudentsAPI.addStudent(data), withInterceptor: false)
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw StudentsError.studentsError(description: message?.reason)
+        }
     }
     
     public func removeStudent(_ payload: RemoveStudentData) async throws {
         let data = try payload.networkModel.encode()
-        try await network.request(StudentsAPI.removeStudent(data), withInterceptor: false)
+        do {
+            try await network.request(StudentsAPI.removeStudent(data), withInterceptor: false)
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw StudentsError.studentsError(description: message?.reason)
+        }
     }
     
     public func getMyStudents() async throws -> [User] {
-        try await network
-            .request(StudentsAPI.getMyStudents, withInterceptor: false)
-            .map([NETUser].self)
-            .map(\.domainModel)
+        do {
+            return try await network
+                .request(StudentsAPI.getMyStudents, withInterceptor: false)
+                .map([NETUser].self)
+                .map(\.domainModel)
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw StudentsError.studentsError(description: message?.reason)
+        }
     }
     
     public func getStudentById(_ id: String) async throws -> User {
-        try await network.request(StudentsAPI.getStudentById(id), withInterceptor: false)
-            .map(NETUser.self)
-            .domainModel
+        do {
+            return try await network.request(StudentsAPI.getStudentById(id), withInterceptor: false)
+                .map(NETUser.self)
+                .domainModel
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw StudentsError.studentsError(description: message?.reason)
+        }
     }
 }

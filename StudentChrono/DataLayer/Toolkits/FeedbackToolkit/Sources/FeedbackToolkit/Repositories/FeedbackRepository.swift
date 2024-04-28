@@ -18,6 +18,11 @@ public struct FeedbackRepositoryImpl: FeedbackRepository {
     
     public func sendFeedback(_ payload: CreateFeedbackData) async throws {
         let data = try payload.networkModel.encode()
-        try await network.request(FeedbackAPI.feedback(data), withInterceptor: false)
+        
+        do {
+            try await network.request(FeedbackAPI.feedback(data), withInterceptor: false)
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw FeedbackError.feedbackError(description: message?.reason)
+        }
     }
 }
