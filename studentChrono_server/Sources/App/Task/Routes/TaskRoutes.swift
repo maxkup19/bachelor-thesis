@@ -11,6 +11,7 @@ enum TaskRoutes {
     static let base: PathComponent = "task"
     static let all: PathComponent = "all"
     static let my: PathComponent = "my"
+    static let state: PathComponent = "state"
     
     static let message: PathComponent = "message"
     

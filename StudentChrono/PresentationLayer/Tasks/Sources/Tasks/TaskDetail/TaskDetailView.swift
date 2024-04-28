@@ -74,7 +74,12 @@ struct TaskDetailView: View {
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                // TODO: submit button for student and review button for teacher
+                if let title = viewModel.state.toolbarButtonTitle {
+                    Button(
+                        title,
+                        action: { viewModel.onIntent(.changeTaskState) }
+                    )
+                }
             }
         }
         .environment(\.isLoading, viewModel.state.isLoading)

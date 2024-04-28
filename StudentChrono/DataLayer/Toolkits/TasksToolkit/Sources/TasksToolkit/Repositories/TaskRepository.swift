@@ -36,6 +36,17 @@ public struct TaskRepositoryImpl: TaskRepository {
         }
     }
     
+    public func changeTaskState(_ payload: ChangeTaskStateData) async throws -> Task {
+        let data = try payload.networkModel.encode()
+        do {
+            return try await network.request(TaskAPI.changeTaskState(data), withInterceptor: false)
+                .map(NETTask.self)
+                .domainModel
+        } catch let NetworkProviderError.requestFailed(_, message) {
+            throw TasksError.tasksError(description: message?.reason)
+        }
+    }
+    
     public func getMyTasks() async throws -> [Task] {
         do {
             return try await network.request(TaskAPI.getMyTasks, withInterceptor: false)

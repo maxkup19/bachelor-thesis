@@ -12,6 +12,7 @@ import Utilities
 enum TaskAPI {
     case createTask(_ data: [String: Any])
     case updateTask(_ data: [String: Any])
+    case changeTaskState(_ data: [String: Any])
     case getMyTasks
     case getTaskById(_ id: String)
     case getTasksForStudent(_ id: String)
@@ -26,6 +27,7 @@ extension TaskAPI: NetworkEndpoint {
         case .updateTask: "/task"
         case .getMyTasks: "/task/my"
         case .getTaskById: "/task"
+        case .changeTaskState: "/task/state"
         case .getTasksForStudent: "/task/all"
         case .addMessageToTask: "/task/message"
         }
@@ -36,6 +38,7 @@ extension TaskAPI: NetworkEndpoint {
         case .updateTask: .patch
         case .getMyTasks: .get
         case .getTaskById: .get
+        case .changeTaskState: .post
         case .getTasksForStudent: .get
         case .addMessageToTask: .post
         }
@@ -51,6 +54,7 @@ extension TaskAPI: NetworkEndpoint {
         switch self {
         case let .createTask(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         case let .updateTask(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
+        case let .changeTaskState(data): .requestParameters(parameters: data, encoding: JSONEncoding.default)
         case .getMyTasks: .requestPlain
         case .getTaskById: .requestPlain
         case .getTasksForStudent: .requestPlain

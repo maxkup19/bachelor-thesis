@@ -20,6 +20,7 @@ struct TaskController: RouteCollection {
         taskRoutes.get(TaskRoutes.my, use: index)
         taskRoutes.get(use: getTaskById)
         taskRoutes.post(TaskRoutes.message, use: addMessageToTask)
+        taskRoutes.post(TaskRoutes.state, use: changeTaskState)
         
         let teacherRoutes = taskRoutes.grouped(EnsureUserIsTeacherMiddleware())
         teacherRoutes.post(use: createTask)
@@ -113,6 +114,37 @@ struct TaskController: RouteCollection {
         return task.asTaskResponse(comments: comments)
     }
     
+    private func changeTaskState(req: Request) async throws -> TaskResponse {
+        let user = try req.auth.require(User.self)
+        let changeTaskStateDTO = try req.content.decode(ChangeTaskStateDTO.self)
+        
+        guard (changeTaskStateDTO.taskState == .done && user.role == .teacher) ||
+                (changeTaskStateDTO.taskState == .review) && user.role == .student
+        else {
+            throw Abort(.badRequest, reason: "Invalid user roles")
+        }
+        
+        guard
+            let taskId = UUID(changeTaskStateDTO.taskId),
+            let task = try await Task.query(on: req.db)
+                .filter(\.$id, .equal, taskId)
+                .first()
+        else {
+            throw Abort(.badRequest, reason: "Task does not exist!")
+        }
+        
+        task.state = changeTaskStateDTO.taskState
+        try await task.save(on: req.db)
+        
+        let comments = try await Message.query(on: req.db)
+            .with(\.$author)
+            .filter(\.$id ~~ task.comments)
+            .all()
+            .map(\.asResponse)
+        
+        return task.asTaskResponse(comments: comments)
+    }
+    
     private func getTasksForStudentId(req: Request) async throws -> [TaskResponse] {
         let user = try req.auth.require(User.self)
         guard let studentId = UUID(req.headers.first(name: TaskRoutes.Parameter.studentId) ?? "") else { throw Abort(.badRequest)
@@ -157,7 +189,7 @@ struct TaskController: RouteCollection {
                 .filter(\.$id, .equal, taskId)
                 .first()
         else {
-            throw Abort(.internalServerError)
+            throw Abort(.badRequest, reason: "Task does not exist!")
         }
         
         task.title = updateTaskDTO.title

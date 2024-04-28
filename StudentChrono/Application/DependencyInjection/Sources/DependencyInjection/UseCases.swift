@@ -74,6 +74,12 @@ public extension Container {
     var addMessageToTaskUseCase: Factory<AddMessageToTaskUseCase> { self { AddMessageToTaskUseCaseImpl(
         taskRepository: self.taskRepository()
     )}}
+    var submitTaskForReviewUseCase: Factory<SubmitTaskForReviewUseCase> { self { SubmitTaskForReviewUseCaseImpl(
+        taskRepository: self.taskRepository()
+    )}}
+    var closeTaskUseCase: Factory<CloseTaskUseCase> { self { CloseTaskUseCaseImpl(
+        taskRepository: self.taskRepository()
+    )}}
     
     // Students
     var addStudentUseCase: Factory<AddStudentUseCase> { self { AddStudentUseCaseImpl(

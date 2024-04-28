@@ -22,6 +22,8 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
     
     @Injected(\.getTaskByIdUseCase) private var getTaskByIdUseCase
     @Injected(\.getCurrentUserUseCase) private var getCurrentUserUseCase
+    @Injected(\.submitTaskForReviewUseCase) private var submitTaskForReviewUseCase
+    @Injected(\.closeTaskUseCase) private var closeTaskUseCase
     
     init(
         taskId: String,
@@ -48,11 +50,21 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
         var user: User = .teacherStub
         var isLoading: Bool = false
         var alertData: AlertData?
+        
+        var toolbarButtonTitle: String? {
+            switch user.role {
+            case .teacher:
+                task.state == .review ? "Close task" : nil
+            case .student: task.state == .inProgress ? "Submit for review" : nil
+            default: nil
+            }
+        }
     }
     
     // MARK: - Intents
     enum Intent {
         case addComment
+        case changeTaskState
         case dismissAlert
     }
     
@@ -60,6 +72,7 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
         executeTask(Task {
             switch intent {
             case .addComment: addComment()
+            case .changeTaskState: await changeTaskState()
             case .dismissAlert: dismissAlert()
             }
         })
@@ -74,6 +87,25 @@ final class TaskDetailViewModel: BaseViewModel, ViewModel, ObservableObject {
         do {
             state.user = try await getCurrentUserUseCase.execute()
             state.task = try await getTaskByIdUseCase.execute(taskId: taskId)
+        } catch {
+            state.alertData = .init(title: error.localizedDescription)
+        }
+    }
+    
+    private func changeTaskState() async {
+        state.isLoading = true
+        defer { state.isLoading = false }
+
+        do {
+            switch state.user.role {
+            case .teacher: 
+                guard state.task.state == .review else { return }
+                state.task = try await closeTaskUseCase.execute(taskId: state.task.id)
+            case .student:
+                guard state.task.state == .inProgress else { return }
+                state.task = try await submitTaskForReviewUseCase.execute(taskId: state.task.id)
+            default: return
+            }
         } catch {
             state.alertData = .init(title: error.localizedDescription)
         }

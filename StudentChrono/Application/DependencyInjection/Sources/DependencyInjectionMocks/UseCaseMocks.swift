@@ -64,6 +64,14 @@ public extension Container {
         addMessageToTaskUseCaseSpy.executeReturnValue = Task.task1Stub
         addMessageToTaskUseCase.register { addMessageToTaskUseCaseSpy }
         
+        let submitTaskForReviewUseCaseSpy = SubmitTaskForReviewUseCaseSpy()
+        submitTaskForReviewUseCaseSpy.executeTaskIdReturnValue = Task.task1Stub
+        submitTaskForReviewUseCase.register { submitTaskForReviewUseCaseSpy }
+        
+        let closeTaskUseCaseSpy = CloseTaskUseCaseSpy()
+        closeTaskUseCaseSpy.executeTaskIdReturnValue = Task.task1Stub
+        closeTaskUseCase.register { closeTaskUseCaseSpy }
+        
         createTaskUseCase.register { CreateTaskUseCaseSpy() }
         updateTaskUseCase.register { UpdateTaskUseCaseSpy() }
         
