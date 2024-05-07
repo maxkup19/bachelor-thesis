@@ -130,7 +130,7 @@ final class RegistrationViewModel: BaseViewModel, ViewModel, ObservableObject {
                 name: state.name,
                 lastName: state.lastName,
                 birthDay: state.birthDay,
-                role: state.role
+                role: state.showRoleSelector ? state.role : .student
             )
             try await registrationUseCase.execute(data)
             flowController?.handleFlow(AuthFlow.login(.login(state.role)))
