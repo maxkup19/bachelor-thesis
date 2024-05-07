@@ -17,7 +17,7 @@
 
 \documentclass[
 %  printversion,
-  biblatex,
+  biblatex = false,
   language=english,
 %  font=sans,
   figures=false,
@@ -95,7 +95,6 @@
 
 %% -------------------------------------------------------------------
 
-\newcommand{\BibLaTeX}{\textsc{Bib}\LaTeX}
 
 \section{Introduction}
 
@@ -223,7 +222,7 @@ Views can be formatted and their final appearance can be changed. For example, t
 A server application has the task of mediating resources to one or, more often, to several users. While among the types of computer network structures, it is possible to find, for example, a client-server structure, which indicates the work of a server application. So it is a structure in which there is one main device (server), which is connected to the network and has some resources available. There are also other devices connected to the network that want to access the server's resources. These devices are referred to as client stations or clients. The server application waits for requests from clients. Server requirements vary based on what clients require. Requests can be sent, for example, using the HTTP protocol.
 
 \subsubsection{HTTP Protocol}
-The abbreviation HTTP comes from the English name of the protocol (Hypertext Transfer Protocol or in Slovakian Hypertext Transfer Protocol) used on the worldwide network (World Wide Web, abbreviated WWW). It works on the application layer described by the open systems interconnection model (the abbreviation OSI from the English translation The Open Systems Interconnection is used)\cite{bib1}. The protocol works on the transport protocol of controlled transmission (known as the abbreviation TCP from the English term Transmission Control Protocol).
+The abbreviation HTTP comes from the English name of the protocol (Hypertext Transfer Protocol or in Slovakian Hypertext Transfer Protocol) used on the worldwide network (World Wide Web, abbreviated WWW). It works on the application layer described by the open systems interconnection model (the abbreviation OSI from the English translation The Open Systems Interconnection is used) \cite{bib1}. The protocol works on the transport protocol of controlled transmission (known as the abbreviation TCP from the English term Transmission Control Protocol).
 
 Different types of HTTP requests have different semantics, but they may not be detailed enough for more complex servers. Therefore, servers tend to cluster work on some data. These clusters of data activities are then accessed using a uniform resource identifier (Uniform Resource Identifier or the more commonly used abbreviation URI), which is part of the URL in the HTTP request. The HTTP protocol uses nine types of requests, which are named methods. The most used, and thus the most frequently supported, methods are GET, POST, PUT, and DELETE. GET is a method used to get some data. The purpose of the POST method is to sell data to the server. PUT is used to replace some data. The DELETE request is intended to delete a document.
 Each request must have a main header. Additional headers and their values are listed in the main header. The headers are, for example, the length of the body content (Content-length) or the authorized access header (Authorization), used for sending authorization code. The header can be followed by a body in which encoded data can be found.
@@ -241,7 +240,7 @@ Although such a simple application will work correctly under certain circumstanc
 \label{fig:image1}
 \end{figure}
 
-After receiving the request, the main process creates a new thread to handle the request and then continues to wait. The child thread processes the request, performs some operations, and sends the response back to the client. \ref{fig:image1} shows such a parallel reception of a request. The programmer then creates routes for individual supported request types and their possible variants or subsets. Paths have an identifier and some functionality. Thanks to the Identifier, it is possible to further divide the resources of the server application.
+After receiving the request, the main process creates a new thread to handle the request and then continues to wait. The child thread processes the request, performs some operations, and sends the response back to the client. Figure \ref{fig:image1} shows such a parallel reception of a request. The programmer then creates routes for individual supported request types and their possible variants or subsets. Paths have an identifier and some functionality. Thanks to the Identifier, it is possible to further divide the resources of the server application.
 
 \subsection{Creating server applications using the Vapor framework}
 The Vapor framework was created for creating server-side applications. It is a library with an expressive, protocol-oriented design focused on type safety. Vapor directly supports authentication using Basic or Bearer algorithms. It also supports working with database systems such as MySQL, PostgreSQL, SQLite, and MongoDB. It allows you to create HTML templates, it also allows you to create client and server applications using HTTP and many other concepts.
@@ -605,7 +604,7 @@ public struct SomeRepositoryImpl: SomeRepository {
 }
 \end{kicode}
 
-\\subsubsubsection{Providers implementation}
+\subsubsubsection{Providers implementation}
 Providers are used for handling data sources. A provider is defined by protocol, each can have multiple implementations, for example, one using a third-party library, and another one using our own custom implementation. They also have to be registered for the dependency injection in \texttt{DependencyInjection/Providers.swift}
 
 \begin{kicode}{Swift}{}{Provider Example}
@@ -1104,7 +1103,7 @@ In conclusion, this project has been a transformative journey, both personally a
 
 \section{Sources} \label{sec:ObsahData}
 
-\begin{thebibliography}{9}
+\begin{thebibliography}{5}
 \bibitem{bib1} \uppercase{Imperva.} OSI Model [online] [cit. 20. april 2021]. Available at: \url{https://www.imperva.com/learn/application-security/osi-model/}.
 \bibitem{bib2} \uppercase{Hoffman, J.} Mastering Swift 4. Packt Publishing Ltd, 2017. ISBN978-1-78847-780-2.
 \bibitem{bib3} \uppercase{Apple.} The powerful programming language that is easy to learn. Swift [online]. [cit. 20. march 2021]. Available at: \url{https://developer.apple.com/swift/}.
@@ -1113,7 +1112,7 @@ In conclusion, this project has been a transformative journey, both personally a
 \end{thebibliography}
 
 %% Sazba volitelného rejstříku, za bibliografií.
-\printindex
+%\printindex
 
 \end{document}
 

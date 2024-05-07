@@ -1,7 +1,6 @@
 kidiplom: %: %.tex
 	@pdflatex $@
 	@pdflatex $@
-	@biber $@
 	@makeglossaries $@
 	@makeindex $@.idx
 	@pdflatex $@
