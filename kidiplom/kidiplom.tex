@@ -44,7 +44,7 @@
 
 %% Jméno vedoucího práce (včetně titulů). Makro nemá nepovinný
 %% parametr pro uvedení jazyka.
-\supervisor{Mgr. Roman Vyjídáček, Ph.D.}
+\supervisor{Mgr. Roman Vyjídáček}
 
 %% Volitelný rok odevzdání práce. Výchozí je aktuální (kalendářní)
 %% rok. Makro nemá nepovinný parametr pro uvedení jazyka.
@@ -101,30 +101,29 @@
 
 Today's trend is leaning towards mobile-first solutions, as mobile platforms offer faster and more intuitive user experiences. At present, there exist loads of web-based and multi-platform applications for task management, catering to the needs of users. However, there is a noticeable absence of a native mobile application.
 
-My motivation arises from the need to streamline task management processes in school and provide users with a more convenient means of organising their tasks effectively.
+My motivation arises from the need to streamline task management processes in school and provide users with a more convenient means of organizing their tasks effectively.
 
-In this bachelor thesis, I aim to design and implement a server-side and an iOS application focused on task management, named "StudentChrono". This application will empower users to easily create, update, track and solve their tasks, and categorise them based on priority or deadline. "StudentChrono" will serve as a comprehensive tool for users to manage their tasks efficiently.
+In this bachelor thesis, I aim to design and implement a server-side and iOS application focused on task management, named "StudentChrono". This application will empower users to easily create, update, track, and solve their tasks, and categorize them based on priority or deadline. "StudentChrono" will serve as a comprehensive tool for users to manage their tasks efficiently.
 
-In the first chapter, I look into the theoretical basis and technologies needed to create the iOS platform's application development, architecture, and programming paradigm in addition to other patterns utilised in server-side and mobile development. I analyse services that are appropriate for integration and lay down the specifications for the application in the second chapter. I use the technologies and concepts from earlier chapters to explain the application's software engineering process, which includes architecture, design, implementation, and testing.
+In the first chapter, I look into the theoretical basis and technologies needed to create the iOS platform's application development, architecture, and programming paradigm in addition to other patterns utilized in server-side and mobile development. I analyze services that are appropriate for integration and lay down the specifications for the application in the second chapter. I use the technologies and concepts from earlier chapters to explain the application's software engineering process, which includes architecture, design, implementation, and testing.
 
-\section{Thesis Goal}
-The primary goal of this bachelor thesis is to implement StudentChrono iOS mobile application for students and teachers integrated with server-side application, which is also part of this bachelor thesis. Teachers can manage theirt students, create tasks and evaluate them, provide deadline, priorities, detailed information and files needed for task elaboration. Students can view detailed information about tasks, solve them and send feedback to a teacher. In addition, every user is able to delete account, manage their personal account and provide feedback for developers.
+The primary goal of this bachelor thesis is to implement the StudentChrono iOS mobile application for students and teachers integrated with server-side applications, which is also part of this bachelor thesis. Teachers can manage their students, create tasks and evaluate them, and provide deadlines, priorities, detailed information, and files needed for task elaboration. Students can view detailed information about tasks, solve them, and send feedback to a teacher. In addition, every user can delete an account, manage their account, and provide feedback to developers.
 
-In the research part, the aim is to summarise specifics of iOS development and other technologies related to mobile application development. The second goal is to investigate server-side development with Swift programming language.
+In the research part, the aim is to summarise the specifics of iOS development and other technologies related to mobile application development. The second goal is to investigate server-side development with Swift programming language.
 
-In practical part objectives are designing application requirements and user interface, choose software architecture, implement the server and the mobile application, describe release process.
+In the practical part, objectives are designing application requirements and user interface, choosing software architecture, implementing the server and the mobile application, describe the release process.
 
 \section{Technologies and Solutions}
 
-In this chapter I describe the theoretical background, possible solutions and technologies used later in this work - specifics of development for iOS platform, server-side development with Swift programming language, REST API and it's usage in modern applications' development, authorisation and authentication protocols.
+In this chapter, I describe the theoretical background, possible solutions, and technologies used later in this work - specifics of development for the iOS platform, server-side development with Swift programming language, REST API, and its usage in modern applications' development, authorization, and authentication protocols.
 
 \subsection{Swift programming language}
-Swift is a strongly typed, compiled modern language supporting modern trends. It was first introduced in 2014 at the Apple Worldwide Developers Conference (WWDC). Apple Inc. developed Swift as a modern language to replace Objective-C on their platforms. According to the book by John Hoffman \cite{bib2}, it offers concepts such as type inference, genericity, closure syntax, optional types and many others. Thanks to these concepts, Swift became one of the fastest growing languages shortly after its introduction. The fact that in 2015 Apple made the source code available to the general public also contributed to this, making the entire Swift an open source project. Another major influence was that even though Swift was designed for Apple platforms, its code can be compiled with limitations on platforms other than Linux or Windows. However, the limitations of compilation on other platforms are rapidly decreasing, and the gradually increasing support of Swift by the Ubuntu operating system allows the development of server applications in the Swift language as well. According to the official site \cite{bib3}, the Swift language is intuitive and designed for application security.
+Swift is a strongly typed, compiled modern language supporting modern trends. It was first introduced in 2014 at the Apple Worldwide Developers Conference (WWDC). Apple Inc. developed Swift as a modern language to replace Objective-C on their platforms. According to the book by John Hoffman \cite{bib2}, it offers concepts such as type inference, genericity, closure syntax, optional types, and many others. Thanks to these concepts, Swift became one of the fastest-growing languages shortly after its introduction. The fact that in 2015 Apple made the source code available to the general public also contributed to this, making the entire Swift an open source project. Another major influence was that even though Swift was designed for Apple platforms, its code can be compiled with limitations on platforms other than Linux or Windows. However, the limitations of compilation on other platforms are rapidly decreasing, and the gradually increasing support of Swift by the Ubuntu operating system allows the development of server applications in the Swift language as well. According to the official site \cite{bib3}, the Swift language is intuitive and designed for application security.
 
 \subsubsection{Swift basics}
-Swift is derived from languages inspired by C. Although it was designed as a replacement for Objective-C, it can be combined with it. In addition, a combination with C++ and C languages is also possible thanks to its LLVM compiler. In order to free up operational memory, Swift uses the concept of deterministic reference counting to work with memory. Thanks to this concept, there is no need for a garbage collector searching for unreachable memory. The number of references is incremented when creating strongly referenced variables. This count is decremented when the object is dereferenced. Whenever the reference count is reduced to zero, the memory is automatically freed.
+Swift is derived from languages inspired by C. Although it was designed as a replacement for Objective-C, it can be combined with it. In addition, a combination with C++ and C languages is also possible thanks to its LLVM compiler. In order to free up operational memory, Swift uses the concept of deterministic reference counting to work with memory. Thanks to this concept, there is no need for a garbage collector to search for unreachable memory. The number of references is incremented when creating strongly referenced variables. This count is decremented when the object is dereferenced. Whenever the reference count is reduced to zero, the memory is automatically freed.
 
-Swift also gets rid of dangerous concepts such as uninitialized variables. Furthermore, it helps prevent incorrect work with variables that can acquire the value nil (representing NULL). The type of such variables is marked with a ? (question mark) and represent the so-called optional value. The Swift language offers special constructs for working with an optional type that force programmers to explicitly handle the case when a variable takes on the value nil. One of these constructions is also ! (exclamation mark). Its task is to access the value of an optional variable. However, its use is dangerous, because if there is no value in the variable, or if this value is nil, the entire application will crash. Source code 1 clearly shows how the optional type behaves and how it is possible to work with it.
+Swift also gets rid of dangerous concepts such as uninitialized variables. Furthermore, it helps prevent incorrect work with variables that can acquire the value nil (representing NULL). The type of such variables is marked with a ? (question mark) and represents the so-called optional value. The Swift language offers special constructs for working with an optional type that forces programmers to explicitly handle the case when a variable takes on the value nil. One of these constructions is also! (exclamation mark). Its task is to access the value of an optional variable. However, its use is dangerous, because if there is no value in the variable, or if this value is nil, the entire application will crash. Source Code 1 clearly shows how the optional type behaves and how it is possible to work with it.
 
 \begin{kicode}{Swift}{code1}{Demonstration of work with variable of type optional Int}
 // Definition of constant with optional type Int and value 2
@@ -146,7 +145,7 @@ if let optionalValue {
 \subsubsection{Enumeration type Enum}
 The difference between the commonly supported enumeration types and the Enum type in Swift is that Swift supports value binding. This means that each instance of the enumeration can be assigned a value. Assigning values is possible in two ways. The first method determines the value type of all instances. Within the given type, it is then possible to assign a constant raw value to each case of enumeration.
 
-The second option is the type of enumeration with associated values (associated values). It allows the programmer to define for each instance the type of value that can be stored in that enumeration instance. A declaration of this type is in Source code 2.
+The second option is the type of enumeration with associated values (associated values). It allows the programmer to define for each instance the type of value that can be stored in that enumeration instance. A declaration of this type is in Source Code 2.
 
 \begin{kicode}{Swift}{code2}{Enumeration with associated values}
 // Declaration of Enum with associated values
@@ -160,7 +159,7 @@ enum EnumExample {
 \end{kicode}
 
 \subsubsection{Protocols in Swift}
-Swift also supports protocol programming. This is similar to the required override/overload of inheritance in objects. It is a concept in which there is a protocol, or a plan describing and requiring certain methods or properties. Then this plan can be adopted by structures, classes, or appointment types. Acceptance consists in implementing all protocol requirements.
+Swift also supports protocol programming. This is similar to the required override/overload of inheritance in objects. It is a concept in which there is a protocol, or a plan describing and requiring certain methods or properties. Then this plan can be adopted by structures, classes, or appointment types. Acceptance consists of implementing all protocol requirements.
 
 \subsubsection{Data type structure and class}
 In Swift, the structure is extended compared to other languages in such a way that it is possible to define methods in it, which makes it indistinguishable from a class at first glance. The difference is how they are handled within the RAM. The structure is sold by value. This means that when you pass a structure to a function, the entire instance of the structure is copied onto the stack. Unlike a structure, a class is sold by reference, which means that when sold to a function, only a reference to the location in memory where the class instance resides is copied.
@@ -181,7 +180,7 @@ As the application works and changes its state, the programmer must adjust its b
 \label{fig:image2}
 \end{figure}
 
-The picture shows that the application does not work at the beginning. At startup, the main window is inactive and the application has time to load the necessary data. Due to the imprecise name of the state, it should be noted that the inactive application is actually still running in the foreground, but is not receiving any events. After loading the data, the application is presented to the user and events are sent to it. From this state, however, it can go into the background at any time, but it must go through the inactive state again. In the background, the application is then expected not to work or, with certain exceptions, to work only minimally. Another possible state is suspend, which the application enters when its code cannot be executed.
+The picture shows that the application does not work at the beginning. At startup, the main window is inactive and the application has time to load the necessary data. Due to the imprecise name of the state, it should be noted that the inactive application is actually still running in the foreground, but is not receiving any events. After loading the data, the application is presented to the user, and events are sent to it. From this state, however, it can go into the background at any time, but it must go through the inactive state again. In the background, the application is then expected not to work or, with certain exceptions, to work only minimally. Another possible state is suspended, which the application enters when its code cannot be executed.
 
 \subsubsection{Directly supported application architectures}
 Apple Inc. directly supports the two architectures Model-View-Controller (MVC) and Model-View-ViewModel (MVVM) within Swift. In general, it is about dividing the system into three parts. The first is a framework that takes care of data storage and transformation. The second part is something that displays the data. In addition, the second part takes care of individual user inputs to the system. The last part is a kind of bridge between the first two parts.
@@ -190,7 +189,7 @@ MVC is one of the most widely used types of system architectures, so it has been
 The difference is that there is no Controller. In this architecture, the user interface is described as the state of the application. Displayed windows are composed of instances of a structure that implements the View protocol. These structures create views. In order for the window to be dynamic, and therefore to be redrawable based on some event, we can give special attributes to individual views. These attributes use two-way binding (Binding) with the ViewModel or directly with the Model. Then we understand the state precisely as the sum of the values of the bound attributes. This state is always stored in the ViewModel object, which takes care of displaying windows and their views. To redraw the window, the state of the application must be changed, that is, at least one attribute linked to a view must be changed. It is necessary to point out that the entire window is not always redrawn, but only its views to which the changed states are linked.
 
 \subsubsection{SwiftUI Framework}
-The SwiftUI framework represents a protocol known as a view, which must be adapted by the structure in order to be displayed. The protocol requires the definition of the point attribute, whose value also implements the View protocol. Source code 3 shows the creation of a simple view that contains the text "Hello, World!" and globe icon above it.
+The SwiftUI framework represents a protocol known as a view, which must be adapted by the structure in order to be displayed. The protocol requires the definition of the point attribute, whose value also implements the View protocol. Source code 3 shows the creation of a simple view that contains the text "Hello, World!" and a globe icon above it.
 
 \begin{kicode}{Swift}{} {HelloWorldView.swift}
 struct HelloWorldView: View {
@@ -211,26 +210,26 @@ struct HelloWorldView: View {
 \subsubsection{Handling view state}
 Dynamics will be ensured by adding attributes that must be wrapped with a property wrapper (property wrapper, in the following text only the term wrapper is used) of a special type. A change in the wrapper values will then be propagated to the ViewModel, guaranteeing a redraw of the window. In his article [6], Paul Hudson explains the individual ways of tracking attribute changes.
 
-The most important wrapper is \texttt{@State}, which can wrap attributes of simple data types and structures. Referenced types are observed using the @ObservedObject wrapper, which must implement the \texttt{ObservableOject} protocol. There is a \texttt{@Published} wrapper for marking tracked attributes in the referenced type. Referenced types can also be observed using the \texttt{@StateObject} wrapper, in which the application is responsible for the life cycle and not the user directly, as is the case with \texttt{@ObservedObject}. Another wrapper is \texttt{@EnviromentObject}, which allows you to get objects implementing the ObservableObject protocol that were created by views at a hierarchically higher level. Thanks to this, we do not have to sell these objects with arguments through several calls to views, which improves the overall readability of the code.
+The most important wrapper is \texttt{@State}, which can wrap attributes of simple data types and structures. Referenced types are observed using the @ObservedObject wrapper, which must implement the \texttt{ObservableOject} protocol. There is a \texttt{@Published} wrapper for marking tracked attributes in the referenced type. Referenced types can also be observed using the \texttt{@StateObject} wrapper, in which the application is responsible for the life cycle and not the user directly, as is the case with \texttt{@ObservedObject}. Another wrapper is \texttt{@EnviromentObject}, which allows you to get objects implementing the ObservableObject protocol that was created by views at a hierarchically higher level. Thanks to this, we do not have to sell these objects with arguments through several calls to views, which improves the overall readability of the code.
 
 \subsubsection{Working with Views}
-SwiftUI provides three basic window layout constructs: HStack, VStack, and ZStack. They are used to store views next to each other based on a specified axis. HStack places views next to each other (from left to right), VStack places them below each other (from top to bottom), and ZStack over them (from back to front).
+SwiftUI provides three basic window layout constructs HStack, VStack, and ZStack. They are used to store views next to each other based on a specified axis. HStack places views next to each other (from left to right), VStack places them below each other (from top to bottom), and ZStack over them (from back to front).
 
-Instead of the \texttt{Text} structure, we can insert points of other more complex structures into the body of the variable and thus create more complex windows and views. A \texttt{TextField} window is used to allow users to enter text. Using a parameter of type \texttt{Binding<String>}, this window can store input from the user in the variable provided by the parameter. A button represented by the Button structure is prepared for simple predefined user input. This structure requires two closures. The first defines what should happen when the button is pressed - the action, and the second defines the content of the button.
+Instead of the \texttt{Text} structure, we can insert points of other more complex structures into the body of the variable and thus create more complex windows and views. A \texttt{TextField} window is used to allow users to enter text. Using a parameter of type \texttt{Binding<String>}, this window can store input from the user in the variable provided by the parameter. A button represented by the Button structure is prepared for simple predefined user input. This structure requires two closures. The first defines what should happen when the button is pressed - the action and the second defines the content of the button.
 
-Views can be formatted and their final appearance can be changed. For example, the \texttt{Text} structure can be formatted with methods that change the appearance of the text. Such a method is, for example, the \texttt{font} method changing the font size or \texttt{.foregroundColor(Color)} changing the font color. FontWeight is used for thick font. The background color is changed using the background method. Changing the size of the view is possible with the \texttt{.frame} method.
+Views can be formatted and their final appearance can be changed. For example, the \texttt{Text} structure can be formatted with methods that change the appearance of the text. Such a method is, for example, the \texttt{font} method changing the font size or \texttt{.foregroundColor(Color)} changing the font color. FontWeight is used for the thick font. The background color is changed using the background method. Changing the size of the view is possible with the \texttt{.frame} method.
 
 \subsection{Server Application}
-A server application has the task of mediating resources to one or, more often, to several users. While among the types of computer network structures it is possible to find, for example, a client-server structure, which indicates the work of a server application. So it is a structure in which there is one main device (server), which is connected to the network and has some resources available. There are also other devices connected to the network that want to access the server's resources. These devices are referred to as client stations or clients. The server application waits for requests from clients. Server requirements vary based on what clients require. Requests can be sent, for example, using the HTTP protocol.
+A server application has the task of mediating resources to one or, more often, to several users. While among the types of computer network structures, it is possible to find, for example, a client-server structure, which indicates the work of a server application. So it is a structure in which there is one main device (server), which is connected to the network and has some resources available. There are also other devices connected to the network that want to access the server's resources. These devices are referred to as client stations or clients. The server application waits for requests from clients. Server requirements vary based on what clients require. Requests can be sent, for example, using the HTTP protocol.
 
 \subsubsection{HTTP Protocol}
-The abbreviation HTTP comes from the English name of the protocol (Hypertext Transfer Protocol or in Slovakian Hypertext Transfer Protocol) used on the worldwide network (World Wide Web, abbreviated WWW). It works on the application layer described by the open systems interconnection model (the abbreviation OSI from the English translation The Open Systems Interconnection is used)\cite{bib1}. The protocol works on the transport protocol of controlled transmission (known as the abbreviation TCP from the English term The Transmission Control Protocol).
+The abbreviation HTTP comes from the English name of the protocol (Hypertext Transfer Protocol or in Slovakian Hypertext Transfer Protocol) used on the worldwide network (World Wide Web, abbreviated WWW). It works on the application layer described by the open systems interconnection model (the abbreviation OSI from the English translation The Open Systems Interconnection is used)\cite{bib1}. The protocol works on the transport protocol of controlled transmission (known as the abbreviation TCP from the English term Transmission Control Protocol).
 
-Different types of HTTP requests have different semantics, but they may not be detailed enough for more complex servers. Therefore, servers tend to cluster work on some data. These clusters of data activities are then accessed using a uniform resource identifier (Uniform Resource Identifier or the more commonly used abbreviation URI), which is part of the URL in the HTTP request. The HTTP protocol uses nine types of requests, which are named as methods. The most used, and thus the most frequently supported, methods are GET, POST, PUT and DELETE. GET is a method used to get some data. The purpose of the POST method is to sell data to the server. PUT is used to replace some data. The DELETE request is intended to delete a document.
+Different types of HTTP requests have different semantics, but they may not be detailed enough for more complex servers. Therefore, servers tend to cluster work on some data. These clusters of data activities are then accessed using a uniform resource identifier (Uniform Resource Identifier or the more commonly used abbreviation URI), which is part of the URL in the HTTP request. The HTTP protocol uses nine types of requests, which are named methods. The most used, and thus the most frequently supported, methods are GET, POST, PUT, and DELETE. GET is a method used to get some data. The purpose of the POST method is to sell data to the server. PUT is used to replace some data. The DELETE request is intended to delete a document.
 Each request must have a main header. Additional headers and their values are listed in the main header. The headers are, for example, the length of the body content (Content-length) or the authorized access header (Authorization), used for sending authorization code. The header can be followed by a body in which encoded data can be found.
 
 \subsubsection{Programming of server applications}
-When programming a server application, it is necessary to configure the server first. This configuration consists in creating and setting a kind of end point (the term socket is used in English), which connects the gateway (further on, only the English equivalent - port) of the device is used with the application. This configuration indicates to the operating system that the data sent to this device on this port is to be released to the application. The next step on the server side is to listen on that port. Listening means waiting until the operating system recognizes that a request has arrived for an application on a specified port. The operating system forwards the request to the application. The request should then be checked by the server and some work should be done. 
+When programming a server application, it is necessary to configure the server first. This configuration consists in creating and setting a kind of endpoint (the term socket is used in English), which connects the gateway (further on, only the English equivalent - port) of the device is used with the application. This configuration indicates to the operating system that the data sent to this device on this port is to be released to the application. The next step on the server side is to listen on that port. Listening means waiting until the operating system recognizes that a request has arrived for an application on a specified port. The operating system forwards the request to the application. The request should then be checked by the server and some work should be done. 
 
 A frequently required practice is for the server application to always respond to the client with a message containing at least information on whether the request was processed correctly.
 Although such a simple application will work correctly under certain circumstances, today's trend considers it incapable of normal functioning. If a new request arrives while the previous one is being processed, this request is ignored. To avoid dropping the right request due to load, requests can be stored in an array and processed sequentially. However, stored requests may not be processed quickly enough, so their time may run out. Therefore, processes and or threads are used. The application then has one main process that waits for requests in an infinite loop.
@@ -245,18 +244,18 @@ Although such a simple application will work correctly under certain circumstanc
 After receiving the request, the main process creates a new thread to handle the request and then continues to wait. The child thread processes the request, performs some operations, and sends the response back to the client. \ref{fig:image1} shows such a parallel reception of a request. The programmer then creates routes for individual supported request types and their possible variants or subsets. Paths have an identifier and some functionality. Thanks to the Identifier, it is possible to further divide the resources of the server application.
 
 \subsection{Creating server applications using the Vapor framework}
-The Vapor framework was created for creating server-side applications. It is a library with an expressive, protocol-oriented design focused on type safety. Vapor directly supports authentication using Basic or Bearer algorithms. It also supports working with database systems such as MySQL, PostgreSQL, SQLite and MongoDB. It allows you to create HTML templates, it also allows you to create client and server applications using HTTP and many other concepts.
+The Vapor framework was created for creating server-side applications. It is a library with an expressive, protocol-oriented design focused on type safety. Vapor directly supports authentication using Basic or Bearer algorithms. It also supports working with database systems such as MySQL, PostgreSQL, SQLite, and MongoDB. It allows you to create HTML templates, it also allows you to create client and server applications using HTTP and many other concepts.
 
 \subsubsection{Vapor basics}
 Like any server application, an application created in the Vapor framework\cite{bib5} waits in an infinite loop for queries. To do this, Vapor uses concurrency, which allows an endless loop processing input and output processes. In order to ensure the processing of as many requests arriving at a similar time as possible, it is possible to operate processes from several threads. Working with processes is based on the modern Async/Await principle, which simplifies work with multiple threads and asynchronous processes.
 This principle works in such a way that an asynchronous process is executed on another thread, while an object representing the result of the asynchronous code obtained sometime in the future is created in the current thread. It is possible to call other functions above this object and thereby determine further processing of the asynchronous result.
 
 \subsubsection{Request routing}
-Routing in this context is creating paths. Identifiers (parts of the path separated by the / symbol) and assigned functionality are assigned to paths. In the Vapor library, this is done by registering individual paths. Registration consists of specifying the HTTP method, specifying the identifier and defining the function itself.
-There is an instance of the Application class and thus represents a server application. Using its get method, a block of code is defined for handling HTTP messages of type GET with the path HelloWorld. The method allows creating more complex paths using a variable number of arguments. The last argument is the closure, whose parameter is an object of type Request. This object represents the received HTTP request. The closure must return a value of a type that implements the Content protocol, and thus the returned type can be represented as an HTTP response. The return value is then serialized and sent as a response to the HTTP request.
+Routing in this context is creating paths. Identifiers (parts of the path separated by the / symbol) and assigned functionality are assigned to paths. In the Vapor library, this is done by registering individual paths. Registration consists of specifying the HTTP method, specifying the identifier, and defining the function itself.
+There is an instance of the Application class and thus represents a server application. Using its get method, a block of code is defined for handling HTTP messages of type GET with the path HelloWorld. The method allows the creation of more complex paths using a variable number of arguments. The last argument is the closure, whose parameter is an object of type Request. This object represents the received HTTP request. The closure must return a value of a type that implements the Content protocol, and thus the returned type can be represented as an HTTP response. The return value is then serialized and sent as a response to the HTTP request.
 
 \subsubsection{Creating a database}
-To access the database, it is necessary to set the configuration, this consists in entering login data, the name of the database and its location. Using this configuration, Vapor then takes care of connecting to the database. Vapor allows you to define and create database elements such as tables or initial data using migrations. The task of migration is to create or modify the table so that it appropriately represents the desired objects.Source code 4 shows the migration to create and revert the SomeModelTable table. In the statement, the name of the table is successively set, then two columns are created, and finally the entire table is created. Reverting database is also a part of every model migration.
+To access the database, it is necessary to set the configuration, this consists of entering login data, the name of the database, and its location. Using this configuration, Vapor then takes care of connecting to the database. Vapor allows you to define and create database elements such as tables or initial data using migrations. The task of migration is to create or modify the table so that it appropriately represents the desired objects. Source Code 4 shows the migration to create and revert the SomeModelTable table. In the statement, the name of the table is successively set, then two columns are created, and finally, the entire table is created. Reverting a database is also a part of every model migration.
 
 \begin{kicode}{Swift}{}{Table creation using Vapor}
 extension SomeModel {
@@ -336,43 +335,43 @@ Jira is a widely used project management tool developed by Atlassian. It is desi
 \end{itemize}
 
 \subsection{Requirements}
-Functional and nonfunctional requirements’ of iOS and server applications are based on the main functionalities of applications that i analyzed in previous section. Some of the requirements are also based on simplicity of use, eliminating problems of corporation-aimed tools and providing users native OS experience.
+Functional and nonfunctional requirements of iOS and server applications are based on the main functionalities of applications that I analyzed in the previous section. Some of the requirements are also based on simplicity of use, eliminating problems of corporation-aimed tools, and providing users native OS experience.
 
 \subsubsection{Functional requirements}
 
 \subsubsubsection{Authentication}
-User can register by providing name, surname, birthday and email or log in to the application through email and password. The application supports two roles - student and teacher. Role is selected during registration, only users older than 18 years can be teachers. User can log out of the application and delete account if needed.
+Users can register by providing their name, surname, birthday, and email or log in to the application through email and password. The application supports two roles - student and teacher. The role is selected during registration, only users older than 18 years can be teachers. Users can log out of the application and delete the account if needed.
 
 \subsubsubsection{List of tasks}
-User with role teacher can see all tasks he created. User with role student can see all the tasks he was assigned, their current status, author and deadline. 
+Users with teacher roles can see all the tasks he created. Users with student roles can see all the tasks they were assigned, their current status, author, and deadline. 
 
 \subsubsubsection{Work with tasks}
-User with role teacher can create tasks, assign them to his students and control task elaboration. User can provide comments and files for task elaboration in form of comments.
+Users with teacher roles can create tasks, assign them to their students, and control task elaboration. Users can provide comments and files for task elaboration in the form of comments.
 
 \subsubsubsection{List of students}
-User with role teacher can add students and delete them. He laso can history of their tasks.
+Users with teacher roles can add students and delete them. They also can see the history of their tasks.
 
 \subsubsubsection{User profile}
-Every user has it's own profile and can upload profile picture. User with role student also sees his histor of ongoing and closed tasks.
+Every user has their own profile and can upload profile pictures. Users with student roles also see their history of ongoing and closed tasks.
 
 \subsubsubsection{Feedback}
-Every user can send feedback for app developer providing text and optionally screenshot of a problem.
+Every user can send feedback to the app developer by providing text and optionally a screenshot of a problem.
 
 \subsubsection{Nonfunctional reqirements}
 \subsubsubsection{Operating system}
-Mobile application supports operating system iOS 17.
+The mobile application supports the operating system iOS 17.
 
 \subsubsubsection{Frameworks}
-Mobile application  uses SwiftUI as UI framework. Server application is written in Swift 5 using Vapor framework.
+The mobile application uses SwiftUI as a UI framework. The server application is written in Swift 5 using the Vapor framework.
 
 \subsubsubsection{Server architecture}
-Server application implements REST API and conforms to its design principles.
+The server application implements REST API and conforms to its design principles.
 
 \subsubsubsection{Authorization}
-User is authorized through Bearer token for all endpoints that require authorization.
+Users are authorized through a Bearer token for all endpoints that require authorization.
 
 \subsubsubsection{User interface}
-User interface is designed to be native and user-friendly. It utilizes best practices of native iOS development and is inspired by system iOS applications.
+The user interface is designed to be native and user-friendly. It utilizes best practices of native iOS development and is inspired by system iOS applications.
 
 \subsection{Use cases}
 
@@ -386,9 +385,9 @@ There are two user roles in the application - student and teacher. The use case 
 \end{figure}
 
 \section{Mobile Application Design and Architecture}
-In this chapter i dive in software and graphic design aspects of the applications. In the first part I provide overview of design and architecture of mobile application and reasons for choosing it.
+In this chapter, I dive into the software and graphic design aspects of the applications. In the first part, I provide an overview of the design and architecture of the mobile application and the reasons for choosing it.
 \subsection{Architecture}
-I have chosen Clean Architecture, so whole application is separated into three layers according to the Clean Architecture principles. Layers are Presentation, Domain and Data Figure \ref{fig:image4} shows dependencies between layers. Further in the text I will dive into details of each layer.
+I have chosen Clean Architecture, so the whole application is separated into three layers according to the Clean Architecture principles. Layers are Presentation, Domain, and Data Figure \ref{fig:image4} shows dependencies between layers. Further in the text, I will dive into the details of each layer.
 
 \begin{figure}[h]
 \centering
@@ -397,14 +396,14 @@ I have chosen Clean Architecture, so whole application is separated into three l
 \label{fig:image4}
 \end{figure}
 
-Mobile app utilizes advanced modularisation with SPM(Swift Package Manager), so each layer is divided to logical parts. It also improves application build time, which is crucial during app development.
+The mobile app utilizes advanced modularisation with SPM(Swift Package Manager), so each layer is divided into logical parts. It also improves application build time, which is crucial during app development.
 
 \subsubsection{Application Layer}
-Application Layer isn't a part of traditional Clean Architecture representation, but is crucial for application lifecycle. As displayed in Figure \ref{fig:image5} it contains:
+The application layer isn't a part of traditional Clean Architecture representation but is crucial for an application lifecycle. As displayed in Figure \ref{fig:image5} it contains:
 \begin{itemize}
-	\item Dependency Injection Package - helps to utilize dependency inversion and single responsibility principles by decoupling the usage of objects from its creations. Use case, providers and toolkits are registered here, and then used in other parts of application.
+	\item Dependency Injection Package - helps to utilize dependency inversion and single responsibility principles by decoupling the usage of objects from its creations. Use cases, providers, and toolkits are registered there and then used in other parts of the application.
 	\item Info folder - contains all \texttt{Info.plist} and other privacy files needed for application start.
-	\item AppDelegate - object that manages app's shared behaviors.
+	\item AppDelegate - object that manages the app's shared behaviors.
 	\item AppFlowController, MainFlowController - top-level flow controllers of the application
 \end{itemize}
 
@@ -418,7 +417,7 @@ These parts of the application are not suitable for the other layers, so they ar
 \end{figure}
 
 \subsubsection{Presentation Layer}
-Presentation layer handles the user interface of application. It is represented by FlowControllers and ViewModels + Views. This layer follows MVI architecture - each ViewModel has its state and intents, which are then used in a relevant SwiftUI View. Asynchronous functions are represented via native \texttt{async/await}.
+The presentation layer handles the user interface of the application. It is represented by FlowControllers and ViewModels + Views. This layer follows MVI architecture - each ViewModel has its state and intents, which are then used in a relevant SwiftUI View. Asynchronous functions are represented via native \texttt{async/await}.
 Every app feature has its own presentation module (Onboarding / Tasks / Profile / Others) that contains Views + ViewModels. 
 
 \subsubsubsection{FlowControllers}
@@ -445,7 +444,7 @@ enum AuthFlow: Flow, Equatable {
 }
 \end{kicode}
 
-In this example, we then implement how the \texttt{ProfileFlowController} handles specific flows.
+In this example, I then implement how the \texttt{ProfileFlowController} handles specific flows.
 
 \begin{kicode}{Swift}{}{Flow Example}
 override public func handleFlow(_ flow: 
@@ -459,7 +458,7 @@ override public func handleFlow(_ flow:
 \end{kicode}
 
 \subsubsubsection{Views and View Models}
-Each top level View has its own ViewModel, that hadle state of entire view and passes data via \texttt{State} struct and \texttt{onIntent(Intent)} function handles interaction with View.
+Each top-level View has its own ViewModel, which handles the state of the entire view and passes data via \texttt{State} struct and \texttt{onIntent()} function handles interaction with View.
 
 \begin{kicode}{Swift}{}{ViewModel Example}
 final class SomeViewModel: BaseViewModel, ViewModel, ObservableObject {
@@ -537,13 +536,12 @@ struct SomeView: View {
 }
 \end{kicode}
 
-
 \subsubsection{Domain Layer}
-Domain layer reflect the whole business logic of the application via DomainModels and UseCases. It also defines protocols for repositories. This layer is separated into logical parts by feature.
+Domain layer reflects the whole business logic of the application via DomainModels and UseCases. It also defines protocols for repositories. This layer is separated into logical parts by feature.
 
 \subsubsubsection{Domain models}
 Domain models are used as the standard way to represent objects in the application. These models are used when passing data between layers
-App should only use these domain models and not models from some third-party libraries, as that would make the app strictly dependent on those specific libraries.  These models are defined under the Models directory for each logical part.
+The app should only use these domain models and not models from some third-party libraries, as that would make the app strictly dependent on those specific libraries.  These models are defined under the Models directory for each logical part.
 
 \begin{kicode}{Swift}{}{Domain Model Example}
 public struct AuthToken: Equatable, Codable {
@@ -583,10 +581,11 @@ public struct SomeUseCaseImpl: SomeUseCase {
 \end{kicode}
 
 \subsubsubsection{Repositories}
-Domain layer defines protocols for repositories - functions and their interfaces. Repositories are created for each logical part of applcaition.
+\subsubsubsection{Repositories}
+Domain layer defines protocols for repositories - functions and their interfaces. Repositories are created for each logical part of the application.
 
 \subsubsection{Data Layer}
-Data layer is responsible for providing data via repositories and providers from network. It is separated into \texttt{Toolkits} and \texttt{Providers}. There is a toolkit for each logical part of the domain layer. These toolkits provide repository implementations and relevant \texttt{NetworkModels}, \texttt{NetworkEndpoints}, etc. \texttt{Providers} define provider protocols and implementations.
+The data layer is responsible for providing data via repositories and providers from the network. It is separated into \texttt{Toolkits} and \texttt{Providers}. There is a toolkit for each logical part of the domain layer. These toolkits provide repository implementations and relevant \texttt{NetworkModels}, \texttt{NetworkEndpoints}, etc. \texttt{Providers} define provider protocols and implementations.
 
 \subsubsubsection{Repository implementation}
 Repository implementations use providers and add some business logic. They're independent of the specific provider implementation. Repositories are registered for dependency injection in \texttt{DependencyInjection/Repositories.swift}
@@ -606,8 +605,8 @@ public struct SomeRepositoryImpl: SomeRepository {
 }
 \end{kicode}
 
-\subsubsubsection{Providers implementation}
-Providers are used for handling data sources. A provider is defined by protocol, each can have multiple implementations, for example, one using a third-party library, and another one using our own custom implementation. They also have to be registered for dependecy injection in \texttt{DependencyInjection/Providers.swift}
+\\subsubsubsection{Providers implementation}
+Providers are used for handling data sources. A provider is defined by protocol, each can have multiple implementations, for example, one using a third-party library, and another one using our own custom implementation. They also have to be registered for the dependency injection in \texttt{DependencyInjection/Providers.swift}
 
 \begin{kicode}{Swift}{}{Provider Example}
 public protocol KeychainProvider {
@@ -656,10 +655,10 @@ public struct SystemKeychainProvider: KeychainProvider {
 \end{kicode}
 
 \subsection{Design}
-In this section, I list designed key components and their responsibilities.
+In this section, I list the designed key components and their responsibilities.
 
 \subsubsection{Screens}
-Here I present main Views of the iOS application. Each of them has corresponding viewmodel.
+Here I present the main Views of the iOS application. Each of them has a corresponding viewmodel.
 \begin{itemize}
 	\item \texttt{LoginView} and \texttt{RegistrationView}
 	\item \texttt{TasksView}
@@ -698,7 +697,7 @@ In this chapter, I describe the application's UI. User interface was designed ba
 
 \subsubsection{Login and registration screen}
 These screens in Figure \ref{fig:image6-7} consist mainly from \texttt{TextField} for entering needed information.
-\begin{figure}[ht]
+\begin{figure}[h!]
 \centering
 \begin{minipage}[b]{0.4\textwidth}
 	\includegraphics[height=10cm]{image6}
@@ -751,7 +750,7 @@ Here users can update their personal information, such as name and surname, uplo
 \end{figure}
 
 \section{Server-side application design}
-In this chapter I dive into designing architecture of web application and explain my decisions.
+In this chapter, I dive into designing the architecture of the web application and explain my decisions.
 
 \subsection{MVC architecture}
 Server-side applications often use the Model-View-Controller (MVC) architectural pattern, which separates the application into three interconnected components:
@@ -766,14 +765,14 @@ Server-side applications often use the Model-View-Controller (MVC) architectural
 Routing is a fundamental aspect of server-side applications, defining how incoming requests are mapped to specific controller actions. Routes in API applications are typically configured using a routing table or configuration file, which maps URL patterns to corresponding controller actions. Routes specify the HTTP method (GET, POST, PUT, DELETE) and URL path for each endpoint, allowing to define the behavior of different API endpoints.
 
 \subsection{Middleware}
-Middleware are components that intercept incoming requests and outgoing responses, allowing to add additional functionality to the request-response lifecycle. Common uses of middleware in API applications include authentication, authorization, request logging, error handling, and request validation. Middleware can be chained together to create a middleware pipeline, where each middleware component processes the request and passes it on to the next component in the pipeline.
+Middleware are components that intercept incoming requests and outgoing responses, allowing adding any functionality to the request-response lifecycle. Common uses of middleware in API applications include authentication, authorization, request logging, error handling, and request validation. Middleware can be chained together to create a middleware pipeline, where each middleware component processes the request and passes it on to the next component in the pipeline.
 
 \section{Implementation}
 This chapter is about the implementation of the iOS and server-side applications which I implemented by architecture and design described in the earlier chapter. I point out some interesting implementation parts and decisions I made. The project with all source code can be found in the public \href{https://github.com/maxkup19/bachelor-thesis}{GitHub repository}.
 
 \subsection{iOS application}
 \subsubsection{User interface development}
-Mobile application is created based on design provided in previous parts using primarily SwiftUI framework. \texttt{Tasks screen} that is considered as main application's screen is presented by \texttt{TasksView}. It consists of \texttt{TaskList} if tasks are present, and \texttt{ContentUnavailabelView} otherwise. The screen has title "Tasks" and button to create a new task if user role is teacher.
+Mobile application is created based on the design provided in previous parts using primarily SwiftUI framework. \texttt{Tasks screen} that is considered as the main application's screen is presented by \texttt{TasksView}. It consists of \texttt{TaskList} if tasks are present, and \texttt{ContentUnavailabelView} otherwise. The screen has the title "Tasks" and a button to create a new task if the user has a teacher role.
 
 \begin{kicode}{Swift}{}{TasksView}
 struct TasksView: View {
@@ -813,7 +812,7 @@ struct TasksView: View {
 
 Other views also have same structure, subviews don't have their own viewmodels, but the data is passed from high-level viewmodels. through initializers.
 
-ViewModels have a specific structure to conform to an MVI architecture, so it always has some \texttt{State} and enum \texttt{Intent}, taht contains all the intents that this ViewModel must handle.
+ViewModels have a specific structure to conform to an MVI architecture, so it always has some \texttt{State} and enum \texttt{Intent}, that contains all the intents that this ViewModel must handle.
 
 \begin{kicode}{Swift}{}{ViewModel protocol}
 public protocol ViewModel {
@@ -832,7 +831,7 @@ public protocol ViewModel {
 \end{kicode}
 
 \subsubsection{Communication with server application}
-For communication with server \texttt{NetworkProvider Package} was created. It defines encodings used, provides protocol for describing \texttt{NetworkEndpoint} and \texttt{NetworkProvider}, implments \texttt{SystemNetworkProvider}.
+For communication with server \texttt{NetworkProvider Package} was created. It defines encodings used, provides protocol for describing \texttt{NetworkEndpoint} and \texttt{NetworkProvider}, implements \texttt{SystemNetworkProvider}.
 
 \begin{kicode}{Swift}{}{NetworkEndpoint Protocol}
 public protocol NetworkEndpoint {
@@ -936,7 +935,7 @@ public struct AuthRepositoryImpl: AuthRepository {
 }
 \end{kicode}
 
-Then data provided by repositories is passed to ViewModels via injected UseCases.
+Then the data is provided by repositories is passed to ViewModels via injected UseCases.
 
 \subsection{Server application}
 The server application was written using the Vapor framework. To ensure the correct database schema, it was necessary to create migration structures responsible for the correct creation of tables and links between them. Another important part implemented is the authorization of access to the application's resources using the User and Token classes.
@@ -945,7 +944,7 @@ The server application was written using the Vapor framework. To ensure the corr
 Authorization is handled using authorization codes (tokens), which are entered in the HTTP request header. An authorization token is sent to the mobile application in response to the login and registration. The application saves this token and adds it to the headers of other requests. Every request (except login and registration) must contain this token.
 
 \subsubsubsection{Token class}
-This class wraps the authorization token table. Token validation is then implemented by extending the class with the ModelTokenAuthenticatable protocol.
+This class wraps the authorization token table. Token validation is then implemented by extending the class with the \texttt{ModelTokenAuthenticatable} protocol.
 
 \begin{kicode}{Swift}{}{Token class extension with the ModelTokenAuthenticatable protocol}
 extension Token: ModelTokenAuthenticatable {
@@ -978,7 +977,7 @@ func createToken(source: SessionSourceEnum) throws -> Token {
 \end{kicode}
 
 \subsubsubsection{Allowing access to authorized users only}
-In order to authorize the client based on the token in the HTTP header, it was necessary to mark the given path and at the same time call the authorization method in the body of the function as shown below. Itis a simplified version of the UserController structure that registers a path to retrieve information about the user.
+In order to authorize the client based on the token in the HTTP header, it was necessary to mark the given path and at the same time call the authorization method in the body of the function as shown below. It is a simplified version of the UserController structure that registers a path to retrieve information about the user.
 
 \begin{kicode}{Swift}{}{Authorized access handling}
 struct UserController: RouteCollection {
@@ -1002,7 +1001,7 @@ struct UserController: RouteCollection {
 The server application recognizes 21 different requests. Requests are distributed among route collection structures using structures that implement the RouteCollection protocol. All but two paths ("signup" and "login") are accessible only to authorized users using authorization tokens.
 
 \subsubsubsection{User registration}
-The code below shows a user registering. User inforamtion is obtained from HTTP body of a request. Then app checks whether user's email already exists in database. Aftert check, user is saved to db, accessToken is generated and sent back.
+The code below shows a user registering. User information is obtained from the HTTP body of a request. The app checks whether the user's email already exists in the database. After the check, the user is saved to db, and accessToken is generated and sent back.
 
 \begin{kicode}{Swift}{}{User creation and saving to db}
 private func create(req: Request) async throws -> AuthResponse {
@@ -1033,7 +1032,7 @@ private func create(req: Request) async throws -> AuthResponse {
 \end{kicode}
 
 \subsubsubsection{Role specific requests routing}
-Some endpoints can be accessed only by users with the teacher role. To ensure this I have created \texttt{EnsureUserIsTeacherMiddleware}. This helps to verify user role, before reaching an endpoint and create configurable routing depending on logic of application. Middleware responds to request and either aborts it if requirements are not met, or continues routing it for an actual endpoint.
+Some endpoints can be accessed only by users with the teacher role. To ensure this I have created \texttt{EnsureUserIsTeacherMiddleware}. This helps to verify the user role, before reaching an endpoint and create configurable routing depending on the logic of the application. Middleware responds to request and either aborts it if requirements are not met, or continues routing it for an actual endpoint.
 
 \begin{kicode}{Swift}{}{EnsureUserIsTeacherMiddleware}
 struct EnsureUserIsTeacherMiddleware: AsyncMiddleware {
@@ -1049,19 +1048,19 @@ struct EnsureUserIsTeacherMiddleware: AsyncMiddleware {
 
 \section{Deployment}
 
-Deploying API and iOS app is a crucial step in bringing software to production. Below, I cover the deployment process for both components.
+Deploying API and iOS apps is a crucial step in bringing software to production. Below, I cover the deployment process for both components.
 
 \subsection{Deploying the Server to Heroku}
 
-Heroku is a popular platform-as-a-service (PaaS) that simplifies the deployment process. To deploy API server, I have:
+Heroku is a popular platform-as-a-service (PaaS) that simplifies the deployment process. To deploy the API server, I have:
 
 \begin{enumerate}
     \item \textbf{Prepared Application:} Ensured API server is configured correctly and meets Heroku's requirements, such as using a supported programming language and providing a \texttt{Procfile}.
     \item \textbf{Created a Heroku Account:} Signed up for a Heroku account. Heroku offers a free tier that allows you to deploy and run applications with certain limitations.
     \item \textbf{Installed the Heroku CLI:} Downloaded and installed the Heroku Command Line Interface (CLI). The CLI allows to interact with Heroku from the terminal.
     \item \textbf{Login to Heroku:} Logged in to Heroku account from the terminal using the \texttt{heroku login} command.
-    \item \textbf{Created a New Heroku App:} Created a new Heroku app using the \texttt{heroku create} command. This generates a unique URL for application.
-    \item \textbf{Deployed Code:} Pushed code to Heroku's Git repository using the \texttt{git push heroku master} command. Heroku automatically builds and deploys application.
+    \item \textbf{Created a New Heroku App:} Created a new Heroku app using the \texttt{heroku create} command. This generates a unique URL for the application.
+    \item \textbf{Deployed Code:} Pushed code to Heroku's Git repository using the \texttt{git push heroku master} command. Heroku automatically builds and deploys applications.
     
     \item \textbf{Configured Environment Variables:} Set required environment variables using the Heroku Dashboard. This includes sensitive information such as database credentials or API keys.
 \end{enumerate}
@@ -1069,41 +1068,39 @@ After doing these steps, I have successfully deployed my app, and now it has its
 
 \subsection{Publishing the iOS App to TestFlight}
 
-TestFlight is Apple's platform for distributing beta versions of iOS apps to testers before releasing them to the App Store. To publish iOS app to TestFlight, I have made these steps:
+TestFlight is Apple's platform for distributing beta versions of iOS apps to testers before releasing them to the App Store. To publish the iOS app to TestFlight, I have made these steps:
 
 \begin{enumerate}
-    \item \textbf{Prepared  app:} iOS app is fully tested and ready for beta testing. I've ensured it meets Apple's App Store Review Guidelines.
-    \item \textbf{Created an App Store Connect Record:} Logged in to App Store Connect with Apple Developer account and created a new app record for my iOS app.
-    \item \textbf{Build and Archive App:} Build my iOS app in Xcode and creatde an archive using the Archive feature.    
-    \item \textbf{Uploaded Build to App Store Connect:} Used Xcode's Organizer window to upload the app archive to App Store Connect. This submits app for review and processing.
+    \item \textbf{Prepared app:} The iOS app is fully tested and ready for beta testing. I've ensured it meets Apple's App Store Review Guidelines.
+    \item \textbf{Created an App Store Connect Record:} Logged in to App Store Connect with an Apple Developer account and created a new app record for my iOS app.
+    \item \textbf{Build and Archive App:} Build my iOS app in Xcode and create an archive using the Archive feature.    
+    \item \textbf{Uploaded Build to App Store Connect:} Used Xcode's Organizer window to upload the app archive to App Store Connect. This submits the app for review and processing.
     \item \textbf{Distributed Beta Build:} Published my beta build to TestFlight, and testers are able to download and install the app on their iOS devices.
  \end{enumerate}
  
-After doing these iOS app StudentChrono is available for public testing. Public test URL is \url{https://testflight.apple.com/join/ENm8Gj5q}
+After doing these steps, the iOS app StudentChrono is available for public testing. Public test URL is \url{https://testflight.apple.com/join/ENm8Gj5q}
 
 \begin{kiconclusions}
 
-In this project, I embarked on a comprehensive journey to develop a modern iOS application integrated with a Vapor server backend, exploring various facets of software engineering along the way. From the foundational principles of server-side Swift development to the intricacies of iOS app design using SwiftUI, we delved into the heart of contemporary software development practices. As I wrap up this project, it's essential to reflect on the insights gained and the lessons learned throughout the process.
+In this project, I embarked on a comprehensive journey to develop a modern iOS application integrated with a Vapor server backend, exploring various facets of software engineering along the way. From the foundational principles of server-side Swift development to the intricacies of iOS app design using SwiftUI, I delved into the heart of contemporary software development practices. As I wrap up this project, it's essential to reflect on the insights gained and the lessons learned throughout the process.
 
 One of the most significant revelations of this project is the power and versatility of server-side Swift with Vapor. Leveraging Vapor's expressive syntax and powerful libraries, we were able to construct a robust backend infrastructure capable of handling complex business logic and serving data to our iOS client application. The ease of use and efficiency of server-side Swift development proved to be instrumental in accelerating the development process, allowing us to focus more on implementing features and less on boilerplate code.
 
-On the frontend, SwiftUI emerged as a game-changer in iOS app development. Its declarative syntax and live preview capabilities revolutionized the way we design and build user interfaces. With SwiftUI, we could create dynamic and responsive UIs with significantly less code compared to traditional UIKit development. The ability to compose complex layouts using SwiftUI's view modifiers and stacks empowered us to craft visually stunning interfaces while maintaining a high degree of flexibility and scalability.
+On the frontend, SwiftUI emerged as a game-changer in iOS app development. Its declarative syntax and live preview capabilities revolutionized the way developers design and build user interfaces. With SwiftUI, I could create dynamic and responsive UIs with significantly less code compared to traditional UIKit development. The ability to compose complex layouts using SwiftUI's view modifiers and stacks created an ability to craft visually stunning interfaces while maintaining a high degree of flexibility and scalability.
 
 One of the most rewarding aspects of this project was the seamless integration of the frontend and backend components. By adopting a unified development approach with Swift, I was able to establish a tight coupling between the iOS app and the Vapor server, enabling seamless data exchange and real-time updates. This integration not only streamlined the development process but also enhanced the overall user experience by ensuring consistency and coherence across the application.
 
-Throughout the deployment phase, I gained valuable insights into best practices for deploying server-side and mobile applications. Deploying the Vapor server to Heroku provided a scalable and reliable hosting solution, while publishing the iOS app to TestFlight allowed to distribute pre-release versions to testers for feedback and testing. These deployment strategies underscored the importance of following industry best practices to ensure that our application is accessible, secure, and performant in production environments.
+Throughout the deployment phase, I gained valuable insights into best practices for deploying server-side and mobile applications. Deploying the Vapor server to Heroku provided a scalable and reliable hosting solution while publishing the iOS app to TestFlight allowed to distribute pre-release versions to testers for feedback and testing. These deployment strategies underscored the importance of following industry best practices to ensure that our application is accessible, secure, and performant in production environments.
 
-Looking back on this project, it's clear that continuous learning and improvement are integral to the software development process. As technology evolves and new tools and frameworks emerge, staying abreast of the latest trends and best practices becomes paramount. This project has provided me with a solid foundation in modern software development methodologies, equipping with the skills and knowledge to tackle future challenges and projects with confidence.
+Looking back on this project, it's clear that continuous learning and improvement are crucial for the software development process. As technology evolves and new tools and frameworks emerge, staying abreast of the latest trends and best practices becomes paramount. This project has provided me with a solid foundation in modern software development methodologies, equipping me with the skills and knowledge to tackle future challenges and projects with confidence.
 
-In conclusion, this project has been a transformative journey, both personally and professionally. From mastering the intricacies of server-side Swift development to crafting elegant user interfaces with SwiftUI, we have pushed the boundaries of what is possible with the Swift programming language. As I move forward, I carry with me the invaluable lessons learned from this project, confident in ability to tackle new challenges and make meaningful contributions to the ever-evolving field of software engineering.
+In conclusion, this project has been a transformative journey, both personally and professionally. From mastering the intricacies of server-side Swift development to crafting elegant user interfaces with SwiftUI, I have pushed the boundaries of what is possible with the Swift programming language. As I move forward, I carry with me the invaluable lessons learned from this project, confident in my ability to tackle new challenges and make meaningful contributions to the ever-evolving field of software engineering.
 
 \end{kiconclusions}
 
 
 %% Přílohy obsahu textu práce, za makrem \appendix.
 \appendix
-
-\section{Appendix}
 
 \section{Sources} \label{sec:ObsahData}
 
