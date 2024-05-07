@@ -17,6 +17,7 @@
 		0A3DA7DB2B7119EE0096F982 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = 0A3DA7DA2B7119EE0096F982 /* Utilities */; };
 		0A420D432B65BE6C00B8914C /* UIToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D422B65BE6C00B8914C /* UIToolkit */; };
 		0A420D482B65BE7C00B8914C /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 0A420D472B65BE7C00B8914C /* Factory */; };
+		0A4670072BEA681F003B4C44 /* GoogleService-Info.plist in Sources */ = {isa = PBXBuildFile; fileRef = 0AB2B1EB2BEA5E5500E0DC38 /* GoogleService-Info.plist */; };
 		0A4810D72B71351700F24E72 /* AuthToolkit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810D62B71351700F24E72 /* AuthToolkit */; };
 		0A4810D92B71353700F24E72 /* NetworkProvider in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810D82B71353700F24E72 /* NetworkProvider */; };
 		0A4810DB2B71353B00F24E72 /* SharedDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4810DA2B71353B00F24E72 /* SharedDomain */; };
@@ -418,6 +419,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A4670072BEA681F003B4C44 /* GoogleService-Info.plist in Sources */,
 				0ADCCC5E2B65B197008E8249 /* AppDelegate.swift in Sources */,
 				0ADCCC652B65B21E008E8249 /* MainFlowController.swift in Sources */,
 				0ADCCC602B65B1F4008E8249 /* AppFlowController.swift in Sources */,
