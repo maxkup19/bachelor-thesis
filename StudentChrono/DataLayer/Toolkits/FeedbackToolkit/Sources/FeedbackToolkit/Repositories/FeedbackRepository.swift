@@ -26,7 +26,8 @@ public struct FeedbackRepositoryImpl: FeedbackRepository {
             
             if let file = payload.screenshot {
                 let reference = storage.reference().child(file.filename)
-                fileURL = try await reference.putDataAsync(file.data).bucket
+                let _ = try await reference.putDataAsync(file.data)
+                fileURL = try await reference.downloadURL().absoluteString
             }
             
             let data = try payload.networkModel(screenshot: fileURL).encode()

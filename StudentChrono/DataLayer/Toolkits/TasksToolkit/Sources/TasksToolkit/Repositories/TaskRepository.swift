@@ -86,7 +86,8 @@ public struct TaskRepositoryImpl: TaskRepository {
             
             if let file = payload.file {
                 let reference = storage.reference().child(file.filename)
-                fileURL = try await reference.putDataAsync(file.data).bucket
+                let _ = try await reference.putDataAsync(file.data)
+                fileURL = try await reference.downloadURL().absoluteString
             }
             
             let data = try payload.networkModel(file: fileURL).encode()
@@ -95,6 +96,9 @@ public struct TaskRepositoryImpl: TaskRepository {
                 .domainModel
         } catch let NetworkProviderError.requestFailed(_, message) {
             throw TasksError.tasksError(description: message?.reason)
+        } catch {
+            print("DEBBUG: \(error)")
+            throw error
         }
     }
 }

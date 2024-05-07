@@ -57,14 +57,7 @@ struct UserController: RouteCollection {
         let user = try req.auth.require(User.self)
         let file = try req.content.decode(File.self)
         
-        try deleteUserImageFromServer(user: user, req: req)
-        
-        let hashedFileName = try Bcrypt.hash(file.filename).replacingOccurrences(of: "/", with: "")
-        let path = req.application.directory.publicDirectory + hashedFileName
-        
-        try await req.fileio.writeFile(file.data, at: path)
-        
-        user.imageURL = hashedFileName
+        user.imageURL = file.fileName
         try await user.update(on: req.db)
         
         return user
