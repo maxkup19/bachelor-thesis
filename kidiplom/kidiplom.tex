@@ -1069,6 +1069,34 @@ struct EnsureUserIsTeacherMiddleware: AsyncMiddleware {
 \end{kicode}
 \FloatBarrier
 
+\begin{center}
+\begin{longtable}{>{\bfseries}l >{\ttfamily}c L{8cm}}
+\caption{Available endpoints}\\{\normalfont Endpoint} & {\normalfont HTTP method} & {\normalfont Request body}\\
+\hline
+/api/auth/signup & POST & \{"name"\} \\
+/api/auth/login & POST & \{"email", "password"\} \\
+/api/user & GET & \\
+/api/user/me & GET & \\
+/api/user/deleteAccount & DELETE & \\
+/api/user/image & PATCH & \{"file"\} \\
+/api/user/image & DELETE & \\
+/api/user/info & PATCH & \{"name", "lastName", "birthDay"\} \\
+/api/user/password & POST & \{"password"\} \\
+/api/user/password & PATCH & \{"password"\} \\
+/api/task & GET & \\
+/api/task & POST & \{"title", "description", "tags", "state", "assigneeId", "dueTo", "priority"\} \\
+/api/task/all & GET & \\
+/api/task/all & GET & \\
+/api/task/message & POST & \{"text", "taskId", "file"\} \\
+/api/students & PATCH & \{"studentId"\} \\
+/api/students/mine & GET & \\
+/api/students/nonMine & GET & \\
+/api/students & DELETE & \{"studentId"\} \\
+/api/students & GET & \\
+/api/feedback & POST & \{"file", "description"\}
+\end{longtable}
+\end{center}
+
 \section{Deployment}
 
 Deploying API and iOS apps is a crucial step in bringing software to production. Below, I cover the deployment process for both components.
