@@ -12,14 +12,15 @@ import UserToolkit
 struct NETCreateFeedbackData: Codable {
     var email: String
     var description: String
-    var screenshot: NETFile?
+    var screenshot: String?
 }
 
 extension CreateFeedbackData {
-    var networkModel: NETCreateFeedbackData {
+    func networkModel(screenshot: String?) -> NETCreateFeedbackData {
         NETCreateFeedbackData(
             email: email,
             description: description,
-            screenshot: screenshot?.networkModel)
+            screenshot: screenshot
+        )
     }
 }

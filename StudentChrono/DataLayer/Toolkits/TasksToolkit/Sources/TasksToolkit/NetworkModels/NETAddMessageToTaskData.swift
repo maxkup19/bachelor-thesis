@@ -12,15 +12,15 @@ import UserToolkit
 struct NETAddMessageToTaskData: Codable {
     let taskId: String
     let text: String
-    let file: NETFile?
+    let file: String?
 }
 
 extension AddMessageToTaskData {
-    var networkModel: NETAddMessageToTaskData {
+    func networkModel(file: String?) -> NETAddMessageToTaskData {
         NETAddMessageToTaskData(
             taskId: taskId,
             text: text,
-            file: file?.networkModel
+            file: file
         )
     }
 }

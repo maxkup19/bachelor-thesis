@@ -11,5 +11,5 @@ import Vapor
 struct AddMessageToTaskDTO: Content {
     var taskId: String
     var text: String
-    var file: File?
+    var file: String?
 }

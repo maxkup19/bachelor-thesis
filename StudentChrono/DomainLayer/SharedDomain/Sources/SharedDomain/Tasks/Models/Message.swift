@@ -25,12 +25,7 @@ public struct Message: Codable, Equatable, Identifiable {
         self.id = id
         self.text = text
         self.author = author
+        self.fileLink = fileLink
         self.createdAt = createdAt
-        
-        if let fileLink {
-            self.fileLink = NetworkingConstants.baseURL + fileLink
-        } else {
-            self.fileLink = nil
-        }
     }
 }

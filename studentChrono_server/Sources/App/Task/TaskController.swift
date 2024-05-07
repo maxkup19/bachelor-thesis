@@ -73,28 +73,10 @@ struct TaskController: RouteCollection {
             try task.author.requireID() == author.requireID()  || task.assignee?.requireID() == author.requireID()
         else { throw Abort(.badRequest) }
         
-        var fileURL: String?
-        
-        if let file = addMessageDTO.file {
-            let hashedFileName = try Bcrypt.hash(file.filename).replacingOccurrences(of: "/", with: "")
-            let path = req.application.directory.publicDirectory + hashedFileName
-            
-            try await req.fileio.writeFile(file.data, at: path)
-            
-            let serverConfig = req.application.http.server.configuration
-            let hostname = serverConfig.hostname
-            let port = serverConfig.port
-            
-            fileURL = hashedFileName
-            guard ["jpeg", "png", "jpg", "pdf"].contains(file.extension) else {
-                throw Abort(.badRequest, reason: "Invalid file format")
-            }
-        }
-        
         let message = Message(
             authorId: try author.requireID(),
             text: addMessageDTO.text,
-            file: fileURL
+            file: addMessageDTO.file
         )
         
         try await message.save(on: req.db)

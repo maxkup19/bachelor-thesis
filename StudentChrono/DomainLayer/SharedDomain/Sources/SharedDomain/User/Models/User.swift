@@ -36,11 +36,6 @@ public struct User: Equatable, Codable, Identifiable, Hashable {
         self.email = email
         self.role = role
         self.birthDay = birthDay
-        
-        if let imageURL {
-            self.imageURL = NetworkingConstants.baseURL + imageURL
-        } else {
-            self.imageURL = nil
-        }
+        self.imageURL = imageURL
     }
 }

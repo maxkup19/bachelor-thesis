@@ -16,7 +16,8 @@ let package = Package(
         .package(name: "Utilities", path: "../../../DomainLayer/Utilities"),
         .package(name: "SharedDomain", path: "../../../DomainLayer/SharedDomain"),
         .package(name: "NetworkProvider", path: "../../Providers/NetworkProvider"),
-        .package(name: "UserToolkit", path: "../UserToolkit")
+        .package(name: "UserToolkit", path: "../UserToolkit"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "10.25.0"))
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -27,7 +28,8 @@ let package = Package(
                 .product(name: "Utilities", package: "Utilities"),
                 .product(name: "SharedDomain", package: "SharedDomain"),
                 .product(name: "NetworkProvider", package: "NetworkProvider"),
-                .product(name: "UserToolkit", package: "UserToolkit")
+                .product(name: "UserToolkit", package: "UserToolkit"),
+                .product(name: "FirebaseStorage", package: "firebase-ios-sdk")
             ]
         ),
         .testTarget(

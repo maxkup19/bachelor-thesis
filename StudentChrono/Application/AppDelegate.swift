@@ -7,6 +7,7 @@
 
 import DependencyInjection
 import Factory
+import FirebaseCore
 import KeychainProvider
 import NetworkProvider
 import OSLog
@@ -31,6 +32,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Setup Cache capacity
         setupCacheCapacity()
+        
+        FirebaseApp.configure()
         
         // Init main window with navigation controller
         let nc = BaseNavigationController()

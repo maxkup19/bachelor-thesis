@@ -23,15 +23,8 @@ struct FeedbackController: RouteCollection {
         let feedback = Feedback(
             email: createFeedbackDTO.email,
             description: createFeedbackDTO.description,
-            screenshotName: nil
+            screenshotName: createFeedbackDTO.screenshot
         )
-        
-        if let file = createFeedbackDTO.screenshot {
-            let hashedFileName = try Bcrypt.hash(file.filename).replacingOccurrences(of: "/", with: "")
-            let path = req.application.directory.publicDirectory + hashedFileName
-            try await req.fileio.writeFile(file.data, at: path)
-            feedback.screenshotName = hashedFileName
-        }
         
         try await feedback.save(on: req.db)
         

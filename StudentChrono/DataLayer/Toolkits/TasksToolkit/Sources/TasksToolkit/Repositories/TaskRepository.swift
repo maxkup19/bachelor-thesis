@@ -5,17 +5,20 @@
 //  Created by Maksym Kupchenko on 26.02.2024.
 //
 
+import FirebaseStorage
 import NetworkProvider
 import SharedDomain
 
 public struct TaskRepositoryImpl: TaskRepository {
     
     private let network: NetworkProvider
+    private let storage: Storage
     
     public init(
         networkProvider: NetworkProvider
     ) {
         network = networkProvider
+        storage = Storage.storage()
     }
     
     public func createTask(_ payload: CreateTaskData) async throws {
@@ -78,8 +81,15 @@ public struct TaskRepositoryImpl: TaskRepository {
     }
     
     public func addMessageToTask(_ payload: AddMessageToTaskData) async throws -> Task {
-        let data = try payload.networkModel.encode()
         do {
+            var fileURL: String?
+            
+            if let file = payload.file {
+                let reference = storage.reference().child(file.filename)
+                fileURL = try await reference.putDataAsync(file.data).bucket
+            }
+            
+            let data = try payload.networkModel(file: fileURL).encode()
             return try await network.request(TaskAPI.addMessageToTask(data), withInterceptor: false)
                 .map(NETTask.self)
                 .domainModel

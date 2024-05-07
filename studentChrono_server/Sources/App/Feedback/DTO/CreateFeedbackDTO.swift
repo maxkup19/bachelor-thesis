@@ -10,5 +10,5 @@ import Vapor
 struct CreateFeedbackDTO: Content {
     var email: String
     var description: String
-    var screenshot: File?
+    var screenshot: String?
 }
