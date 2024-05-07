@@ -170,7 +170,7 @@ Unnamed blocks of code that can be executed in a different part of the code in w
 For mobile application programming, the programmer must realize that the application must always take care of something. This means that it must always be ready for various events, such as minimizing the application, either by the user or by incoming phone calls. Therefore, Apple precisely defines the states in which the application can be. Each of the states also defines what the application can and cannot do in this state. State indicates whether application windows are in the foreground, background, or transitioning to one of these states.
 
 \subsubsection{Application life cycle}
-As the application works and changes its state, the programmer must adjust its behavior to suit the current state. For example, if an application is in the background, it should not perform any activity. \ref{fig:image2} shows individual possible states that make up the life cycle of the application\cite{bib4}.
+As the application works and changes its state, the programmer must adjust its behavior to suit the current state. For example, if an application is in the background, it should not perform any activity. \ref{fig:image2} shows individual possible states that make up the life cycle of the application \cite{bib4}.
 
 \begin{figure}[h]
 \centering
@@ -246,7 +246,7 @@ After receiving the request, the main process creates a new thread to handle the
 The Vapor framework was created for creating server-side applications. It is a library with an expressive, protocol-oriented design focused on type safety. Vapor directly supports authentication using Basic or Bearer algorithms. It also supports working with database systems such as MySQL, PostgreSQL, SQLite, and MongoDB. It allows you to create HTML templates, it also allows you to create client and server applications using HTTP and many other concepts.
 
 \subsubsection{Vapor basics}
-Like any server application, an application created in the Vapor framework\cite{bib5} waits in an infinite loop for queries. To do this, Vapor uses concurrency, which allows an endless loop processing input and output processes. In order to ensure the processing of as many requests arriving at a similar time as possible, it is possible to operate processes from several threads. Working with processes is based on the modern Async/Await principle, which simplifies work with multiple threads and asynchronous processes.
+Like any server application, an application created in the Vapor framework \cite{bib5} waits in an infinite loop for queries. To do this, Vapor uses concurrency, which allows an endless loop processing input and output processes. In order to ensure the processing of as many requests arriving at a similar time as possible, it is possible to operate processes from several threads. Working with processes is based on the modern Async/Await principle, which simplifies work with multiple threads and asynchronous processes.
 This principle works in such a way that an asynchronous process is executed on another thread, while an object representing the result of the asynchronous code obtained sometime in the future is created in the current thread. It is possible to call other functions above this object and thereby determine further processing of the asynchronous result.
 
 \subsubsection{Request routing}
@@ -276,7 +276,7 @@ extension SomeModel {
 \end{kicode}
 
 \subsubsection{Model representation}
-A model that represents a single record and its relationships is used to access the individual rows of the table. Source code 5 shows a simple model for a someModelTable that has two columns: id and name. SomeModel is a final class that adapts the Model and Content protocols. By defining the schema variable, the class determines to which table the instances of the class will belong. The id variable is wrapped with the \texttt{@ID} wrapper, which indicates the private key. The second variable is wrapped by the \texttt{Field} wrapper, which has the task of representing an ordinary table column. Structure \texttt{FieldKeys} contains column names.
+A model \cite{bib6} that represents a single record and its relationships is used to access the individual rows of the table. Source code 5 shows a simple model for a someModelTable that has two columns: id and name. SomeModel is a final class that adapts the Model and Content protocols. By defining the schema variable, the class determines to which table the instances of the class will belong. The id variable is wrapped with the \texttt{@ID} wrapper, which indicates the private key. The second variable is wrapped by the \texttt{Field} wrapper, which has the task of representing an ordinary table column. Structure \texttt{FieldKeys} contains column names.
 
 \begin{kicode}{Swift}{}{Model representing in Vapor}
 final class SomeModel: Model {
@@ -386,7 +386,7 @@ There are two user roles in the application - student and teacher. The use case 
 \section{Mobile Application Design and Architecture}
 In this chapter, I dive into the software and graphic design aspects of the applications. In the first part, I provide an overview of the design and architecture of the mobile application and the reasons for choosing it.
 \subsection{Architecture}
-I have chosen Clean Architecture, so the whole application is separated into three layers according to the Clean Architecture principles. Layers are Presentation, Domain, and Data Figure \ref{fig:image4} shows dependencies between layers. Further in the text, I will dive into the details of each layer.
+I have chosen Clean Architecture \cite{bib7}, so the whole application is separated into three layers according to the Clean Architecture principles. Layers are Presentation, Domain, and Data Figure \ref{fig:image4} shows dependencies between layers. Further in the text, I will dive into the details of each layer.
 
 \begin{figure}[h]
 \centering
@@ -395,7 +395,7 @@ I have chosen Clean Architecture, so the whole application is separated into thr
 \label{fig:image4}
 \end{figure}
 
-The mobile app utilizes advanced modularisation with SPM(Swift Package Manager), so each layer is divided into logical parts. It also improves application build time, which is crucial during app development.
+The mobile app utilizes advanced modularisation with SPM(Swift Package Manager) \cite{bib8}, so each layer is divided into logical parts. It also improves application build time, which is crucial during app development.
 
 \subsubsection{Application Layer}
 The application layer isn't a part of traditional Clean Architecture representation but is crucial for an application lifecycle. As displayed in Figure \ref{fig:image5} it contains:
@@ -1051,19 +1051,19 @@ Deploying API and iOS apps is a crucial step in bringing software to production.
 
 \subsection{Deploying the Server to Heroku}
 
-Heroku is a popular platform-as-a-service (PaaS) that simplifies the deployment process. To deploy the API server, I have:
+Heroku is a popular platform-as-a-service (PaaS) that simplifies the deployment process \cite{bib9}. To deploy the API server, I have:
 
 \begin{enumerate}
-    \item \textbf{Prepared Application:} Ensured API server is configured correctly and meets Heroku's requirements, such as using a supported programming language and providing a \texttt{Procfile}.
+    \item \textbf{Prepared Application:} Ensured API server is configured correctly and meets Heroku's requirements, such as using a supported programming language and providing a \kiinlinecode{text}{!}{Procfile}.
     \item \textbf{Created a Heroku Account:} Signed up for a Heroku account. Heroku offers a free tier that allows you to deploy and run applications with certain limitations.
     \item \textbf{Installed the Heroku CLI:} Downloaded and installed the Heroku Command Line Interface (CLI). The CLI allows to interact with Heroku from the terminal.
-    \item \textbf{Login to Heroku:} Logged in to Heroku account from the terminal using the \texttt{heroku login} command.
-    \item \textbf{Created a New Heroku App:} Created a new Heroku app using the \texttt{heroku create} command. This generates a unique URL for the application.
-    \item \textbf{Deployed Code:} Pushed code to Heroku's Git repository using the \texttt{git push heroku master} command. Heroku automatically builds and deploys applications.
+    \item \textbf{Login to Heroku:} Logged in to Heroku account from the terminal using the \kiinlinecode{sh}{!}{heroku login} command.
+    \item \textbf{Created a New Heroku App:} Created a new Heroku app using the \kiinlinecode{sh}{!}{heroku create} command. This generates a unique URL for the application.
+    \item \textbf{Deployed Code:} Pushed code to Heroku's Git repository using the \kiinlinecode{sh}{!}{git push heroku master} command. Heroku automatically builds and deploys applications.
     
     \item \textbf{Configured Environment Variables:} Set required environment variables using the Heroku Dashboard. This includes sensitive information such as database credentials or API keys.
 \end{enumerate}
-After doing these steps, I have successfully deployed my app, and now it has its own URL \url{http://student-chrono-ff033acb5f18.herokuapp.com}
+After doing these steps, I have successfully deployed my app, and now it has its own URL\footnote{Server applicationURL: \url{http://student-chrono-ff033acb5f18.herokuapp.com}}.
 
 \subsection{Publishing the iOS App to TestFlight}
 
@@ -1077,7 +1077,7 @@ TestFlight is Apple's platform for distributing beta versions of iOS apps to tes
     \item \textbf{Distributed Beta Build:} Published my beta build to TestFlight, and testers are able to download and install the app on their iOS devices.
  \end{enumerate}
  
-After doing these steps, the iOS app StudentChrono is available for public testing. Public test URL is \url{https://testflight.apple.com/join/ENm8Gj5q}
+After doing these steps, the iOS app StudentChrono is available for public testing\footnote{Testflight URL: \url{https://testflight.apple.com/join/ENm8Gj5q}}.
 
 \begin{kiconclusions}
 
@@ -1103,12 +1103,16 @@ In conclusion, this project has been a transformative journey, both personally a
 
 \section{Sources} \label{sec:ObsahData}
 
-\begin{thebibliography}{5}
+\begin{thebibliography}{9}
 \bibitem{bib1} \uppercase{Imperva.} OSI Model [online] [cit. 20. april 2021]. Available at: \url{https://www.imperva.com/learn/application-security/osi-model/}.
 \bibitem{bib2} \uppercase{Hoffman, J.} Mastering Swift 4. Packt Publishing Ltd, 2017. ISBN978-1-78847-780-2.
 \bibitem{bib3} \uppercase{Apple.} The powerful programming language that is easy to learn. Swift [online]. [cit. 20. march 2021]. Available at: \url{https://developer.apple.com/swift/}.
 \bibitem{bib4} \uppercase{Apple.} Managing Your App’s Life Cycle: Respond to system notifications when your app is in the foreground or background, and handle other significant system-related events [online]. [cit. 19. february 2021]. Available at: \url{https://developer.apple.com/ documentation/uikit/app_and_environment/managing_your_app_s_life_cycle}.
 \bibitem{bib5} \uppercase{Vapor.} Vapor framework [online]. Available at: \url{https://vapor.codes}
+\bibitem{bib6} \uppercase{Fluent.} Fluent Models [online]. Available at: \url{https://docs.vapor.codes/fluent/model/}
+\bibitem{bib7} \uppercase{Oleh Kudinov.} Clean Architecture and MVVM on iOS [online]. Available at: \url{https://tech.olx.com/clean-architecture-and-mvvm-on-ios-c9d167d9f5b3}
+\bibitem{bib8} \uppercase{Swift.} Package Manager [online]. Available at: \url{https://www.swift.org/documentation/package-manager/}
+\bibitem{bib9} \uppercase{Heroku.} Heroku: Cloud Application Platform [online]. Available at: \url{https://www.heroku.com}
 \end{thebibliography}
 
 %% Sazba volitelného rejstříku, za bibliografií.
