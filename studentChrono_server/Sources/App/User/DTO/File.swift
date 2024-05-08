@@ -8,5 +8,5 @@
 import Vapor
 
 struct File: Content {
-    var fileName: String
+    var filename: String
 }

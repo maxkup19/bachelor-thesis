@@ -57,7 +57,7 @@ struct UserController: RouteCollection {
         let user = try req.auth.require(User.self)
         let file = try req.content.decode(File.self)
         
-        user.imageURL = file.fileName
+        user.imageURL = file.filename
         try await user.update(on: req.db)
         
         return user
