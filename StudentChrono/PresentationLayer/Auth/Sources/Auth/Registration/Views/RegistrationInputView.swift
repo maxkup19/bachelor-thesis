@@ -92,6 +92,7 @@ struct RegistrationInputView: View, KeyboardReadable {
                 DatePicker(
                     "Birthday",
                     selection: $dateOfBirth,
+                    in: ...Date.now,
                     displayedComponents: .date
                 )
                 .focused($focusedField, equals: .birthDay)

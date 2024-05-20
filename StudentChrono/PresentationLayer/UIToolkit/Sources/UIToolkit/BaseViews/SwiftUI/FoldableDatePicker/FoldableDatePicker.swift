@@ -54,7 +54,8 @@ public struct FoldableDatePicker: View {
             if showDatePicker {
                 DatePicker(
                     "",
-                    selection: $selectedDate
+                    selection: $selectedDate,
+                    in: Date.now...
                 )
                 .datePickerStyle(GraphicalDatePickerStyle())
             }
